@@ -26,6 +26,7 @@ AppAsset::register($this);
 
 <div class="wrap">
     <?php
+    if(!Yii::$app->user->isGuest){
     NavBar::begin([
         'brandLabel' => 'My Company',
         'brandUrl' => Yii::$app->homeUrl,
@@ -38,14 +39,14 @@ AppAsset::register($this);
         'items' => [
             ['label' => 'Home', 'url' => ['/site/index']],
             ['label' => 'About', 'url' => ['/site/about']],
-            ['label' => 'Contact', 'url' => ['/site/contact']],
+            ['label' => 'Contact', 'url' => ['/site/updatePassword']],
             Yii::$app->user->isGuest ? (
-                ['label' => 'Login', 'url' => ['/site/login']]
+            ['label' => 'Login', 'url' => ['/site/login']]
             ) : (
                 '<li>'
                 . Html::beginForm(['/site/logout'], 'post')
                 . Html::submitButton(
-                    'Logout (' . Yii::$app->user->identity->username . ')',
+                    'Logout (' . Yii::$app->user->isGuest . ')',
                     ['class' => 'btn btn-link logout']
                 )
                 . Html::endForm()
@@ -54,6 +55,7 @@ AppAsset::register($this);
         ],
     ]);
     NavBar::end();
+
     ?>
 
     <div class="container">
@@ -75,4 +77,21 @@ AppAsset::register($this);
 <?php $this->endBody() ?>
 </body>
 </html>
-<?php $this->endPage() ?>
+<?php $this->endPage();
+}
+else
+{
+?>
+   <div class="container">
+        <?= Breadcrumbs::widget([
+            'links' => isset($this->params['breadcrumbs']) ? $this->params['breadcrumbs'] : [],
+        ]) ?>
+        <hr>
+        <?= $content ?>
+    </div>
+
+    <?php $this->endBody() ?>
+
+    <?php $this->endPage();
+
+}?>

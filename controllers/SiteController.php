@@ -2,6 +2,8 @@
 
 namespace app\controllers;
 
+use app\models\Pessoa;
+use app\models\User;
 use Yii;
 use yii\filters\AccessControl;
 use yii\web\Controller;
@@ -60,6 +62,10 @@ class SiteController extends Controller
      */
     public function actionIndex()
     {
+        if (Yii::$app->user->isGuest) {
+            return $this->actionLogin();
+        }
+
         return $this->render('index');
     }
 
@@ -73,8 +79,8 @@ class SiteController extends Controller
         if (!Yii::$app->user->isGuest) {
             return $this->goHome();
         }
-
         $model = new LoginForm();
+
         if ($model->load(Yii::$app->request->post()) && $model->login()) {
             return $this->goBack();
         }
@@ -95,6 +101,29 @@ class SiteController extends Controller
         return $this->goHome();
     }
 
+    public function actionUpdatepassword()
+    {
+
+        $userLogin = User::findAll([
+            'usuario_login' => 'adelson.santos',
+        ]);
+
+            d($userLogin[0]->pessoa_id);
+
+        $getEmail = Pessoa::findAll([
+            'pessoa_id' => $userLogin[0]->pessoa_id
+        ]);
+
+        d($getEmail[0]->pessoa_email);
+      /*  if($model->load(Yii::$app->request->post())){
+            d($model);
+        }*/
+        $model = new User();
+
+        return $this->render('updatepassword', [
+            'model' => $model,
+        ]);
+    }
     /**
      * Displays contact page.
      *

@@ -10,19 +10,28 @@ $config = [
         'request' => [
             // !!! insert a secret key in the following (if it is empty) - this is required by cookie validation
             'cookieValidationKey' => 'NVX7jKedZ1jLvcq1faKXh0PBoVSfC1m9',
+            'enableCsrfValidation'=>false,
         ],
         'cache' => [
             'class' => 'yii\caching\FileCache',
         ],
         'user' => [
             'identityClass' => 'app\models\User',
-            'enableAutoLogin' => true,
+            'enableAutoLogin' => false,
         ],
         'errorHandler' => [
             'errorAction' => 'site/error',
         ],
         'mailer' => [
             'class' => 'yii\swiftmailer\Mailer',
+            'transport' => [
+                'class' => 'Swift_SmtpTransport',
+                'host' => 'localhost',
+                'username' => 'username',
+                'password' => 'password',
+                'port' => '587',
+                'encryption' => 'tls',
+            ],
             // send all mails to a file by default. You have to set
             // 'useFileTransport' to false and configure a transport
             // for the mailer to send real emails.
@@ -38,16 +47,33 @@ $config = [
             ],
         ],
         'db' => require(__DIR__ . '/db.php'),
-        /*
         'urlManager' => [
             'enablePrettyUrl' => true,
             'showScriptName' => false,
             'rules' => [
             ],
         ],
-        */
 
-        'view'=>[
+        'view' => [
+            'theme' => [
+                'pathMap' => [
+                    '@app/views' => [
+                        '@app/themes/stargazers',
+                        '@app/themes/files'
+                    ]
+                ],
+                'baseUrl'   => '@web/../themes/stargazers'
+            ]
+        ],
+
+
+
+
+
+
+
+
+        /*'view'=>[
                 'theme' => [
                    'pathMap' => [
                         '@app/views' =>[
@@ -57,9 +83,12 @@ $config = [
                     ],
                 'baseUrl' => '@web/../themes/dirt',
                 ],
-        ],
+        ],*/
 ],
     'params' => $params,
+    'defaultRoute' => 'user/login',
+    'sourceLanguage'=>'pt-br',
+    'language'=>'pt-br',
 ];
 
 if (YII_ENV_DEV) {
