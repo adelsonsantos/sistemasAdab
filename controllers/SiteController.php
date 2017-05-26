@@ -4,6 +4,9 @@ namespace app\controllers;
 
 use app\models\Pessoa;
 use app\models\User;
+use Swift_Mailer;
+use Swift_Message;
+use Swift_SmtpTransport;
 use Yii;
 use yii\filters\AccessControl;
 use yii\web\Controller;
@@ -13,6 +16,9 @@ use app\models\ContactForm;
 
 class SiteController extends Controller
 {
+
+    private $from = 'designadelson@gmail.com';
+    private $to = 'adelson.santos@adab.ba.gov.br';
     /**
      * @inheritdoc
      */
@@ -103,26 +109,30 @@ class SiteController extends Controller
 
     public function actionUpdatepassword()
     {
+        if(isset($_POST['User']['usuario_login'])) {
+            d($_POST['User']['usuario_login']);
+            $login = trim($_POST['User']['usuario_login']);
 
-        $userLogin = User::findAll([
-            'usuario_login' => 'adelson.santos',
-        ]);
-
+            $userLogin = User::findAll([
+                'usuario_login' => $login,
+            ]);
             d($userLogin[0]->pessoa_id);
+            $getEmail = Pessoa::findAll([
+                'pessoa_id' => $userLogin[0]->pessoa_id
+            ]);
+            d($getEmail[0]->pessoa_email);
 
-        $getEmail = Pessoa::findAll([
-            'pessoa_id' => $userLogin[0]->pessoa_id
-        ]);
-
-        d($getEmail[0]->pessoa_email);
-      /*  if($model->load(Yii::$app->request->post())){
-            d($model);
-        }*/
+        }
         $model = new User();
-
         return $this->render('updatepassword', [
             'model' => $model,
         ]);
+    }
+
+
+    public function actionEmail()
+    {
+        return $this->render('email');
     }
     /**
      * Displays contact page.
@@ -132,16 +142,27 @@ class SiteController extends Controller
     public function actionContact()
     {
         $model = new ContactForm();
-        if ($model->load(Yii::$app->request->post()) && $model->contact(Yii::$app->params['adminEmail'])) {
-            Yii::$app->session->setFlash('contactFormSubmitted');
-
-            return $this->refresh();
+        if ($model->load(Yii::$app->request->post()) )
+        {
+            Yii::$app->mailer->compose()
+                ->setFrom('adelson.art@hotmail.com')
+                ->setTo('adelson.santos@adab.ba.gov.br')
+                ->setSubject('subject')
+                ->setTextBody('text')
+                ->send();
+            d(Yii::$app->mailer->compose()
+                ->setFrom('adelson.art@hotmail.com')
+                ->setTo('adelson.santos@adab.ba.gov.br')
+                ->setSubject('subject')
+                ->setTextBody('text')
+                ->send());
+            echo 'enviou com sucesso';
+        } else {
+            return $this->render('contact', [
+                'model' => $model,
+            ]);
         }
-        return $this->render('contact', [
-            'model' => $model,
-        ]);
     }
-
     /**
      * Displays about page.
      *

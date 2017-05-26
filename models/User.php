@@ -32,10 +32,8 @@ class User extends ActiveRecord implements IdentityInterface
      */
     public function rules()
     {
-
         return [
-            [['usuario_login', 'usuario_senha'], 'required'],
-
+            [['usuario_login', 'usuario_senha'], 'required', 'message'=>'{attribute} não pode ficar em branco.'],
             [['usuario_login', 'usuario_senha'], 'string', 'max' => 100]
         ];
     }
@@ -59,8 +57,6 @@ class User extends ActiveRecord implements IdentityInterface
     {
         return $this->hasOne(Pessoa::className(), ['pessoa_id' => 'pessoa_id']);
     }
-
-
 
     /** INCLUDE USER LOGIN VALIDATION FUNCTIONS**/
     /**

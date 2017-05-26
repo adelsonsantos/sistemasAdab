@@ -12,6 +12,9 @@ $config = [
         'cache' => [
             'class' => 'yii\caching\FileCache',
         ],
+        'mailer' => [
+            'class' => 'yii\swiftmailer\Mailer',
+        ],
         'log' => [
             'targets' => [
                 [

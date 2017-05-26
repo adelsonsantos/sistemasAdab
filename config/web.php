@@ -18,24 +18,39 @@ $config = [
         'user' => [
             'identityClass' => 'app\models\User',
             'enableAutoLogin' => false,
+            'authTimeout' => 1
+        ],
+        'session' => [
+            'class' => 'yii\web\Session',
+            'cookieParams' => ['lifetime' => 1]
         ],
         'errorHandler' => [
             'errorAction' => 'site/error',
         ],
+        /*'mail' => [
+            'class'            => 'zyx\phpmailer\Mailer',
+            'viewPath'         => '@common/mail',
+            'useFileTransport' => false,
+            'config'           => [
+                'mailer'     => 'smtp',
+                'host'       => 'smtp.gmail.com',
+                'port'       => '587',
+                'smtpsecure' => 'ssl',
+                'smtpauth'   => true,
+                'username'   => 'designadelson@gmail.com',
+                'password'   => 'h3asantos29',
+            ],
+        ],*/
         'mailer' => [
             'class' => 'yii\swiftmailer\Mailer',
             'transport' => [
-                'class' => 'Swift_SmtpTransport',
-                'host' => 'localhost',
-                'username' => 'username',
-                'password' => 'password',
-                'port' => '587',
-                'encryption' => 'tls',
+                'class'         => 'Swift_SmtpTransport',
+                'host'          => 'envio.ba.gov.br',
+                'username'      => 'adelson.santos@adab.ba.gov.br',
+                'password'      => 'LGkp1993',
+                'port'          => '25',
+                'encryption'    => 'ssl',
             ],
-            // send all mails to a file by default. You have to set
-            // 'useFileTransport' to false and configure a transport
-            // for the mailer to send real emails.
-            'useFileTransport' => true,
         ],
         'log' => [
             'traceLevel' => YII_DEBUG ? 3 : 0,

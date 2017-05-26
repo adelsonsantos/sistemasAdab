@@ -4,6 +4,7 @@
 /* @var $form yii\bootstrap\ActiveForm */
 /* @var $model app\models\LoginForm */
 
+use yii\bootstrap\Button;
 use yii\helpers\Html;
 use yii\bootstrap\ActiveForm;
 use app\assets\AppAsset;
@@ -44,8 +45,10 @@ AppAsset::register($this);
     ]); ?>
     <br>
     <?= $form->field($model, 'usuario_login')->textInput(['style' => 'width:auto; margin:auto'])?>
-    <div class="col">
-        <?= Html::submitButton('Alterar Senha', ['class' => 'btn btn-primary', 'name' => 'login-button', 'style'=>'width:70%; margin-left:18%']) ?>
+    <div class="row" style="width: auto">
+        <?= Html::submitButton('Alterar Senha', ['class' => 'btn btn-primary col', 'name' => 'login-button', 'style'=>'width:55%; float:left; text-align:center']) ?>
+        <?= Html::Button('Cancelar', ['class' => 'btn  col', 'name' => 'login-button', 'style'=>'width:37%; float:right; text-align:center', 'onclick'=>"window.location.href = '" . \Yii::$app->urlManager->createUrl(['/site/index']) . "';",]) ?>
+        <br>
     </div><br>
     <?php ActiveForm::end(); ?>
 </div>

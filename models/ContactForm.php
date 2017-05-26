@@ -16,6 +16,19 @@ class ContactForm extends Model
     public $body;
     public $verifyCode;
 
+    /**
+     * @param mixed $email
+     */
+    public function setEmail($email)
+    {
+        $this->email = $email;
+    }
+
+    public function getEmail()
+    {
+        return $email = 'adelson.art@hotmail.com';
+    }
+
 
     /**
      * @return array the validation rules.
