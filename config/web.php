@@ -21,28 +21,50 @@ $config = [
             'authTimeout' => 1
         ],
         'session' => [
-            'class' => 'yii\web\Session',
-            'cookieParams' => ['lifetime' => 1]
+            'class' => 'yii\web\Session'
+            //, 'cookieParams' => ['lifetime' => 1]
         ],
         'errorHandler' => [
             'errorAction' => 'site/error',
         ],
-        /*'mail' => [
-            'class'            => 'zyx\phpmailer\Mailer',
-            'viewPath'         => '@common/mail',
-            'useFileTransport' => false,
-            'config'           => [
-                'mailer'     => 'smtp',
-                'host'       => 'smtp.gmail.com',
-                'port'       => '587',
-                'smtpsecure' => 'ssl',
-                'smtpauth'   => true,
-                'username'   => 'designadelson@gmail.com',
-                'password'   => 'h3asantos29',
-            ],
-        ],*/
         'mailer' => [
             'class' => 'yii\swiftmailer\Mailer',
+            'transport' => [
+                'class' => 'Swift_SmtpTransport',
+                'host' => '200.187.60.110',
+                'username' => 'adelson.santos@adab.ba.gov.br',
+                'password' => 'LGkp1993',
+                'port' => '25',
+                'encryption' => 'tls',
+                'streamOptions' => [
+                    'ssl' => [
+                        'verify_peer' => false,
+                        'verify_peer_name' => false,
+                    ],
+                ],
+            ],
+         /*   'transport' => [
+                'class' => 'Swift_SmtpTransport',
+                'host' => 'smtp.envio.ba.gov.br',  // e.g. smtp.mandrillapp.com or smtp.gmail.com
+                'username' => 'adelson.santos@adab.ba.gov.br',
+                'password' => 'LGkp1993',
+                'port' => '25', // Port 25 is a very common port too
+                'encryption' => 'tls', // It is often used, check your provider or mail server specs
+            ],*/
+        ],
+        'transport' => [
+            'class' => 'Swift_SmtpTransport',
+            'plugins' => [
+                [
+                    'class' => 'Swift_Plugins_ThrottlerPlugin',
+                    'constructArgs' => [20],
+                ],
+            ],
+        ],
+/*        'mailer' => [
+            'class' => 'yii\swiftmailer\Mailer',
+            'viewPath' => '@common/mail',
+            'useFileTransport' => false,
             'transport' => [
                 'class'         => 'Swift_SmtpTransport',
                 'host'          => 'envio.ba.gov.br',
@@ -51,7 +73,7 @@ $config = [
                 'port'          => '25',
                 'encryption'    => 'ssl',
             ],
-        ],
+        ],*/
         'log' => [
             'traceLevel' => YII_DEBUG ? 3 : 0,
             'targets' => [
@@ -80,14 +102,6 @@ $config = [
                 'baseUrl'   => '@web/../themes/stargazers'
             ]
         ],
-
-
-
-
-
-
-
-
         /*'view'=>[
                 'theme' => [
                    'pathMap' => [
@@ -119,7 +133,7 @@ if (YII_ENV_DEV) {
     $config['modules']['gii'] = [
         'class' => 'yii\gii\Module',
         // uncomment the following to add your IP if you are not connecting from localhost.
-        //'allowedIPs' => ['127.0.0.1', '::1'],
+        'allowedIPs' => ['*', '::1'],
     ];
 }
 

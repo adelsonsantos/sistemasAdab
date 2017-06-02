@@ -2,7 +2,11 @@
 
 /* @var $this \yii\web\View */
 /* @var $content string */
+/* @var string $sexo */
+/* @var string $nameCase */
 
+use app\models\DadosUnicoPessoaFisica;
+use app\models\DadosUnicoPessoa;
 use yii\helpers\Html;
 use yii\bootstrap\Nav;
 use yii\bootstrap\NavBar;
@@ -22,41 +26,82 @@ AppAsset::register($this);
     <?php $this->head() ?>
 </head>
 <body>
+
 <?php $this->beginBody() ?>
 
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>Bootstrap Example</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+</head>
+<body>
+<div>
+
+</div>
 <div class="wrap">
     <?php
     if(!Yii::$app->user->isGuest){
+
+    $pessoa = new DadosUnicoPessoa();
+    $sexoPessoa = new DadosUnicoPessoaFisica();
+
+    if(isset(Yii::$app->getUser()->id)){
+       $sexo = isset($sexoPessoa->getSexoById(Yii::$app->getUser()->id)[0]->pessoa_fisica_sexo) ? $sexoPessoa->getSexoById(Yii::$app->getUser()->id)[0]->pessoa_fisica_sexo : '';
+       $pessoaName = isset($pessoa->getUserNameById(Yii::$app->getUser()->id)[0]->pessoa_nm) ? $pessoa->getUserNameById(Yii::$app->getUser()->id)[0]->pessoa_nm : '';
+       $nameCase = strtolower($pessoaName);
+    }
+    ?>
+    <table style="width: 100%">
+        <tr>
+            <th> <img src="<?php echo Yii::$app->request->baseUrl . '../../image/adab.png'; ?>" style="width: 80px; margin-left:10%; margin-bottom: 10px; margin-top: 10px"></th>
+            <th style="text-align: right"> <h5 style="margin-right: 30px"><i> <?php echo $sexo === 'M' ? 'Bem Vindo Sr. '. ucwords($nameCase) : 'Bem Vinda Sra. '. ucwords($nameCase); ?> </i></h5></th>
+        </tr>
+    </table>
+ <?php
     NavBar::begin([
-        'brandLabel' => 'My Company',
-        'brandUrl' => Yii::$app->homeUrl,
         'options' => [
-            'class' => 'navbar-inverse navbar-fixed-top',
+            'class' => 'navbar-inverse',
+            'style' => 'background:#072b17'
+        ]
+    ]);
+
+    echo Nav::widget([
+        'options' => ['class' => 'navbar-nav navbar'],
+        'items' => [
+            ['label' => 'Início', 'url' => ['/site/index']],
+            ['label' => 'About', 'url' => ['/site/about']],
+            ['label' => 'Contact', 'url' => ['/site/contact']]
         ],
     ]);
+?>
+
+ <ul class="nav navbar-nav navbar-right">
+    <?php
     echo Nav::widget([
-        'options' => ['class' => 'navbar-nav navbar-right'],
+        'options' => ['class' => 'navbar-nav navbar'],
         'items' => [
-            ['label' => 'Home', 'url' => ['/site/index']],
-            ['label' => 'About', 'url' => ['/site/about']],
-            ['label' => 'Contact', 'url' => ['/site/contact']],
             Yii::$app->user->isGuest ? (
             ['label' => 'Login', 'url' => ['/site/login']]
             ) : (
-                '<li>'
+                 '<li>'
                 . Html::beginForm(['/site/logout'], 'post')
                 . Html::submitButton(
-                    'Logout (' . Yii::$app->user->isGuest . ')',
-                    ['class' => 'btn btn-link logout']
+                    ' Sair ' . Yii::$app->user->isGuest . '',
+                    ['class' => 'btn btn-link logout glyphicon glyphicon-log-out']
                 )
                 . Html::endForm()
-                . '</li>'
+                .'</li>'
             )
         ],
-    ]);
-    NavBar::end();
-
-    ?>
+    ]); ?>
+</ul> <?php
+NavBar::end();
+?>
 
     <div class="container">
         <?= Breadcrumbs::widget([
@@ -68,8 +113,7 @@ AppAsset::register($this);
 
 <footer class="footer">
     <div class="container">
-        <p class="pull-left">&copy; My Company <?= date('Y') ?></p>
-
+        <p class="pull-left">&copy; ADAB <?= date('Y') ?></p>
         <p class="pull-right"><?= Yii::powered() ?></p>
     </div>
 </footer>
@@ -89,9 +133,7 @@ else
         <hr>
         <?= $content ?>
     </div>
-
     <?php $this->endBody() ?>
-
     <?php $this->endPage();
 
 }?>

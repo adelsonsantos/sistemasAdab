@@ -2,7 +2,7 @@
 
 namespace app\controllers;
 
-use app\models\Pessoa;
+use app\models\DadosUnicoPessoa;
 use app\models\User;
 use Swift_Mailer;
 use Swift_Message;
@@ -71,7 +71,11 @@ class SiteController extends Controller
         if (Yii::$app->user->isGuest) {
             return $this->actionLogin();
         }
-
+        Yii::$app->mailer->compose()
+            ->setFrom('informatica.adab@adab.ba.gov.br')
+            ->setTo('adelson.santos@adab.ba.gov.br')
+            ->setSubject('Email sent from Yii2-Swiftmailer')
+            ->send();
         return $this->render('index');
     }
 
@@ -85,11 +89,13 @@ class SiteController extends Controller
         if (!Yii::$app->user->isGuest) {
             return $this->goHome();
         }
-        $model = new LoginForm();
 
-        if ($model->load(Yii::$app->request->post()) && $model->login()) {
+        /* @var $thisWeb \yii\web\View */
+        $model = new LoginForm();
+         if ($model->load(Yii::$app->request->post()) && $model->login()) {
             return $this->goBack();
         }
+
         return $this->render('login', [
             'model' => $model,
         ]);
@@ -117,7 +123,7 @@ class SiteController extends Controller
                 'usuario_login' => $login,
             ]);
             d($userLogin[0]->pessoa_id);
-            $getEmail = Pessoa::findAll([
+            $getEmail = DadosUnicoPessoa::findAll([
                 'pessoa_id' => $userLogin[0]->pessoa_id
             ]);
             d($getEmail[0]->pessoa_email);
@@ -145,10 +151,9 @@ class SiteController extends Controller
         if ($model->load(Yii::$app->request->post()) )
         {
             Yii::$app->mailer->compose()
-                ->setFrom('adelson.art@hotmail.com')
+                ->setFrom('adelson.santos@adab.ba.gov.br')
                 ->setTo('adelson.santos@adab.ba.gov.br')
-                ->setSubject('subject')
-                ->setTextBody('text')
+                ->setSubject('Email sent from Yii2-Swiftmailer')
                 ->send();
             d(Yii::$app->mailer->compose()
                 ->setFrom('adelson.art@hotmail.com')

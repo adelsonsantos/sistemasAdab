@@ -55,7 +55,7 @@ class User extends ActiveRecord implements IdentityInterface
      */
     public function getDadosUnicoDadosPessoa()
     {
-        return $this->hasOne(Pessoa::className(), ['pessoa_id' => 'pessoa_id']);
+        return $this->hasOne(DadosUnicoPessoa::className(), ['pessoa_id' => 'pessoa_id']);
     }
 
     /** INCLUDE USER LOGIN VALIDATION FUNCTIONS**/
