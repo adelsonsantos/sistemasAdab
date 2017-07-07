@@ -343,3 +343,5 @@ class Diarias extends ActiveRecord
         return $this->hasMany(DiariaRoteiroComprovacao::className(), ['diaria_id' => 'diaria_id']);
     }
 }
+
+
