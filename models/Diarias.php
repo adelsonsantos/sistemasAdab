@@ -169,7 +169,7 @@ class Diarias extends ActiveRecord
             'indenizacao' => 'Indenizacao',
             'ger_id' => 'Ger ID',
             'diaria_local_solicitacao' => 'Diaria Local Solicitacao',
-            'id_coordenadoria' => 'Id Coordenadoria',
+            'id_coordenadoria' => 'Id DiariaCoordenadoria',
             'data_viagem_saida' => 'Data Viagem Saida',
             'data_viagem_chegada' => 'Data Viagem Chegada',
             'super_sd' => 'Super Sd',

@@ -4,30 +4,50 @@ use yii\helpers\Html;
 $this->title = 'Portal ADAB';
 ?>
 <style>
-     #image {
+     #imageDiaria {
         content:url(<?php echo Yii::$app->request->baseUrl . '../../image/iconDiarias.png'; ?>);
-        width: 150px;
-        margin-left:auto;
+         margin-left: 30px;
         margin-bottom: auto;
         margin-top: 5px;
         transition: .5s ease;
-    }​,
-    #image:hover {
-             content:url(<?php echo Yii::$app->request->baseUrl . '../../image/iconDiariasComHover.png'; ?>);
-             width: 150px;
-             margin-left:auto;
-             margin-bottom: auto;
-             margin-top: 5px;
-             opacity: 1;
-     },​
+        float: left;
+    }
+     #imageDiaria:hover {
+         content:url(<?php echo Yii::$app->request->baseUrl . '../../image/iconDiariasComHover.png'; ?>);
+         margin-left: 30px;
+         margin-bottom: auto;
+         margin-top: 5px;
+         float: left;
+         opacity: 1;
+     }
+    #imageCoordenadoria {
+        content:url(<?php echo Yii::$app->request->baseUrl . '../../image/iconCoordenadoria.png'; ?>);
+        margin-left: auto;
+        margin-bottom: auto;
+        margin-top: 5px;
+        transition: .5s ease;
+        float: left;
+    }
+    #imageCoordenadoria:hover {
+         content:url(<?php echo Yii::$app->request->baseUrl . '../../image/iconCoordenadoriaComHover.png'; ?>);
+         margin-left:auto;
+         margin-bottom: auto;
+         margin-top: 5px;
+         float: left;
+         opacity: 1;
+    }
 </style>
 
     <div class="jumbotron">
         <table>
             <tr>
-                <th><td id="image" onclick="window.location.href = 'http://localhost/php/sistemasAdab/web/index.php?r=diarias/index';">
+                <th id="imageCoordenadoria" onclick="window.location.href = 'http://localhost/php/sistemasAdab/web/index.php?r=diaria-coordenadoria/index';">
                     <?php echo $link = Html::a('label', ['/diarias/index'], ['class'=>'btn btn-primary']) ?>
-                </td>
+                </th>
+
+                <th id="imageDiaria" onclick="window.location.href = 'http://localhost/php/sistemasAdab/web/index.php?r=diarias/index';">
+                    <?php echo $link = Html::a('label', ['/diarias/index'], ['class'=>'btn btn-primary']) ?>
+                </th>
             </tr>
         </table>
     </div>
