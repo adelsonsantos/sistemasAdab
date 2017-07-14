@@ -63,7 +63,7 @@ $this->title = 'Coordenadorias';
                 <li class="active"><?= Html::a('<span class="glyphicon glyphicon-chevron-right"></span> Coordenadorias', ['/diaria-coordenadoria/index'])?></li>
                 <li><?= Html::a('<span class="glyphicon glyphicon-chevron-right"></span> Contatos Coordenadorias', ['/portal-contato-coordenadoria/index'])?></li>
                 <li><?= Html::a('<span class="glyphicon glyphicon-chevron-right"></span> Gerências', ['/portal-coordenadoria-gerencia/index'])?></li>
-                <li><?= Html::a('<span class="glyphicon glyphicon-chevron-right"></span> Contatos Gerências', ['/portal-contato-coordenadoria/index'])?></li>
+                <li><?= Html::a('<span class="glyphicon glyphicon-chevron-right"></span> Contatos Gerências', ['/portal-contato-gerencia/index'])?></li>
             </ul>
         </div>
 
@@ -80,11 +80,6 @@ $this->title = 'Coordenadorias';
         'filterModel' => $searchModel,
         'columns' => [
             ['class' => 'yii\grid\SerialColumn'],
-            [
-                'attribute'=> 'id_coordenadoria',
-                'value'    => 'id_coordenadoria',
-                'filter'   => Html::activeDropDownList($searchModel, 'id_coordenadoria', ArrayHelper::map(DiariaCoordenadoria::find()->asArray()->orderBy('id_coordenadoria')->all(), 'id_coordenadoria', 'id_coordenadoria', 'order by id_coordenadoria'), ['class'=>'form-control', 'prompt' => ' '])
-            ],
             [
                 'attribute'=> 'nome',
                 'value'    => 'nome',

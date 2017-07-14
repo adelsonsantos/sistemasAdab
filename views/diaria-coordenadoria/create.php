@@ -1,12 +1,14 @@
 <?php
 
+use yii\bootstrap\Button;
 use yii\helpers\Html;
 
 
 /* @var $this yii\web\View */
 /* @var $model app\models\DiariaCoordenadoria */
 
-$this->title = 'Create Diaria Coordenadoria';
+$this->title = 'Criar nova Coordenadoria';
+
 $this->params['breadcrumbs'][] = ['label' => 'Diaria Coordenadorias', 'url' => ['index']];
 $this->params['breadcrumbs'][] = $this->title;
 ?>
@@ -17,5 +19,4 @@ $this->params['breadcrumbs'][] = $this->title;
     <?= $this->render('_form', [
         'model' => $model,
     ]) ?>
-
 </div>

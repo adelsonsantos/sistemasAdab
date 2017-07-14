@@ -5,10 +5,9 @@ use yii\helpers\Html;
 /* @var $this yii\web\View */
 /* @var $model app\models\DiariaCoordenadoria */
 
-$this->title = 'Update Diaria Coordenadoria: ' . $model->id_coordenadoria;
+$this->title = 'Alterar Coordenadoria: ' ;
 $this->params['breadcrumbs'][] = ['label' => 'Diaria Coordenadorias', 'url' => ['index']];
-$this->params['breadcrumbs'][] = ['label' => $model->id_coordenadoria, 'url' => ['view', 'id' => $model->id_coordenadoria]];
-$this->params['breadcrumbs'][] = 'Update';
+$this->params['breadcrumbs'][] = 'Alterar';
 ?>
 <div class="diaria-coordenadoria-update">
 

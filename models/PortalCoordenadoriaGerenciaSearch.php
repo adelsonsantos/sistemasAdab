@@ -18,7 +18,7 @@ class PortalCoordenadoriaGerenciaSearch extends PortalCoordenadoriaGerencia
     public function rules()
     {
         return [
-            [['cog_id', 'id_coordenadoria', 'ger_id'], 'integer'],
+            [['cog_id', 'id_coordenadoria', 'ger_id'], 'safe'],
         ];
     }
 
@@ -42,6 +42,8 @@ class PortalCoordenadoriaGerenciaSearch extends PortalCoordenadoriaGerencia
     {
         $query = PortalCoordenadoriaGerencia::find();
 
+        $query->joinWith('ger');
+        $query->joinWith('idCoordenadoria');
         // add conditions that should always apply here
 
         $dataProvider = new ActiveDataProvider([
@@ -59,8 +61,8 @@ class PortalCoordenadoriaGerenciaSearch extends PortalCoordenadoriaGerencia
         // grid filtering conditions
         $query->andFilterWhere([
             'cog_id' => $this->cog_id,
-            'id_coordenadoria' => $this->id_coordenadoria,
-            'ger_id' => $this->ger_id,
+            'diaria.coordenadoria.nome' => $this->id_coordenadoria,
+            'portal.gerencia.ger_nome' => $this->ger_id
         ]);
 
         return $dataProvider;

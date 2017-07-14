@@ -18,7 +18,7 @@ class PortalContatoCoordenadoriaSearch extends PortalContatoCoordenadoria
     public function rules()
     {
         return [
-            [['con_id', 'con_telefone', 'id_coordenadoria'], 'safe']
+            [['coc_id', 'con_id', 'con_telefone', 'id_coordenadoria'], 'safe']
         ];
     }
 
@@ -61,9 +61,9 @@ class PortalContatoCoordenadoriaSearch extends PortalContatoCoordenadoria
 
         // grid filtering conditions
         $query->andFilterWhere([
-             'coc_id' => $this->coc_id,
-             'diaria.coordenadoria.nome' => $this->id_coordenadoria,
-             'portal.contato.con_telefone' => $this->con_id,
+            'diaria.coordenadoria.nome' => $this->id_coordenadoria,
+            'portal.contato.con_ddd' => $this->coc_id,
+            'portal.contato.con_telefone' => $this->con_id,
         ]);
 
         return $dataProvider;

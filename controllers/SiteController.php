@@ -16,9 +16,6 @@ use app\models\ContactForm;
 
 class SiteController extends Controller
 {
-
-    private $from = 'designadelson@gmail.com';
-    private $to = 'adelson.santos@adab.ba.gov.br';
     /**
      * @inheritdoc
      */
@@ -71,11 +68,6 @@ class SiteController extends Controller
         if (Yii::$app->user->isGuest) {
             return $this->actionLogin();
         }
-        Yii::$app->mailer->compose()
-            ->setFrom('informatica.adab@adab.ba.gov.br')
-            ->setTo('adelson.santos@adab.ba.gov.br')
-            ->setSubject('Email sent from Yii2-Swiftmailer')
-            ->send();
         return $this->render('index');
     }
 

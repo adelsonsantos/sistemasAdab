@@ -6,20 +6,18 @@ use yii\widgets\DetailView;
 /* @var $this yii\web\View */
 /* @var $model app\models\DiariaCoordenadoria */
 
-$this->title = $model->id_coordenadoria;
 $this->params['breadcrumbs'][] = ['label' => 'Diaria Coordenadorias', 'url' => ['index']];
-$this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="diaria-coordenadoria-view">
 
     <h1><?= Html::encode($this->title) ?></h1>
 
     <p>
-        <?= Html::a('Update', ['update', 'id' => $model->id_coordenadoria], ['class' => 'btn btn-primary']) ?>
-        <?= Html::a('Delete', ['delete', 'id' => $model->id_coordenadoria], [
+        <?= Html::a('Alterar', ['update', 'id' => $model->id_coordenadoria], ['class' => 'btn btn-primary']) ?>
+        <?= Html::a('Deletar', ['delete', 'id' => $model->id_coordenadoria], [
             'class' => 'btn btn-danger',
             'data' => [
-                'confirm' => 'Are you sure you want to delete this item?',
+                'confirm' => 'Deseja realmente Deletar essa Coordenadoria?',
                 'method' => 'post',
             ],
         ]) ?>
@@ -28,7 +26,7 @@ $this->params['breadcrumbs'][] = $this->title;
     <?= DetailView::widget([
         'model' => $model,
         'attributes' => [
-            'id_coordenadoria',
+           // 'id_coordenadoria',
             'nome',
         ],
     ]) ?>

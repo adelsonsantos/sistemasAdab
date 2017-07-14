@@ -3,6 +3,7 @@
 namespace app\models;
 
 use Yii;
+use yii\db\ActiveRecord;
 
 /**
  * This is the model class for table "portal.contato".
@@ -15,7 +16,7 @@ use Yii;
  * @property PortalContatoCoordenadoria[] $portalContatoCoordenadorias
  * @property PortalContatoGerencia[] $portalContatoGerencias
  */
-class PortalContato extends \yii\db\ActiveRecord
+class PortalContato extends ActiveRecord
 {
     /**
      * @inheritdoc
@@ -31,7 +32,7 @@ class PortalContato extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['con_nome', 'con_telefone', 'con_ddd'], 'required'],
+            [['con_telefone', 'con_ddd'], 'required'],
             [['con_nome'], 'string', 'max' => 60],
             [['con_telefone'], 'string', 'max' => 12],
             [['con_ddd'], 'string', 'max' => 2],
@@ -45,9 +46,9 @@ class PortalContato extends \yii\db\ActiveRecord
     {
         return [
             'con_id' => 'Con ID',
-            'con_nome' => 'Con Nome',
-            'con_telefone' => 'Con Telefone',
-            'con_ddd' => 'Con Ddd',
+            'con_nome' => 'Nome',
+            'con_telefone' => 'Telefone',
+            'con_ddd' => 'DDD',
         ];
     }
 

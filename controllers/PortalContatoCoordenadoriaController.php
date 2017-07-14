@@ -2,7 +2,9 @@
 
 namespace app\controllers;
 
+use app\models\DiariaCoordenadoria;
 use Yii;
+use app\models\PortalContato;
 use app\models\PortalContatoCoordenadoria;
 use app\models\PortalContatoCoordenadoriaSearch;
 use yii\web\Controller;
@@ -63,12 +65,20 @@ class PortalContatoCoordenadoriaController extends Controller
      */
     public function actionCreate()
     {
+        $modelContato = new PortalContato();
+        $modelCoordenadoria = new DiariaCoordenadoria();
         $model = new PortalContatoCoordenadoria();
 
-        if ($model->load(Yii::$app->request->post()) && $model->save()) {
-            return $this->redirect(['view', 'id' => $model->coc_id]);
-        } else {
+        if ($modelContato->load(Yii::$app->request->post()) && $modelContato->save()) {
+            $model->con_id = $modelContato->con_id;
+            if ($model->load(Yii::$app->request->post()) && $model->save()) {
+                return $this->redirect(['view', 'id' => $model->coc_id]);
+            }
+        }
+         else {
             return $this->render('create', [
+                'modelCoordenadoria' => $modelCoordenadoria,
+                'modelContato' => $modelContato,
                 'model' => $model,
             ]);
         }
