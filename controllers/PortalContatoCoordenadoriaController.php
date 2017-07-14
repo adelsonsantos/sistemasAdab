@@ -92,13 +92,25 @@ class PortalContatoCoordenadoriaController extends Controller
      */
     public function actionUpdate($id)
     {
-        $model = $this->findModel($id);
+        $model = PortalContatoCoordenadoria::findOne($id);
+        $this->validaModel($model);
 
-        if ($model->load(Yii::$app->request->post()) && $model->save()) {
-            return $this->redirect(['view', 'id' => $model->coc_id]);
-        } else {
+        $modelContato = PortalContato::findOne($model->con_id);
+        $this->validaModel($modelContato);
+
+        $modelCoordenadoria = DiariaCoordenadoria::findOne($model->id_coordenadoria);
+        $this->validaModel($modelCoordenadoria);
+
+        if ($modelContato->load(Yii::$app->request->post()) && $modelContato->save()) {
+            $model->con_id = $modelContato->con_id;
+            if ($model->load(Yii::$app->request->post()) && $model->save()) {
+                return $this->redirect(['view', 'id' => $model->coc_id]);
+            }
+        }else {
             return $this->render('update', [
                 'model' => $model,
+                'modelContato' => $modelContato,
+                'modelCoordenadoria' => $modelCoordenadoria,
             ]);
         }
     }
@@ -129,6 +141,13 @@ class PortalContatoCoordenadoriaController extends Controller
             return $model;
         } else {
             throw new NotFoundHttpException('The requested page does not exist.');
+        }
+    }
+
+    protected function validaModel($model)
+    {
+        if (!$model) {
+            throw new NotFoundHttpException("The user was not found.");
         }
     }
 }

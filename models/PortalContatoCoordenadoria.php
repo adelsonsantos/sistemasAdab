@@ -30,7 +30,7 @@ class PortalContatoCoordenadoria extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['con_id', 'id_coordenadoria'], 'required'],
+            [['con_id', 'id_coordenadoria'], 'required', 'message'=>'{attribute} não pode ficar em branco.'],
             [['con_id', 'id_coordenadoria'], 'integer'],
             [['id_coordenadoria'], 'exist', 'skipOnError' => true, 'targetClass' => DiariaCoordenadoria::className(), 'targetAttribute' => ['id_coordenadoria' => 'id_coordenadoria']],
             [['con_id'], 'exist', 'skipOnError' => true, 'targetClass' => PortalContato::className(), 'targetAttribute' => ['con_id' => 'con_id']],
@@ -45,7 +45,7 @@ class PortalContatoCoordenadoria extends \yii\db\ActiveRecord
         return [
             'coc_id' => 'Coc ID',
             'con_id' => 'Con ID',
-            'id_coordenadoria' => 'Id Coordenadoria',
+            'id_coordenadoria' => 'Coordenadoria',
         ];
     }
 

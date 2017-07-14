@@ -14,18 +14,11 @@ use yii\widgets\MaskedInput;
 <div class="portal-contato-coordenadoria-form" style="text-align: left;">
 
     <?php $form = ActiveForm::begin(); ?>
+
     <div class="row">
         <div class="col-sm-6">
-            <?=$form->field($model, 'id_coordenadoria')
-            ->dropDownList(
-                ArrayHelper::map($modelCoordenadoria::find()->asArray()->orderBy('nome')->all(), 'id_coordenadoria', 'nome'),
-                ['prompt'=>'Selecione a Coordenadoria'],
-                ['options' =>
-                    [
-                        //$id => ['selected' => true]
-                    ]
-                ]
-            )->label('Coordenadoria');
+           <?=$form->field($model, 'id_coordenadoria')->dropDownList(
+                ArrayHelper::map($modelCoordenadoria::find()->asArray()->orderBy('nome')->all(), 'id_coordenadoria', 'nome'), ['prompt'=>'Selecione a Coordenadoria'])->label('Coordenadoria');
             ?>
         </div>
     </div>

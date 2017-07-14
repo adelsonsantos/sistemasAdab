@@ -32,7 +32,7 @@ class PortalContato extends ActiveRecord
     public function rules()
     {
         return [
-            [['con_telefone', 'con_ddd'], 'required'],
+            [['con_telefone', 'con_ddd'], 'required','message'=>'{attribute} não pode ficar em branco.'],
             [['con_nome'], 'string', 'max' => 60],
             [['con_telefone'], 'string', 'max' => 12],
             [['con_ddd'], 'string', 'max' => 2],

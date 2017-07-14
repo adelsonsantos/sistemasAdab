@@ -16,10 +16,10 @@ $this->params['breadcrumbs'][] = $this->title;
 
     <h1><?= Html::encode($this->title) ?></h1>
     <div class="jumbotron">
-    <?= $this->render('_form', [
-        'modelCoordenadoria' => $modelCoordenadoria,
-        'modelContato' => $modelContato,
-        'model' => $model,
-    ]) ?>
+        <?= $this->render('_form', [
+            'modelCoordenadoria' => $modelCoordenadoria,
+            'modelContato' => $modelContato,
+            'model' => $model,
+        ]) ?>
     </div>
 </div>
