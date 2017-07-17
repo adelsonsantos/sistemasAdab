@@ -30,7 +30,7 @@ class PortalCoordenadoriaGerencia extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['id_coordenadoria', 'ger_id'], 'required'],
+            [['id_coordenadoria', 'ger_id'], 'required', 'message'=>'{attribute} não pode ficar em branco.'],
             [['id_coordenadoria', 'ger_id'], 'integer'],
             [['id_coordenadoria'], 'exist', 'skipOnError' => true, 'targetClass' => DiariaCoordenadoria::className(), 'targetAttribute' => ['id_coordenadoria' => 'id_coordenadoria']],
             [['ger_id'], 'exist', 'skipOnError' => true, 'targetClass' => PortalGerencia::className(), 'targetAttribute' => ['ger_id' => 'ger_id']],
@@ -44,8 +44,8 @@ class PortalCoordenadoriaGerencia extends \yii\db\ActiveRecord
     {
         return [
             'cog_id' => 'Cog ID',
-            'id_coordenadoria' => 'Id Coordenadoria',
-            'ger_id' => 'Ger ID',
+            'id_coordenadoria' => 'Coordenadoria',
+            'ger_id' => 'Gerência',
         ];
     }
 

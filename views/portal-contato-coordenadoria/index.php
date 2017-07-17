@@ -51,7 +51,7 @@ use yii\grid\GridView;
 /* @var $searchModel app\models\PortalContatoCoordenadoriaSearch */
 /* @var $dataProvider yii\data\ActiveDataProvider */
 
-$this->title = 'Contatos das Coordenadorias';
+$this->title = 'Contato das Coordenadorias';
 $model = new PortalContato();
 $coordenadoria = new DiariaCoordenadoria();
 ?>
@@ -62,9 +62,9 @@ $coordenadoria = new DiariaCoordenadoria();
         <div class="col-md-3 column" id="menu_vertical">
             <ul  class="nav nav-pills nav-stacked">
                 <li><?= Html::a('<span class="glyphicon glyphicon-chevron-right"></span> Coordenadorias', ['/diaria-coordenadoria/index'])?></li>
-                <li class="active"><?= Html::a('<span class="glyphicon glyphicon-chevron-right"></span> Contatos Coordenadorias', ['/portal-contato-coordenadoria/index'])?></li>
+                <li class="active"><?= Html::a('<span class="glyphicon glyphicon-chevron-right"></span> Contato das Coordenadorias', ['/portal-contato-coordenadoria/index'])?></li>
                 <li><?= Html::a('<span class="glyphicon glyphicon-chevron-right"></span> Gerências', ['/portal-coordenadoria-gerencia/index'])?></li>
-                <li><?= Html::a('<span class="glyphicon glyphicon-chevron-right"></span> Contatos Gerências', ['/portal-contato-gerencia/index'])?></li>
+                <li><?= Html::a('<span class="glyphicon glyphicon-chevron-right"></span> Contato das Gerências', ['/portal-contato-gerencia/index'])?></li>
             </ul>
         </div>
 

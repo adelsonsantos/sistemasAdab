@@ -7,17 +7,16 @@ use yii\widgets\ActiveForm;
 /* @var $model app\models\DiariaCoordenadoria */
 /* @var $form yii\widgets\ActiveForm */
 ?>
+<div class="jumbotron">
+    <div class="diaria-coordenadoria-form" style="text-align: left;">
+        <?php $form = ActiveForm::begin(); ?>
 
-<div class="diaria-coordenadoria-form">
+        <?= $form->field($model, 'nome')->textInput(['maxlength' => true]) ?>
+        <div class="form-group">
+            <?= Html::submitButton($model->isNewRecord ? 'Criar' : 'Alterar', ['class' => $model->isNewRecord ? 'btn btn-success' : 'btn btn-primary', 'style' => 'font-size: 13px']) ?>
+            <?= Html::a('<span class="glyphicon"></span> Cancelar', ['/diaria-coordenadoria/index']);?>
+        </div>
 
-    <?php $form = ActiveForm::begin(); ?>
-
-    <?= $form->field($model, 'nome')->textInput(['maxlength' => true]) ?>
-    <div class="form-group">
-        <?= Html::submitButton($model->isNewRecord ? 'Criar' : 'Alterar', ['class' => $model->isNewRecord ? 'btn btn-success' : 'btn btn-primary']) ?>
-        <?= Html::a('<span class="glyphicon"></span> Cancelar', ['/diaria-coordenadoria/index']);?>
+        <?php ActiveForm::end(); ?>
     </div>
-
-    <?php ActiveForm::end(); ?>
-
 </div>

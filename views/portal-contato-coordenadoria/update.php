@@ -13,11 +13,9 @@ $this->params['breadcrumbs'][] = ['label' => 'Portal Contato Coordenadorias', 'u
 <div class="portal-contato-coordenadoria-update">
 
     <h1><?= Html::encode($this->title) ?></h1>
-    <div class="jumbotron">
         <?= $this->render('_form', [
             'model' => $model,
             'modelContato' => $modelContato,
             'modelCoordenadoria' => $modelCoordenadoria,
         ]) ?>
-    </div>
 </div>

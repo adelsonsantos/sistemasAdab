@@ -4,11 +4,11 @@ use yii\helpers\Html;
 
 /* @var $this yii\web\View */
 /* @var $model app\models\PortalCoordenadoriaGerencia */
+/* @var $modelGerencia app\models\PortalGerencia */
+/* @var $modelCoordenadoria app\models\DiariaCoordenadoria */
 
-$this->title = 'Update Portal Coordenadoria Gerencia: ' . $model->cog_id;
+$this->title = 'Alterar Gerência:';
 $this->params['breadcrumbs'][] = ['label' => 'Portal Coordenadoria Gerencias', 'url' => ['index']];
-$this->params['breadcrumbs'][] = ['label' => $model->cog_id, 'url' => ['view', 'id' => $model->cog_id]];
-$this->params['breadcrumbs'][] = 'Update';
 ?>
 <div class="portal-coordenadoria-gerencia-update">
 
@@ -16,6 +16,8 @@ $this->params['breadcrumbs'][] = 'Update';
 
     <?= $this->render('_form', [
         'model' => $model,
+        'modelGerencia' => $modelGerencia,
+        'modelCoordenadoria' => $modelCoordenadoria
     ]) ?>
 
 </div>

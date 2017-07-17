@@ -43,6 +43,6 @@ $this->params['breadcrumbs'][] = ['label' => 'Contato das Coordenadorias', 'url'
             ],
         ],
     ]);
-   echo Html::a('<span class="glyphicon"></span> Voltar', ['/portal-contato-coordenadoria/index']);?>
+    echo Html::a( 'Voltar', Yii::$app->request->referrer);?>
     </div>
 </div>

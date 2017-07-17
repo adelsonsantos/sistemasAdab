@@ -61,9 +61,9 @@ $this->title = 'Coordenadorias';
         <div class="col-md-3 column" id="menu_vertical">
             <ul  class="nav nav-pills nav-stacked">
                 <li class="active"><?= Html::a('<span class="glyphicon glyphicon-chevron-right"></span> Coordenadorias', ['/diaria-coordenadoria/index'])?></li>
-                <li><?= Html::a('<span class="glyphicon glyphicon-chevron-right"></span> Contatos Coordenadorias', ['/portal-contato-coordenadoria/index'])?></li>
+                <li><?= Html::a('<span class="glyphicon glyphicon-chevron-right"></span> Contato das Coordenadorias', ['/portal-contato-coordenadoria/index'])?></li>
                 <li><?= Html::a('<span class="glyphicon glyphicon-chevron-right"></span> Gerências', ['/portal-coordenadoria-gerencia/index'])?></li>
-                <li><?= Html::a('<span class="glyphicon glyphicon-chevron-right"></span> Contatos Gerências', ['/portal-contato-gerencia/index'])?></li>
+                <li><?= Html::a('<span class="glyphicon glyphicon-chevron-right"></span> Contato das Gerências', ['/portal-contato-gerencia/index'])?></li>
             </ul>
         </div>
 
@@ -88,15 +88,5 @@ $this->title = 'Coordenadorias';
             ['class' => 'yii\grid\ActionColumn'],
         ],
     ]);
-
-   /* echo Select2::widget([
-        'model' => DiariaCoordenadoria::,
-        'attribute' => 'state_2',
-        'data' => $data,
-        'options' => ['placeholder' => 'Select a state ...'],
-        'pluginOptions' => [
-            'allowClear' => true
-        ],
-    ]);*/
     ?>
 </div>
