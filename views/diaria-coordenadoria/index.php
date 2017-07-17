@@ -52,7 +52,6 @@ use yii\widgets\Menu;
 /* @var $dataProvider yii\data\ActiveDataProvider */
 
 $this->title = 'Coordenadorias';
-//$this->params['breadcrumbs'][] = $this->title;
 ?>
 
 <div class="diarias-index" id="diarias">
@@ -68,14 +67,13 @@ $this->title = 'Coordenadorias';
         </div>
 
 <div class="diaria-coordenadoria-index">
-
-    <h1><?= Html::encode($this->title) ?></h1>
-    <?php // echo $this->render('_search', ['model' => $searchModel]); ?>
-
+        <h1><?= Html::encode($this->title) ?></h1>
     <p>
         <?= Html::a('Criar nova Coordenadoria', ['create'], ['class' => 'btn btn-success']) ?>
     </p>
-    <?= GridView::widget([
+    <?php \yii\widgets\Pjax::begin(); ?>
+    <?=
+    GridView::widget([
         'dataProvider' => $dataProvider,
         'filterModel' => $searchModel,
         'columns' => [
@@ -89,4 +87,5 @@ $this->title = 'Coordenadorias';
         ],
     ]);
     ?>
+    <?php \yii\widgets\Pjax::end(); ?>
 </div>

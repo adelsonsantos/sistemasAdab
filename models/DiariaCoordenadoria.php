@@ -30,7 +30,7 @@ class DiariaCoordenadoria extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['id_coordenadoria', 'nome'], 'required', 'message'=>'{attribute} não pode ficar em branco.'],
+            [['nome'], 'required', 'message'=>'{attribute} não pode ficar em branco.'],
             [['nome'], 'string', 'max' => 200],
         ];
     }

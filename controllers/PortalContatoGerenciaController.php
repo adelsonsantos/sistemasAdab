@@ -2,6 +2,8 @@
 
 namespace app\controllers;
 
+use app\models\PortalContato;
+use app\models\PortalGerencia;
 use Yii;
 use app\models\PortalContatoGerencia;
 use app\models\PortalContatoGerenciaSearch;
@@ -64,11 +66,18 @@ class PortalContatoGerenciaController extends Controller
     public function actionCreate()
     {
         $model = new PortalContatoGerencia();
+        $modelContato = new PortalContato();
+        $modelGerencia = new PortalGerencia();
 
-        if ($model->load(Yii::$app->request->post()) && $model->save()) {
-            return $this->redirect(['view', 'id' => $model->cge_id]);
-        } else {
+        if ($modelContato->load(Yii::$app->request->post()) && $modelContato->save()) {
+            $model->con_id = $modelContato->con_id;
+            if ($model->load(Yii::$app->request->post()) && $model->save()) {
+                return $this->redirect(['view', 'id' => $model->cge_id]);
+            }
+        }else {
             return $this->render('create', [
+                'modelGerencia' => $modelGerencia,
+                'modelContato' => $modelContato,
                 'model' => $model,
             ]);
         }
@@ -82,12 +91,34 @@ class PortalContatoGerenciaController extends Controller
      */
     public function actionUpdate($id)
     {
-        $model = $this->findModel($id);
+        /*$model = $this->findModel($id);
 
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
             return $this->redirect(['view', 'id' => $model->cge_id]);
         } else {
             return $this->render('update', [
+                'model' => $model,
+            ]);
+        }*/
+
+        $model = PortalContatoGerencia::findOne($id);
+        $this->validaModel($model);
+
+        $modelContato = PortalContato::findOne($model->con_id);
+        $this->validaModel($modelContato);
+
+        $modelGerencia = PortalGerencia::findOne($model->ger_id);
+        $this->validaModel($modelGerencia);
+
+        if ($modelContato->load(Yii::$app->request->post()) && $modelContato->save()) {
+            $model->con_id = $modelContato->con_id;
+            if ($model->load(Yii::$app->request->post()) && $model->save()) {
+                return $this->redirect(['view', 'id' => $model->cge_id]);
+            }
+        }else {
+            return $this->render('update', [
+                'modelGerencia' => $modelGerencia,
+                'modelContato' => $modelContato,
                 'model' => $model,
             ]);
         }
@@ -119,6 +150,13 @@ class PortalContatoGerenciaController extends Controller
             return $model;
         } else {
             throw new NotFoundHttpException('The requested page does not exist.');
+        }
+    }
+
+    protected function validaModel($model)
+    {
+        if (!$model) {
+            throw new NotFoundHttpException("The user was not found.");
         }
     }
 }

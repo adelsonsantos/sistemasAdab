@@ -64,7 +64,7 @@ class DiariaCoordenadoriaController extends Controller
     public function actionCreate()
     {
         $model = new DiariaCoordenadoria();
-
+        //d($model);
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
             return $this->redirect(['view', 'id' => $model->id_coordenadoria]);
         } else {
