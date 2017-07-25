@@ -86,35 +86,14 @@ $config = [
         'db' => require(__DIR__ . '/db.php'),
         'urlManager' => [
             'enablePrettyUrl' => true,
+            'enableStrictParsing' => true,
             'showScriptName' => false,
             'rules' => [
-                ['class' => 'yii\rest\UrlRule',
-                    'controller' => 'computador']
+                [
+                    'class' => 'yii\rest\UrlRule',
+                    'controller' => 'apicomputador'],
             ],
         ],
-
-        'view' => [
-            'theme' => [
-                'pathMap' => [
-                    '@app/views' => [
-                        '@app/themes/stargazers',
-                        '@app/themes/files'
-                    ]
-                ],
-                'baseUrl'   => '@web/../themes/stargazers'
-            ]
-        ],
-        /*'view'=>[
-                'theme' => [
-                   'pathMap' => [
-                        '@app/views' =>[
-                             '@app/themes/dirt',
-                             '@app/themes/files'
-                        ]
-                    ],
-                'baseUrl' => '@web/../themes/dirt',
-                ],
-        ],*/
 ],
     'params' => $params,
     'defaultRoute' => 'user/login',

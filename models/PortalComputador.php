@@ -16,7 +16,7 @@ use Yii;
  * @property PortalGerencia $ger
  * @property PortalLogComputador[] $portalLogComputadors
  */
-class Computador extends \yii\db\ActiveRecord
+class PortalComputador extends \yii\db\ActiveRecord
 {
     /**
      * @inheritdoc

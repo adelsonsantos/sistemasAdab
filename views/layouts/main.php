@@ -1,6 +1,7 @@
 <?php
 
 /* @var $this \yii\web\View */
+/* @var $thisController \app\controllers\SiteController */
 /* @var $content string */
 /* @var string $sexo */
 /* @var string $nameCase */
@@ -10,6 +11,7 @@ use app\models\DadosUnicoPessoa;
 use yii\helpers\Html;
 use yii\bootstrap\Nav;
 use yii\bootstrap\NavBar;
+use yii\helpers\Url;
 use yii\widgets\Breadcrumbs;
 use app\assets\AppAsset;
 
@@ -131,8 +133,8 @@ else
             'links' => isset($this->params['breadcrumbs']) ? $this->params['breadcrumbs'] : [],
         ]) ?>
         <hr>
-        <?= $content ?>
-    </div>
+       <?= $content ?>
+   </div>
     <?php $this->endBody() ?>
     <?php $this->endPage();
 
