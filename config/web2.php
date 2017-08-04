@@ -11,6 +11,9 @@ $config = [
             // !!! insert a secret key in the following (if it is empty) - this is required by cookie validation
             'cookieValidationKey' => '7YQHks_vG2K8kM8q5iiVUEY4RApae9jH',
         ],
+        'authManager' => [
+            'class' => 'yii\rbac\DbManager',
+        ],
         'cache' => [
             'class' => 'yii\caching\FileCache',
         ],
@@ -50,14 +53,14 @@ $config = [
                 'baseUrl' => '@web/../themes/dirt',
             ],
         ],
-        /*
+
         'urlManager' => [
             'enablePrettyUrl' => true,
-            'showScriptName' => false,
+            'showScriptName' => true,
             'rules' => [
             ],
         ],
-        */
+
     ],
     'params' => $params,
 ];

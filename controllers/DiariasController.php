@@ -5,6 +5,7 @@ namespace app\controllers;
 use Yii;
 use app\models\Diarias;
 use app\models\DiariasSearch;
+use yii\filters\AccessControl;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
@@ -20,6 +21,22 @@ class DiariasController extends Controller
     public function behaviors()
     {
         return [
+            'access' => [
+                'class' => AccessControl::className(),
+                'only' => ['index'],
+                'rules' => [
+                    [
+                        'actions' => ['index'],
+                        'allow' => true,
+                        'roles' => ['@'],
+                    ],
+                    [
+                        'actions' => ['index'],
+                        'allow' => true,
+                        'roles' => ['adelson.santos'],
+                    ],
+                ],
+            ],
             'verbs' => [
                 'class' => VerbFilter::className(),
                 'actions' => [
@@ -35,13 +52,17 @@ class DiariasController extends Controller
      */
     public function actionIndex()
     {
-        $searchModel = new DiariasSearch();
-        $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
+       // if(Yii::$app->user->can('diaria-index')) {
+            $searchModel = new DiariasSearch();
+            $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
 
-        return $this->render('index', [
-            'searchModel' => $searchModel,
-            'dataProvider' => $dataProvider,
-        ]);
+            return $this->render('index', [
+                'searchModel' => $searchModel,
+                'dataProvider' => $dataProvider,
+            ]);
+     /*   }else{
+            echo "Sem permissão";
+        }*/
     }
 
     /**

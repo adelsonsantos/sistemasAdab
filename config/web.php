@@ -7,8 +7,10 @@ $config = [
     'basePath' => dirname(__DIR__),
     'bootstrap' => ['log'],
     'components' => [
+        'authManager' => [
+            'class' => 'yii\rbac\PhpManager',
+        ],
         'request' => [
-            // !!! insert a secret key in the following (if it is empty) - this is required by cookie validation
             'cookieValidationKey' => 'NVX7jKedZ1jLvcq1faKXh0PBoVSfC1m9',
             'enableCsrfValidation'=>false,
         ],
@@ -18,39 +20,12 @@ $config = [
         'user' => [
             'identityClass' => 'app\models\User',
             'enableAutoLogin' => false,
-            'authTimeout' => 1
         ],
         'session' => [
             'class' => 'yii\web\Session'
-            //, 'cookieParams' => ['lifetime' => 1]
         ],
         'errorHandler' => [
             'errorAction' => 'site/error',
-        ],
-        'mailer' => [
-            'class' => 'yii\swiftmailer\Mailer',
-            'transport' => [
-                'class' => 'Swift_SmtpTransport',
-                'host' => '200.187.60.110',
-                'username' => 'adelson.santos@adab.ba.gov.br',
-                'password' => 'LGkp1993',
-                'port' => '25',
-                'encryption' => 'tls',
-                'streamOptions' => [
-                    'ssl' => [
-                        'verify_peer' => false,
-                        'verify_peer_name' => false,
-                    ],
-                ],
-            ],
-         /*   'transport' => [
-                'class' => 'Swift_SmtpTransport',
-                'host' => 'smtp.envio.ba.gov.br',  // e.g. smtp.mandrillapp.com or smtp.gmail.com
-                'username' => 'adelson.santos@adab.ba.gov.br',
-                'password' => 'LGkp1993',
-                'port' => '25', // Port 25 is a very common port too
-                'encryption' => 'tls', // It is often used, check your provider or mail server specs
-            ],*/
         ],
         'transport' => [
             'class' => 'Swift_SmtpTransport',
@@ -61,19 +36,6 @@ $config = [
                 ],
             ],
         ],
-/*        'mailer' => [
-            'class' => 'yii\swiftmailer\Mailer',
-            'viewPath' => '@common/mail',
-            'useFileTransport' => false,
-            'transport' => [
-                'class'         => 'Swift_SmtpTransport',
-                'host'          => 'envio.ba.gov.br',
-                'username'      => 'adelson.santos@adab.ba.gov.br',
-                'password'      => 'LGkp1993',
-                'port'          => '25',
-                'encryption'    => 'ssl',
-            ],
-        ],*/
         'log' => [
             'traceLevel' => YII_DEBUG ? 3 : 0,
             'targets' => [
@@ -97,8 +59,8 @@ $config = [
 ],
     'params' => $params,
     'defaultRoute' => 'user/login',
-    'sourceLanguage'=>'pt-br',
-    'language'=>'pt-br',
+    'sourceLanguage'=>'pt-BR',
+    'language'=>'pt-BR',
 ];
 
 if (YII_ENV_DEV) {

@@ -23,7 +23,8 @@
         "zyx/zyx-phpmailer": "~0.9.2"
     },
     "require-dev": {
-        "nategood/httpful": "~0.2.20",
+        "kartik-v/yii2-nav-x": "~1.2.1",
+        "cinghie/yii2-menu": "~0.8.1",
         "tcdent/php-restclient": "~0.1.6",
         "yiisoft/yii2-debug": "~2.0.0",
         "yiisoft/yii2-gii": "~2.0.0",

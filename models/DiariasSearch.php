@@ -42,12 +42,19 @@ class DiariasSearch extends Diarias
      */
     public function search($params)
     {
-        $query = Diarias::find();
-
-        // add conditions that should always apply here
+        $query = Diarias::find()->where([
+            'diaria_beneficiario' => Yii::$app->user->getId()
+        ])->orWhere(
+            ['diaria_solicitante'=> Yii::$app->user->getId()]
+        )->andWhere(
+            'diaria_st <> 7'
+        )->andWhere(
+            'diaria_st <> 0'
+        );
 
         $dataProvider = new ActiveDataProvider([
             'query' => $query,
+            'sort'=> ['defaultOrder' => ['diaria_id'=>SORT_DESC]]
         ]);
 
         $this->load($params);

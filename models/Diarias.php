@@ -314,9 +314,9 @@ class Diarias extends ActiveRecord
     /**
      * @return \yii\db\ActiveQuery
      */
-    public function getDiariaDiariaMotivos()
+    public function getDiariaMotivos()
     {
-        return $this->hasMany(DiariaDiariaMotivo::className(), ['diaria_id' => 'diaria_id']);
+        return $this->hasMany(DiariaMotivo::className(), ['diaria_id' => 'diaria_id']);
     }
 
     /**
@@ -324,7 +324,7 @@ class Diarias extends ActiveRecord
      */
     public function getMotivos()
     {
-        return $this->hasMany(DiariaMotivo::className(), ['motivo_id' => 'motivo_id'])->viaTable('diaria_motivo', ['diaria_id' => 'diaria_id']);
+        return $this->hasMany(Motivo::className(), ['motivo_id' => 'motivo_id'])->viaTable('diaria_motivo', ['diaria_id' => 'diaria_id']);
     }
 
     /**
@@ -341,6 +341,21 @@ class Diarias extends ActiveRecord
     public function getDiariaRoteiroComprovacaos()
     {
         return $this->hasMany(DiariaRoteiroComprovacao::className(), ['diaria_id' => 'diaria_id']);
+    }
+
+    public function getDiaDaSemana($data)
+    {
+        $diasemana = array('Domingo', 'Segunda-Feira', 'Terça-Feira', 'Quarta-Feira', 'Quinta-Feira', 'Sexta-Feira', 'Sábado');
+        $dia = strftime("%w",strtotime($data));
+        return $diasemana[$dia];
+    }
+
+    public function converterStringToData($_date = null) {
+        $format = '/^([0-9]{2})\/([0-9]{2})\/([0-9]{4})$/';
+        if ($_date != null && preg_match($format, $_date, $partes)) {
+            return $partes[3].'-'.$partes[2].'-'.$partes[1];
+        }
+        return false;
     }
 }
 

@@ -53,12 +53,18 @@ AppAsset::register($this);
     $sexoPessoa = new DadosUnicoPessoaFisica();
 
     if(isset(Yii::$app->getUser()->id)){
-       $sexo = isset($sexoPessoa->getSexoById(Yii::$app->getUser()->id)[0]->pessoa_fisica_sexo) ? $sexoPessoa->getSexoById(Yii::$app->getUser()->id)[0]->pessoa_fisica_sexo : '';
-       $pessoaName = isset($pessoa->getUserNameById(Yii::$app->getUser()->id)[0]->pessoa_nm) ? $pessoa->getUserNameById(Yii::$app->getUser()->id)[0]->pessoa_nm : '';
+       $sexo = isset($sexoPessoa->getSexoById(Yii::$app->user->getId())[0]->pessoa_fisica_sexo) ? $sexoPessoa->getSexoById(Yii::$app->user->getId())[0]->pessoa_fisica_sexo : '';
+       $pessoaName = isset($pessoa->getUserNameById(Yii::$app->user->getId())[0]->pessoa_nm) ? $pessoa->getUserNameById(Yii::$app->user->getId())[0]->pessoa_nm : '';
        $nameCase = strtolower($pessoaName);
     }
     ?>
-    <table style="width: 100%">
+
+    <style>
+        table.menu {
+            width: 100%
+        }
+    </style>
+    <table class="menu">
         <tr>
             <th> <img src="<?php echo Yii::$app->request->baseUrl . '../../image/adab.png'; ?>" style="width: 80px; margin-left:10%; margin-bottom: 10px; margin-top: 10px"></th>
             <th style="text-align: right"> <h5 style="margin-right: 30px"><i> <?php echo $sexo === 'M' ? 'Bem Vindo Sr. '. ucwords($nameCase) : 'Bem Vinda Sra. '. ucwords($nameCase); ?> </i></h5></th>
