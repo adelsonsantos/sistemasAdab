@@ -18,8 +18,14 @@
         tr:nth-child(even) {
             background-color: #ffffff;
         }
+        .font-topo{
+              font-size: 20px;
+              font-weight: bold;
+          }
     </style>
 </head>
+
+<div class="margin-top-menu">
 <?php
 use app\models\DadosUnicoEstOrganizacional;
 use app\models\DadosUnicoMunicipio;
@@ -40,8 +46,18 @@ use yii\helpers\ArrayHelper;
 
 /* @var $this yii\web\View */
 /* @var $model app\models\Diarias */
+
+
 ?>
-<div class="diarias-view">
+    <div style="position: absolute">
+        <?= Yii::$app->controller->renderPartial('menu');?>
+    </div>
+
+    <div style="text-align: center">
+        <h1 class="font-topo">Diária de <?=implode(ArrayHelper::map(DadosUnicoPessoa::find()->asArray()->where("pessoa_id = {$model->diaria_beneficiario}")->all(), 'pessoa_nm', 'pessoa_nm'), ['class'=>'form-control col-sm-1'])?></h1>
+    </div>
+
+<div class="diarias-view" style="margin-left: 209px; margin-top: 74px; ">
         <table class="diaria">
             <tr class="bordaMenu">
                 <th class="borda">Número SD</th>
@@ -55,8 +71,7 @@ use yii\helpers\ArrayHelper;
                 <td class="borda"><?= $model->diaria_numero; ?></td>
                 <td class="borda"><?php
                     $date=date_create($model->diaria_dt_criacao.' '.$model->diaria_hr_criacao);
-                    echo date_format($date,"d/m/Y H:i:s");
-                    ; ?></td>
+                    echo date_format($date,"d/m/Y H:i:s");?></td>
                 <td class="borda"><?= $model->diaria_empenho; ?></td>
                 <td class="borda"><?php $date=date_create($model->diaria_dt_empenho); echo date_format($date,"d/m/Y"); ?></td>
                 <td class="borda"><?= $model->diaria_processo; ?></td>
@@ -239,6 +254,33 @@ use yii\helpers\ArrayHelper;
             </tr>
         </table> <?php
     }
+    $historicoCompleto = $model->getHistoricoCompleto();
+    $contador = count($historicoCompleto);
     ?>
     <br>
+    <table class="diaria"><tr class="bordaMenu"><th class="borda" style="width: 16%">Histórico</th></tr></table>
+
+    <table class="diaria">
+        <tr class="bordaMenu">
+            <th class="borda">#</th>
+            <th class="borda">Nome</th>
+            <th class="borda">Data</th>
+            <th class="borda">Hora</th>
+            <th class="borda">Status</th>
+        </tr>
+    <?php
+    foreach ($historicoCompleto as $value)
+    {
+
+        echo "<tr>
+                <td><b>{$contador}</b></td>
+                <td>{$value['nome']}</td>
+                <td>{$value['data']}</td>
+                <td>{$value['hora']}</td>
+                <td>{$value['status']}</td>
+            </tr>"; $contador--;
+    }?>
+    </table>
+    <br>
+</div>
 </div>

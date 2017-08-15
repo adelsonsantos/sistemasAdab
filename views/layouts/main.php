@@ -8,6 +8,7 @@
 
 use app\models\DadosUnicoPessoaFisica;
 use app\models\DadosUnicoPessoa;
+use app\models\PublicAuthItem;
 use yii\helpers\Html;
 use yii\bootstrap\Nav;
 use yii\bootstrap\NavBar;
@@ -110,38 +111,14 @@ AppAsset::register($this);
 </ul> <?php
 NavBar::end();
 ?>
-
-    <div class="container">
         <?= Breadcrumbs::widget([
             'links' => isset($this->params['breadcrumbs']) ? $this->params['breadcrumbs'] : [],
         ]) ?>
         <?= $content ?>
-    </div>
+
 </div>
-
-<footer class="footer">
-    <div class="container">
-        <p class="pull-left">&copy; ADAB <?= date('Y') ?></p>
-        <p class="pull-right"><?= Yii::powered() ?></p>
-    </div>
-</footer>
-
 <?php $this->endBody() ?>
 </body>
 </html>
 <?php $this->endPage();
 }
-else
-{
-?>
-   <div class="container">
-        <?= Breadcrumbs::widget([
-            'links' => isset($this->params['breadcrumbs']) ? $this->params['breadcrumbs'] : [],
-        ]) ?>
-        <hr>
-       <?= $content ?>
-   </div>
-    <?php $this->endBody() ?>
-    <?php $this->endPage();
-
-}?>

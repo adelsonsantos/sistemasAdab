@@ -22,7 +22,7 @@ $this->title = 'Portal ADAB';
      }
     #imageCoordenadoria {
         content:url(<?php echo Yii::$app->request->baseUrl . '../../image/iconCoordenadoria.png'; ?>);
-        margin-left: auto;
+        margin-left: 30px;
         margin-bottom: auto;
         margin-top: 5px;
         transition: .5s ease;
@@ -30,7 +30,7 @@ $this->title = 'Portal ADAB';
     }
     #imageCoordenadoria:hover {
          content:url(<?php echo Yii::$app->request->baseUrl . '../../image/iconCoordenadoriaComHover.png'; ?>);
-         margin-left:auto;
+         margin-left: 30px;
          margin-bottom: auto;
          margin-top: 5px;
          float: left;
@@ -41,12 +41,12 @@ $this->title = 'Portal ADAB';
     <div class="jumbotron">
         <table>
             <tr>
-                <th id="imageCoordenadoria" onclick="window.location.href = 'http://localhost/php/sistemasAdab/web/index.php?r=diaria-coordenadoria/index';">
-                    <?php echo $link = Html::a('label', ['/diarias/index'], ['class'=>'btn btn-primary']) ?>
+                <th id="imageCoordenadoria" onclick="window.location.href = 'http://localhost/php/sistemasAdab/web/index.php/diaria-coordenadoria/index';">
+                    <?php echo $link = Html::a('Coordenadoria', ['/diarias/index'], ['class'=>'btn btn-primary']) ?>
                 </th>
 
-                <th id="imageDiaria" onclick="window.location.href = 'http://localhost/php/sistemasAdab/web/index.php?r=diarias/index';">
-                    <?php echo $link = Html::a('label', ['/diarias/index'], ['class'=>'btn btn-primary']) ?>
+                <th id="imageDiaria" onclick="window.location.href = 'http://localhost/php/sistemasAdab/web/index.php/diarias/index';">
+                    <?php echo $link = Html::a('Diária', ['/diarias/index'], ['class'=>'btn btn-primary']) ?>
                 </th>
             </tr>
         </table>

@@ -20,12 +20,12 @@ class DiariasController extends Controller
      */
     public function behaviors()
     {
-        return [
+        return [/*
             'access' => [
                 'class' => AccessControl::className(),
                 'only' => ['index'],
                 'rules' => [
-                    [
+                    /*[
                         'actions' => ['index'],
                         'allow' => true,
                         'roles' => ['@'],
@@ -42,7 +42,7 @@ class DiariasController extends Controller
                 'actions' => [
                     'delete' => ['POST'],
                 ],
-            ],
+            ],*/
         ];
     }
 
@@ -52,11 +52,22 @@ class DiariasController extends Controller
      */
     public function actionIndex()
     {
-       // if(Yii::$app->user->can('diaria-index')) {
             $searchModel = new DiariasSearch();
             $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
 
             return $this->render('index', [
+                'searchModel' => $searchModel,
+                'dataProvider' => $dataProvider,
+            ]);
+    }
+
+    public function actionRelatorioDiariasPorServidor()
+    {
+       // if(Yii::$app->user->can('diaria-index')) {
+            $searchModel = new DiariasSearch();
+            $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
+
+            return $this->render('relatorio-diarias-por-servidor', [
                 'searchModel' => $searchModel,
                 'dataProvider' => $dataProvider,
             ]);
