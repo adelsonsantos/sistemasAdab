@@ -8,11 +8,9 @@
 
 use app\models\DadosUnicoPessoaFisica;
 use app\models\DadosUnicoPessoa;
-use app\models\PublicAuthItem;
 use yii\helpers\Html;
 use yii\bootstrap\Nav;
 use yii\bootstrap\NavBar;
-use yii\helpers\Url;
 use yii\widgets\Breadcrumbs;
 use app\assets\AppAsset;
 
@@ -122,3 +120,16 @@ NavBar::end();
 </html>
 <?php $this->endPage();
 }
+else
+{
+    ?>
+    <div class="container">
+        <?= Breadcrumbs::widget([
+            'links' => isset($this->params['breadcrumbs']) ? $this->params['breadcrumbs'] : [],
+        ]) ?>
+        <hr>
+        <?= $content ?>
+    </div>
+    <?php $this->endBody() ?>
+    <?php $this->endPage();
+}?>

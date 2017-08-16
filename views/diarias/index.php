@@ -15,7 +15,6 @@
         background-color: #dcdedd;
     }
 </style>
-
 <?php
 
 use app\models\DadosUnicoPessoa;
@@ -31,14 +30,13 @@ use yii\grid\GridView;
     <div style="position: absolute">
         <?= Yii::$app->controller->renderPartial('menu');?>
     </div>
-    <div style="text-align: center">
+    <div style="height:75px; text-align: center">
             <h1 class="font-topo">Diárias</h1>
             <p class="font-topo">
                 <?= Yii::$app->user->can('diaria-index') ? Html::a('Solicitar Diária', ['create'], ['class' => 'btn btn-success']) : ''; ?>
             </p>
     </div>
 <div class="grid">
-
     <?= GridView::widget([
         'dataProvider' => $dataProvider,
         'filterModel' => $searchModel,
@@ -63,7 +61,7 @@ use yii\grid\GridView;
             ['class' => 'yii\grid\ActionColumn',
                 'template' => '{view} {update} {delete} {my_button}',
                 'buttons' => [
-                    'my_button' => function ($url, $model, $key) {
+                    'my_button' => function ($model) {
                         return Html::a('', ['my-action', 'diaria_id'=>$model->diaria_id]
                         );
                     },
@@ -71,4 +69,5 @@ use yii\grid\GridView;
             ]
         ],
     ]);
-    ?></div></div>
+    ?>
+</div>

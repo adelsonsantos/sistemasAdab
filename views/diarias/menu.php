@@ -10,9 +10,9 @@
         font-weight: bold;
     }
 
-    .nav-pills>li>a {
+  /*  .nav-pills>li>a {
         border-radius: 0px;
-    }
+    }*/
 
     a {
         color: #000;
@@ -36,14 +36,8 @@
     }
 </style>
 <?php
-use app\models\DiariaCoordenadoria;
-use app\models\PublicAuthAssignment;
-use app\models\PublicAuthItem;
 use app\models\PublicAuthItemChild;
-use yii\helpers\ArrayHelper;
 use yii\helpers\Html;
-use yii\grid\GridView;
-use yii\widgets\Menu;
 
 /* @var $this yii\web\View */
 /* @var $searchModel app\models\DiariaCoordenadoriaSearch */
@@ -152,59 +146,84 @@ $this->title = 'Diarias';
 <br>
         <ul class="nav nav-pills nav-stacked" style="width: 200px; text-align: left; margin-top: 75px; margin-left: 5px">
             <li class="active"><?= Html::a('<span class="glyphicon glyphicon-home"></span>  Home', ['/diarias/index'])?></li>
-            <li id="menu-diarias" onclick="toggle('sub-menu-cadastro')"><?= Html::a('<span class="glyphicon glyphicon-chevron-right" ></span> <label>Cadastro</label>')?></li>
             <?php
-            foreach ($listaMenuCadastro as $key)
+            $arrayMenuCadastro = PublicAuthItemChild::find()->asArray()->innerJoinWith(['item', 'assign'])->where(['sistema_menu' => 1])->andWhere(['user_id' => Yii::$app->user->getId()])->all();
+            if(empty(!$arrayMenuCadastro))
             {
-                echo "<li class='sub-menu-cadastro' style='display: none'>". Html::a($key["label"], [$key["link"]],['id' => 'itens'])."</li>";
-            }?>
-
-            <?php
-            $arrayMenuDiarias = PublicAuthItem::find()->asArray()->joinWith('assignment')->joinWith('child')->where(['sistema_menu'=> 2])->all();
-            if(empty(!$arrayMenuDiarias))
-            {
-            ?>
-            <li id="menu-diarias" onclick="toggle('sub-menu-diarias')"><?= Html::a('<span class="glyphicon glyphicon-chevron-right" ></span> <label>Diarias</label>')?></li>
-            <?php
-                foreach ($arrayMenuDiarias as $key)
+                ?>
+                <li id="menu-diarias" onclick="toggle('sub-menu-cadastro')"><?= Html::a('<span class="glyphicon glyphicon-chevron-right" ></span> <label>Cadastro</label>')?></li>
+                <?php
+                foreach ($arrayMenuCadastro as $key)
                 {
-                    echo "<li class='sub-menu-diarias' style='display: none'>". Html::a($key["description"], [$key["link"]],['id' => 'itens'])."</li>";
+                    echo "<li class='sub-menu-cadastro' style='display: none'>". Html::a($key['item']["description"], [$key['item']["link"]],['id' => 'itens'])."</li>";
                 }
             }
-            ?>
 
-            <li onclick="toggle('sub-menu-financeiro')"><?= Html::a('<span class="glyphicon glyphicon-chevron-right" ></span> <label>Financeiro</label>')?></li>
-            <?php
-            foreach ($listaMenuFinanceiro as $key)
+            $arrayMenuDiarias = PublicAuthItemChild::find()->asArray()->innerJoinWith(['item', 'assign'])->where(['sistema_menu' => 2])->andWhere(['user_id' => Yii::$app->user->getId()])->all();
+            if(empty(!$arrayMenuDiarias))
             {
-                echo "<li class='sub-menu-financeiro' style='display: none'>". Html::a($key["label"], [$key["link"]],['id' => 'itens'])."</li>";
-            }?>
+                ?>
+                <li id="menu-diarias" onclick="toggle('sub-menu-diarias')"><?= Html::a('<span class="glyphicon glyphicon-chevron-right" ></span> <label>Diárias</label>')?></li>
+                <?php
+                foreach ($arrayMenuDiarias as $key)
+                {
+                    echo "<li class='sub-menu-diarias' style='display: none'>". Html::a($key['item']["description"], [$key['item']["link"]],['id' => 'itens'])."</li>";
+                }
+            }
 
-            <li onclick="toggle('sub-menu-drm')"><?= Html::a('<span class="glyphicon glyphicon-chevron-right" ></span> <label>DRM</label>')?></li>
-            <?php
-            foreach ($listaMenuDrm as $key)
-            {
-                echo "<li class='sub-menu-drm' style='display: none'>". Html::a($key["label"], [$key["link"]],['id' => 'itens'])."</li>";
-            }?>
+            $arrayMenuFinanceiro = PublicAuthItemChild::find()->asArray()->innerJoinWith(['item', 'assign'])->where(['sistema_menu' => 3])->andWhere(['user_id' => Yii::$app->user->getId()])->all();
+            if(empty(!$arrayMenuFinanceiro)) {
+                ?>
+                <li id="menu-diarias"
+                    onclick="toggle('sub-menu-financeiro')"><?= Html::a('<span class="glyphicon glyphicon-chevron-right" ></span> <label>Financeiro</label>') ?></li>
+                <?php
+                foreach ($arrayMenuFinanceiro as $key) {
+                    echo "<li class='sub-menu-financeiro' style='display: none'>" . Html::a($key['item']["description"], [$key['item']["link"]], ['id' => 'itens']) . "</li>";
+                }
+            }
 
-            <li onclick="toggle('sub-menu-consulta-permissoes')"><?= Html::a('<span class="glyphicon glyphicon-chevron-right" ></span> <label>Permissões</label>')?></li>
-            <?php
-            foreach ($listaMenuPermissoes as $key)
-            {
-                echo "<li class='sub-menu-consulta-permissoes' style='display: none'>". Html::a($key["label"], [$key["link"]],['id' => 'itens'])."</li>";
-            }?>
+            $arrayMenuDrm = PublicAuthItemChild::find()->asArray()->innerJoinWith(['item', 'assign'])->where(['sistema_menu' => 4])->andWhere(['user_id' => Yii::$app->user->getId()])->all();
+            if (empty(!$arrayMenuDrm)) {
+                ?>
+                <li id="menu-diarias"
+                    onclick="toggle('sub-menu-drm')"><?= Html::a('<span class="glyphicon glyphicon-chevron-right" ></span> <label>DRM</label>') ?></li>
+                <?php
+                foreach ($arrayMenuDrm as $key) {
+                    echo "<li class='sub-menu-drm' style='display: none'>" . Html::a($key['item']["description"], [$key['item']["link"]], ['id' => 'itens']) . "</li>";
+                }
+            }
 
-            <li onclick="toggle('sub-menu-consulta-geral')"><?= Html::a('<span class="glyphicon glyphicon-chevron-right" ></span> <label>Consulta Geral</label>')?></li>
-            <?php
-            foreach ($listaMenuConsultaGeral as $key)
-            {
-                echo "<li class='sub-menu-consulta-geral' style='display: none'>". Html::a($key["label"], [$key["link"]],['id' => 'itens'])."</li>";
-            }?>
+            $listaMenuPermissoes = PublicAuthItemChild::find()->asArray()->innerJoinWith(['item', 'assign'])->where(['sistema_menu' => 5])->andWhere(['user_id' => Yii::$app->user->getId()])->all();
+            if (empty(!$listaMenuPermissoes)) {
+                ?>
+                <li id="menu-diarias"
+                    onclick="toggle('sub-menu-consulta-permissoes')"><?= Html::a('<span class="glyphicon glyphicon-chevron-right" ></span> <label>Permissões</label>') ?></li>
+                <?php
+                foreach ($listaMenuPermissoes as $key) {
+                    echo "<li class='sub-menu-consulta-permissoes' style='display: none'>" . Html::a($key['item']["description"], [$key['item']["link"]], ['id' => 'itens']) . "</li>";
+                }
+            }
 
-            <li onclick="toggle('sub-menu-relatorio')"><?= Html::a('<span class="glyphicon glyphicon-chevron-right" ></span> <label>Relatório</label>')?></li>
-            <?php
-            foreach ($listaMenuRelatorio as $key)
-            {
-                echo "<li class='sub-menu-relatorio' style='display: none'>". Html::a($key["label"], [$key["link"]],['id' => 'itens'])."</li>";
+
+            $listaMenuConsultaGeral = PublicAuthItemChild::find()->asArray()->innerJoinWith(['item', 'assign'])->where(['sistema_menu' => 6])->andWhere(['user_id' => Yii::$app->user->getId()])->all();
+            if (empty(!$listaMenuConsultaGeral)) {
+                ?>
+                <li id="menu-diarias"
+                    onclick="toggle('sub-menu-consulta-geral')"><?= Html::a('<span class="glyphicon glyphicon-chevron-right" ></span> <label>Consulta Geral</label>') ?></li>
+                <?php
+                foreach ($listaMenuConsultaGeral as $key) {
+                    echo "<li class='sub-menu-consulta-geral' style='display: none'>" . Html::a($key['item']["description"], [$key['item']["link"]], ['id' => 'itens']) . "</li>";
+                }
+            }
+
+            $listaMenuRelatorio = PublicAuthItemChild::find()->asArray()->innerJoinWith(['item', 'assign'])->where(['sistema_menu' => 7])->andWhere(['user_id' => Yii::$app->user->getId()])->all();
+            if (empty(!$listaMenuRelatorio)) {
+                ?>
+                <li id="menu-diarias"
+                    onclick="toggle('sub-menu-relatorio')"><?= Html::a('<span class="glyphicon glyphicon-chevron-right" ></span> <label>Relatório</label>') ?></li>
+                <?php
+                foreach ($listaMenuRelatorio as $key) {
+                    echo "<li class='sub-menu-relatorio' style='display: none'>" . Html::a($key['item']["description"], [$key['item']["link"]], ['id' => 'itens']) . "</li>";
+                }
             }?>
         </ul>
