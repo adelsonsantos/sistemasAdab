@@ -73,11 +73,13 @@ class m170810_192048_permissaoDiarias extends Migration
                 ['solicitante',                 $this::PERFIL, 'Solicitante',                       null,                               null],
                 ['usuario-consulta',            $this::PERFIL, 'Usuário consulta',                  null,                               null],
                 ['nenhum',                      $this::PERFIL, 'Nenhum',                            null,                               null],
-                ['diaria-index',                $this::ACESSO, 'Diária Index',                      '/diarias/index',                   0],
+
+
                 ['diaria-view',                 $this::ACESSO, 'Diária View',                       '/diarias/view',                    0],
                 ['diaria-delete',               $this::ACESSO, 'Diária Delete',                     '/diarias/delete',                  0],
                 ['diaria-comprovacao',          $this::ACESSO, 'Comprovacao',                       '/diarias/comprovacao',             0],
-                ['diaria-solicitar',            $this::ACESSO, 'Solicitações',                      '/diarias/index',                   2],
+                ['diaria-solicitar',            $this::ACESSO, 'Solicitar',                         '/diarias/solicitar',               0],
+                ['diaria-index',                $this::ACESSO, 'Solicitações',                      '/diarias/index',                   2],
                 ['diaria-pre-autorizar',        $this::ACESSO, 'Solicitações Para Pré-Autorizar',   '/diarias/pre-autorizar',           2],
                 ['diaria-arquivadas',           $this::ACESSO, 'Solicitações Arquivadas',           '/diarias/arquivadas',              2],
                 ['diaria-autorizar',            $this::ACESSO, 'Solicitações para Autorizar',       '/diarias/autorizar',               2],
@@ -109,6 +111,7 @@ class m170810_192048_permissaoDiarias extends Migration
                 ['aprovador', 'diaria-index'],
                 ['aprovador', 'diaria-view'],
                 ['aprovador', 'diaria-arquivadas'],
+                ['aprovador', 'diaria-autorizar'],
                 ['aprovador', 'diaria-aprovar'],
                 ['aprovador', 'diaria-comprovacao'],
                 ['aprovador', 'diaria-alterar-comprovacao'],
@@ -147,7 +150,6 @@ class m170810_192048_permissaoDiarias extends Migration
 
                 ['gestor-diarias', 'diaria-index'],
                 ['gestor-diarias', 'diaria-view'],
-                ['gestor-diarias', 'diaria-solicitar'],
                 ['gestor-diarias', 'diaria-arquivadas'],
                 ['gestor-diarias', 'diaria-comprovacao'],
                 ['gestor-diarias', 'diaria-alterar-comprovacao'],
@@ -195,7 +197,6 @@ class m170810_192048_permissaoDiarias extends Migration
 
                 ['usuario-consulta', 'diaria-index'],
                 ['usuario-consulta', 'diaria-view'],
-                ['usuario-consulta', 'diaria-solicitar'],
                 ['usuario-consulta', 'diaria-arquivadas'],
                 ['usuario-consulta', 'diaria-comprovacao'],
                 ['usuario-consulta', 'diaria-alterar-comprovacao'],
@@ -203,7 +204,6 @@ class m170810_192048_permissaoDiarias extends Migration
         );
         $this->addColumn('public.auth_assignment', 'sistema_id', $this->integer()->notNull());
         $this->addForeignKey('public_sistema', 'public.auth_assignment', 'sistema_id', 'public.sistema', 'sistema_id');
-        $this->insert('public.auth_assignment', ['item_name' => 'administrador', 'user_id' => 5559,'sistema_id' => 1]);
     }
 
 
@@ -257,6 +257,7 @@ class m170810_192048_permissaoDiarias extends Migration
         $this->delete('public.auth_item_child', ['parent' => 'aprovador', 'child' => 'diaria-index']);
         $this->delete('public.auth_item_child', ['parent' => 'aprovador', 'child' => 'diaria-view']);
         $this->delete('public.auth_item_child', ['parent' => 'aprovador', 'child' => 'diaria-arquivadas']);
+        $this->delete('public.auth_item_child', ['parent' => 'aprovador', 'child' => 'diaria-autorizar']);
         $this->delete('public.auth_item_child', ['parent' => 'aprovador', 'child' => 'diaria-aprovar']);
         $this->delete('public.auth_item_child', ['parent' => 'aprovador', 'child' => 'diaria-comprovacao']);
         $this->delete('public.auth_item_child', ['parent' => 'aprovador', 'child' => 'diaria-alterar-comprovacao']);
@@ -295,7 +296,6 @@ class m170810_192048_permissaoDiarias extends Migration
 
         $this->delete('public.auth_item_child', ['parent' => 'gestor-diarias', 'child' => 'diaria-index']);
         $this->delete('public.auth_item_child', ['parent' => 'gestor-diarias', 'child' => 'diaria-view']);
-        $this->delete('public.auth_item_child', ['parent' => 'gestor-diarias', 'child' => 'diaria-solicitar']);
         $this->delete('public.auth_item_child', ['parent' => 'gestor-diarias', 'child' => 'diaria-arquivadas']);
         $this->delete('public.auth_item_child', ['parent' => 'gestor-diarias', 'child' => 'diaria-comprovacao']);
         $this->delete('public.auth_item_child', ['parent' => 'gestor-diarias', 'child' => 'diaria-alterar-comprovacao']);
@@ -343,7 +343,6 @@ class m170810_192048_permissaoDiarias extends Migration
 
         $this->delete('public.auth_item_child', ['parent' => 'usuario-consulta', 'child' => 'diaria-index']);
         $this->delete('public.auth_item_child', ['parent' => 'usuario-consulta', 'child' => 'diaria-view']);
-        $this->delete('public.auth_item_child', ['parent' => 'usuario-consulta', 'child' => 'diaria-solicitar']);
         $this->delete('public.auth_item_child', ['parent' => 'usuario-consulta', 'child' => 'diaria-arquivadas']);
         $this->delete('public.auth_item_child', ['parent' => 'usuario-consulta', 'child' => 'diaria-comprovacao']);
         $this->delete('public.auth_item_child', ['parent' => 'usuario-consulta', 'child' => 'diaria-alterar-comprovacao']);

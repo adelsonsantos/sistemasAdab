@@ -83,6 +83,7 @@ use yii\helpers\ArrayHelper;
  * @property DiariaRoteiro[] $diariaRoteiros
  * @property DiariaRoteiroComprovacao[] $diariaRoteiroComprovacaos
  */
+
 class Diarias extends ActiveRecord
 {
     const AUTORIZACAO = 0;
@@ -198,6 +199,7 @@ class Diarias extends ActiveRecord
     {
         return $this->diaria_id;
     }
+
     /**
      * @return \yii\db\ActiveQuery
      */
@@ -300,6 +302,14 @@ class Diarias extends ActiveRecord
     public function getDiariaDiariaComprovacao()
     {
         return $this->hasOne(DiariaDiariaComprovacao::className(), ['diaria_id' => 'diaria_id']);
+    }
+
+    /**
+     * @return \yii\db\ActiveQuery
+     */
+    public function getDiariaStatus()
+    {
+        return $this->hasOne(DiariaStatus::className(), ['status_id' => 'diaria_st']);
     }
 
     /**
@@ -425,8 +435,7 @@ class Diarias extends ActiveRecord
         $date=date_create(implode(ArrayHelper::map(DiariaAprovacao::find()->asArray()->where(['diaria_id' => $this->diaria_id])->orderBy(['diaria_aprovacao_id'=>SORT_DESC])->limit(1)->all(), 'diaria_aprovacao_dt', 'diaria_aprovacao_dt'), ['class'=>'form-control col-sm-1']));
         $hora=date_create(implode(ArrayHelper::map(DiariaAprovacao::find()->asArray()->where(['diaria_id' => $this->diaria_id])->orderBy(['diaria_aprovacao_id'=>SORT_DESC])->limit(1)->all(), 'diaria_aprovacao_hr', 'diaria_aprovacao_hr'), ['class'=>'form-control col-sm-1']));
         $codPessoa = implode(ArrayHelper::map(DadosUnicoFuncionario::find()->asArray()->where(['funcionario_id' => $codFuncionario])->all(), 'pessoa_id', 'pessoa_id'), ['class'=>'form-control col-sm-1']);
-       // d($codFuncionario);
-       // exit;
+
         $arrayHistoricoAutorizacao = [
             'nome'  => implode(ArrayHelper::map(DadosUnicoPessoa::find()->asArray()->where(['pessoa_id' => $codPessoa])->all(), 'pessoa_nm', 'pessoa_nm'), ['class'=>'form-control col-sm-1']),
             'data'  => date_format($date,"d/m/Y"),

@@ -46,6 +46,58 @@ class DiariasController extends Controller
         ];
     }
 
+    public function verificaPerfil($id)
+    {
+        switch ($id) {
+            case 11:
+                return 'administrador';
+                break;
+            case 6:
+                return 'aprovador';
+                break;
+            case 5:
+                return 'autorizador';
+                break;
+            case 4:
+                return 'comprovador';
+                break;
+            case 34:
+                return 'consulta-diarias';
+                break;
+            case 9:
+                return 'empenha-executa';
+                break;
+            case 35:
+                return 'gestor-orcamento';
+                break;
+            case 33:
+                return 'gestor-despesas';
+                break;
+            case 7:
+                return 'gestor-diarias';
+                break;
+            case 18:
+                return 'gestor-financeiro';
+                break;
+            case 31:
+                return 'pre-autorizador';
+                break;
+            case 8:
+                return 'pre-liquidante';
+                break;
+            case 36:
+                return 'recursos-humanos';
+                break;
+            case 30:
+                return 'solicitante';
+                break;
+            default:
+                return 11;
+                break;
+
+        }
+    }
+
     /**
      * Lists all Diarias models.
      * @return mixed

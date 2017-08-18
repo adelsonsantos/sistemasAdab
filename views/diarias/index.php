@@ -14,15 +14,21 @@
     .table thead tr{
         background-color: #dcdedd;
     }
+
 </style>
 <?php
 
 use app\models\DadosUnicoPessoa;
+use app\models\DiariaStatus;
+use app\models\SegurancaUsuarioTipoUsuario;
 use yii\helpers\ArrayHelper;
 use yii\helpers\Html;
 use yii\grid\GridView;
 
 /* @var $this yii\web\View */
+
+/* @var $thiiis app\controllers\DiariasController */
+/* @var $model app\models\Diarias */
 /* @var $searchModel app\models\DiariasSearch */
 /* @var $dataProvider yii\data\ActiveDataProvider */
 ?>
@@ -41,7 +47,7 @@ use yii\grid\GridView;
         'dataProvider' => $dataProvider,
         'filterModel' => $searchModel,
         'summary' => "Mostrando {begin} - {end} de {totalCount} Diárias",
-       // 'options' => ['style'=>'text-align:center '],
+        'options' => ['class' => 'YourCustomTableClass'],
         'columns' => [
             ['class' => 'yii\grid\SerialColumn'],
             'diaria_numero',
@@ -57,8 +63,13 @@ use yii\grid\GridView;
             ],
             'diaria_dt_saida',
             'diaria_dt_chegada',
-            'diaria_st',
+            [
+                'attribute'=> 'diaria_st',
+                'value'    => 'diariaStatus.status_ds',
+                'filter'   => Html::activeDropDownList($searchModel, 'diaria_st', ArrayHelper::map(DiariaStatus::find()->asArray()->orderBy('status_ds')->all(), 'status_id', 'status_ds'), ['class'=>'form-control', 'prompt' => ' '])
+            ],
             ['class' => 'yii\grid\ActionColumn',
+                'contentOptions' => ['style' => 'width: 8.7%'],
                 'template' => '{view} {update} {delete} {my_button}',
                 'buttons' => [
                     'my_button' => function ($model) {

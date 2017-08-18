@@ -46,6 +46,7 @@ use yii\helpers\ArrayHelper;
 
 /* @var $this yii\web\View */
 /* @var $model app\models\Diarias */
+/* @var $modelSearch app\models\DiariasSearch */
 
 
 ?>
@@ -284,3 +285,4 @@ use yii\helpers\ArrayHelper;
     <br>
 </div>
 </div>
+
