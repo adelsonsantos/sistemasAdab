@@ -14,13 +14,16 @@
     .table thead tr{
         background-color: #dcdedd;
     }
+    .tambem {
+        text-align: right;
+    }
 
 </style>
 <?php
 
 use app\models\DadosUnicoPessoa;
 use app\models\DiariaStatus;
-use app\models\SegurancaUsuarioTipoUsuario;
+use app\models\PublicAuthItem;
 use yii\helpers\ArrayHelper;
 use yii\helpers\Html;
 use yii\grid\GridView;
@@ -36,18 +39,28 @@ use yii\grid\GridView;
     <div style="position: absolute">
         <?= Yii::$app->controller->renderPartial('menu');?>
     </div>
-    <div style="height:75px; text-align: center">
-            <h1 class="font-topo">Diárias</h1>
-            <p class="font-topo">
+    <div style="height:75px;">
+        <div>
+            <h1 class="font-topo" style="text-align: center">Diárias</h1>
+            <p class="font-topo" style="text-align: center">
                 <?= Yii::$app->user->can('diaria-index') ? Html::a('Solicitar Diária', ['create'], ['class' => 'btn btn-success']) : ''; ?>
+                <?php $perfilUser = PublicAuthItem::find()->innerJoinWith('ment')->asArray()->where(['user_id' => Yii::$app->user->getId()])->all();
+                $permissao = isset($perfilUser) ? $perfilUser[0]['description'] : "";
+                ?>
             </p>
+        </div>
+        <div>
+            <p style="text-align: right; margin-right: 1%; margin-left: 450px; white-space: nowrap"><strong><?= "Perfil: " . $permissao; ?></strong></p>
+        </div>
     </div>
 <div class="grid">
     <?= GridView::widget([
         'dataProvider' => $dataProvider,
         'filterModel' => $searchModel,
+        'emptyText' => 'Resultado não encontrado',
+        'showOnEmpty' => true,
         'summary' => "Mostrando {begin} - {end} de {totalCount} Diárias",
-        'options' => ['class' => 'YourCustomTableClass'],
+        //'options' => ['class' => 'YourCustomTableClass'],
         'columns' => [
             ['class' => 'yii\grid\SerialColumn'],
             'diaria_numero',

@@ -23,6 +23,11 @@
         "zyx/zyx-phpmailer": "~0.9.2"
     },
     "require-dev": {
+        "2amigos/yii2-date-picker-widget" : "~1.0.7",
+        "symfony/dom-crawler": "~2.8",
+        "symfony/css-selector": "~2.8",
+        "wbraganca/yii2-dynamicform": "~2.0.2",
+        "kartik-v/yii2-tabs-x": "~1.2.3",
         "kartik-v/yii2-nav-x": "~1.2.1",
         "cinghie/yii2-menu": "~0.8.1",
         "tcdent/php-restclient": "~0.1.6",
@@ -33,7 +38,8 @@
         "codeception/verify": "~0.3.1",
         "codeception/specify": "~0.4.3",
         "kartik-v/yii2-widget-select2": "~2.0.9",
-        "kartik-v/yii2-dynagrid": "~1.4.5"
+        "kartik-v/yii2-dynagrid": "~1.4.5",
+        "kartik-v/yii2-widget-timepicker": "*"
     },
     "config": {
         "process-timeout": 1800

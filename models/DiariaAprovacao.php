@@ -67,4 +67,12 @@ class DiariaAprovacao extends \yii\db\ActiveRecord
     {
         return $this->hasOne(Diarias::className(), ['diaria_id' => 'diaria_id']);
     }
+
+    /**
+     * @return \yii\db\ActiveQuery
+     */
+    public function getFuncionario()
+    {
+        return $this->hasOne(DadosUnicoFuncionario::className(), ['funcionario_id' => 'diaria_aprovacao_func']);
+    }
 }

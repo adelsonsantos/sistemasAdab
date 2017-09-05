@@ -140,14 +140,14 @@ class Diarias extends ActiveRecord
     public function attributeLabels()
     {
         return [
-            'diaria_id' => 'Diaria ID',
+            'diaria_id' => 'Dia da Semana',
             'diaria_numero' => 'Diaria Numero',
             'diaria_solicitante' => 'Diaria Solicitante',
             'diaria_beneficiario' => 'Diaria Beneficiario',
-            'diaria_dt_saida' => 'Diaria Dt Saida',
-            'diaria_hr_saida' => 'Diaria Hr Saida',
-            'diaria_dt_chegada' => 'Diaria Dt Chegada',
-            'diaria_hr_chegada' => 'Diaria Hr Chegada',
+            'diaria_dt_saida' => 'Data',
+            'diaria_hr_saida' => 'Hora',
+            'diaria_dt_chegada' => 'Data',
+            'diaria_hr_chegada' => 'Hora',
             'diaria_valor_ref' => 'Diaria Valor Ref',
             'diaria_desconto' => 'Diaria Desconto',
             'diaria_qtde' => 'Diaria Qtde',
@@ -370,9 +370,11 @@ class Diarias extends ActiveRecord
 
     public function getDiaDaSemana($data)
     {
+        if(!is_null($data)){
         $diasemana = array('Domingo', 'Segunda-Feira', 'Terça-Feira', 'Quarta-Feira', 'Quinta-Feira', 'Sexta-Feira', 'Sábado');
         $dia = strftime("%w",strtotime($data));
         return $diasemana[$dia];
+        }
     }
 
     public function converterStringToData($_date = null) {
@@ -399,199 +401,157 @@ class Diarias extends ActiveRecord
 
     public function getHistoricoPreAutorizar()
     {
-        $codFuncionario = implode(ArrayHelper::map(DiariaPreAutorizacao::find()->asArray()->where(['diaria_id' => $this->diaria_id])->all(), 'diaria_pre_autorizacao_func', 'diaria_pre_autorizacao_func'), ['class'=>'form-control col-sm-1']);
-        $date=date_create(implode(ArrayHelper::map(DiariaPreAutorizacao::find()->asArray()->where(['diaria_id' => $this->diaria_id])->orderBy(['diaria_pre_autorizacao_id'=>SORT_DESC])->limit(1)->all(), 'diaria_pre_autorizacao_dt', 'diaria_pre_autorizacao_dt'), ['class'=>'form-control col-sm-1']));
-        $hora=date_create(implode(ArrayHelper::map(DiariaPreAutorizacao::find()->asArray()->where(['diaria_id' => $this->diaria_id])->orderBy(['diaria_pre_autorizacao_id'=>SORT_DESC])->limit(1)->all(), 'diaria_pre_autorizacao_hr', 'diaria_pre_autorizacao_hr'), ['class'=>'form-control col-sm-1']));
-        $codPessoa = implode(ArrayHelper::map(DadosUnicoFuncionario::find()->asArray()->where(['funcionario_id' => $codFuncionario])->all(), 'pessoa_id', 'pessoa_id'), ['class'=>'form-control col-sm-1']);
-
-        $arrayHistoricoPreAutorizacao = [
-            'nome'  => implode(ArrayHelper::map(DadosUnicoPessoa::find()->asArray()->where(['pessoa_id' => $codPessoa])->all(), 'pessoa_nm', 'pessoa_nm'), ['class'=>'form-control col-sm-1']),
-            'data'  => date_format($date,"d/m/Y"),
-            'hora'  => date_format($hora,"H:i:s"),
-            'status'=> 'Pré-Autorização'
-        ];
-        return $arrayHistoricoPreAutorizacao;
+        $arrayHistoricoPreAutorizacao = DiariaPreAutorizacao::find()->asArray()->innerJoinWith('funcionario')->where(['diaria_id' => $this->diaria_id])->orderBy(['diaria_pre_autorizacao_id'=>SORT_DESC])->limit(1)->all();
+        if(!empty($arrayHistoricoPreAutorizacao)) {
+            $date=date_create($arrayHistoricoPreAutorizacao[0]['diaria_pre_autorizacao_dt']);
+            $hora=date_create($arrayHistoricoPreAutorizacao[0]['diaria_pre_autorizacao_hr']);
+            return $arrayHistoricoPreAutorizacao = [
+                    'nome' => implode(ArrayHelper::map(DadosUnicoPessoa::find()->asArray()->where(['pessoa_id' => $arrayHistoricoPreAutorizacao[0]['funcionario']['pessoa_id']])->all(), 'pessoa_nm', 'pessoa_nm'), ['class' => 'form-control col-sm-1']),
+                    'data' => date_format($date, "d/m/Y"),
+                    'hora' => date_format($hora, "H:i:s"),
+                    'status' => 'Pré-Autorização'
+                ];
+        }
     }
 
     public function getHistoricoAutorizacao()
     {
-        $codFuncionario = implode(ArrayHelper::map(DiariaAutorizacao::find()->asArray()->where(['diaria_id' => $this->diaria_id])->all(), 'diaria_autorizacao_func', 'diaria_autorizacao_func'), ['class'=>'form-control col-sm-1']);
-        $date=date_create(implode(ArrayHelper::map(DiariaAutorizacao::find()->asArray()->where(['diaria_id' => $this->diaria_id])->orderBy(['diaria_autorizacao_id'=>SORT_DESC])->limit(1)->all(), 'diaria_autorizacao_dt', 'diaria_autorizacao_dt'), ['class'=>'form-control col-sm-1']));
-        $hora=date_create(implode(ArrayHelper::map(DiariaAutorizacao::find()->asArray()->where(['diaria_id' => $this->diaria_id])->orderBy(['diaria_autorizacao_id'=>SORT_DESC])->limit(1)->all(), 'diaria_autorizacao_hr', 'diaria_autorizacao_hr'), ['class'=>'form-control col-sm-1']));
-        $codPessoa = implode(ArrayHelper::map(DadosUnicoFuncionario::find()->asArray()->where(['funcionario_id' => $codFuncionario])->all(), 'pessoa_id', 'pessoa_id'), ['class'=>'form-control col-sm-1']);
-
-        $arrayHistoricoAutorizacao = [
-            'nome'  => implode(ArrayHelper::map(DadosUnicoPessoa::find()->asArray()->where(['pessoa_id' => $codPessoa])->all(), 'pessoa_nm', 'pessoa_nm'), ['class'=>'form-control col-sm-1']),
-            'data'  => date_format($date,"d/m/Y"),
-            'hora'  => date_format($hora,"H:i:s"),
-            'status'=> 'Autorização'
-        ];
-        return $arrayHistoricoAutorizacao;
+        $arrayAutorizacao = DiariaAutorizacao::find()->innerJoinWith('funcionario')->asArray()->where(['diaria_id' => $this->diaria_id])->orderBy(['diaria_autorizacao_id'=>SORT_DESC])->limit(1)->all();
+        if(!empty($arrayAutorizacao)){
+            $date=date_create($arrayAutorizacao[0]['diaria_autorizacao_dt']);
+            $hora=date_create($arrayAutorizacao[0]['diaria_autorizacao_hr']);
+            $arrayAutorizacao[0]['pessoa_id'];
+            return $arrayHistoricoAutorizacao = [
+                        'nome' => implode(ArrayHelper::map(DadosUnicoPessoa::find()->asArray()->where(['pessoa_id' => $arrayAutorizacao[0]['funcionario']['pessoa_id']])->all(), 'pessoa_nm', 'pessoa_nm'), ['class' => 'form-control col-sm-1']),
+                        'data' => date_format($date, "d/m/Y"),
+                        'hora' => date_format($hora, "H:i:s"),
+                        'status' => 'Autorização'
+                    ];
+        }
     }
 
     public function getHistoricoAprovador()
     {
-        $codFuncionario = implode(ArrayHelper::map(DiariaAprovacao::find()->asArray()->where(['diaria_id' => $this->diaria_id])->all(), 'diaria_aprovacao_func', 'diaria_aprovacao_func'), ['class'=>'form-control col-sm-1']);
-        $date=date_create(implode(ArrayHelper::map(DiariaAprovacao::find()->asArray()->where(['diaria_id' => $this->diaria_id])->orderBy(['diaria_aprovacao_id'=>SORT_DESC])->limit(1)->all(), 'diaria_aprovacao_dt', 'diaria_aprovacao_dt'), ['class'=>'form-control col-sm-1']));
-        $hora=date_create(implode(ArrayHelper::map(DiariaAprovacao::find()->asArray()->where(['diaria_id' => $this->diaria_id])->orderBy(['diaria_aprovacao_id'=>SORT_DESC])->limit(1)->all(), 'diaria_aprovacao_hr', 'diaria_aprovacao_hr'), ['class'=>'form-control col-sm-1']));
-        $codPessoa = implode(ArrayHelper::map(DadosUnicoFuncionario::find()->asArray()->where(['funcionario_id' => $codFuncionario])->all(), 'pessoa_id', 'pessoa_id'), ['class'=>'form-control col-sm-1']);
-
-        $arrayHistoricoAutorizacao = [
-            'nome'  => implode(ArrayHelper::map(DadosUnicoPessoa::find()->asArray()->where(['pessoa_id' => $codPessoa])->all(), 'pessoa_nm', 'pessoa_nm'), ['class'=>'form-control col-sm-1']),
-            'data'  => date_format($date,"d/m/Y"),
-            'hora'  => date_format($hora,"H:i:s"),
-            'status'=> 'Aprovação'
-        ];
-        return $arrayHistoricoAutorizacao;
+        $arrayAprovacao = DiariaAprovacao::find()->asArray()->innerJoinWith('funcionario')->where(['diaria_id' => $this->diaria_id])->orderBy(['diaria_aprovacao_id'=>SORT_ASC])->limit(1)->all();
+        if(!empty($arrayAprovacao)){
+            $date=date_create($arrayAprovacao[0]['diaria_aprovacao_dt']);
+            $hora=date_create($arrayAprovacao[0]['diaria_aprovacao_hr']);
+            return  $arrayHistoricoAprovador = [
+                    'nome'  => implode(ArrayHelper::map(DadosUnicoPessoa::find()->asArray()->where(['pessoa_id' => $arrayAprovacao[0]['funcionario']['pessoa_id']])->all(), 'pessoa_nm', 'pessoa_nm'), ['class'=>'form-control col-sm-1']),
+                    'data'  => date_format($date,"d/m/Y"),
+                    'hora'  => date_format($hora,"H:i:s"),
+                    'status'=> 'Aprovação'
+                ];
+        }
     }
 
     public function getHistoricoEmpenho()
     {
-        $date=date_create($this->diaria_dt_empenho);
-        $hora=date_create($this->diaria_hr_empenho);
-
-        $arrayHistoricoSolicitacao = [
-            'nome'  => implode(ArrayHelper::map(DadosUnicoPessoa::find()->asArray()->where(['pessoa_id' => $this->diaria_empenho_pessoa_id])->all(), 'pessoa_nm', 'pessoa_nm'), ['class'=>'form-control col-sm-1']),
-            'data'  => date_format($date,"d/m/Y"),
-            'hora'  => date_format($hora,"H:i:s"),
-            'status'=> 'Empenho'
-        ];
-        return $arrayHistoricoSolicitacao;
+        if (!empty($this->diaria_dt_empenho)) {
+            $date = date_create($this->diaria_dt_empenho);
+            $hora = date_create($this->diaria_hr_empenho);
+            $arrayHistoricoSolicitacao = [
+                'nome' => implode(ArrayHelper::map(DadosUnicoPessoa::find()->asArray()->where(['pessoa_id' => $this->diaria_empenho_pessoa_id])->all(), 'pessoa_nm', 'pessoa_nm'), ['class' => 'form-control col-sm-1']),
+                'data' => date_format($date, "d/m/Y"),
+                'hora' => date_format($hora, "H:i:s"),
+                'status' => 'Empenho'
+            ];
+            return $arrayHistoricoSolicitacao;
+        }
     }
 
     public function getHistoricoPreLiquidacao()
     {
-            $codFuncionario = implode(ArrayHelper::map(DiariaFinanceiro::find()->asArray()->where(['diaria_id' => $this->diaria_id])->all(), 'diaria_financeiro_preliquidante', 'diaria_financeiro_preliquidante'), ['class'=>'form-control col-sm-1']);
-            $date=date_create(implode(ArrayHelper::map(DiariaFinanceiro::find()->asArray()->where(['diaria_id' => $this->diaria_id])->orderBy(['diaria_financeiro_id'=>SORT_DESC])->limit(1)->all(), 'diaria_preliquidacao_dt', 'diaria_preliquidacao_dt'), ['class'=>'form-control col-sm-1']));
-            $hora=date_create(implode(ArrayHelper::map(DiariaFinanceiro::find()->asArray()->where(['diaria_id' => $this->diaria_id])->orderBy(['diaria_financeiro_id'=>SORT_DESC])->limit(1)->all(), 'diaria_preliquidacao_hr', 'diaria_preliquidacao_hr'), ['class'=>'form-control col-sm-1']));
-            $codPessoa = implode(ArrayHelper::map(DadosUnicoFuncionario::find()->asArray()->where(['funcionario_id' => $codFuncionario])->all(), 'pessoa_id', 'pessoa_id'), ['class'=>'form-control col-sm-1']);
-
-            $arrayHistoricoSolicitacao = [
-                'nome'  => implode(ArrayHelper::map(DadosUnicoPessoa::find()->asArray()->where(['pessoa_id' => $codPessoa])->all(), 'pessoa_nm', 'pessoa_nm'), ['class'=>'form-control col-sm-1']),
-                'data'  => date_format($date,"d/m/Y"),
-                'hora'  => date_format($hora,"H:i:s"),
-                'status'=> 'Pré-Liquidação'
-            ];
-            return $arrayHistoricoSolicitacao;
+            $arrayPreLiquidacao = DiariaFinanceiro::find()->asArray()->innerJoinWith('funcionario')->where(['diaria_id' => $this->diaria_id])->orderBy(['diaria_financeiro_id'=>SORT_DESC])->limit(1)->all();
+            if(!empty($arrayPreLiquidacao)) {
+                $date = date_create($arrayPreLiquidacao[0]['diaria_liquidacao_dt']);
+                $hora = date_create($arrayPreLiquidacao[0]['diaria_liquidacao_hr']);
+                return $arrayHistoricoPreLiquidacao = [
+                        'nome' => implode(ArrayHelper::map(DadosUnicoPessoa::find()->asArray()->where(['pessoa_id' => $arrayPreLiquidacao[0]['funcionario']['pessoa_id']])->all(), 'pessoa_nm', 'pessoa_nm'), ['class' => 'form-control col-sm-1']),
+                        'data' => date_format($date, "d/m/Y"),
+                        'hora' => date_format($hora, "H:i:s"),
+                        'status' => 'Pré-Liquidação'
+                    ];
+            }
     }
 
     public function getHistoricoLiquidacao()
     {
-            $codFuncionario = implode(ArrayHelper::map(DiariaFinanceiro::find()->asArray()->where(['diaria_id' => $this->diaria_id])->all(), 'diaria_financeiro_liquidante', 'diaria_financeiro_liquidante'), ['class'=>'form-control col-sm-1']);
-            $date=date_create(implode(ArrayHelper::map(DiariaFinanceiro::find()->asArray()->where(['diaria_id' => $this->diaria_id])->orderBy(['diaria_financeiro_id'=>SORT_DESC])->limit(1)->all(), 'diaria_liquidacao_dt', 'diaria_liquidacao_dt'), ['class'=>'form-control col-sm-1']));
-            $hora=date_create(implode(ArrayHelper::map(DiariaFinanceiro::find()->asArray()->where(['diaria_id' => $this->diaria_id])->orderBy(['diaria_financeiro_id'=>SORT_DESC])->limit(1)->all(), 'diaria_liquidacao_hr', 'diaria_liquidacao_hr'), ['class'=>'form-control col-sm-1']));
-            $codPessoa = implode(ArrayHelper::map(DadosUnicoFuncionario::find()->asArray()->where(['funcionario_id' => $codFuncionario])->all(), 'pessoa_id', 'pessoa_id'), ['class'=>'form-control col-sm-1']);
-
-            $arrayHistoricoSolicitacao = [
-                'nome'  => implode(ArrayHelper::map(DadosUnicoPessoa::find()->asArray()->where(['pessoa_id' => $codPessoa])->all(), 'pessoa_nm', 'pessoa_nm'), ['class'=>'form-control col-sm-1']),
-                'data'  => date_format($date,"d/m/Y"),
-                'hora'  => date_format($hora,"H:i:s"),
-                'status'=> 'Liquidação'
-            ];
-            return $arrayHistoricoSolicitacao;
+            $arrayLiquidacao = DiariaFinanceiro::find()->asArray()->innerJoinWith('funcionario')->where(['diaria_id' => $this->diaria_id])->orderBy(['diaria_financeiro_id'=>SORT_DESC])->limit(1)->all();
+        if(!empty($arrayLiquidacao)) {
+            $date = date_create($arrayLiquidacao[0]['diaria_liquidacao_dt']);
+            $hora = date_create($arrayLiquidacao[0]['diaria_liquidacao_hr']);
+            return
+                $arrayHistoricoLiquidacao = [
+                    'nome' => implode(ArrayHelper::map(DadosUnicoPessoa::find()->asArray()->where(['pessoa_id' => $arrayLiquidacao[0]['funcionario']['pessoa_id']])->all(), 'pessoa_nm', 'pessoa_nm'), ['class' => 'form-control col-sm-1']),
+                    'data' => date_format($date, "d/m/Y"),
+                    'hora' => date_format($hora, "H:i:s"),
+                    'status' => 'Liquidação'
+                ];
+        }
     }
 
     public function getHistoricoExecucao()
     {
-            $codFuncionario = implode(ArrayHelper::map(DiariaFinanceiro::find()->asArray()->where(['diaria_id' => $this->diaria_id])->all(), 'diaria_financeiro_executante', 'diaria_financeiro_executante'), ['class'=>'form-control col-sm-1']);
-            $date=date_create(implode(ArrayHelper::map(DiariaFinanceiro::find()->asArray()->where(['diaria_id' => $this->diaria_id])->orderBy(['diaria_financeiro_id'=>SORT_DESC])->limit(1)->all(), 'diaria_execucao_dt', 'diaria_execucao_dt'), ['class'=>'form-control col-sm-1']));
-            $hora=date_create(implode(ArrayHelper::map(DiariaFinanceiro::find()->asArray()->where(['diaria_id' => $this->diaria_id])->orderBy(['diaria_financeiro_id'=>SORT_DESC])->limit(1)->all(), 'diaria_execucao_hr', 'diaria_execucao_hr'), ['class'=>'form-control col-sm-1']));
-            $codPessoa = implode(ArrayHelper::map(DadosUnicoFuncionario::find()->asArray()->where(['funcionario_id' => $codFuncionario])->all(), 'pessoa_id', 'pessoa_id'), ['class'=>'form-control col-sm-1']);
+            $arrayHistoricoExecucao = DiariaFinanceiro::find()->asArray()->innerJoinWith('funcionario')->where(['diaria_id' => $this->diaria_id])->orderBy(['diaria_financeiro_id'=>SORT_DESC])->limit(1)->all();
+            if (!empty($arrayHistoricoExecucao)) {
+            $date = date_create($arrayHistoricoExecucao[0]['diaria_execucao_dt']);
+            $hora = date_create($arrayHistoricoExecucao[0]['diaria_execucao_hr']);
 
-            $arrayHistoricoSolicitacao = [
-                'nome'  => implode(ArrayHelper::map(DadosUnicoPessoa::find()->asArray()->where(['pessoa_id' => $codPessoa])->all(), 'pessoa_nm', 'pessoa_nm'), ['class'=>'form-control col-sm-1']),
-                'data'  => date_format($date,"d/m/Y"),
-                'hora'  => date_format($hora,"H:i:s"),
-                'status'=> 'Execução'
+            return $arrayHistoricoExecucao = [
+                'nome' => implode(ArrayHelper::map(DadosUnicoPessoa::find()->asArray()->where(['pessoa_id' => $arrayHistoricoExecucao[0]['funcionario']['pessoa_id']])->all(), 'pessoa_nm', 'pessoa_nm')),
+                'data' => date_format($date, "d/m/Y"),
+                'hora' => date_format($hora, "H:i:s"),
+                'status' => 'Execução'
             ];
-            return $arrayHistoricoSolicitacao;
+        }
     }
 
     public function getHistoricoComprovacao()
     {
-        $date=date_create(implode(ArrayHelper::map(DiariaComprovacao::find()->asArray()->where(['diaria_id' => $this->diaria_id])->orderBy(['diaria_id'=>SORT_DESC])->limit(1)->all(), 'diaria_comprovacao_dt', 'diaria_comprovacao_dt'), ['class'=>'form-control col-sm-1']));
-        $hora=date_create(implode(ArrayHelper::map(DiariaComprovacao::find()->asArray()->where(['diaria_id' => $this->diaria_id])->orderBy(['diaria_id'=>SORT_DESC])->limit(1)->all(), 'diaria_comprovacao_hr', 'diaria_comprovacao_hr'), ['class'=>'form-control col-sm-1']));
-
-        $arrayHistoricoSolicitacao = [
-            'nome'  => implode(ArrayHelper::map(DadosUnicoPessoa::find()->asArray()->where(['pessoa_id' => $this->diaria_beneficiario])->all(), 'pessoa_nm', 'pessoa_nm'), ['class'=>'form-control col-sm-1']),
-            'data'  => date_format($date,"d/m/Y"),
-            'hora'  => date_format($hora,"H:i:s"),
-            'status'=> 'Comprovação'
-        ];
-        return $arrayHistoricoSolicitacao;
+        $arrayComprovacao = DiariaComprovacao::find()->asArray()->where(['diaria_id' => $this->diaria_id])->orderBy(['diaria_id'=>SORT_DESC])->limit(1)->all();
+        if (!empty($arrayComprovacao)) {
+            $date = date_create($arrayComprovacao[0]['diaria_comprovacao_dt']);
+            $hora = date_create($arrayComprovacao[0]['diaria_comprovacao_hr']);
+            return $arrayHistoricoSolicitacao = [
+                'nome' => implode(ArrayHelper::map(DadosUnicoPessoa::find()->asArray()->where(['pessoa_id' => $arrayComprovacao[0]['diaria_comprovacao_comprovador']])->all(), 'pessoa_nm', 'pessoa_nm')),
+                'data' => date_format($date, "d/m/Y"),
+                'hora' => date_format($hora, "H:i:s"),
+                'status' => 'Comprovação'
+            ];
+        }
     }
     public function getHistoricoCompleto()
     {
         $arrayHistorico = [];
-        switch ($this->diaria_st) {
-            case $this::PRE_AUTORIZAR:
-                array_push($arrayHistorico, $this->getHistoricoSolicitacao());
-                break;
-            case $this::AUTORIZACAO:
-                array_push($arrayHistorico, $this->getHistoricoPreAutorizar());
-                array_push($arrayHistorico, $this->getHistoricoSolicitacao());
-                break;
-            case $this::APROVACAO:
-                array_push($arrayHistorico, $this->getHistoricoAutorizacao());
-                array_push($arrayHistorico, $this->getHistoricoPreAutorizar());
-                array_push($arrayHistorico, $this->getHistoricoSolicitacao());
-                break;
-            case $this::EMPENHO:
-                array_push($arrayHistorico, $this->getHistoricoAprovador());
-                array_push($arrayHistorico, $this->getHistoricoAutorizacao());
-                array_push($arrayHistorico, $this->getHistoricoPreAutorizar());
-                array_push($arrayHistorico, $this->getHistoricoSolicitacao());
-                break;
-            case $this::EXECUCAO:
-                array_push($arrayHistorico, $this->getHistoricoEmpenho());
-                array_push($arrayHistorico, $this->getHistoricoAprovador());
-                array_push($arrayHistorico, $this->getHistoricoAutorizacao());
-                array_push($arrayHistorico, $this->getHistoricoPreAutorizar());
-                array_push($arrayHistorico, $this->getHistoricoSolicitacao());
-                break;
-            case $this::COMPROVACAO:
-                array_push($arrayHistorico, $this->getHistoricoExecucao());
-                array_push($arrayHistorico, $this->getHistoricoLiquidacao());
-                array_push($arrayHistorico, $this->getHistoricoPreLiquidacao());
-                array_push($arrayHistorico, $this->getHistoricoEmpenho());
-                array_push($arrayHistorico, $this->getHistoricoAprovador());
-                array_push($arrayHistorico, $this->getHistoricoAutorizacao());
-                array_push($arrayHistorico, $this->getHistoricoPreAutorizar());
-                array_push($arrayHistorico, $this->getHistoricoSolicitacao());
-                break;
-            case $this::APROVACAO_DE_COMPROVACAO:
-                array_push($arrayHistorico, $this->getHistoricoExecucao());
-                array_push($arrayHistorico, $this->getHistoricoLiquidacao());
-                array_push($arrayHistorico, $this->getHistoricoPreLiquidacao());
-                array_push($arrayHistorico, $this->getHistoricoEmpenho());
-                array_push($arrayHistorico, $this->getHistoricoAprovador());
-                array_push($arrayHistorico, $this->getHistoricoAutorizacao());
-                array_push($arrayHistorico, $this->getHistoricoPreAutorizar());
-                array_push($arrayHistorico, $this->getHistoricoSolicitacao());
-                break;
-            case $this::AGUARDANDO_ARQUIVAMENTO:
-                array_push($arrayHistorico, $this->getHistoricoComprovacao());
-                array_push($arrayHistorico, $this->getHistoricoExecucao());
-                array_push($arrayHistorico, $this->getHistoricoLiquidacao());
-                array_push($arrayHistorico, $this->getHistoricoPreLiquidacao());
-                array_push($arrayHistorico, $this->getHistoricoEmpenho());
-               // array_push($arrayHistorico, $this->getHistoricoAprovador());
-                array_push($arrayHistorico, $this->getHistoricoAutorizacao());
-                array_push($arrayHistorico, $this->getHistoricoPreAutorizar());
-                array_push($arrayHistorico, $this->getHistoricoSolicitacao());
-                break;
-            case $this::ARQUIVADA:
-                array_push($arrayHistorico, $this->getHistoricoExecucao());
-                array_push($arrayHistorico, $this->getHistoricoLiquidacao());
-                array_push($arrayHistorico, $this->getHistoricoPreLiquidacao());
-                array_push($arrayHistorico, $this->getHistoricoEmpenho());
-                array_push($arrayHistorico, $this->getHistoricoAprovador());
-                array_push($arrayHistorico, $this->getHistoricoAutorizacao());
-                array_push($arrayHistorico, $this->getHistoricoPreAutorizar());
-                array_push($arrayHistorico, $this->getHistoricoSolicitacao());;
-                break;
-        }
+        !empty($this->getHistoricoComprovacao())    ?   array_push($arrayHistorico, $this->getHistoricoComprovacao())   : null;
+        !empty($this->getHistoricoExecucao())       ?   array_push($arrayHistorico, $this->getHistoricoExecucao())      : null;
+        !empty($this->getHistoricoLiquidacao())     ?   array_push($arrayHistorico, $this->getHistoricoLiquidacao())    : null;
+        !empty($this->getHistoricoPreLiquidacao())  ?   array_push($arrayHistorico, $this->getHistoricoPreLiquidacao()) : null;
+        !empty($this->getHistoricoEmpenho())        ?   array_push($arrayHistorico, $this->getHistoricoEmpenho())       : null;
+        !empty($this->getHistoricoAprovador())      ?   array_push($arrayHistorico, $this->getHistoricoAprovador())     : null;
+        !empty($this->getHistoricoAutorizacao())    ?   array_push($arrayHistorico, $this->getHistoricoAutorizacao())   : null;
+        !empty($this->getHistoricoPreAutorizar())   ?   array_push($arrayHistorico, $this->getHistoricoPreAutorizar())  : null;
+        !empty($this->getHistoricoSolicitacao())    ?   array_push($arrayHistorico, $this->getHistoricoSolicitacao())   : null;
         return $arrayHistorico;
+    }
+
+    public $munici;
+
+    public function setMunici($munici)
+    {
+        $this->munici = $munici;
+    }
+
+    public function getCoordenadoriaDoUsuario($index = 38490)
+    {
+        switch ($index){
+            case 1 : $municipio = 38210;
+            break;
+            default : $municipio = 38490;
+            break;
+        }
+        return $municipio;
     }
 }
 

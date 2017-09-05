@@ -5,7 +5,6 @@ namespace app\models;
 use Yii;
 use yii\base\Model;
 use yii\data\ActiveDataProvider;
-use app\models\Diarias;
 use yii\helpers\ArrayHelper;
 
 /**
@@ -34,12 +33,10 @@ class DiariasSearch extends Diarias
         return Model::scenarios();
     }
 
-
     public function getSearchPorPermissao()
     {
         $data =      date_create($this->converterStringToData('31/12/2011'));
         $dataCriacao = date_format($data,"Y-m-d");
-        /*d(PublicAuthAssignment::find()->asArray()->where(['user_id' => Yii::$app->user->getId()])->all());*/
 
         switch (implode(ArrayHelper::map(PublicAuthAssignment::find()->asArray()->where(['user_id' => Yii::$app->user->getId()])->all(), 'item_name', 'item_name'))) {
             case 'administrador':
@@ -48,17 +45,12 @@ class DiariasSearch extends Diarias
                     ->andWhere(['diaria_excluida' => 0])
                     ->andWhere(['>=','diaria_dt_criacao', $dataCriacao]);
             break;
-            case 'aprovador':
+            default:
                 return Diarias::find()
                     ->where('diaria_st <> 7')
                     ->andWhere(['diaria_excluida' => 0])
                     ->andWhere(['diaria_beneficiario' => Yii::$app->user->getId()])->orWhere(['diaria_solicitante' => Yii::$app->user->getId()]);
-            break;
-            default:
-                return Diarias::find()
-                    ->where('diaria_st <> 7')
-                    ->andWhere(['diaria_excluida' => 0]);
-            break;
+                break;
         }
     }
 

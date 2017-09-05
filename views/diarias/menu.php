@@ -53,96 +53,6 @@ $this->title = 'Diarias';
        }
    }
 </script>
-
-<?php
-    $listaMenuCadastro = [
-        [
-            'label' => 'Meio de Transporte',
-            'link'  => '/diarias/create'
-        ],
-        [
-            'label' => 'Motivo',
-            'link'  => '/diarias/create'
-        ],
-        [
-            'label' => 'SubMotivo',
-            'link'  => '/diarias/create'
-        ]
-    ];
-
-    $listaMenuFinanceiro = [
-        [
-            'label' => 'Executar Ordem',
-            'link'  => '/diarias/create'
-        ],
-        [
-            'label' => 'Arquivar',
-            'link'  => '/diarias/create'
-        ]
-    ];
-    $listaMenuDrm = [
-        [
-            'label' => 'Projeto',
-            'link'  => '/diarias/create'
-        ],
-        [
-            'label' => 'Produto',
-            'link'  => '/diarias/create'
-        ],
-        [
-            'label' => 'Território',
-            'link'  => '/diarias/create'
-        ],
-        [
-            'label' => 'Fonte',
-            'link'  => '/diarias/create'
-        ],
-        [
-            'label' => 'Associar DRM',
-            'link'  => '/diarias/create'
-        ],
-        [
-            'label' => 'Listagem DRM',
-            'link'  => '/diarias/create'
-        ],
-        [
-            'label' => 'Saldo e Recursos',
-            'link'  => '/diarias/create'
-        ],
-        [
-            'label' => 'Saldo de Etapa',
-            'link'  => '/diarias/create'
-        ]
-    ];
-    $listaMenuPermissoes = [
-        [
-            'label' => 'Associar Autorizador por ACP',
-            'link'  => '/diarias/create'
-        ]
-    ];
-
-    $listaMenuConsultaGeral = [
-        [
-            'label' => 'Consulta Geral',
-            'link'  => '/diarias/create'
-        ]
-    ];
-
-    $listaMenuRelatorio = [
-        [
-            'label' => 'Diárias por Coordenadoria',
-            'link'  => '/diarias/create'
-        ],
-        [
-            'label' => 'Diárias por Servidor',
-            'link'  => '/diarias/create'
-        ],
-        [
-            'label' => 'Ticket Refeição',
-            'link'  => '/diarias/create'
-        ]
-    ];
-?>
 <br>
         <ul class="nav nav-pills nav-stacked" style="width: 200px; text-align: left; margin-top: 75px; margin-left: 5px">
             <li class="active"><?= Html::a('<span class="glyphicon glyphicon-home"></span>  Home', ['/diarias/index'])?></li>
@@ -209,7 +119,7 @@ $this->title = 'Diarias';
             if (empty(!$listaMenuConsultaGeral)) {
                 ?>
                 <li id="menu-diarias"
-                    onclick="toggle('sub-menu-consulta-geral')"><?= Html::a('<span class="glyphicon glyphicon-chevron-right" ></span> <label>Consulta Geral</label>') ?></li>
+                    onclick="toggle('sub-menu-consulta-geral')"><?= Html::a('<span class="glyphicon glyphicon-chevron-right" ></span> <label>Consulta</label>') ?></li>
                 <?php
                 foreach ($listaMenuConsultaGeral as $key) {
                     echo "<li class='sub-menu-consulta-geral' style='display: none'>" . Html::a($key['item']["description"], [$key['item']["link"]], ['id' => 'itens']) . "</li>";

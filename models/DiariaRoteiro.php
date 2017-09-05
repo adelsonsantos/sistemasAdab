@@ -14,7 +14,7 @@ use Yii;
  * @property integer $controle_roteiro
  * @property integer $dados_roteiro_id
  *
- * @property DiariaDiaria $diaria
+ * @property Diarias $diaria
  */
 class DiariaRoteiro extends \yii\db\ActiveRecord
 {
@@ -34,7 +34,7 @@ class DiariaRoteiro extends \yii\db\ActiveRecord
         return [
             [['diaria_id', 'roteiro_origem', 'roteiro_destino'], 'required'],
             [['diaria_id', 'roteiro_origem', 'roteiro_destino', 'controle_roteiro', 'dados_roteiro_id'], 'integer'],
-            [['diaria_id'], 'exist', 'skipOnError' => true, 'targetClass' => DiariaDiaria::className(), 'targetAttribute' => ['diaria_id' => 'diaria_id']],
+            [['diaria_id'], 'exist', 'skipOnError' => true, 'targetClass' => Diarias::className(), 'targetAttribute' => ['diaria_id' => 'diaria_id']],
         ];
     }
 
@@ -46,8 +46,8 @@ class DiariaRoteiro extends \yii\db\ActiveRecord
         return [
             'roteiro_id' => 'Roteiro ID',
             'diaria_id' => 'Diaria ID',
-            'roteiro_origem' => 'Roteiro Origem',
-            'roteiro_destino' => 'Roteiro Destino',
+            'roteiro_origem' => '',
+            'roteiro_destino' => '',
             'controle_roteiro' => 'Controle Roteiro',
             'dados_roteiro_id' => 'Dados Roteiro ID',
         ];
@@ -58,6 +58,6 @@ class DiariaRoteiro extends \yii\db\ActiveRecord
      */
     public function getDiaria()
     {
-        return $this->hasOne(DiariaDiaria::className(), ['diaria_id' => 'diaria_id']);
+        return $this->hasOne(Diarias::className(), ['diaria_id' => 'diaria_id']);
     }
 }

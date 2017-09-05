@@ -66,9 +66,9 @@ class m170810_192048_permissaoDiarias extends Migration
                 ['gestor-despesas',             $this::PERFIL, 'Gestor Despesas',                   null,                               null],
                 ['gestor-diarias',              $this::PERFIL, 'Gestor Diárias',                    null,                               null],
                 ['gestor-financeiro',           $this::PERFIL, 'Gestor Financeiro',                 null,                               null],
-                ['gestor-orcamentario',         $this::PERFIL, 'Gestor Orcamentario',               null,                               null],
+                ['gestor-orcamentario',         $this::PERFIL, 'Gestor Orçamentário',               null,                               null],
                 ['pre-autorizador',             $this::PERFIL, 'Pré-Autorizador',                   null,                               null],
-                ['pre-liquidante',              $this::PERFIL, 'PreLiquidante',                     null,                               null],
+                ['pre-liquidante',              $this::PERFIL, 'Pré-Liquidante',                     null,                               null],
                 ['recursos-humanos',            $this::PERFIL, 'Recursos Humanos',                  null,                               null],
                 ['solicitante',                 $this::PERFIL, 'Solicitante',                       null,                               null],
                 ['usuario-consulta',            $this::PERFIL, 'Usuário consulta',                  null,                               null],
@@ -153,6 +153,7 @@ class m170810_192048_permissaoDiarias extends Migration
                 ['gestor-diarias', 'diaria-arquivadas'],
                 ['gestor-diarias', 'diaria-comprovacao'],
                 ['gestor-diarias', 'diaria-alterar-comprovacao'],
+                ['gestor-diarias', 'diaria-empenho'],
                 ['gestor-diarias', 'diaria-aprovacao-comprovacao'],
 
                 ['gestor-financeiro', 'diaria-index'],
@@ -164,6 +165,7 @@ class m170810_192048_permissaoDiarias extends Migration
                 ['gestor-orcamentario', 'diaria-index'],
                 ['gestor-orcamentario', 'diaria-view'],
                 ['gestor-orcamentario', 'diaria-comprovacao'],
+                ['gestor-orcamentario', 'diaria-arquivadas'],
                 ['gestor-orcamentario', 'diaria-alterar-comprovacao'],
 
                 ['pre-autorizador', 'diaria-index'],
@@ -205,7 +207,6 @@ class m170810_192048_permissaoDiarias extends Migration
         $this->addColumn('public.auth_assignment', 'sistema_id', $this->integer()->notNull());
         $this->addForeignKey('public_sistema', 'public.auth_assignment', 'sistema_id', 'public.sistema', 'sistema_id');
     }
-
 
     public function safeDown()
     {
@@ -299,6 +300,7 @@ class m170810_192048_permissaoDiarias extends Migration
         $this->delete('public.auth_item_child', ['parent' => 'gestor-diarias', 'child' => 'diaria-arquivadas']);
         $this->delete('public.auth_item_child', ['parent' => 'gestor-diarias', 'child' => 'diaria-comprovacao']);
         $this->delete('public.auth_item_child', ['parent' => 'gestor-diarias', 'child' => 'diaria-alterar-comprovacao']);
+        $this->delete('public.auth_item_child', ['parent' => 'gestor-diarias', 'child' => 'diaria-empenho']);
         $this->delete('public.auth_item_child', ['parent' => 'gestor-diarias', 'child' => 'diaria-aprovacao-comprovacao']);
 
         $this->delete('public.auth_item_child', ['parent' => 'gestor-financeiro', 'child' => 'diaria-index']);
@@ -310,6 +312,7 @@ class m170810_192048_permissaoDiarias extends Migration
         $this->delete('public.auth_item_child', ['parent' => 'gestor-orcamentario', 'child' => 'diaria-index']);
         $this->delete('public.auth_item_child', ['parent' => 'gestor-orcamentario', 'child' => 'diaria-view']);
         $this->delete('public.auth_item_child', ['parent' => 'gestor-orcamentario', 'child' => 'diaria-comprovacao']);
+        $this->delete('public.auth_item_child', ['parent' => 'gestor-orcamentario', 'child' => 'diaria-arquivadas']);
         $this->delete('public.auth_item_child', ['parent' => 'gestor-orcamentario', 'child' => 'diaria-alterar-comprovacao']);
 
         $this->delete('public.auth_item_child', ['parent' => 'pre-autorizador', 'child' => 'diaria-index']);

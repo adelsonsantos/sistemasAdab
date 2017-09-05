@@ -2,13 +2,20 @@
 
 namespace app\controllers;
 
+use app\models\DiariaDadosRoteiroMultiplo;
+use app\models\DiariaRoteiro;
+use Behat\Gherkin\Exception\Exception;
 use Yii;
 use app\models\Diarias;
 use app\models\DiariasSearch;
+use yii\base\Model;
+use yii\bootstrap\ActiveForm;
 use yii\filters\AccessControl;
+use yii\helpers\ArrayHelper;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
+use yii\web\Response;
 
 /**
  * DiariasController implements the CRUD actions for Diarias model.
@@ -147,15 +154,73 @@ class DiariasController extends Controller
      */
     public function actionCreate()
     {
-        $model = new Diarias();
+        $model = new Diarias;
+        $modelsRoteiroMultiplo = [new DiariaDadosRoteiroMultiplo];
+        $modelsRoteiro = [[new DiariaRoteiro]];
 
-        if ($model->load(Yii::$app->request->post()) && $model->save()) {
-            return $this->redirect(['view', 'id' => $model->diaria_id]);
-        } else {
-            return $this->render('create', [
-                'model' => $model,
-            ]);
+        if ($model->load(Yii::$app->request->post())) {
+
+            $modelsRoteiroMultiplo = Model::createMultiple(DiariaDadosRoteiroMultiplo::classname());
+            Model::loadMultiple($modelsRoteiroMultiplo, Yii::$app->request->post());
+
+            // validate person and houses models
+            $valid = $model->validate();
+            $valid = Model::validateMultiple($modelsRoteiroMultiplo) && $valid;
+
+            if (isset($_POST['DiariaRoteiro'][0][0])) {
+                foreach ($_POST['DiariaRoteiro'] as $indexMulti => $roteiros) {
+                    foreach ($roteiros as $indexRoteiros => $roteiro) {
+                        $data['DiariaRoteiro'] = $roteiro;
+                        $modelRoteiro = new DiariaRoteiro;
+                        $modelRoteiro->load($data);
+                        $modelsRoteiro[$indexMulti][$indexRoteiros] = $modelRoteiro;
+                        $valid = $modelRoteiro->validate();
+                    }
+                }
+            }
+
+            if ($valid) {
+                $transaction = Yii::$app->db->beginTransaction();
+                try {
+                    if ($flag = $model->save(false)) {
+                        foreach ($modelsRoteiroMultiplo as $indexMulti => $modelRoteiroMultiplo) {
+
+                            if ($flag === false) {
+                                break;
+                            }
+
+                            $modelRoteiroMultiplo->diaria_id = $model->diaria_id;
+
+                            if (!($flag = $modelRoteiroMultiplo->save(false))) {
+                                break;
+                            }
+                            if (isset($modelsRoteiro[$indexMulti]) && is_array($modelsRoteiro[$indexMulti])) {
+                                foreach ($modelsRoteiro[$indexMulti] as $indexRoteiros => $modelRoteiro) {
+                                    $modelRoteiro->diaria_id = $modelRoteiroMultiplo->diaria_id;
+                                    if (!($flag = $modelRoteiro->save(false))) {
+                                        break;
+                                    }
+                                }
+                            }
+                        }
+                    }
+
+                    if ($flag) {
+                        $transaction->commit();
+                        return $this->redirect(['view', 'id' => $model->diaria_id]);
+                    } else {
+                        $transaction->rollBack();
+                    }
+                } catch (Exception $e) {
+                    $transaction->rollBack();
+                }
+            }
         }
+        return $this->render('create', [
+            'model' => $model,
+            'modelsRoteiro' => (empty($modelsRoteiro)) ? [[new DiariaRoteiro]] : $modelsRoteiro,
+            'modelsRoteiroMultiplo' => (empty($modelsRoteiroMultiplo)) ? [new DiariaDadosRoteiroMultiplo] : $modelsRoteiroMultiplo,
+        ]);
     }
 
     /**
@@ -167,14 +232,62 @@ class DiariasController extends Controller
     public function actionUpdate($id)
     {
         $model = $this->findModel($id);
+        $oldmultiploRoteiroIds = DiariaDadosRoteiroMultiplo::find()->select('diaria_id')->where(['diaria_id' => $id])->andWhere(['dados_roteiro_status' => 0])->asArray()->all();
+        $oldmultiploRoteiroIds = ArrayHelper::getColumn($oldmultiploRoteiroIds, 'diaria_id');
+        $modelsRoteiroMultiplo = DiariaDadosRoteiroMultiplo::findAll(['diaria_id' => $oldmultiploRoteiroIds, 'dados_roteiro_status' => 0]);
+        $modelsRoteiroMultiplo = (empty($modelsRoteiroMultiplo)) ? [new DiariaDadosRoteiroMultiplo] : $modelsRoteiroMultiplo;
 
-        if ($model->load(Yii::$app->request->post()) && $model->save()) {
-            return $this->redirect(['view', 'id' => $model->diaria_id]);
-        } else {
-            return $this->render('update', [
-                'model' => $model,
-            ]);
+        $oldRoteirosIds = [];
+        foreach ($modelsRoteiroMultiplo as $i => $modelGrupo) {
+            $oldRoteiro = DiariaRoteiro::findAll(['diaria_id' => $modelGrupo->diaria_id, 'controle_roteiro' => $modelGrupo->controle_roteiro]);
+            $modelsRoteiro[$i] = $oldRoteiro;
+            $oldRoteirosIds = array_merge($oldRoteirosIds, ArrayHelper::getColumn($oldRoteiro, 'diaria_id'));
+            $modelsRoteiro[$i] = (empty($modelsRoteiro[$i])) ? [new DiariaRoteiro] : $modelsRoteiro[$i];
         }
+        if ($model->load(Yii::$app->request->post())) {
+
+
+            $modelsRoteiroMultiplo = Model::createMultiple(DiariaDadosRoteiroMultiplo::classname(), $modelsRoteiroMultiplo);
+            Model::loadMultiple($modelsRoteiroMultiplo, Yii::$app->request->post());
+            $newGrupoIds = ArrayHelper::getColumn($modelsRoteiroMultiplo, 'id');
+
+
+            $newSlotIds = [];
+            $loadsData['_csrf'] =  Yii::$app->request->post()['_csrf'];
+            $i = 0;
+            foreach ($modelsRoteiroMultiplo as $id => $value) {
+                $loadsData['DiariasRoteiro'] =  Yii::$app->request->post()['DiariasRoteiro'][$i];
+                if (!isset($modelsRoteiro[$id])) {
+                    $modelsRoteiro[$id] = [new DiariaRoteiro];
+                }
+                $modelsRoteiro[$id] = Model::createMultiple(DiariaRoteiro::classname(), $modelsRoteiro[$id], $loadsData);
+                Model::loadMultiple($modelsRoteiro[$id], $loadsData);
+                $newSlotIds = array_merge($newSlotIds, ArrayHelper::getColumn($loadsData['DiariasRoteiro'], 'diaria_id'));
+                $i++;
+            }
+
+
+            $delSlotIds = array_diff($oldRoteirosIds, $newSlotIds);
+            if (! empty($delSlotIds)) DiariaRoteiro::deleteAll(['diaria_id' => $delSlotIds]);
+            $delGrupoIds = array_diff($oldmultiploRoteiroIds, $newGrupoIds);
+            if (! empty($delGrupoIds)) DiariaDadosRoteiroMultiplo::deleteAll(['diaria_id' => $delGrupoIds]);
+
+
+            $valid = $model->validate();
+            $valid = $this->validaMissao($modelsRoteiroMultiplo, $modelsRoteiro) && $valid;
+
+            if ($valid) {
+                if ($this->saveMissao($model, $modelsRoteiroMultiplo, $modelsRoteiro)) {
+                    return $this->redirect(['view', 'diaria_id' => $model->diaria_id]);
+                }
+            }
+        }
+
+        return $this->render('update', [
+            'model' => $model,
+            'modelsRoteiroMultiplo' => array_reverse($modelsRoteiroMultiplo),
+            'modelsRoteiro' => array_reverse($modelsRoteiro),
+        ]);
     }
 
     /**

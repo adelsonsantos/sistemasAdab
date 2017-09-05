@@ -49,4 +49,12 @@ class DiariaPreAutorizacao extends \yii\db\ActiveRecord
             'diaria_pre_autorizacao_hr' => 'Diaria Pre Autorizacao Hr',
         ];
     }
+
+    /**
+     * @return \yii\db\ActiveQuery
+     */
+    public function getFuncionario()
+    {
+        return $this->hasOne(DadosUnicoFuncionario::className(), ['funcionario_id' => 'diaria_pre_autorizacao_func']);
+    }
 }

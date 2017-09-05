@@ -65,4 +65,12 @@ class DiariaFinanceiro extends \yii\db\ActiveRecord
             'diaria_execucao_hr' => 'Diaria Execucao Hr',
         ];
     }
+
+    /**
+     * @return \yii\db\ActiveQuery
+     */
+    public function getFuncionario()
+    {
+        return $this->hasOne(DadosUnicoFuncionario::className(), ['funcionario_id' => 'diaria_financeiro_executante']);
+    }
 }

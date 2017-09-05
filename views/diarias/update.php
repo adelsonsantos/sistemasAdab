@@ -1,21 +1,17 @@
 <?php
-
 use yii\helpers\Html;
 
 /* @var $this yii\web\View */
 /* @var $model app\models\Diarias */
-
-$this->title = 'Update Diarias: ' . $model->diaria_id;
-$this->params['breadcrumbs'][] = ['label' => 'Diarias', 'url' => ['index']];
-$this->params['breadcrumbs'][] = ['label' => $model->diaria_id, 'url' => ['view', 'id' => $model->diaria_id]];
-$this->params['breadcrumbs'][] = 'Update';
+/* @var $modelsRoteiroMultiplo app\models\DiariaDadosRoteiroMultiplo */
+/* @var $modelsRoteiro app\models\DiariaRoteiro */
 ?>
 <div class="diarias-update">
 
     <h1><?= Html::encode($this->title) ?></h1>
-
     <?= $this->render('_form', [
         'model' => $model,
+        'modelsRoteiroMultiplo' => $modelsRoteiroMultiplo,
+        'modelsRoteiro' => $modelsRoteiro
     ]) ?>
-
 </div>
