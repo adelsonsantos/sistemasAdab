@@ -5,13 +5,15 @@ use yii\helpers\Html;
 /* @var $model app\models\Diarias */
 /* @var $modelsRoteiroMultiplo app\models\DiariaDadosRoteiroMultiplo */
 /* @var $modelsRoteiro app\models\DiariaRoteiro */
+/* @var $modelMotivo app\models\DiariaMotivo */
 ?>
 <div class="diarias-update">
 
     <h1><?= Html::encode($this->title) ?></h1>
     <?= $this->render('_form', [
-        'model' => $model,
+        'model'                 => $model,
         'modelsRoteiroMultiplo' => $modelsRoteiroMultiplo,
-        'modelsRoteiro' => $modelsRoteiro
+        'modelsRoteiro'         => $modelsRoteiro,
+        'modelMotivo'           => $modelMotivo
     ]) ?>
 </div>

@@ -3,15 +3,15 @@
 /* @var $model app\models\Diarias */
 /* @var $modelsRoteiro app\models\DiariaRoteiro */
 /* @var $modelsRoteiroMultiplo app\models\DiariaDadosRoteiroMultiplo */
-/* @var $form yii\widgets\ActiveForm */
 use app\models\DadosUnicoPessoa;
 use app\models\DiariaCoordenadoria;
+use app\models\DiariaDadosRoteiroMultiplo;
+use app\models\DiariaRoteiro;
 use dosamigos\datepicker\DatePicker;
 use kartik\time\TimePicker;
 use wbraganca\dynamicform\DynamicFormWidget;
 use yii\helpers\ArrayHelper;
 use yii\helpers\Html;
-use yii\widgets\ActiveForm;
 
 ?>
 
@@ -42,9 +42,6 @@ use yii\widgets\ActiveForm;
     </style>
 </head>
 <div class="customer-form">
-
-    <?php $form = ActiveForm::begin(['id' => 'dynamic-form']); ?>
-
     <div class="row">
         <div class="col-sm-2">
             <?= $form->field($model, 'id_coordenadoria')->dropDownList(
@@ -63,60 +60,31 @@ use yii\widgets\ActiveForm;
         </div>
     </div>
 
-    <div class="panel panel-default">
-        <div class="panel-heading"><h4><i class="glyphicon glyphicon-transfer"></i> Roteiro</h4></div>
-        <div class="panel-body">
-            <?php DynamicFormWidget::begin([
-                'widgetContainer' => 'dynamicform_wrapper', // required: only alphanumeric characters plus "_" [A-Za-z0-9_]
-                'widgetBody' => '.container-items', // required: css class selector
-                'widgetItem' => '.item', // required: css class
-                'limit' => 4, // the maximum times, an element can be cloned (default 999)
-                'min' => 1, // 0 or 1 (default 1)
-                'insertButton' => '.add-item', // css class
-                'deleteButton' => '.remove-item', // css class
-                'model' => $modelsRoteiroMultiplo[0],
-                'formId' => 'dynamic-form',
-                'formFields' => [
-                    'diaria_id',
-                    'diaria_dt_saida',
-                    'diaria_qtde',
-                    'diaria_desconto',
-                    'diaria_valor',
-                    'diaria_roteiro_complemento',
-                ],
-            ]); ?>
-
-            <div class="container-items"><!-- widgetContainer -->
-                <?php foreach ($modelsRoteiroMultiplo as $indexMulti => $modelRoteiroMultiplo): ?>
+    <?php
+    if (!is_null($model->qtde_roteiros) && $model->qtde_roteiros == 0) { ?>
+        <div class="panel panel-default">
+            <div class="panel-heading"><h4><i class="glyphicon glyphicon-transfer"></i> Roteiro</h4></div>
+            <div class="panel-body">
+                <div class="container-items"><!-- widgetContainer -->
                     <div class="item panel panel-default"><!-- widgetBody -->
                         <div class="panel-heading">
                             <h3 class="panel-title pull-left">Roteiro </h3>
                             <div class="pull-right">
-                                <button type="button" class="add-item btn  btn-xs"><i class="glyphicon glyphicon"></i>Adicionar
-                                    Roteiro
-                                </button>
-                                <button type="button" class="remove-item btn btn-xs"><i class="glyphicon glyphicon"></i>Remover
-                                    Roteiro
-                                </button>
+
                             </div>
                             <div class="clearfix"></div>
                         </div>
                         <div class="panel-body">
-                            <?php
-                            if (!$modelRoteiroMultiplo->isNewRecord) {
-                                echo Html::activeHiddenInput($modelRoteiroMultiplo, "[{$indexMulti}]diaria_id");
-                            }
-                            ?>
                             <div class="row">
-                                <?= $this->render('form-roteiro', [
+                                <?php $rotas = DiariaRoteiro::findAll(['diaria_id' => $model->diaria_id]); ?>
+                                <?php echo $this->render('form-rota', [
                                     'form' => $form,
-                                    'indexMulti' => $indexMulti,
-                                    'modelsRoteiro' => $modelsRoteiro[$indexMulti],
+                                    'modelsRoteiro' => $rotas,
                                 ]) ?>
                             </div>
 
                             <div class="col">
-                                <?= $form->field($modelRoteiroMultiplo, "[{$indexMulti}]diaria_roteiro_complemento")->textInput(['maxlength' => true]) ?>
+                                <?= $form->field($model, "diaria_roteiro_complemento")->textInput(['maxlength' => true]) ?>
                             </div>
 
                             <div id="w0-container" class="row" style="background-color: #dcdedd">
@@ -132,7 +100,7 @@ use yii\widgets\ActiveForm;
                                     <td>
                                         <div class="row">
                                             <div class="col-sm-3">
-                                                <?= $form->field($modelRoteiroMultiplo, "[{$indexMulti}]diaria_dt_saida")->widget(
+                                                <?= $form->field($model, "diaria_dt_saida")->widget(
                                                     DatePicker::className(), [
                                                     'inline' => false,
                                                     'clientOptions' => [
@@ -142,7 +110,7 @@ use yii\widgets\ActiveForm;
                                                 ]); ?>
                                             </div>
                                             <div class="col-sm-3">
-                                                <?php echo $form->field($modelRoteiroMultiplo, "[{$indexMulti}]diaria_hr_saida")->widget(
+                                                <?php echo $form->field($model, "diaria_hr_saida")->widget(
                                                     TimePicker::classname(), [
                                                     'readonly' => true,
                                                     'pluginOptions' => [
@@ -153,15 +121,15 @@ use yii\widgets\ActiveForm;
                                                 ]); ?>
                                             </div>
                                             <div class="col-sm-3">
-                                                <?php $diaSaida = $modelsRoteiroMultiplo[$indexMulti]['diaria_dt_saida']; ?>
-                                                <?= $form->field($model, 'diaria_id')->textInput(['value' => $model->getDiaDaSemana($diaSaida)]) ?>
+                                                <?php $diaSaida = $model['diaria_dt_saida']; ?>
+                                                <?= $form->field($model, 'diaria_id')->textInput(['value' => $model->getDiaDaSemana($model->converterStringToData($diaSaida)), 'disabled' => true]) ?>
                                             </div>
                                         </div>
                                     </td>
                                     <td>
                                         <div class="row">
                                             <div class="col-sm-3">
-                                                <?= $form->field($modelRoteiroMultiplo, "[{$indexMulti}]diaria_dt_chegada")->widget(
+                                                <?= $form->field($model, "diaria_dt_chegada")->widget(
                                                     DatePicker::className(), [
                                                     'inline' => false,
                                                     'clientOptions' => [
@@ -171,7 +139,7 @@ use yii\widgets\ActiveForm;
                                                 ]); ?>
                                             </div>
                                             <div class="col-sm-3">
-                                                <?php echo $form->field($modelRoteiroMultiplo, "[{$indexMulti}]diaria_hr_chegada")->widget(
+                                                <?php echo $form->field($model, "diaria_hr_chegada")->widget(
                                                     TimePicker::classname(), [
                                                     'readonly' => true,
                                                     'pluginOptions' => [
@@ -183,8 +151,8 @@ use yii\widgets\ActiveForm;
                                             </div>
 
                                             <div class="col-sm-3">
-                                                <?php $diaChegada = $modelsRoteiroMultiplo[$indexMulti]['diaria_dt_chegada']; ?>
-                                                <?= $form->field($model, 'diaria_id')->textInput(['value' => $model->getDiaDaSemana($diaChegada)]) ?>
+                                                <?php $diaChegada = $model['diaria_dt_chegada']; ?>
+                                                <?= $form->field($model, 'diaria_id')->textInput(['value' => $model->getDiaDaSemana($model->converterStringToData($diaChegada)), 'disabled' => true]) ?>
                                             </div>
                                         </div>
                                     </td>
@@ -193,27 +161,52 @@ use yii\widgets\ActiveForm;
                             <br>
                             <div class="row">
                                 <div class="col-sm-2">
-                                    <?= $form->field($modelRoteiroMultiplo, "[{$indexMulti}]diaria_desconto")->checkboxList(['S' => 'Sim']); ?>
+                                    <?= $form->field($model, "diaria_desconto")->checkboxList(['S' => 'Sim']); ?>
                                 </div>
                                 <div class="col-sm-2">
-                                    <?= $form->field($modelRoteiroMultiplo, "[{$indexMulti}]diaria_qtde")->textInput(['maxlength' => true]) ?>
+                                    <?= $form->field($model, "diaria_qtde")->textInput(['maxlength' => true]) ?>
                                 </div>
                                 <div class="col-sm-2">
-                                    <?= $form->field($modelRoteiroMultiplo, "[{$indexMulti}]diaria_valor")->textInput(['maxlength' => true]) ?>
+                                    <?= $form->field($model, "diaria_valor")->textInput(['maxlength' => true]) ?>
                                 </div>
                             </div>
                         </div>
                     </div>
-                <?php endforeach; ?>
+                </div>
             </div>
-            <?php DynamicFormWidget::end(); ?>
+        </div>
+
+        <?php
+        echo $this->render('form-roteiro', [
+            'form' => $form,
+            'model' => $model,
+            'modelsRoteiro' => (empty($modelsRoteiro)) ? [[new DiariaRoteiro]] : $modelsRoteiro,
+        ]);
+
+    } else {
+        echo $this->render('form-roteiro-multiplo', [
+            'model' => $model,
+            'modelsRoteiro' => (empty($modelsRoteiro)) ? [[new DiariaRoteiro]] : $modelsRoteiro,
+            'modelsRoteiroMultiplo' => (empty($modelsRoteiroMultiplo)) ? [new DiariaDadosRoteiroMultiplo] : $modelsRoteiroMultiplo,
+            'form' => $form,
+        ]);
+    }
+    ?>
+</div>
+
+<div class="panel panel-default">
+    <div class="panel-heading">
+        <div class="panel-body">
+            <div class="row">
+                <?= $form->field($model, 'diaria_justificativa_fds')->textarea(['rows' => 2, 'cols' => 60]); ?>
+            </div>
+
+            <div class="row">
+                <?= $form->field($model, 'diaria_justificativa_feriado')->textarea(['rows' => 2, 'cols' => 60]); ?>
+            </div>
         </div>
     </div>
 </div>
 
-<div class="form-group">
-    <?= Html::submitButton($model->isNewRecord ? 'Create' : 'Update', ['class' => 'btn btn-primary']) ?>
-</div>
-<?php ActiveForm::end(); ?>
 
 

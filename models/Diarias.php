@@ -110,7 +110,7 @@ class Diarias extends ActiveRecord
     public function rules()
     {
         return [
-            [['diaria_numero', 'diaria_solicitante', 'diaria_beneficiario', 'diaria_dt_saida', 'diaria_hr_saida', 'diaria_dt_chegada', 'diaria_hr_chegada', 'diaria_valor_ref', 'diaria_desconto', 'diaria_qtde', 'diaria_valor', 'meio_transporte_id', 'diaria_descricao', 'diaria_unidade_custo', 'projeto_cd', 'acao_cd', 'territorio_cd', 'fonte_cd', 'diaria_dt_criacao', 'diaria_hr_criacao'], 'required'],
+            [['diaria_numero', 'diaria_solicitante', 'diaria_beneficiario', 'diaria_dt_saida', 'diaria_hr_saida', 'diaria_dt_chegada', 'diaria_hr_chegada', 'diaria_valor_ref', 'diaria_qtde', 'diaria_valor', 'meio_transporte_id', 'diaria_descricao', 'diaria_unidade_custo', 'projeto_cd', 'acao_cd', 'territorio_cd', 'fonte_cd', 'diaria_dt_criacao', 'diaria_hr_criacao'], 'required'],
             [['diaria_solicitante', 'diaria_beneficiario', 'meio_transporte_id', 'diaria_unidade_custo', 'projeto_cd', 'acao_cd', 'territorio_cd', 'diaria_st', 'diaria_cancelada', 'diaria_devolvida', 'diaria_empenho_pessoa_id', 'diaria_extrato_empenho', 'convenio_id', 'indenizacao', 'ger_id', 'id_coordenadoria', 'diaria_agrupada', 'imp_diaria_agrupa', 'diaria_indvidual', 'etapa_id', 'pedido_empenho', 'qtde_roteiros'], 'integer'],
             [['diaria_dt_criacao', 'diaria_dt_empenho', 'diaria_hr_empenho', 'data_viagem_saida', 'data_viagem_chegada', 'diaria_dt_alteracao'], 'safe'],
             [['diaria_excluida', 'diaria_comprovada'], 'number'],

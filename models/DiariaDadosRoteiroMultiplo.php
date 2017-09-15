@@ -57,7 +57,7 @@ class DiariaDadosRoteiroMultiplo extends \yii\db\ActiveRecord
             'diaria_dt_chegada' => 'Diaria Dt Chegada',
             'diaria_hr_chegada' => 'Diaria Hr Chegada',
             'diaria_qtde' => 'Diaria Qtde',
-            'diaria_desconto' => 'Desconto 50%',
+            'diaria_desconto' => '',
             'diaria_valor' => 'Diaria Valor',
             'diaria_roteiro_complemento' => 'Diaria Roteiro Complemento',
             'controle_roteiro' => 'Controle Roteiro',

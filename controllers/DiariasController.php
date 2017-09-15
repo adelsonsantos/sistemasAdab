@@ -3,7 +3,9 @@
 namespace app\controllers;
 
 use app\models\DiariaDadosRoteiroMultiplo;
+use app\models\DiariaMotivo;
 use app\models\DiariaRoteiro;
+use app\models\Motivo;
 use Behat\Gherkin\Exception\Exception;
 use Yii;
 use app\models\Diarias;
@@ -157,6 +159,23 @@ class DiariasController extends Controller
         $model = new Diarias;
         $modelsRoteiroMultiplo = [new DiariaDadosRoteiroMultiplo];
         $modelsRoteiro = [[new DiariaRoteiro]];
+        $modelMotivo = new DiariaMotivo();
+
+        $model->diaria_desconto = 'N';
+        $model->diaria_numero = '87724';
+        $model->diaria_dt_saida = '30/05/2017';
+        $model->diaria_hr_saida = '07:00';
+        $model->diaria_dt_chegada = '06/07/2017';
+        $model->diaria_hr_chegada = '02:00';
+        $model->diaria_valor_ref = '83,00';
+        $model->diaria_qtde = '4';
+        $model->diaria_valor = '332';
+        $model->diaria_valor = '332';
+        $model->diaria_dt_criacao = '2017-05-19';
+        $model->diaria_hr_criacao = '16:49:07';
+        $modelMotivo->motivo_id = 50;
+        $modelMotivo->sub_motivo_id = 18;
+
 
         if ($model->load(Yii::$app->request->post())) {
 
@@ -168,6 +187,163 @@ class DiariasController extends Controller
             $valid = Model::validateMultiple($modelsRoteiroMultiplo) && $valid;
 
             if (isset($_POST['DiariaRoteiro'][0][0])) {
+                foreach ($_POST['DiariaRoteiro'] as $indexRoteiro => $modelRoteiro) {
+                    foreach ($modelRoteiro as $indexRota => $modelRota) {
+                        $data['DiariaRoteiro'] = $modelRota;
+                        $modelRotta = new DiariaRoteiro();
+                        $modelRotta->load($data);
+                        $modelRotta->diaria_id = $model->diaria_id;
+                        $modelsRoom[$indexRoteiro][$indexRota] = $modelRotta;
+                        $valid = $modelRotta->validate();
+
+                    }
+                }
+            }
+            if ($valid) {
+                $transaction = Yii::$app->db->beginTransaction();
+                try {
+                    if ($flag = $model->save(false)) {
+                        foreach ($modelsRoteiroMultiplo as $indexRoteiro => $modelRoteiro) {
+
+                            if ($flag === false) {
+                                break;
+                            }
+
+                            $modelRoteiro->diaria_id = $model->diaria_id;
+
+                            if (!($flag = $modelRoteiro->save(false))) {
+                                break;
+                            }
+
+                            if (isset($modelsRoom[$indexRoteiro]) && is_array($modelsRoom[$indexRoteiro])) {
+                                foreach ($modelsRoom[$indexRoteiro] as $indexRota => $modelRoom) {
+                                    $modelRoom->diaria_id = $modelRoteiro->diaria_id;
+                                    if (!($flag = $modelRoom->save(false))) {
+                                        break;
+                                    }
+                                }
+                            }
+                        }
+                    }
+
+                    if ($flag) {
+                        $transaction->commit();
+                        return $this->redirect(['view', 'id' => $model->diaria_id]);
+                    } else {
+                        $transaction->rollBack();
+                    }
+                } catch (Exception $e) {
+                    $transaction->rollBack();
+                }
+            }
+        }
+
+
+        /* if ($model->load(Yii::$app->request->post())) {
+
+             $modelsRoteiroMultiplo = Model::createMultiple(DiariaDadosRoteiroMultiplo::classname());
+             Model::loadMultiple($modelsRoteiroMultiplo, Yii::$app->request->post());
+
+             // validate person and houses models
+             $valid = $model->validate();
+             $valid = Model::validateMultiple($modelsRoteiroMultiplo) && $valid;
+
+             if (isset($_POST['DiariaRoteiro'][0])) {
+                 foreach ($_POST['DiariaRoteiro'] as $indexRoteiro => $modelRoteiro) {
+                     foreach ($modelRoteiro as $indexRota => $modelRota) {
+                         $data['DiariaRoteiro'] = $modelRota;
+                         $modelRoom = new DiariaRoteiro;
+                         $modelRoom->load($data);
+                         $modelsRoteiro[$indexRoteiro][$indexRota] = $modelRoom;
+                         $valid = $modelRoom->validate();
+                     }
+                 }
+             }
+
+             if ($valid) {
+                 $transaction = Yii::$app->db->beginTransaction();
+                 try {
+                     if ($flag = $model->save(false)) {
+                         foreach ($modelsRoteiroMultiplo as $indexRoteiro => $modelRoteiro) {
+
+                             if ($flag === false) {
+                                 break;
+                             }
+
+                             $modelRoteiro->person_id = $model->id;
+
+                             if (!($flag = $modelRoteiro->save(false))) {
+                                 break;
+                             }
+
+                             if (isset($modelsRoteiro[$indexRoteiro]) && is_array($modelsRoteiro[$indexRoteiro])) {
+                                 foreach ($modelsRoteiro[$indexRoteiro] as $indexRota => $modelRoom) {
+                                     $modelRoom->house_id = $modelRoteiro->id;
+                                     if (!($flag = $modelRoom->save(false))) {
+                                         break;
+                                     }
+                                 }
+                             }
+                         }
+                     }
+
+                     if ($flag) {
+                         $transaction->commit();
+                         return $this->redirect(['view', 'diaria_id' => $model->diaria_id]);
+                     } else {
+                         $transaction->rollBack();
+                     }
+                 } catch (Exception $e) {
+                     $transaction->rollBack();
+                 }
+             }
+         }*/
+
+
+     /*   if ($model->load(Yii::$app->request->post())) {
+            $modelsRoteiroMultiplo = Model::createMultiple(DiariaDadosRoteiroMultiplo::classname());
+            Model::loadMultiple($modelsRoteiroMultiplo, Yii::$app->request->post());
+
+            $modelsRota = Model::createMultiple(DiariaRoteiro::classname());
+            Model::loadMultiple($modelsRota, Yii::$app->request->post());
+
+            $valid = $model->validate();
+
+            if($valid){
+                $model->save();
+                $model->diaria_id;
+                    $modelMotivo->diaria_id = $model->diaria_id;
+                    //$modelMotivo->save();
+            }
+
+            d($modelsRoteiroMultiplo);
+            foreach ($modelsRoteiroMultiplo as $indexM => $multi){
+                $multi->diaria_id = $model->diaria_id;
+               // $multi->save();
+
+                foreach ($modelsRota as $indexR => $rota){
+                    $rota->diaria_id = $model->diaria_id;
+                    //$rota->save();
+                }
+            }
+
+
+
+
+
+
+
+
+
+            return $this->redirect(['view', 'id' => $model->diaria_id]);*/
+            /*if($valid){
+                $model->save();
+                $model->diaria_id;
+            }
+
+            $valid = Model::validateMultiple($modelsRoteiroMultiplo) && $valid;
+            d($modelsRoteiroMultiplo);
+/*            if (isset($_POST['DiariaRoteiro'][0][0])) {
                 foreach ($_POST['DiariaRoteiro'] as $indexMulti => $roteiros) {
                     foreach ($roteiros as $indexRoteiros => $roteiro) {
                         $data['DiariaRoteiro'] = $roteiro;
@@ -177,9 +353,10 @@ class DiariasController extends Controller
                         $valid = $modelRoteiro->validate();
                     }
                 }
-            }
+            }*/
 
-            if ($valid) {
+           /* if ($valid) {
+                d($valid);
                 $transaction = Yii::$app->db->beginTransaction();
                 try {
                     if ($flag = $model->save(false)) {
@@ -207,6 +384,9 @@ class DiariasController extends Controller
 
                     if ($flag) {
                         $transaction->commit();
+                        if ($modelMotivo->load(Yii::$app->request->post()) && $modelMotivo->save()) {
+                            $modelMotivo->diaria_id = $model->diaria_id;
+                        }
                         return $this->redirect(['view', 'id' => $model->diaria_id]);
                     } else {
                         $transaction->rollBack();
@@ -214,12 +394,13 @@ class DiariasController extends Controller
                 } catch (Exception $e) {
                     $transaction->rollBack();
                 }
-            }
-        }
+            }*/
+
         return $this->render('create', [
-            'model' => $model,
-            'modelsRoteiro' => (empty($modelsRoteiro)) ? [[new DiariaRoteiro]] : $modelsRoteiro,
+            'model'                 => $model,
             'modelsRoteiroMultiplo' => (empty($modelsRoteiroMultiplo)) ? [new DiariaDadosRoteiroMultiplo] : $modelsRoteiroMultiplo,
+            'modelsRoteiro'         => (empty($modelsRoteiro)) ? [[new DiariaRoteiro]] : $modelsRoteiro,
+            'modelMotivo'           => $modelMotivo
         ]);
     }
 
@@ -236,6 +417,7 @@ class DiariasController extends Controller
         $oldmultiploRoteiroIds = ArrayHelper::getColumn($oldmultiploRoteiroIds, 'diaria_id');
         $modelsRoteiroMultiplo = DiariaDadosRoteiroMultiplo::findAll(['diaria_id' => $oldmultiploRoteiroIds, 'dados_roteiro_status' => 0]);
         $modelsRoteiroMultiplo = (empty($modelsRoteiroMultiplo)) ? [new DiariaDadosRoteiroMultiplo] : $modelsRoteiroMultiplo;
+        $modelMotivo = DiariaMotivo::findOne($model->diaria_id);
 
         $oldRoteirosIds = [];
         foreach ($modelsRoteiroMultiplo as $i => $modelGrupo) {
@@ -246,11 +428,9 @@ class DiariasController extends Controller
         }
         if ($model->load(Yii::$app->request->post())) {
 
-
             $modelsRoteiroMultiplo = Model::createMultiple(DiariaDadosRoteiroMultiplo::classname(), $modelsRoteiroMultiplo);
             Model::loadMultiple($modelsRoteiroMultiplo, Yii::$app->request->post());
-            $newGrupoIds = ArrayHelper::getColumn($modelsRoteiroMultiplo, 'id');
-
+            $newGrupoIds = ArrayHelper::getColumn($modelsRoteiroMultiplo, 'diaria_id');
 
             $newSlotIds = [];
             $loadsData['_csrf'] =  Yii::$app->request->post()['_csrf'];
@@ -266,17 +446,18 @@ class DiariasController extends Controller
                 $i++;
             }
 
-
             $delSlotIds = array_diff($oldRoteirosIds, $newSlotIds);
             if (! empty($delSlotIds)) DiariaRoteiro::deleteAll(['diaria_id' => $delSlotIds]);
             $delGrupoIds = array_diff($oldmultiploRoteiroIds, $newGrupoIds);
             if (! empty($delGrupoIds)) DiariaDadosRoteiroMultiplo::deleteAll(['diaria_id' => $delGrupoIds]);
 
-
             $valid = $model->validate();
             $valid = $this->validaMissao($modelsRoteiroMultiplo, $modelsRoteiro) && $valid;
 
             if ($valid) {
+                if ($modelMotivo->load(Yii::$app->request->post()) && $modelMotivo->save()) {
+                    $modelMotivo->diaria_id = $model->diaria_id;
+                }
                 if ($this->saveMissao($model, $modelsRoteiroMultiplo, $modelsRoteiro)) {
                     return $this->redirect(['view', 'diaria_id' => $model->diaria_id]);
                 }
@@ -287,6 +468,7 @@ class DiariasController extends Controller
             'model' => $model,
             'modelsRoteiroMultiplo' => array_reverse($modelsRoteiroMultiplo),
             'modelsRoteiro' => array_reverse($modelsRoteiro),
+            'modelMotivo'           => $modelMotivo
         ]);
     }
 

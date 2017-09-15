@@ -3,80 +3,137 @@
 /* @var $model app\models\Diarias */
 /* @var $modelsRoteiro app\models\DiariaRoteiro */
 /* @var $modelsRoteiroMultiplo app\models\DiariaDadosRoteiroMultiplo */
-/* @var $form yii\widgets\ActiveForm */
-use app\models\DadosUnicoMunicipio;
-use yii\helpers\ArrayHelper;
-use yii\helpers\Html;
-use wbraganca\dynamicform\DynamicFormWidget;
-
+use app\models\DiariaRoteiro;
+use dosamigos\datepicker\DatePicker;
+use kartik\time\TimePicker;
 ?>
+<div class="panel panel-default">
+    <div class="panel-heading"><h4><i class="glyphicon glyphicon-transfer"></i> Roteiro</h4></div>
+    <div class="panel-body">
+        <div class="container-items"><!-- widgetContainer -->
+            <div class="item panel panel-default"><!-- widgetBody -->
+                <div class="panel-heading">
+                    <h3 class="panel-title pull-left">Roteiro </h3>
+                    <div class="pull-right">
 
-<?php DynamicFormWidget::begin([
-    'widgetContainer' => 'dynamicform_inner',
-    'widgetBody' => '.container-rooms',
-    'widgetItem' => '.room-item',
-    'limit' => 4,
-    'min' => 1,
-    'insertButton' => '.add-room',
-    'deleteButton' => '.remove-room',
-    'model' => $modelsRoteiro[0],
-    'formId' => 'dynamic-form',
-    'formFields' => [
-        'roteiro_id'
-    ],
-]); ?>
-
-<table class="table table-bordered">
-    <thead>
-    <tr>
-        <th>Rota</th>
-        <th class="text-center">
-            <button type="button" class="add-room btn btn-success btn-xs"><span class="glyphicon glyphicon-plus"></span>
-            </button>
-        </th>
-    </tr>
-    </thead>
-    <tbody class="container-rooms">
-
-    <?php foreach ($modelsRoteiro as $indexRoteiro => $modelRoteiro): ?>
-        <tr class="room-item">
-            <td class="vcenter">
-                <?php
-                // necessary for update action.
-                if (!$modelRoteiro->isNewRecord) {
-                    echo Html::activeHiddenInput($modelRoteiro, "[{$indexRoteiro}]diaria_id");
-                }
-                ?>
-
-                <div class="row">
-                    <div class="col-sm-1">
-                        <?= $form->field($modelRoteiro, "[[{$indexRoteiro}]diaria_id")->dropDownList(
-                            ArrayHelper::map(DadosUnicoMunicipio::find()->asArray()->where(['estado_uf' => 'BA'])->orderBy('estado_uf')->all(), 'estado_uf', 'estado_uf'), ["disabled" => "disabled", 'onkeyup' => 'totales($(this))'])->label('De:'); ?>
                     </div>
-                    <div class="col-sm-4" style="margin-top: 4px">
-                        <?= $form->field($modelRoteiro, "[{$indexRoteiro}]roteiro_origem")->dropDownList(
-                            ArrayHelper::map(DadosUnicoMunicipio::find()->asArray()->where(['estado_uf' => 'BA'])->orderBy('municipio_ds')->all(), 'municipio_cd', 'municipio_ds'), ['options' => [$modelRoteiro['roteiro_origem'] => ['selected' => true]]]); ?>
-                    </div>
-                    <div class="col-sm-1" style="margin-left: 3%">
+                    <div class="clearfix"></div>
+                </div>
+                <div class="panel-body">
+                    <div class="row">
+                        <?php $rotas = DiariaRoteiro::findAll(['diaria_id' => $model->diaria_id]); ?>
+                        <?php echo $this->render('form-rota', [
+                            'form' => $form,
+                            'modelsRoteiro' => $rotas,
+                        ]) ?>
                     </div>
 
-                    <div class="col-sm-1">
-                        <?= $form->field($modelRoteiro, "[{$indexRoteiro}]diaria_id")->dropDownList(
-                            ArrayHelper::map(DadosUnicoMunicipio::find()->asArray()->where(['estado_uf' => 'BA'])->orderBy('estado_uf')->all(), 'estado_uf', 'estado_uf'), ["disabled" => "disabled"])->label('Para:'); ?>
+                    <div class="col">
+                        <?= $form->field($model, "diaria_roteiro_complemento")->textInput(['maxlength' => true]) ?>
                     </div>
-                    <div class="col-sm-4" style="margin-top: 4px">
-                        <?= $form->field($modelRoteiro, "[{$indexRoteiro}]roteiro_destino")->dropDownList(
-                            ArrayHelper::map(DadosUnicoMunicipio::find()->asArray()->where(['estado_uf' => 'BA'])->orderBy('municipio_ds')->all(), 'municipio_cd', 'municipio_ds'), ['onChange' => "pegarResultado(this)", 'options' => [$modelRoteiro['roteiro_destino'] => ['selected' => true]]]); ?>
+
+                    <div id="w0-container" class="row" style="background-color: #dcdedd">
+                        <p style="margin-left: 1%; margin-top: 4px"><strong>Dados da Solicitação</strong></p>
                     </div>
-                </div><!-- .row -->
-            </td>
-            <td class="text-center vcenter" style="width: 90px;">
-                <button type="button" style=" margin-top: 50%" class="remove-room btn btn-danger btn-xs"><span
-                            class="glyphicon glyphicon-minus"></span></button>
-            </td>
-        </tr>
-    <?php endforeach; ?>
-    </tbody>
-</table>
-<?php DynamicFormWidget::end(); ?>
+
+                    <table class='diaria' style="margin-top: 2px">
+                        <tr class='bordaMenu'>
+                            <th><p style="margin-left: 2%">Data Partida</p></th>
+                            <th><p style="margin-left: 1%">Data Chegada</p></th>
+                        </tr>
+                        <tr>
+                            <td>
+                                <div class="row">
+                                    <div class="col-sm-3">
+                                        <?= $form->field($model, "diaria_dt_saida")->widget(
+                                            DatePicker::className(), [
+                                            'inline' => false,
+                                            'clientOptions' => [
+                                                'autoclose' => true,
+                                                'format' => 'dd/mm/yyyy'
+                                            ]
+                                        ]); ?>
+                                    </div>
+                                    <div class="col-sm-3">
+                                        <?php echo $form->field($model, "diaria_hr_saida")->widget(
+                                            TimePicker::classname(), [
+                                            'readonly' => true,
+                                            'pluginOptions' => [
+                                                'minuteStep' => 5,
+                                                'showMeridian' => false,
+                                                'defaultTime' => date('H:i'),
+                                            ]
+                                        ]); ?>
+                                    </div>
+                                    <div class="col-sm-3">
+                                        <?php $diaSaida = $model['diaria_dt_saida']; ?>
+                                        <?= $form->field($model, 'diaria_id')->textInput(['value' => $model->getDiaDaSemana($model->converterStringToData($diaSaida)), 'disabled' => true]) ?>
+                                    </div>
+                                </div>
+                            </td>
+                            <td>
+                                <div class="row">
+                                    <div class="col-sm-3">
+                                        <?= $form->field($model, "diaria_dt_chegada")->widget(
+                                            DatePicker::className(), [
+                                            'inline' => false,
+                                            'clientOptions' => [
+                                                'autoclose' => true,
+                                                'format' => 'dd/mm/yyyy'
+                                            ]
+                                        ]); ?>
+                                    </div>
+                                    <div class="col-sm-3">
+                                        <?php echo $form->field($model, "diaria_hr_chegada")->widget(
+                                            TimePicker::classname(), [
+                                            'readonly' => true,
+                                            'pluginOptions' => [
+                                                'minuteStep' => 5,
+                                                'showMeridian' => false,
+                                                'defaultTime' => date('H:i'),
+                                            ]
+                                        ]); ?>
+                                    </div>
+
+                                    <div class="col-sm-3">
+                                        <?php $diaChegada = $model['diaria_dt_chegada']; ?>
+                                        <?= $form->field($model, 'diaria_id')->textInput(['value' => $model->getDiaDaSemana($model->converterStringToData($diaChegada)), 'disabled' => true]) ?>
+                                    </div>
+
+                                </div>
+                            </td>
+                        </tr>
+                    </table>
+                    <br>
+                    <div class="row">
+                        <div class="col-sm-2">
+                            <?= $form->field($model, "diaria_desconto")->checkboxList(['S' => 'Sim']); ?>
+                        </div>
+                        <div class="col-sm-2">
+                            <?= $form->field($model, "diaria_qtde")->textInput(['maxlength' => true]) ?>
+                        </div>
+                        <div class="col-sm-2">
+                            <?= $form->field($model, "diaria_valor")->textInput(['maxlength' => true]) ?>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
