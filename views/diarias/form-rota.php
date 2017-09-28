@@ -9,37 +9,36 @@ use yii\helpers\ArrayHelper;
 use yii\helpers\Html;
 use wbraganca\dynamicform\DynamicFormWidget;
 
-
-
-
-
 ?>
-
 <?php DynamicFormWidget::begin([
-    'widgetContainer' => 'dynamicform_inner',
+    'widgetContainer' => 'dynamicform_rota',
     'widgetBody' => '.container-rooms',
     'widgetItem' => '.room-item',
     'limit' => 7,
-    'min' => 1,
+    'min' => 2,
     'insertButton' => '.add-rota',
-    'deleteButton' => '.remove-rota',
+    'deleteButton' => '.removee',
     'model' => $modelsRoteiro[0],
     'formId' => 'dynamic-form',
     'formFields' => [
         'dados_roteiro_id',
         'roteiro_origem',
         'roteiro_destino',
+        'uf_roteiro_origem',
+        'uf_roteiro_destino',
         'controle_roteiro',
         'roteiro_id',
         'diaria_id'
     ],
 ]); ?>
+
     <table class="table table-bordered">
         <thead>
         <tr>
-            <th>Description</th>
+            <th>Rota</th>
             <th class="text-center">
-                <button type="button" class="add-rota btn btn-success btn-xs"><span class="glyphicon glyphicon-plus"></span></button>
+                <button type="button" id="rota" class="add-rota btn btn-success btn-xs" onclick="getThis(this);"><span class="glyphicon glyphicon-plus"></span></button>
+
             </th>
         </tr>
         </thead>
@@ -47,15 +46,17 @@ use wbraganca\dynamicform\DynamicFormWidget;
         <?php foreach ($modelsRoteiro as $indexRota => $modelRota): ?>
             <tr class="room-item">
                 <td class="vcenter">
+
                     <?php
                     if (! $modelRota->isNewRecord) {
                         echo Html::activeHiddenInput($modelRota, "[{$indexRoteiro}][{$indexRota}]dados_roteiro_id");
                     }
                     ?>
+
                     <div class="row">
                         <div class="col-lg-1" style="width: 60px; margin-top: 5px;"><strong>Origem:</strong></div>
                         <div class="col-lg-1" style="width: 100px">
-                            <?= $form->field($modelRota, "[{$indexRoteiro}][{$indexRota}]dados_roteiro_id")->label(false)->dropDownList([1 => 'BA'],['disabled' => true]); ?>
+                            <?= $form->field($modelRota, "[{$indexRoteiro}][{$indexRota}]uf_roteiro_origem")->label(false)->dropDownList([]); ?>
                         </div>
                         <div class="col-lg-4">
 
@@ -74,7 +75,7 @@ use wbraganca\dynamicform\DynamicFormWidget;
                     </div>
                 </td>
                 <td class="text-center vcenter" style="width: 90px;">
-                    <button type="button" class="remove-rota btn btn-danger btn-xs"><span class="glyphicon glyphicon-minus"></span></button>
+                    <button type="button" class="removee btn btn-danger btn-xs"><span class="glyphicon glyphicon-minus"></span></button>
                 </td>
             </tr>
         <?php endforeach; ?>

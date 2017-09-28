@@ -2,8 +2,6 @@
 
 namespace app\models;
 
-use Yii;
-
 /**
  * This is the model class for table "diaria.roteiro".
  *
@@ -13,6 +11,8 @@ use Yii;
  * @property integer $roteiro_destino
  * @property integer $controle_roteiro
  * @property integer $dados_roteiro_id
+ * @property string  $uf_roteiro_origem
+ * @property string  $uf_roteiro_destino
  *
  * @property Diarias $diaria
  */
@@ -34,10 +34,18 @@ class DiariaRoteiro extends \yii\db\ActiveRecord
         return [
             [['diaria_id', 'roteiro_origem', 'roteiro_destino'], 'required'],
             [['diaria_id', 'roteiro_origem', 'roteiro_destino', 'controle_roteiro', 'dados_roteiro_id'], 'integer'],
+            [['uf_roteiro_destino', 'uf_roteiro_destino'], 'string', 'max' => 2],
+            [['roteiro_origem', 'comparaRoteiro'], 'safe'],
             [['diaria_id'], 'exist', 'skipOnError' => true, 'targetClass' => Diarias::className(), 'targetAttribute' => ['diaria_id' => 'diaria_id']],
         ];
     }
 
+    public function comparaRoteiro($attribute)
+    {
+        if ($attribute == $this->roteiro_destino) {
+            $this->addError($attribute,'ORIGEM e DESTINO são iguais.');
+        }
+    }
     /**
      * @inheritdoc
      */
@@ -48,6 +56,8 @@ class DiariaRoteiro extends \yii\db\ActiveRecord
             'diaria_id' => 'Diaria ID',
             'roteiro_origem' => '',
             'roteiro_destino' => '',
+            'uf_roteiro_origem' => '',
+            'uf_roteiro_destino' => '',
             'controle_roteiro' => 'Controle Roteiro',
             'dados_roteiro_id' => 'Dados Roteiro ID',
         ];

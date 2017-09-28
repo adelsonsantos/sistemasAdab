@@ -7,52 +7,95 @@ use dosamigos\datepicker\DatePicker;
 use kartik\time\TimePicker;
 use wbraganca\dynamicform\DynamicFormWidget;
 use yii\helpers\Html;
+use kartik\dialog\DialogAsset;
+
+
+DialogAsset::register($this);
+//$this->registerJs("\$('.add-rota').on('click', function(){BootstrapDialog.alert('I want banana!');});");
+
+$js = '
+jQuery(".dynamicform_roteiro_multiplo").on("afterInsert", function(e, item) {
+    jQuery(".dynamicform_roteiro_multiplo ").each(function(index) {  
+                 
+        if (typeof(document.getElementById("roteiro6")) !== "undefined" && document.getElementById("roteiro6") !== null){
+          document.getElementById("roteiro6").style.display = "none";
+          document.getElementById("rmve6").style.display = "block";
+        }                    
+    });
+      
+     ordenaRota();
+      
+    jQuery(".dynamicform_roteiro_multiplo .panel-title-roteiro").each(function(index) {
+        jQuery(this).html("Roteiro: " + (index + 1))
+    });        
+});
+
+jQuery(".dynamicform_rota").on("beforeInsert", function(e, item) {   
+       
+});
+
+$(".dynamicform_roteiro_multiplo").on("beforeInsert", function(e, item) {
+    
+});
+
+jQuery(".dynamicform_rota").on("beforeDelete", function(e) {
+    console.log(e);
+});
+
+jQuery(".dynamicform_rota").on("limitReached", function(e, item) {
+        alert("Limite de Rota atingido");
+});
+
+    
+';
+
+$this->registerJs($js);
+
 ?>
 
-
 <div class="customer-form">
-
     <div class="padding-v-md">
         <div class="line line-dashed"></div>
     </div>
     <?php DynamicFormWidget::begin([
-        'widgetContainer' => 'dynamicform_wrapper', // required: only alphanumeric characters plus "_" [A-Za-z0-9_]
+        'widgetContainer' => 'dynamicform_roteiro_multiplo', // required: only alphanumeric characters plus "_" [A-Za-z0-9_]
         'widgetBody' => '.container-items', // required: css class selector
         'widgetItem' => '.roteiro-item', // required: css class
-        'limit' => 4, // the maximum times, an element can be cloned (default 999)
+        'limit' => 7, // the maximum times, an element can be cloned (default 999)
         'min' => 1, // 0 or 1 (default 1)
         'insertButton' => '.add-roteiro', // css class
         'deleteButton' => '.remove-roteiro', // css class
         'model' => $modelsRoteiroMultiplo[0],
         'formId' => 'dynamic-form',
         'formFields' => [
-                'diaria_dt_saida',
-                'diaria_hr_saida',
-                'diaria_dt_chegada',
-                'diaria_hr_chegada',
-                'diaria_qtde',
-                'diaria_desconto',
-                'diaria_valor',
-                'diaria_roteiro_complemento',
-                'controle_roteiro',
-                'dados_roteiro_status'
+            'diaria_dt_saida',
+            'diaria_hr_saida',
+            'diaria_dt_chegada',
+            'diaria_hr_chegada',
+            'diaria_qtde',
+            'diaria_desconto',
+            'diaria_valor',
+            'diaria_roteiro_complemento',
+            'controle_roteiro',
+            'dados_roteiro_status'
         ],
-    ]);  ?>
+    ]); ?>
     <div class="panel panel-default">
         <div class="panel-heading">
             <i class="glyphicon glyphicon-transfer"></i> Roteiros
-            <button type="button" class="pull-right add-house btn btn-success btn-xs" id="adicionar"><i class="fa fa-plus"></i> Add Roteiro</button>
             <div class="clearfix"></div>
         </div>
         <div class="panel-body container-items"><!-- widgetContainer -->
             <?php foreach ($modelsRoteiroMultiplo as $indexRoteiro => $modelRoteiro): ?>
-            <div class="roteiro-item">
+            <div class="roteiro-item" id="item-roteiro<?=$indexRoteiro?>">
                 <div class="item panel panel-default"><!-- widgetBody -->
                     <div class="panel-heading">
-                        <h3 class="panel-title pull-left">Roteiro </h3>
+                        <h3 class="panel-title pull-left">
+                            <span class="panel-title-roteiro">Roteiro: <?= ($indexRoteiro + 1) ?></span>
+                        </h3>
                         <div class="pull-right">
-                            <button type="button" class="add-roteiro btn  btn-xs"><i class="glyphicon glyphicon" onchange="<?php /*$contador++; */?>"></i>Adicionar Roteiro</button>
-                            <button type="button" class="remove-roteiro btn btn-xs"><i class="glyphicon glyphicon"></i>Remover Roteiro</button>
+                            <button type="button" id="roteiro" class="add-roteiro btn  btn-xs" onclick="verificaId(<?=$indexRoteiro?>)"><i class="glyphicon glyphicon"></i>Adicionar Roteiro</button>
+                            <button type="button" id="rmve" class="remove-roteiro btn btn-xs" style="display: none"><i class="glyphicon glyphicon"></i>Remover Roteiro</button>
                         </div>
                         <div class="clearfix"></div>
                     </div>
@@ -63,12 +106,11 @@ use yii\helpers\Html;
                         }
                         ?>
                         <div class="row">
-                            <?php var_dump($modelsRoteiro); ?>
-                            <?=$this->render('form-rota', [
+                            <?= $this->render('form-rota', [
                                 'form' => $form,
                                 'indexRoteiro' => $indexRoteiro,
                                 'modelsRoteiro' => $modelsRoteiro[$indexRoteiro],
-                            ])?>
+                            ]) ?>
                         </div>
 
                         <?= $form->field($modelRoteiro, "[{$indexRoteiro}]diaria_roteiro_complemento")->textInput(['maxlength' => true]) ?>
@@ -139,7 +181,7 @@ use yii\helpers\Html;
                         </div>
 
                         <div class="row">
-                            <div class="col-lg-1" >
+                            <div class="col-lg-1">
                                 <?= $form->field($modelRoteiro, "[{$indexRoteiro}]diaria_desconto")->checkbox([false => 'N', true => 'S'])->label('Redução 50%', ['style' => 'white-space: nowrap']); ?>
                             </div>
 
@@ -160,9 +202,10 @@ use yii\helpers\Html;
                         </div>
                     </div>
                 </div>
-            <?php endforeach; ?>
+                <?php endforeach; ?>
+            </div>
         </div>
-    </div>
-    <?php DynamicFormWidget::end(); ?>
+        <?php DynamicFormWidget::end(); ?>
 
-    </div></div>
+    </div>
+</div>

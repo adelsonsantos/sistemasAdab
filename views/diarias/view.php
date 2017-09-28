@@ -54,7 +54,6 @@
     /* @var $model app\models\Diarias */
     /* @var $modelSearch app\models\DiariasSearch */
 
-
     ?>
     <div style="position: absolute">
         <?= Yii::$app->controller->renderPartial('menu'); ?>

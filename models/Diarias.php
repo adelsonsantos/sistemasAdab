@@ -2,7 +2,6 @@
 
 namespace app\models;
 
-use Yii;
 use yii\db\ActiveRecord;
 use yii\helpers\ArrayHelper;
 
@@ -61,6 +60,8 @@ use yii\helpers\ArrayHelper;
  * @property integer $etapa_id
  * @property integer $pedido_empenho
  * @property integer $qtde_roteiros
+ * @property integer AUTORIZACAO
+ * @property integer PRE_AUTORIZAR
  *
  * @property DadosUnicoEstOrganizacional $diariaUnidadeCusto
  * @property DadosUnicoPessoa $diariaSolicitante
@@ -86,15 +87,15 @@ use yii\helpers\ArrayHelper;
 
 class Diarias extends ActiveRecord
 {
-    const AUTORIZACAO = 0;
-    const APROVACAO = 1;
-    const EMPENHO = 2;
-    const EXECUCAO = 3;
-    const COMPROVACAO = 4;
-    const APROVACAO_DE_COMPROVACAO = 5;
-    const AGUARDANDO_ARQUIVAMENTO = 6;
-    const ARQUIVADA = 7;
-    const PRE_AUTORIZAR = 100;
+    const AUTORIZACAO               = 0;
+    const APROVACAO                 = 1;
+    const EMPENHO                   = 2;
+    const EXECUCAO                  = 3;
+    const COMPROVACAO               = 4;
+    const APROVACAO_DE_COMPROVACAO  = 5;
+    const AGUARDANDO_ARQUIVAMENTO   = 6;
+    const ARQUIVADA                 = 7;
+    const PRE_AUTORIZAR             = 100;
 
     /**
      * @inheritdoc
@@ -373,7 +374,9 @@ class Diarias extends ActiveRecord
         if(!is_null($data)){
         $diasemana = array('Domingo', 'Segunda-Feira', 'Terça-Feira', 'Quarta-Feira', 'Quinta-Feira', 'Sexta-Feira', 'Sábado');
         $dia = strftime("%w",strtotime($data));
-        return $diasemana[$dia];
+            if (!empty($diasemana)) {
+                return $diasemana[$dia];
+            }
         }
     }
 

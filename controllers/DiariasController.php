@@ -2,28 +2,26 @@
 
 namespace app\controllers;
 
+use app\models\DadosUnicoFuncionario;
 use app\models\DiariaDadosRoteiroMultiplo;
 use app\models\DiariaMotivo;
 use app\models\DiariaRoteiro;
-use app\models\Motivo;
+use app\models\DiariaPreAutorizacao;
 use Behat\Gherkin\Exception\Exception;
 use Yii;
 use app\models\Diarias;
 use app\models\DiariasSearch;
 use yii\base\Model;
-use yii\bootstrap\ActiveForm;
-use yii\filters\AccessControl;
 use yii\helpers\ArrayHelper;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
-use yii\filters\VerbFilter;
-use yii\web\Response;
 
 /**
  * DiariasController implements the CRUD actions for Diarias model.
  */
 class DiariasController extends Controller
 {
+    public $destino;
     /**
      * @inheritdoc
      */
@@ -122,19 +120,47 @@ class DiariasController extends Controller
             ]);
     }
 
-    public function actionRelatorioDiariasPorServidor()
-    {
-       // if(Yii::$app->user->can('diaria-index')) {
-            $searchModel = new DiariasSearch();
-            $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
 
-            return $this->render('relatorio-diarias-por-servidor', [
-                'searchModel' => $searchModel,
-                'dataProvider' => $dataProvider,
-            ]);
-     /*   }else{
-            echo "Sem permissão";
-        }*/
+
+    /**
+     * Lists all Diarias models.
+     * @return mixed
+     */
+    public function actionPreAutorizar()
+    {
+        $searchModel = new DiariasSearch();
+        $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
+        $dataProvider->query->andWhere(['diaria_st'=>100]);
+        return $this->render('pre-autorizar', [
+            'searchModel' => $searchModel,
+            'dataProvider' => $dataProvider,
+        ]);
+    }
+
+    /**
+     * @param $id
+     * @return string
+     */
+    public function actionPreAutorizarAceitar($id)
+    {
+        $modelPreAutorizacao = new DiariaPreAutorizacao();
+        $model = $this->findModel($id);
+            if ($modelPreAutorizacao->load(Yii::$app->request->post())){
+                $modelPreAutorizacao->diaria_id = $model->diaria_id;
+                $modelPreAutorizacao->diaria_pre_autorizacao_func = implode(ArrayHelper::map(DadosUnicoFuncionario::find()->where(['pessoa_id' => Yii::$app->user->getId()])->all(), 'funcionario_id', 'funcionario_id'));
+                $modelPreAutorizacao->diaria_pre_autorizacao_func_exec = 1;
+                $modelPreAutorizacao->diaria_pre_autorizacao_dt = date('Y-m-d');
+                $modelPreAutorizacao->diaria_pre_autorizacao_hr = date('H:i:s');
+                $model->diaria_st = 0; //Autorização
+                $modelPreAutorizacao->save();
+                $model->save();
+                return $this->redirect(['pre-autorizar']);
+            }
+
+        return $this->render('pre-autorizar-aceitar', [
+            'model'               => $model,
+            'modelPreAutorizacao' => $modelPreAutorizacao
+        ]);
     }
 
     /**
@@ -147,6 +173,25 @@ class DiariasController extends Controller
         return $this->render('view', [
             'model' => $this->findModel($id),
         ]);
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getRotaDestino()
+    {
+        return $this->destino;
+    }
+
+    public function setRotaDestino($destino)
+    {
+        $this->destino = $destino;
+        return $this->destino;
+    }
+
+    public function actionGetRota($destino)
+    {
+      return $this->setRotaDestino($destino);
     }
 
     /**
@@ -177,6 +222,7 @@ class DiariasController extends Controller
         $modelMotivo->sub_motivo_id = 18;
 
 
+
         if ($model->load(Yii::$app->request->post())) {
 
             $modelsRoteiroMultiplo = Model::createMultiple(DiariaDadosRoteiroMultiplo::classname());
@@ -188,10 +234,12 @@ class DiariasController extends Controller
 
             if (isset($_POST['DiariaRoteiro'][0][0])) {
                 foreach ($_POST['DiariaRoteiro'] as $indexRoteiro => $modelRoteiro) {
+
                     foreach ($modelRoteiro as $indexRota => $modelRota) {
                         $data['DiariaRoteiro'] = $modelRota;
                         $modelRotta = new DiariaRoteiro();
                         $modelRotta->load($data);
+                        d($modelRotta);
                         $modelRotta->diaria_id = $model->diaria_id;
                         $modelsRoom[$indexRoteiro][$indexRota] = $modelRotta;
                         $valid = $modelRotta->validate();
