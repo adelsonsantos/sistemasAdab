@@ -6,14 +6,7 @@ use yii\widgets\ActiveForm;
 echo Yii::$app->controller->renderPartial('view', ['model' => $model, 'id' => $model->diaria_id]);
 
 /* @var $form yii\widgets\ActiveForm */
-$form = ActiveForm::begin();
-
-
 ?>
-
-
-
-<?php ActiveForm::end(); ?>
 
 <div class="portal-computador-form">
 
@@ -46,12 +39,7 @@ $form = ActiveForm::begin();
                 ]); ?>
             </th>
             <th class="borda" style="text-align: center; width: 33%">
-                <?= Html::a('<span class="glyphicon glyphicon-save" style="color: white; font-size: 1.2em;"> Devolver </span>', ['pre-autorizar-aceitar', 'id' => $model->diaria_id], [
-                    'class' => 'btn btn-danger',
-                    'data' => [
-                        'method' => 'post',
-                    ]
-                ]); ?>
+                <?= Html::a('<span class="glyphicon glyphicon-save" style="color: white; font-size: 1.2em;"> Devolver </span>', ['pre-autorizar-devolver', 'id' => $model->diaria_id], ['class' => 'btn btn-danger']); ?>
             </th>
             <th class="borda" style="text-align: center; width: 33%">
                 <?= Html::a( 'Voltar', Yii::$app->request->referrer, [ 'class' => 'btn btn-default']);?>

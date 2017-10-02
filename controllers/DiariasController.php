@@ -3,7 +3,10 @@
 namespace app\controllers;
 
 use app\models\DadosUnicoFuncionario;
+use app\models\DiariaAprovacao;
+use app\models\DiariaAutorizacao;
 use app\models\DiariaDadosRoteiroMultiplo;
+use app\models\DiariaDevolucao;
 use app\models\DiariaMotivo;
 use app\models\DiariaRoteiro;
 use app\models\DiariaPreAutorizacao;
@@ -160,6 +163,171 @@ class DiariasController extends Controller
         return $this->render('pre-autorizar-aceitar', [
             'model'               => $model,
             'modelPreAutorizacao' => $modelPreAutorizacao
+        ]);
+    }
+
+    /**
+     * @param $id
+     * @return string|\yii\web\Response
+     */
+    public function actionPreAutorizarDevolver($id)
+    {
+        $modelPreAutorizacaoDevolver = new DiariaDevolucao();
+        $model = $this->findModel($id);
+        if ($modelPreAutorizacaoDevolver->load(Yii::$app->request->post())){
+            /** @var integer $codFuncionario */
+
+            $modelPreAutorizacaoDevolver->diaria_id = $model->diaria_id;
+            $modelPreAutorizacaoDevolver->diaria_devolucao_dt = date('Y-m-d');
+            $modelPreAutorizacaoDevolver->diaria_devolucao_hr = date('H:i:s');
+            $modelPreAutorizacaoDevolver->diaria_devolucao_func = intval(implode(ArrayHelper::map(DadosUnicoFuncionario::find()->where(['pessoa_id' => Yii::$app->user->getId()])->all(), 'funcionario_id', 'funcionario_id')));
+            $modelPreAutorizacaoDevolver->diaria_st = 100;
+            $modelPreAutorizacaoDevolver->save();
+            return $this->redirect(['pre-autorizar']);
+        }
+
+        return $this->render('pre-autorizar-devolver', [
+            'model'                       => $model,
+            'modelPreAutorizacaoDevolver' => $modelPreAutorizacaoDevolver
+        ]);
+    }
+
+    /**
+     * Lists all Diarias models.
+     * @return mixed
+     */
+    public function actionAutorizar()
+    {
+        $searchModel = new DiariasSearch();
+        $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
+        $dataProvider->query->andWhere(['diaria_st'=>0]);
+        return $this->render('autorizar', [
+            'searchModel' => $searchModel,
+            'dataProvider' => $dataProvider,
+        ]);
+    }
+
+    /**
+     * @param $id
+     * @return string
+     */
+    public function actionAutorizarAceitar($id)
+    {
+        $modelAutorizacao = new DiariaAutorizacao();
+        $model = $this->findModel($id);
+        if ($modelAutorizacao->load(Yii::$app->request->post())){
+
+            $modelAutorizacao->diaria_id = $model->diaria_id;
+            $modelAutorizacao->diaria_autorizacao_func = implode(ArrayHelper::map(DadosUnicoFuncionario::find()->where(['pessoa_id' => Yii::$app->user->getId()])->all(), 'funcionario_id', 'funcionario_id'));
+            $modelAutorizacao->diaria_autorizacao_func_exec = 1;
+            $modelAutorizacao->diaria_autorizacao_dt = date('Y-m-d');
+            $modelAutorizacao->diaria_autorizacao_hr = date('H:i:s');
+            $model->diaria_st = 1;
+            $modelAutorizacao->save();
+            $model->save();
+            return $this->redirect(['autorizar']);
+        }
+
+        return $this->render('autorizar-aceitar', [
+            'model'               => $model,
+            'modelAutorizacao'    => $modelAutorizacao
+        ]);
+    }
+
+    public function actionAutorizarDevolver($id)
+    {
+        $modelAutorizacaoDevolver = new DiariaDevolucao();
+        $model = $this->findModel($id);
+        if ($modelAutorizacaoDevolver->load(Yii::$app->request->post())){
+            /** @var integer $codFuncionario */
+            $modelAutorizacaoDevolver->diaria_id = $model->diaria_id;
+            $modelAutorizacaoDevolver->diaria_devolucao_dt = date('Y-m-d');
+            $modelAutorizacaoDevolver->diaria_devolucao_hr = date('H:i:s');
+            $modelAutorizacaoDevolver->diaria_devolucao_func = intval(implode(ArrayHelper::map(DadosUnicoFuncionario::find()->where(['pessoa_id' => Yii::$app->user->getId()])->all(), 'funcionario_id', 'funcionario_id')));;
+            $modelAutorizacaoDevolver->diaria_st = 100;
+            $model->diaria_st = 100;
+            $model->save();
+            $modelAutorizacaoDevolver->save();
+            return $this->redirect(['autorizar']);
+        }
+
+        return $this->render('autorizar-devolver', [
+            'model'                    => $model,
+            'modelAutorizacaoDevolver' => $modelAutorizacaoDevolver
+        ]);
+    }
+
+    /**
+     * Lists all Diarias models.
+     * @return mixed
+     */
+    public function actionAprovar()
+    {
+        $searchModel = new DiariasSearch();
+        $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
+        $dataProvider->query->andWhere(['diaria_st'=>1]);
+        return $this->render('aprovar', [
+            'searchModel' => $searchModel,
+            'dataProvider' => $dataProvider,
+        ]);
+    }
+
+    public function actionAprovarDevolver($id)
+    {
+        $modelAprovacaoDevolver = new DiariaDevolucao();
+        $model = $this->findModel($id);
+        if ($modelAprovacaoDevolver->load(Yii::$app->request->post())){
+            /** @var integer $codFuncionario */
+            $modelAprovacaoDevolver->diaria_id = $model->diaria_id;
+            $modelAprovacaoDevolver->diaria_devolucao_dt = date('Y-m-d');
+            $modelAprovacaoDevolver->diaria_devolucao_hr = date('H:i:s');
+            $modelAprovacaoDevolver->diaria_devolucao_func = intval(implode(ArrayHelper::map(DadosUnicoFuncionario::find()->where(['pessoa_id' => Yii::$app->user->getId()])->all(), 'funcionario_id', 'funcionario_id')));;
+            $modelAprovacaoDevolver->diaria_st = 0; // Autorização
+            $model->diaria_st = 0;
+            $model->save();
+            $modelAprovacaoDevolver->save();
+            return $this->redirect(['aprovar']);
+        }
+
+        return $this->render('aprovar-devolver', [
+            'model'                    => $model,
+            'modelAprovacaoDevolver'   => $modelAprovacaoDevolver
+        ]);
+    }
+
+
+    public function actionAprovarAceitar($id)
+    {
+        $modelAprovacao = new DiariaAprovacao();
+        $model = $this->findModel($id);
+        if ($modelAprovacao->load(Yii::$app->request->post())){
+
+            $modelAprovacao->diaria_id = $model->diaria_id;
+            $modelAprovacao->diaria_aprovacao_func = implode(ArrayHelper::map(DadosUnicoFuncionario::find()->where(['pessoa_id' => Yii::$app->user->getId()])->all(), 'funcionario_id', 'funcionario_id'));
+            $modelAprovacao->diaria_aprovacao_func_exec = 1;
+            $modelAprovacao->diaria_aprovacao_dt = date('Y-m-d');
+            $modelAprovacao->diaria_aprovacao_hr = date('H:i:s');
+            $modelAprovacao->diaria_imprimir_processo = 1;
+            $model->diaria_st = 2;
+            $modelAprovacao->save();
+            $model->save();
+            return $this->redirect(['aprovar']);
+        }
+
+        return $this->render('aprovar-aceitar', [
+            'model'               => $model,
+            'modelAprovacao'      => $modelAprovacao
+        ]);
+    }
+
+    public function actionMontarProcesso()
+    {
+        $searchModel = new DiariasSearch();
+        $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
+        $dataProvider->query->andWhere(['diaria_st'=>2]);
+        return $this->render('montar-processo', [
+            'searchModel' => $searchModel,
+            'dataProvider' => $dataProvider,
         ]);
     }
 
