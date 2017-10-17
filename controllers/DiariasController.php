@@ -11,6 +11,8 @@ use app\models\DiariaMotivo;
 use app\models\DiariaRoteiro;
 use app\models\DiariaPreAutorizacao;
 use Behat\Gherkin\Exception\Exception;
+use kartik\mpdf\Pdf;
+use mPDF;
 use Yii;
 use app\models\Diarias;
 use app\models\DiariasSearch;
@@ -329,6 +331,30 @@ class DiariasController extends Controller
             'searchModel' => $searchModel,
             'dataProvider' => $dataProvider,
         ]);
+    }
+
+    public function actionSolicitacaoImprimir($id) {
+        $model = $this->findModel($id);
+        $mpdf = new mPDF();
+        $mpdf->showImageErrors = true;
+        $content = $this->renderPartial('solicitacao-imprimir', ['model' => $model]);
+        $mpdf->writeHTML($content);
+        $mpdf->SetFooter('{PAGENO}');
+
+       // $mpdf->Output('MyPDF.pdf', 'I');
+        $mpdf->Output("MyPDF.pdf",'I');
+    }
+
+    public function actionCapaProcesso($id){
+        $model = $this->findModel($id);
+        $mpdf = new mPDF();
+        $mpdf->showImageErrors = true;
+        $content = $this->renderPartial('capa-processo', ['model' => $model]);
+        $mpdf->writeHTML($content);
+        $mpdf->SetFooter('{PAGENO}');
+
+        // $mpdf->Output('MyPDF.pdf', 'I');
+        $mpdf->Output("MyPDF.pdf",'I');
     }
 
     /**

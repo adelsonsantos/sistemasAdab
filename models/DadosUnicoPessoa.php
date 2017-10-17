@@ -133,7 +133,7 @@ class DadosUnicoPessoa extends ActiveRecord
      */
     public function getDiariaDiarias()
     {
-        return $this->hasMany(DiariaDiaria::className(), ['diaria_solicitante' => 'pessoa_id']);
+        return $this->hasMany(Diarias::className(), ['diaria_solicitante' => 'pessoa_id']);
     }
 
     /**
@@ -141,7 +141,7 @@ class DadosUnicoPessoa extends ActiveRecord
      */
     public function getDiariaDiarias0()
     {
-        return $this->hasMany(DiariaDiaria::className(), ['diaria_beneficiario' => 'pessoa_id']);
+        return $this->hasMany(Diarias::className(), ['diaria_beneficiario' => 'pessoa_id']);
     }
 
     /**

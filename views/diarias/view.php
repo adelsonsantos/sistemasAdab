@@ -30,6 +30,8 @@
 <div class="margin-top-menu">
     <?php
     use app\models\DadosUnicoEstOrganizacional;
+    use app\models\DadosUnicoEstOrganizacionalFuncionario;
+    use app\models\DadosUnicoFuncionario;
     use app\models\DadosUnicoMunicipio;
     use app\models\DadosUnicoPessoa;
     use app\models\DadosUnicoPessoaFisica;

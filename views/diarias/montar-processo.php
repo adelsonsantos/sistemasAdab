@@ -37,6 +37,7 @@ use yii\grid\GridView;
 <div style="position: absolute">
     <?= Yii::$app->controller->renderPartial('menu');?>
 </div>
+
 <div style="height:75px;">
     <div>
         <h1 class="font-topo" style="text-align: center">Diárias Montar Processo</h1>
@@ -72,21 +73,23 @@ use yii\grid\GridView;
                 'filter'   => Html::activeDropDownList($searchModel, 'diaria_beneficiario', ArrayHelper::map(DadosUnicoPessoa::find()->asArray()->orderBy('pessoa_nm')->all(), 'pessoa_id', 'pessoa_nm'), ['class'=>'form-control', 'prompt' => ' '])
             ],
 
+
+
             'diaria_dt_saida',
             'diaria_dt_chegada',
 
             ['class' => 'yii\grid\ActionColumn',
                 'contentOptions' => ['style' => 'width: 10%'],
-                'template' => '{view} {pre_autorizar_aceitar} {pre_autorizar_devolver}',
+                'template' => '{view} {solicitacao_imprimir} {capa_processo}',
                 'buttons' => [
                     'view' => function ($model, $key) {
-                        return Html::a('<span class="glyphicon glyphicon-search" style="font-size: 1.2em; margin-left: 5%"></span>', ['view', 'id' =>$key->diaria_id ],['title' => 'Ver']);
+                        return Html::a('<span class="glyphicon glyphicon-search" style="font-size: 1.2em; margin-left: 6%"></span>', ['view', 'id' =>$key->diaria_id ],['title' => 'Ver']);
                     },
-                    'pre_autorizar_aceitar' => function ($model, $key) {
-                        return Html::a('<span class="glyphicon glyphicon-print" style="color: blue; font-size: 1.2em; margin-left: 5%"></span>', ['pre-autorizar-aceitar', 'id' =>$key->diaria_id ],['title' => 'Pré-Autorizar']);
+                    'solicitacao_imprimir' => function ($model, $key) {
+                        return Html::a('<span  class="glyphicon glyphicon-print" style="color: blue; font-size: 1.2em; margin-left: 6%"></span>', ['solicitacao-imprimir', 'id' =>$key->diaria_id ],['title' => 'Montar Processo','target'=>'_blank']);
                     },
-                    'pre_autorizar_devolver' => function ($model, $key) {
-                        return Html::a('<span class="glyphicon glyphicon-print" style="color: orange; font-size: 1.2em; margin-left: 5%"></span>', ['pre-autorizar-devolver', 'id' =>$key->diaria_id ],['title' => 'Devolver']);
+                    'capa_processo' => function ($model, $key) {
+                        return Html::a('<span class="glyphicon glyphicon-print" style="color: orange; font-size: 1.2em; margin-left: 6%"></span>', ['capa-processo', 'id' =>$key->diaria_id ],['title' => 'Capa do Processo', 'target'=>'_blank']);
                     },
 
                 ]

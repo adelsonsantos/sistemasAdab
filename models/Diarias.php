@@ -556,6 +556,83 @@ class Diarias extends ActiveRecord
         }
         return $municipio;
     }
+
+    public function getDadosBancarios($userId)
+    {
+      $banco = implode(ArrayHelper::map(DadosUnicoDadosBancarios::find()->innerJoinWith('banco')->where(['pessoa_id' => $userId])->all(), 'banco.banco_cd', 'banco.banco_cd'));
+      $agencia = implode(ArrayHelper::map(DadosUnicoDadosBancarios::find()->where(['pessoa_id' => $userId])->all(), 'dados_bancarios_agencia', 'dados_bancarios_agencia'));
+      $tipoConta = implode(ArrayHelper::map(DadosUnicoDadosBancarios::find()->where(['pessoa_id' => $userId])->all(), 'dados_bancarios_conta_tipo', 'dados_bancarios_conta_tipo'));
+      $conta = implode(ArrayHelper::map(DadosUnicoDadosBancarios::find()->where(['pessoa_id' => $userId])->all(), 'dados_bancarios_conta', 'dados_bancarios_conta'));
+
+      return "Banco: {$banco} - Agência: {$agencia} - C{$tipoConta}. {$conta}";
+    }
+
+    public function getEndereco($userId)
+    {
+        $endereco = implode(ArrayHelper::map(DadosUnicoEndereco::find()->where(['pessoa_id' => $userId])->all(), 'endereco_ds', 'endereco_ds'));
+        $enderecoNumero = implode(ArrayHelper::map(DadosUnicoEndereco::find()->where(['pessoa_id' => $userId])->all(), 'endereco_num', 'endereco_num'));
+        $bairro = implode(ArrayHelper::map(DadosUnicoEndereco::find()->where(['pessoa_id' => $userId])->all(), 'endereco_bairro', 'endereco_bairro'));
+        $estado = implode(ArrayHelper::map(DadosUnicoEndereco::find()->innerJoinWith('estadoUf')->where(['pessoa_id' => $userId])->all(), 'estadoUf.estado_uf', 'estadoUf.estado_uf'));
+        $municipio = implode(ArrayHelper::map(DadosUnicoEndereco::find()->innerJoinWith('municipioCd')->where(['pessoa_id' => $userId])->all(), 'municipioCd.municipio_ds', 'municipioCd.municipio_ds'));
+
+        return "{$endereco}, {$enderecoNumero}, {$bairro}, {$municipio} - {$estado}";
+    }
+
+    public function getRoteiroMontarProcesso($id, $controle_roteiro = null)
+    {
+        $origem = DiariaRoteiro::find()->where(['diaria_id' => $id])->andWhere(['controle_roteiro' => $controle_roteiro])->orderBy(['roteiro_id' => SORT_ASC])->one();
+        $orgiemRotaUf = implode(ArrayHelper::map(DadosUnicoMunicipio::find()->where(['municipio_cd' => $origem['roteiro_origem']])->all(), 'estado_uf', 'estado_uf'));
+        $orgiemRotaMunicipio = implode(ArrayHelper::map(DadosUnicoMunicipio::find()->where(['municipio_cd' => $origem['roteiro_origem']])->all(), 'municipio_ds', 'municipio_ds'));
+        $destino = ArrayHelper::map(DiariaRoteiro::find()->where(['diaria_id' => $id])->andWhere(['controle_roteiro' => $controle_roteiro])->orderBy(['roteiro_id' => SORT_ASC])->all(), 'roteiro_destino', 'roteiro_destino');
+
+        $array = [
+            [
+                'uf' => $orgiemRotaUf,
+                'municipio' => $orgiemRotaMunicipio
+            ]
+        ];
+
+        foreach ($destino as $value){
+            $uf = implode(ArrayHelper::map(DadosUnicoMunicipio::find()->where(['municipio_cd' => $value])->all(), 'estado_uf', 'estado_uf'));
+            $municipio = implode(ArrayHelper::map(DadosUnicoMunicipio::find()->where(['municipio_cd' => $value])->all(), 'municipio_ds', 'municipio_ds'));
+
+            $arrrayRota = [
+                'uf' => $uf,
+                'municipio' => $municipio
+            ];
+
+            array_push($array, $arrrayRota);
+        }
+        return $array;
+    }
+
+    public function getRoteiroMontarProcessoUnico($id)
+    {
+        $origem = DiariaRoteiro::find()->where(['diaria_id' => $id])->orderBy(['roteiro_id' => SORT_ASC])->one();
+        $orgiemRotaUf = implode(ArrayHelper::map(DadosUnicoMunicipio::find()->where(['municipio_cd' => $origem['roteiro_origem']])->all(), 'estado_uf', 'estado_uf'));
+        $orgiemRotaMunicipio = implode(ArrayHelper::map(DadosUnicoMunicipio::find()->where(['municipio_cd' => $origem['roteiro_origem']])->all(), 'municipio_ds', 'municipio_ds'));
+        $destino = ArrayHelper::map(DiariaRoteiro::find()->where(['diaria_id' => $id])->orderBy(['roteiro_id' => SORT_ASC])->all(), 'roteiro_destino', 'roteiro_destino');
+
+        $array = [
+            [
+                'uf' => $orgiemRotaUf,
+                'municipio' => $orgiemRotaMunicipio
+            ]
+        ];
+
+        foreach ($destino as $value){
+            $uf = implode(ArrayHelper::map(DadosUnicoMunicipio::find()->where(['municipio_cd' => $value])->all(), 'estado_uf', 'estado_uf'));
+            $municipio = implode(ArrayHelper::map(DadosUnicoMunicipio::find()->where(['municipio_cd' => $value])->all(), 'municipio_ds', 'municipio_ds'));
+
+            $arrrayRota = [
+                'uf' => $uf,
+                'municipio' => $municipio
+            ];
+
+            array_push($array, $arrrayRota);
+        }
+        return $array;
+    }
 }
 
 
