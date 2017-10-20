@@ -61,6 +61,13 @@ use yii\helpers\ArrayHelper;
  * @property integer $pedido_empenho
  * @property integer $qtde_roteiros
  * @property integer AUTORIZACAO
+ * @property integer APROVACAO
+ * @property integer EMPENHO
+ * @property integer EXECUCAO
+ * @property integer COMPROVACAO
+ * @property integer APROVACAO_DE_COMPROVACAO
+ * @property integer AGUARDANDO_ARQUIVAMENTO
+ * @property integer ARQUIVADA
  * @property integer PRE_AUTORIZAR
  *
  * @property DadosUnicoEstOrganizacional $diariaUnidadeCusto
@@ -169,7 +176,7 @@ class Diarias extends ActiveRecord
             'diaria_hr_criacao' => 'Diaria Hr Criacao',
             'diaria_justificativa_fds' => 'Diaria Justificativa Fds',
             'diaria_processo' => 'Diaria Processo',
-            'diaria_empenho' => 'Diaria Empenho',
+            'diaria_empenho' => 'Liberar Empenho',
             'diaria_dt_empenho' => 'Diaria Dt Empenho',
             'diaria_excluida' => 'Diaria Excluida',
             'diaria_roteiro_complemento' => 'Diaria Roteiro Complemento',

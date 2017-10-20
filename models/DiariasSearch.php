@@ -128,7 +128,11 @@ class DiariasSearch extends Diarias
             ->andFilterWhere(['like', 'diaria_hr_criacao', $this->diaria_hr_criacao])
             ->andFilterWhere(['like', 'diaria_justificativa_fds', $this->diaria_justificativa_fds])
             ->andFilterWhere(['like', 'diaria_processo', $this->diaria_processo])
-            ->andFilterWhere(['like', 'diaria_empenho', $this->diaria_empenho])
+
+            ->andFilterWhere(['in', 'diaria_empenho', $this->diaria_empenho])
+
+            //->andFilterWhere(['in', 'diaria_empenho', $this->diaria_empenho])
+            ->andFilterWhere(['in', 'diaria_empenho', $this->diaria_empenho])
             ->andFilterWhere(['like', 'diaria_roteiro_complemento', $this->diaria_roteiro_complemento])
             ->andFilterWhere(['like', 'diaria_processo_fisico', $this->diaria_processo_fisico])
             ->andFilterWhere(['like', 'diaria_local_solicitacao', $this->diaria_local_solicitacao])

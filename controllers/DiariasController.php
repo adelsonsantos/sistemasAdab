@@ -135,7 +135,7 @@ class DiariasController extends Controller
     {
         $searchModel = new DiariasSearch();
         $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
-        $dataProvider->query->andWhere(['diaria_st'=>100]);
+        $dataProvider->query->andWhere(['diaria_st'=>Diarias::PRE_AUTORIZAR]);
         return $this->render('pre-autorizar', [
             'searchModel' => $searchModel,
             'dataProvider' => $dataProvider,
@@ -156,7 +156,7 @@ class DiariasController extends Controller
                 $modelPreAutorizacao->diaria_pre_autorizacao_func_exec = 1;
                 $modelPreAutorizacao->diaria_pre_autorizacao_dt = date('Y-m-d');
                 $modelPreAutorizacao->diaria_pre_autorizacao_hr = date('H:i:s');
-                $model->diaria_st = 0; //Autorização
+                $model->diaria_st = Diarias::AUTORIZACAO; //Autorização
                 $modelPreAutorizacao->save();
                 $model->save();
                 return $this->redirect(['pre-autorizar']);
@@ -183,7 +183,7 @@ class DiariasController extends Controller
             $modelPreAutorizacaoDevolver->diaria_devolucao_dt = date('Y-m-d');
             $modelPreAutorizacaoDevolver->diaria_devolucao_hr = date('H:i:s');
             $modelPreAutorizacaoDevolver->diaria_devolucao_func = intval(implode(ArrayHelper::map(DadosUnicoFuncionario::find()->where(['pessoa_id' => Yii::$app->user->getId()])->all(), 'funcionario_id', 'funcionario_id')));
-            $modelPreAutorizacaoDevolver->diaria_st = 100;
+            $modelPreAutorizacaoDevolver->diaria_st = Diarias::PRE_AUTORIZAR;
             $modelPreAutorizacaoDevolver->save();
             return $this->redirect(['pre-autorizar']);
         }
@@ -202,7 +202,7 @@ class DiariasController extends Controller
     {
         $searchModel = new DiariasSearch();
         $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
-        $dataProvider->query->andWhere(['diaria_st'=>0]);
+        $dataProvider->query->andWhere(['diaria_st'=>Diarias::AUTORIZACAO]);
         return $this->render('autorizar', [
             'searchModel' => $searchModel,
             'dataProvider' => $dataProvider,
@@ -218,13 +218,12 @@ class DiariasController extends Controller
         $modelAutorizacao = new DiariaAutorizacao();
         $model = $this->findModel($id);
         if ($modelAutorizacao->load(Yii::$app->request->post())){
-
             $modelAutorizacao->diaria_id = $model->diaria_id;
             $modelAutorizacao->diaria_autorizacao_func = implode(ArrayHelper::map(DadosUnicoFuncionario::find()->where(['pessoa_id' => Yii::$app->user->getId()])->all(), 'funcionario_id', 'funcionario_id'));
             $modelAutorizacao->diaria_autorizacao_func_exec = 1;
             $modelAutorizacao->diaria_autorizacao_dt = date('Y-m-d');
             $modelAutorizacao->diaria_autorizacao_hr = date('H:i:s');
-            $model->diaria_st = 1;
+            $model->diaria_st = Diarias::APROVACAO;
             $modelAutorizacao->save();
             $model->save();
             return $this->redirect(['autorizar']);
@@ -246,8 +245,8 @@ class DiariasController extends Controller
             $modelAutorizacaoDevolver->diaria_devolucao_dt = date('Y-m-d');
             $modelAutorizacaoDevolver->diaria_devolucao_hr = date('H:i:s');
             $modelAutorizacaoDevolver->diaria_devolucao_func = intval(implode(ArrayHelper::map(DadosUnicoFuncionario::find()->where(['pessoa_id' => Yii::$app->user->getId()])->all(), 'funcionario_id', 'funcionario_id')));;
-            $modelAutorizacaoDevolver->diaria_st = 100;
-            $model->diaria_st = 100;
+            $modelAutorizacaoDevolver->diaria_st = Diarias::PRE_AUTORIZAR;
+            $model->diaria_st = Diarias::PRE_AUTORIZAR;
             $model->save();
             $modelAutorizacaoDevolver->save();
             return $this->redirect(['autorizar']);
@@ -267,7 +266,7 @@ class DiariasController extends Controller
     {
         $searchModel = new DiariasSearch();
         $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
-        $dataProvider->query->andWhere(['diaria_st'=>1]);
+        $dataProvider->query->andWhere(['diaria_st'=>Diarias::APROVACAO]);
         return $this->render('aprovar', [
             'searchModel' => $searchModel,
             'dataProvider' => $dataProvider,
@@ -284,7 +283,7 @@ class DiariasController extends Controller
             $modelAprovacaoDevolver->diaria_devolucao_dt = date('Y-m-d');
             $modelAprovacaoDevolver->diaria_devolucao_hr = date('H:i:s');
             $modelAprovacaoDevolver->diaria_devolucao_func = intval(implode(ArrayHelper::map(DadosUnicoFuncionario::find()->where(['pessoa_id' => Yii::$app->user->getId()])->all(), 'funcionario_id', 'funcionario_id')));;
-            $modelAprovacaoDevolver->diaria_st = 0; // Autorização
+            $modelAprovacaoDevolver->diaria_st = Diarias::AUTORIZACAO;
             $model->diaria_st = 0;
             $model->save();
             $modelAprovacaoDevolver->save();
@@ -310,7 +309,7 @@ class DiariasController extends Controller
             $modelAprovacao->diaria_aprovacao_dt = date('Y-m-d');
             $modelAprovacao->diaria_aprovacao_hr = date('H:i:s');
             $modelAprovacao->diaria_imprimir_processo = 1;
-            $model->diaria_st = 2;
+            $model->diaria_st = Diarias::EMPENHO;
             $modelAprovacao->save();
             $model->save();
             return $this->redirect(['aprovar']);
@@ -326,7 +325,7 @@ class DiariasController extends Controller
     {
         $searchModel = new DiariasSearch();
         $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
-        $dataProvider->query->andWhere(['diaria_st'=>2]);
+        $dataProvider->query->andWhere(['diaria_st'=>Diarias::EMPENHO]);
         return $this->render('montar-processo', [
             'searchModel' => $searchModel,
             'dataProvider' => $dataProvider,
@@ -355,6 +354,83 @@ class DiariasController extends Controller
 
         // $mpdf->Output('MyPDF.pdf', 'I');
         $mpdf->Output("MyPDF.pdf",'I');
+    }
+
+
+    public function actionEmpenho()
+    {
+        $searchModel = new DiariasSearch();
+        $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
+        $dataProvider->query->andWhere(['diaria_st'=> Diarias::EMPENHO])->orderBy(['diaria_empenho' => SORT_ASC]);
+        return $this->render('empenho', [
+            'searchModel' => $searchModel,
+            'dataProvider' => $dataProvider,
+        ]);
+    }
+
+    public function actionEmpenhoEmpenhar($id)
+    {
+        $model = $this->findModel($id);
+        if ($model->load(Yii::$app->request->post())){
+            $model->save();
+            return $this->redirect(['empenho']);
+        }
+
+        return $this->render('empenho-empenhar', [
+            'model' => $model,
+        ]);
+    }
+
+    public function actionEmpenhoLiberar($id)
+    {
+        $model = $this->findModel($id);
+        if($model->validate() && !is_null($model->diaria_empenho)){
+            $model->diaria_st = 3;
+            $model->save();
+            return $this->redirect(['empenho']);
+        }
+
+        return $this->render('empenho', [
+            'model' => $model,
+        ]);
+    }
+
+    public function actionEmpenhoLiberarMultiplo()
+    {
+        $selection=(array)Yii::$app->request->post('selection');//typecasting
+        foreach($selection as $id){
+            $model = Diarias::findOne((int)$id);//make a typecasting
+            if($model->validate() && !is_null($model->diaria_empenho)){
+                $model->diaria_st = Diarias::EXECUCAO;
+                $model->save();
+            }
+        }
+        return $this->redirect(['empenho']);
+
+    }
+
+
+    public function actionEmpenhoDevolver($id)
+    {
+        $modelEmpenhoDevolver = new DiariaDevolucao();
+        $model = $this->findModel($id);
+        if ($modelEmpenhoDevolver->load(Yii::$app->request->post())){
+            /** @var integer $codFuncionario */
+            $modelEmpenhoDevolver->diaria_id = $model->diaria_id;
+            $modelEmpenhoDevolver->diaria_devolucao_dt = date('Y-m-d');
+            $modelEmpenhoDevolver->diaria_devolucao_hr = date('H:i:s');
+            $modelEmpenhoDevolver->diaria_devolucao_func = intval(implode(ArrayHelper::map(DadosUnicoFuncionario::find()->where(['pessoa_id' => Yii::$app->user->getId()])->all(), 'funcionario_id', 'funcionario_id')));;
+            $modelEmpenhoDevolver->diaria_st = 0; // Autorização
+            $model->diaria_st = 0;
+            $model->save();
+            $modelEmpenhoDevolver->save();
+            return $this->redirect(['empenho']);
+        }
+
+        return $this->render('empenho-devolver', [
+            'model'                    => $model,
+            'modelEmpenhoDevolver'     => $modelEmpenhoDevolver
+        ]);
     }
 
     /**
