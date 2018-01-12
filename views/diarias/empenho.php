@@ -12,7 +12,7 @@
         background-color: rgba(220, 222, 221, 0);
     }
     .table thead tr{
-        background-color: #dcdedd;
+        background-color: #82a3bd;
     }
     .tambem {
         text-align: right;
@@ -27,13 +27,14 @@ use app\models\PublicAuthItem;
 use yii\helpers\ArrayHelper;
 use yii\helpers\Html;
 use yii\grid\GridView;
-use yii\widgets\ActiveForm;
 
 /* @var $this yii\web\View */
 
 /* @var $model app\models\Diarias */
 /* @var $searchModel app\models\DiariasSearch */
 /* @var $dataProvider yii\data\ActiveDataProvider */
+$this->title = 'Sistema de Diárias';
+$this->params['breadcrumbs'][] = $this->title;
 ?>
 
 <div style="position: absolute">
@@ -52,13 +53,12 @@ use yii\widgets\ActiveForm;
         </h1>
 
 
+
         <p class="font-topo" style="text-align: center">
             <br>
             <?php $perfilUser = PublicAuthItem::find()->innerJoinWith('ment')->asArray()->where(['user_id' => Yii::$app->user->getId()])->all();
-            $permissao = isset($perfilUser) ? $perfilUser[0]['description'] : "";
-            ?>
+            $permissao = isset($perfilUser) ? $perfilUser[0]['description'] : ""; ?>
         </p>
-
     </div>
     <div>
         <p style="text-align: right; margin-right: 1%; margin-left: 450px; white-space: nowrap; margin-top: -10px"><strong><?= "Perfil: " . $permissao; ?></strong></p>
@@ -75,7 +75,7 @@ use yii\widgets\ActiveForm;
         'columns' => [
             ['class' => 'yii\grid\CheckboxColumn',  'checkboxOptions' => function($model) {
                 return ['value' => $model->diaria_id];
-            }],//['onclick' => 'js:addItems(this.value, this.checked)']],
+            }],
 
             'diaria_numero',
             [
@@ -135,7 +135,3 @@ use yii\widgets\ActiveForm;
     ]); ?>
     <?= Html::endForm();?>
 </div>
-
-<script>
-    console.log($('#grid').yiiGridView('getSelectedRows'));
-</script>

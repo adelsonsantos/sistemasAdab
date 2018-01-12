@@ -55,9 +55,10 @@
     /* @var $this yii\web\View */
     /* @var $model app\models\Diarias */
     /* @var $modelSearch app\models\DiariasSearch */
-
+    $this->title = 'Sistema de Diárias';
+    $this->params['breadcrumbs'][] = $this->title;
     ?>
-    <div style="position: absolute">
+    <div style="position: absolute; margin-top: -30px">
         <?= Yii::$app->controller->renderPartial('menu'); ?>
     </div>
 
@@ -66,7 +67,7 @@
             de <?= implode(ArrayHelper::map(DadosUnicoPessoa::find()->asArray()->where("pessoa_id = {$model->diaria_beneficiario}")->all(), 'pessoa_nm', 'pessoa_nm'), ['class' => 'form-control col-sm-1']) ?></h1>
     </div>
 
-    <div class="diarias-view" style="margin-left: 209px; margin-top: 74px; ">
+    <div class="diarias-view" style="margin-left: 209px; margin-top: 44px; ">
         <table class="diaria">
             <tr class="bordaMenu">
                 <th class="borda">Número SD</th>

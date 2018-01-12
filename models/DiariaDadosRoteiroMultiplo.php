@@ -61,7 +61,7 @@ class DiariaDadosRoteiroMultiplo extends \yii\db\ActiveRecord
             'diaria_valor' => 'Diaria Valor',
             'diaria_roteiro_complemento' => 'Diaria Roteiro Complemento',
             'controle_roteiro' => 'Controle Roteiro',
-            'dados_roteiro_status' => 'Dados Roteiro Status',
+            'dados_roteiro_status' => 'Dados Roteiro Status'
         ];
     }
 }

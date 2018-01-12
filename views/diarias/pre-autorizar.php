@@ -12,7 +12,7 @@
         background-color: rgba(220, 222, 221, 0);
     }
     .table thead tr{
-    background-color: #dcdedd;
+    background-color: #82a3bd;
     }
     .tambem {
     text-align: right;
@@ -32,6 +32,9 @@ use yii\grid\GridView;
 /* @var $model app\models\Diarias */
 /* @var $searchModel app\models\DiariasSearch */
 /* @var $dataProvider yii\data\ActiveDataProvider */
+
+$this->title = 'Sistema de Diárias';
+$this->params['breadcrumbs'][] = $this->title;
 ?>
 
 <div style="position: absolute">

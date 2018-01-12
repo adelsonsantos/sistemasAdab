@@ -46,7 +46,15 @@
         "mouf/nodejs-installer": "~1.0",
         "kartik-v/yii2-mpdf": "*",
         "kartik-v/yii2-grid": "*",
-        "kartik-v/yii2-krajee-base": "*"
+        "kartik-v/yii2-krajee-base": "*",
+        "bower-asset/vue": "~2.3.0",
+        "bower-asset/vue-resource": "*",
+        "bower-asset/vee-validate": "~2.0.0",
+        "bower-asset/vue-components-smartadmin": "*",
+        "bower-asset/vuex": "~2.3.0",
+        "bower-asset/vue-router": "~2.5.3",
+        "aki/yii2-vue": "*",
+        "mpdf/mpdf": "~7.0.0"
     },
     "config": {
         "fxp-asset": {

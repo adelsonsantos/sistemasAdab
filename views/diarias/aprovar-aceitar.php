@@ -8,7 +8,6 @@ echo Yii::$app->controller->renderPartial('view', ['model' => $model, 'id' => $m
 /* @var $form yii\widgets\ActiveForm */
 ?>
 
-
 <div class="portal-computador-form">
 
     <?php $form = ActiveForm::begin(); ?>

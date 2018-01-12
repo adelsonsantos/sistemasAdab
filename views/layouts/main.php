@@ -57,7 +57,6 @@ AppAsset::register($this);
        $nameCase = strtolower($pessoaName);
     }
     ?>
-
     <style>
         table.menu {
             width: 100%
@@ -73,7 +72,7 @@ AppAsset::register($this);
     NavBar::begin([
         'options' => [
             'class' => 'navbar-inverse',
-            'style' => 'background:#072b17'
+            'style' => 'background:#023156'
         ]
     ]);
 

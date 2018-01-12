@@ -6,18 +6,18 @@
 
     .grid{
         margin-left: 209px;
-        margin-top: -26px;
     }
 
     #w0-filters{
         background-color: rgba(220, 222, 221, 0);
     }
     .table thead tr{
-        background-color: #dcdedd;
+        background-color: #82a3bd;
     }
     .tambem {
         text-align: right;
     }
+
 </style>
 <?php
 use app\models\DadosUnicoPessoa;
@@ -30,28 +30,35 @@ use yii\grid\GridView;
 /* @var $model app\models\Diarias */
 /* @var $searchModel app\models\DiariasSearch */
 /* @var $dataProvider yii\data\ActiveDataProvider */
+
+$this->title = 'Sistema de Diárias';
+$this->params['breadcrumbs'][] = $this->title;
 ?>
 
 <div style="position: absolute">
     <?= Yii::$app->controller->renderPartial('menu');?>
 </div>
-
-<div class="panel panel-default">
-    <div class="panel-heading" style="height: 60px">
-        <h3 style="text-align: center; margin-top: 0px">Autorizar:</h3>
+<div style="height:75px;">
+    <div>
+        <h1 class="font-topo" style="text-align: center">Diárias Autorizar</h1>
+        <p class="font-topo" style="text-align: center">
+            <br>
+            <?php $perfilUser = PublicAuthItem::find()->innerJoinWith('ment')->asArray()->where(['user_id' => Yii::$app->user->getId()])->all();
+            $permissao = isset($perfilUser) ? $perfilUser[0]['description'] : "";
+            ?>
+        </p>
+    </div>
+    <div>
+        <p style="text-align: right; margin-right: 1%; margin-left: 450px; white-space: nowrap"><strong><?= "Perfil: " . $permissao; ?></strong></p>
     </div>
 </div>
-<br>
-
-<?php $perfilUser = PublicAuthItem::find()->innerJoinWith('ment')->asArray()->where(['user_id' => Yii::$app->user->getId()])->all();
-$permissao = isset($perfilUser) ? $perfilUser[0]['description'] : ""; ?>
 <div class="grid">
     <?= GridView::widget([
         'dataProvider' => $dataProvider,
         'filterModel' => $searchModel,
         'emptyText' => 'Resultado não encontrado',
         'showOnEmpty' => true,
-        'summary' => "<span style='white-space: nowrap'>Mostrando {begin} - {end} de {totalCount} Diárias <div style='float: right; white-space: nowrap;'>Perfil:  $permissao</div></span>",
+        'summary' => "<span style='white-space: nowrap'>Mostrando {begin} - {end} de {totalCount} Diárias </span>",
         //'options' => ['class' => 'YourCustomTableClass'],
         'columns' => [
             ['class' => 'yii\grid\SerialColumn'],

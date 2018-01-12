@@ -41,13 +41,13 @@ class DiariasSearch extends Diarias
         switch (implode(ArrayHelper::map(PublicAuthAssignment::find()->asArray()->where(['user_id' => Yii::$app->user->getId()])->all(), 'item_name', 'item_name'))) {
             case 'administrador':
                 return Diarias::find()
-                    ->where('diaria_st <> 7')
+                    ->where(['not in','diaria_st',[200, 300, 7]])
                     ->andWhere(['diaria_excluida' => 0])
                     ->andWhere(['>=','diaria_dt_criacao', $dataCriacao]);
             break;
             default:
                 return Diarias::find()
-                    ->where('diaria_st <> 7')
+                    ->where(['not in','diaria_st',[200, 300, 7]])
                     ->andWhere(['diaria_excluida' => 0])
                     ->andWhere(['diaria_beneficiario' => Yii::$app->user->getId()])->orWhere(['diaria_solicitante' => Yii::$app->user->getId()]);
                 break;

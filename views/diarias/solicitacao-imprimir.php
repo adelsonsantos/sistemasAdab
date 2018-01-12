@@ -100,24 +100,24 @@ use yii\helpers\ArrayHelper; ?>
     </table>
 </fieldset>
 <fieldset style="margin-top: 5px">
-    <legend>Dados do Beneficiário:</legend>
-    <table class="table"
-           style="width: 100%; height: 70px; margin-left: -12px; margin-bottom: -11px; margin-right: -12px; font-size: 13px;">
-        <thead>
-        <tr class="vendorListHeading">
-            <th class="th-left">Nome</th>
-            <th class="th-left">Tipo de Servidor</th>
-            <th class="th-left">Matrícula</th>
-        </tr>
-        </thead>
-        <tbody>
-        <tr class="">
-            <td><?= implode(ArrayHelper::map(DadosUnicoPessoa::find()->asArray()->where(['pessoa_id' => $model->diaria_beneficiario])->all(), 'pessoa_nm', 'pessoa_nm')) ?></td>
-            <td><?= implode(ArrayHelper::map(DadosUnicoFuncionario::find()->innerJoinWith('funcionarioTipo')->where(['pessoa_id' => $model->diaria_beneficiario])->all(), 'funcionarioTipo.funcionario_tipo_ds', 'funcionarioTipo.funcionario_tipo_ds')); ?></td>
-            <td><?= implode(ArrayHelper::map(DadosUnicoFuncionario::find()->where(['pessoa_id' => $model->diaria_beneficiario])->all(), 'funcionario_matricula', 'funcionario_matricula')); ?></td>
-        </tr>
-        </tbody>
-    </table>
+        <legend>Dados do Beneficiário:</legend>
+        <table class="table"
+               style="width: 100%; height: 70px; margin-left: -12px; margin-bottom: -11px; margin-right: -12px; font-size: 13px;">
+            <thead>
+            <tr class="vendorListHeading">
+                <th class="th-left">Nome</th>
+                <th class="th-left">Tipo de Servidor</th>
+                <th class="th-left">Matrícula</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr class="">
+                <td><?= implode(ArrayHelper::map(DadosUnicoPessoa::find()->asArray()->where(['pessoa_id' => $model->diaria_beneficiario])->all(), 'pessoa_nm', 'pessoa_nm')) ?></td>
+                <td><?= implode(ArrayHelper::map(DadosUnicoFuncionario::find()->innerJoinWith('funcionarioTipo')->where(['pessoa_id' => $model->diaria_beneficiario])->all(), 'funcionarioTipo.funcionario_tipo_ds', 'funcionarioTipo.funcionario_tipo_ds')); ?></td>
+                <td><?= implode(ArrayHelper::map(DadosUnicoFuncionario::find()->where(['pessoa_id' => $model->diaria_beneficiario])->all(), 'funcionario_matricula', 'funcionario_matricula')); ?></td>
+            </tr>
+            </tbody>
+        </table>
 
     <?php $funcionarioId = implode(ArrayHelper::map(DadosUnicoFuncionario::find()->where(['pessoa_id' => $model->diaria_beneficiario])->all(), 'funcionario_id', 'funcionario_id'));
     $estOrganizacionalBeneficiarioId = implode(ArrayHelper::map(DadosUnicoEstOrganizacionalFuncionario::find()->where(['funcionario_id' => $funcionarioId])->all(), 'est_organizacional_id', 'est_organizacional_id'));

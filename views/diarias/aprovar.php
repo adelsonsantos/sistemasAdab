@@ -6,18 +6,18 @@
 
     .grid{
         margin-left: 209px;
-        margin-top: -26px;
     }
 
     #w0-filters{
         background-color: rgba(220, 222, 221, 0);
     }
     .table thead tr{
-        background-color: #dcdedd;
+        background-color: #82a3bd;
     }
     .tambem {
         text-align: right;
     }
+
 </style>
 <?php
 use app\models\DadosUnicoPessoa;
@@ -30,28 +30,34 @@ use yii\grid\GridView;
 /* @var $model app\models\Diarias */
 /* @var $searchModel app\models\DiariasSearch */
 /* @var $dataProvider yii\data\ActiveDataProvider */
+$this->title = 'Sistema de Diárias';
+$this->params['breadcrumbs'][] = $this->title;
 ?>
 
 <div style="position: absolute">
     <?= Yii::$app->controller->renderPartial('menu');?>
 </div>
-
-<div class="panel panel-default">
-    <div class="panel-heading" style="height: 60px; color: #4a4a4a">
-        <h3 style="text-align: center; margin-top: 0px">Solicitações para Aprovar</h3>
+<div style="height:75px;">
+    <div>
+        <h1 class="font-topo" style="text-align: center">Diárias Aprovar</h1>
+        <p class="font-topo" style="text-align: center">
+            <br>
+            <?php $perfilUser = PublicAuthItem::find()->innerJoinWith('ment')->asArray()->where(['user_id' => Yii::$app->user->getId()])->all();
+            $permissao = isset($perfilUser) ? $perfilUser[0]['description'] : "";
+            ?>
+        </p>
+    </div>
+    <div>
+        <p style="text-align: right; margin-right: 1%; margin-left: 450px; white-space: nowrap"><strong><?= "Perfil: " . $permissao; ?></strong></p>
     </div>
 </div>
-<br>
-
-<?php $perfilUser = PublicAuthItem::find()->innerJoinWith('ment')->asArray()->where(['user_id' => Yii::$app->user->getId()])->all();
-$permissao = isset($perfilUser) ? $perfilUser[0]['description'] : ""; ?>
 <div class="grid">
     <?= GridView::widget([
         'dataProvider' => $dataProvider,
         'filterModel' => $searchModel,
-        'emptyText' => 'Resultado não encontrado',
+        'emptyText' => "<script>document.getElementById('w0').style.marginTop = '20px';</script>Resultado não encontrado",
         'showOnEmpty' => true,
-        'summary' => "<span style='white-space: nowrap'>Mostrando {begin} - {end} de {totalCount} Diárias <div style='float: right; white-space: nowrap;'>Perfil:  $permissao</div></span>",
+        'summary' => "<span style='white-space: nowrap'>Mostrando {begin} - {end} de {totalCount} Diárias</span>",
         //'options' => ['class' => 'YourCustomTableClass'],
         'columns' => [
             ['class' => 'yii\grid\SerialColumn'],
@@ -74,7 +80,7 @@ $permissao = isset($perfilUser) ? $perfilUser[0]['description'] : ""; ?>
                         return Html::a('<span class="glyphicon glyphicon-pencil" style="font-size: 1.2em; margin-left: 3%"></span>', ['update', 'id' =>$key->diaria_id ],['title' => 'Alterar']);
                     },
                     'aprovar_aceitar' => function ($model, $key) {
-                        return Html::a('<span class="glyphicon glyphicon-open" style="color: green; font-size: 1.2em; margin-left: 3%"></span>', ['aprovar-aceitar.php', 'id' =>$key->diaria_id ],['title' => 'Aprovar']);
+                        return Html::a('<span class="glyphicon glyphicon-open" style="color: green; font-size: 1.2em; margin-left: 3%"></span>', ['aprovar-aceitar', 'id' =>$key->diaria_id ],['title' => 'Aprovar']);
                     },
                     'aprovar_devolver' => function ($model, $key) {
                         return Html::a('<span class="glyphicon glyphicon-save" style="color: red; font-size: 1.2em; margin-left: 3%"></span>', ['aprovar-devolver', 'id' =>$key->diaria_id ],['title' => 'Devolver']);

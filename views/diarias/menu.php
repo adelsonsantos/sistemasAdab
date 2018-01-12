@@ -1,18 +1,14 @@
 <style>
     .table.table-striped tbody tr:hover
     {
-        background: #acc7b8;
+        background: #b0d4f1;
     }
 
     .nav-pills>li.active>a, .nav-pills>li.active>a:hover, .nav-pills>li.active>a:focus {
         color: #000000;
-        background-color: #dcdedd;
+        background-color: #82a3bd;
         font-weight: bold;
     }
-
-  /*  .nav-pills>li>a {
-        border-radius: 0px;
-    }*/
 
     a {
         color: #000;

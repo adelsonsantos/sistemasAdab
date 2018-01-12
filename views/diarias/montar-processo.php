@@ -12,7 +12,7 @@
         background-color: rgba(220, 222, 221, 0);
     }
     .table thead tr{
-        background-color: #dcdedd;
+        background-color: #82a3bd;
     }
     .tambem {
         text-align: right;
@@ -32,15 +32,16 @@ use yii\grid\GridView;
 /* @var $model app\models\Diarias */
 /* @var $searchModel app\models\DiariasSearch */
 /* @var $dataProvider yii\data\ActiveDataProvider */
+$this->title = 'Sistema de Diárias';
+$this->params['breadcrumbs'][] = $this->title;
 ?>
 
 <div style="position: absolute">
     <?= Yii::$app->controller->renderPartial('menu');?>
 </div>
-
 <div style="height:75px;">
     <div>
-        <h1 class="font-topo" style="text-align: center">Diárias Montar Processo</h1>
+        <h1 class="font-topo" style="text-align: center">Diárias Montar Proceso</h1>
         <p class="font-topo" style="text-align: center">
             <br>
             <?php $perfilUser = PublicAuthItem::find()->innerJoinWith('ment')->asArray()->where(['user_id' => Yii::$app->user->getId()])->all();
@@ -53,10 +54,6 @@ use yii\grid\GridView;
     </div>
 </div>
 <div class="grid">
-
-
-
-
     <?= GridView::widget([
         'dataProvider' => $dataProvider,
         'filterModel' => $searchModel,
@@ -72,9 +69,6 @@ use yii\grid\GridView;
                 'value'    => 'diariaBeneficiario.pessoa_nm',
                 'filter'   => Html::activeDropDownList($searchModel, 'diaria_beneficiario', ArrayHelper::map(DadosUnicoPessoa::find()->asArray()->orderBy('pessoa_nm')->all(), 'pessoa_id', 'pessoa_nm'), ['class'=>'form-control', 'prompt' => ' '])
             ],
-
-
-
             'diaria_dt_saida',
             'diaria_dt_chegada',
 
@@ -91,7 +85,6 @@ use yii\grid\GridView;
                     'capa_processo' => function ($model, $key) {
                         return Html::a('<span class="glyphicon glyphicon-print" style="color: orange; font-size: 1.2em; margin-left: 6%"></span>', ['capa-processo', 'id' =>$key->diaria_id ],['title' => 'Capa do Processo', 'target'=>'_blank']);
                     },
-
                 ]
             ]
         ],

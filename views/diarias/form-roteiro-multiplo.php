@@ -30,17 +30,15 @@ jQuery(".dynamicform_roteiro_multiplo").on("afterInsert", function(e, item) {
     });        
 });
 
-jQuery(".dynamicform_rota").on("beforeInsert", function(e, item) {   
-       
+jQuery(".dynamicform_roteiro_multiplo").on("afterInsert", function(e, item) {   
+       console.log(item);
 });
 
 $(".dynamicform_roteiro_multiplo").on("beforeInsert", function(e, item) {
     
 });
 
-jQuery(".dynamicform_rota").on("beforeDelete", function(e) {
-    console.log(e);
-});
+
 
 jQuery(".dynamicform_rota").on("limitReached", function(e, item) {
         alert("Limite de Rota atingido");
@@ -77,7 +75,9 @@ $this->registerJs($js);
             'diaria_valor',
             'diaria_roteiro_complemento',
             'controle_roteiro',
-            'dados_roteiro_status'
+            'dados_roteiro_status',
+            'dia_semana_partida',
+            'dia_semana_chegada'
         ],
     ]); ?>
     <div class="panel panel-default">
@@ -102,7 +102,7 @@ $this->registerJs($js);
                     <div class="panel-body">
                         <?php
                         if (!$modelRoteiro->isNewRecord) {
-                            echo Html::activeHiddenInput($modelRoteiro, "[{$indexRoteiro}]id");
+                            var_dump($modelRoteiro);//echo Html::activeHiddenInput($modelRoteiro, "[{$indexRoteiro}]id");
                         }
                         ?>
                         <div class="row">
@@ -127,7 +127,7 @@ $this->registerJs($js);
                                 <tr class="room-item2">
                                     <td class="vcenter">
                                         <div class="row">
-                                            <div class="col-sm-3">
+                                            <div class="col-sm-4">
                                                 <?= $form->field($modelRoteiro, "[{$indexRoteiro}]diaria_dt_saida")->widget(
                                                     DatePicker::className(), [
                                                     'inline' => false,
@@ -148,11 +148,15 @@ $this->registerJs($js);
                                                     ]
                                                 ])->label('Hora'); ?>
                                             </div>
+                                            <div class="col-sm-4">
+                                                <label>Dia da Semana</label>
+                                                <input id="<?=$indexRoteiro?>_dia_semana_partida" class="form-control">
+                                            </div>
                                         </div>
                                     </td>
                                     <td class="vcenter">
                                         <div class="row">
-                                            <div class="col-sm-3">
+                                            <div class="col-sm-4">
                                                 <?= $form->field($modelRoteiro, "[{$indexRoteiro}]diaria_dt_chegada")->widget(
                                                     DatePicker::className(), [
                                                     'inline' => false,
@@ -173,6 +177,10 @@ $this->registerJs($js);
                                                     ]
                                                 ])->label('Hora'); ?>
                                             </div>
+                                            <div class="col-sm-4">
+                                                <label>Dia da Semana</label>
+                                                <input id="<?=$indexRoteiro?>_dia_semana_chegada" class="form-control">
+                                            </div>
                                         </div>
                                     </td>
                                 </tr>
@@ -181,30 +189,25 @@ $this->registerJs($js);
                         </div>
 
                         <div class="row">
-                            <div class="col-lg-1">
-                                <?= $form->field($modelRoteiro, "[{$indexRoteiro}]diaria_desconto")->checkbox([false => 'N', true => 'S'])->label('Redução 50%', ['style' => 'white-space: nowrap']); ?>
+                            <div class="col-lg-3">
+                                <label>Redução 50%</label>
+                                <?= $form->field($modelRoteiro, "[{$indexRoteiro}]diaria_desconto")->checkbox([false => 'N', true => 'S']); ?>
                             </div>
 
-                            <div class="col-sm-2">
+                            <div class="col-sm-3">
                                 <?= $form->field($modelRoteiro, "[{$indexRoteiro}]diaria_qtde")->textInput(['maxlength' => true]) ?>
                             </div>
 
-                            <div class="col-sm-2">
+                            <div class="col-sm-3">
                                 <?= $form->field($modelRoteiro, "[{$indexRoteiro}]diaria_valor")->textInput(['maxlength' => true]) ?>
                             </div>
-
-                            <div class="col-lg-3"></div>
-
-                            <div class="col-lg-1">
-                                <button class="pull-right btn btn-info">Calcular</button>
-                            </div>
-
                         </div>
                     </div>
                 </div>
                 <?php endforeach; ?>
             </div>
         </div>
+        <button>teste</button>
         <?php DynamicFormWidget::end(); ?>
 
     </div>

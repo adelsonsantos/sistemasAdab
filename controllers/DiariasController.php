@@ -3,16 +3,18 @@
 namespace app\controllers;
 
 use app\models\DadosUnicoFuncionario;
+use app\models\DadosUnicoMunicipio;
 use app\models\DiariaAprovacao;
 use app\models\DiariaAutorizacao;
 use app\models\DiariaDadosRoteiroMultiplo;
 use app\models\DiariaDevolucao;
+use app\models\DiariaFinanceiro;
 use app\models\DiariaMotivo;
 use app\models\DiariaRoteiro;
 use app\models\DiariaPreAutorizacao;
 use Behat\Gherkin\Exception\Exception;
-use kartik\mpdf\Pdf;
-use mPDF;
+use Mpdf\Mpdf;
+use phpDocumentor\Reflection\DocBlock\Tags\Return_;
 use Yii;
 use app\models\Diarias;
 use app\models\DiariasSearch;
@@ -110,6 +112,23 @@ class DiariasController extends Controller
         }
     }
 
+    public function actionMunicipio($id, $class)
+    {
+        d($class);
+        $posts = DadosUnicoMunicipio::find()
+            ->where(['estado_uf' => $id])
+            ->orderBy('municipio_ds')
+            ->all();
+
+        if (!empty($posts)) {
+            foreach($posts as $post) {
+                echo "<option value='".$post->municipio_cd."'>".$post->municipio_ds."</option>";
+            }
+        } else {
+            echo "<option>-</option>";
+        }
+    }
+
     /**
      * Lists all Diarias models.
      * @return mixed
@@ -124,8 +143,6 @@ class DiariasController extends Controller
                 'dataProvider' => $dataProvider,
             ]);
     }
-
-
 
     /**
      * Lists all Diarias models.
@@ -420,8 +437,8 @@ class DiariasController extends Controller
             $modelEmpenhoDevolver->diaria_devolucao_dt = date('Y-m-d');
             $modelEmpenhoDevolver->diaria_devolucao_hr = date('H:i:s');
             $modelEmpenhoDevolver->diaria_devolucao_func = intval(implode(ArrayHelper::map(DadosUnicoFuncionario::find()->where(['pessoa_id' => Yii::$app->user->getId()])->all(), 'funcionario_id', 'funcionario_id')));;
-            $modelEmpenhoDevolver->diaria_st = 0; // Autorização
-            $model->diaria_st = 0;
+            $modelEmpenhoDevolver->diaria_st = Diarias::AUTORIZACAO; // Autorização
+            $model->diaria_st = Diarias::AUTORIZACAO;
             $model->save();
             $modelEmpenhoDevolver->save();
             return $this->redirect(['empenho']);
@@ -432,6 +449,117 @@ class DiariasController extends Controller
             'modelEmpenhoDevolver'     => $modelEmpenhoDevolver
         ]);
     }
+
+    public function actionFinanceiroExecutarOrdem()
+    {
+        $searchModel = new DiariasSearch();
+        $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
+        $dataProvider->query->andWhere(['diaria_st'=> Diarias::EXECUCAO])->orderBy(['diaria_empenho' => SORT_ASC]);
+        return $this->render('financeiro-executar-ordem', [
+            'searchModel' => $searchModel,
+            'dataProvider' => $dataProvider,
+        ]);
+    }
+
+    public function actionFinanceiroExecutarDiaria($id)
+    {
+        $model = $this->findModel($id);
+        $financeiro = new DiariaFinanceiro();
+
+        if (Yii::$app->request->post()){
+            d($financeiro);
+            exit;
+            $model->save();
+            return $this->redirect(['financeiro-executar-ordem']);
+        }
+
+        return $this->render('financeiro-executar-diaria', [
+            'model' => $model,
+            'financeiro' => $financeiro
+        ]);
+    }
+
+    public function actionFinanceiroExecutarOrdemDevolver($id)
+    {
+        $modelFinanceiroExecutarOrdemDevolver = new DiariaDevolucao();
+        $model = $this->findModel($id);
+        if ($modelFinanceiroExecutarOrdemDevolver->load(Yii::$app->request->post())){
+            $modelFinanceiroExecutarOrdemDevolver->diaria_id = $model->diaria_id;
+            $modelFinanceiroExecutarOrdemDevolver->diaria_devolucao_dt = date('Y-m-d');
+            $modelFinanceiroExecutarOrdemDevolver->diaria_devolucao_hr = date('H:i:s');
+            $modelFinanceiroExecutarOrdemDevolver->diaria_devolucao_func = intval(implode(ArrayHelper::map(DadosUnicoFuncionario::find()->where(['pessoa_id' => Yii::$app->user->getId()])->all(), 'funcionario_id', 'funcionario_id')));;
+            $modelFinanceiroExecutarOrdemDevolver->diaria_st = Diarias::EMPENHO;
+            $model->diaria_st = Diarias::EMPENHO;
+            $model->save();
+            $modelFinanceiroExecutarOrdemDevolver->save();
+            return $this->redirect(['financeiro-executar-ordem']);
+        }
+
+        return $this->render('financeiro-executar-ordem-devolver', [
+            'model'                                 => $model,
+            'modelFinanceiroExecutarOrdemDevolver'  => $modelFinanceiroExecutarOrdemDevolver
+        ]);
+    }
+
+    public function actionComprovacaoAprovacao()
+    {
+        $searchModel = new DiariasSearch();
+        $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
+        $dataProvider->query->andWhere(['diaria_st'=> Diarias::APROVACAO_DE_COMPROVACAO])->orderBy(['diaria_empenho' => SORT_ASC]);
+        return $this->render('comprovacao-aprovacao', [
+            'searchModel' => $searchModel,
+            'dataProvider' => $dataProvider,
+        ]);
+
+    }
+
+    public function actionComprovacaoAprovacaoAprovar($id)
+    {
+        $model = $this->findModel($id);
+        if($model->validate() && ($model->diaria_comprovada == 1)){
+            $model->diaria_st = Diarias::AGUARDANDO_ARQUIVAMENTO;
+            $model->save();
+            return $this->redirect(['comprovacao-aprovacao']);
+        }
+
+        return $this->render('comprovacao-aprovacao', [
+            'model' => $model,
+        ]);
+    }
+
+    public function actionComprovacaoAprovacaoDevolver($id)
+    {
+        $modelComprovacaoAprovacaoDevolver = new DiariaDevolucao();
+        $model = $this->findModel($id);
+        if ($modelComprovacaoAprovacaoDevolver->load(Yii::$app->request->post())){
+            $modelComprovacaoAprovacaoDevolver->diaria_id = $model->diaria_id;
+            $modelComprovacaoAprovacaoDevolver->diaria_devolucao_dt = date('Y-m-d');
+            $modelComprovacaoAprovacaoDevolver->diaria_devolucao_hr = date('H:i:s');
+            $modelComprovacaoAprovacaoDevolver->diaria_devolucao_func = intval(implode(ArrayHelper::map(DadosUnicoFuncionario::find()->where(['pessoa_id' => Yii::$app->user->getId()])->all(), 'funcionario_id', 'funcionario_id')));;
+            $modelComprovacaoAprovacaoDevolver->diaria_st = Diarias::APROVACAO_DE_COMPROVACAO;
+            $model->diaria_st = Diarias::COMPROVACAO;
+            $model->save();
+            $modelComprovacaoAprovacaoDevolver->save();
+            return $this->redirect(['comprovacao-aprovacao']);
+        }
+
+        return $this->render('comprovacao-aprovacao-devolver', [
+            'model'                              => $model,
+            'modelComprovacaoAprovacaoDevolver'  => $modelComprovacaoAprovacaoDevolver
+        ]);
+    }
+
+    public function actionArquivar()
+    {
+        $searchModel = new DiariasSearch();
+        $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
+        $dataProvider->query->andWhere(['diaria_st'=> Diarias::AGUARDANDO_ARQUIVAMENTO])->orderBy(['diaria_empenho' => SORT_ASC]);
+        return $this->render('arquivar', [
+            'searchModel' => $searchModel,
+            'dataProvider' => $dataProvider,
+        ]);
+    }
+
 
     /**
      * Displays a single Diarias model.

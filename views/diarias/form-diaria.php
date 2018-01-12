@@ -110,7 +110,7 @@ use yii\helpers\Html;
                                                 ]); ?>
                                             </div>
                                             <div class="col-sm-3">
-                                                <?php echo $form->field($model, "diaria_hr_saida")->widget(
+                                                <?= $form->field($model, "diaria_hr_saida")->widget(
                                                     TimePicker::classname(), [
                                                     'readonly' => true,
                                                     'pluginOptions' => [

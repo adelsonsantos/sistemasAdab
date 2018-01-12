@@ -32,18 +32,19 @@ use app\models\Motivo;
 use yii\helpers\ArrayHelper;
 use yii\widgets\ActiveForm;
 use yii\bootstrap\Html;
-
+$this->title = 'Sistema de Diárias';
+$this->params['breadcrumbs'][] = $this->title;
 ?>
 
-<div style="position: absolute">
+<div style="position: absolute; margin-top: -50px">
     <?= Yii::$app->controller->renderPartial('menu'); ?>
 </div>
 
-<div class="panel panel-default">
-    <div class="panel-heading" style="height: 80px">
-        <h3 style="text-align: center">Devolver Autorização: <?= $model->diaria_numero; ?></h3>
-    </div>
+<div style="text-align: center">
+    <h1 class="font-topo">Diária
+        de <?= implode(ArrayHelper::map(DadosUnicoPessoa::find()->asArray()->where("pessoa_id = {$model->diaria_beneficiario}")->all(), 'pessoa_nm', 'pessoa_nm'), ['class' => 'form-control col-sm-1']) ?></h1>
 </div>
+<br>
 
 <div class="diarias-pre-autorizar-devolver" style="margin-left: 209px; margin-top: -6px">
     <table class="diaria">

@@ -27,7 +27,6 @@ use app\models\DiariaRoteiro;
 use kartik\tabs\TabsX;
 use yii\helpers\Html;
 use yii\widgets\ActiveForm;
-use yii\widgets\MaskedInput;
 
 /* @var $this yii\web\View */
 /* @var $model app\models\Diarias */
@@ -68,7 +67,7 @@ use yii\widgets\MaskedInput;
     echo TabsX::widget([
         'position' => TabsX::POS_ABOVE,
         'align' => TabsX::ALIGN_LEFT,
-        'options' => ['style' => 'background-color: #dcdedd;'],
+        'options' => ['style' => 'background-color: #82a3bd;'],
         'items' => [
             [
                 'label' => 'Diária',
@@ -89,91 +88,115 @@ use yii\widgets\MaskedInput;
     </div>
     <?php ActiveForm::end(); ?>
 
-
-    <div id="debug">
-
-    </div>
     <script type="application/javascript">
 
-        function getThis(as) {
-            console.log(as.id);
+
+
+        $("#diariaroteiro-0-0-uf_roteiro_origem").on("change", function(){
+            console.log("Adelson3");
+        });
+
+
+
+
+
+
+
+        $("#dynamic-form").on("beforeInsert", function(e, item) {
+            console.log("beforeInsert");
+        });
+
+        async function getThis(as) {
             setTimeout(function () {
                 switch (as.id) {
                     case 'rota':
                         $("#diariaroteiro-0-1-roteiro_origem").val($("#diariaroteiro-0-0-roteiro_destino").val());
                         $("#diariaroteiro-0-1-roteiro_destino").val($("#diariaroteiro-0-0-roteiro_origem").val());
-                        console.log(document.getElementById('diariaroteiro-0-1-roteiro_destino'));
+                        console.log(as.id);
                         break;
                     case 'rota0':
                         $("#diariaroteiro-0-1-roteiro_origem").val($("#diariaroteiro-0-0-roteiro_destino").val());
                         $("#diariaroteiro-0-1-roteiro_destino").val($("#diariaroteiro-0-0-roteiro_origem").val());
                         $("#roteiro0") !== null ? document.getElementById('roteiro0').id = 'roteiro' : '';
-                        console.log("es aqui");
+                        console.log(as.id);
                         break;
                     case 'rota00':
                         $("#diariaroteiro-0-2-roteiro_origem").val($("#diariaroteiro-0-1-roteiro_destino").val());
                         $("#diariaroteiro-0-2-roteiro_destino").val($("#diariaroteiro-0-0-roteiro_origem").val());
                         $("#roteiro0") !== null ? document.getElementById('roteiro0').id = 'roteiro' : '';
+                        console.log(as.id);
                         break;
                     case 'rota-0-0':
                         $("#diariaroteiro-0-3-roteiro_origem").val($("#diariaroteiro-0-2-roteiro_destino").val());
                         $("#diariaroteiro-0-3-roteiro_destino").val($("#diariaroteiro-0-0-roteiro_origem").val());
                         $("#roteiro0") !== null ? document.getElementById('roteiro0').id = 'roteiro' : '';
                         document.getElementById('rota-0-0').id = 'rotao';
+                        console.log(as.id);
                         break;
                     case 'rotao0':
                         $("#diariaroteiro-0-4-roteiro_origem").val($("#diariaroteiro-0-3-roteiro_destino").val());
                         $("#diariaroteiro-0-4-roteiro_destino").val($("#diariaroteiro-0-0-roteiro_origem").val());
                         $("#roteiro0") !== null ? document.getElementById('roteiro0').id = 'roteiro' : '';
+                        console.log(as.id);
                         break;
                     case 'rotao00':
                         $("#diariaroteiro-0-5-roteiro_origem").val($("#diariaroteiro-0-4-roteiro_destino").val());
                         $("#diariaroteiro-0-5-roteiro_destino").val($("#diariaroteiro-0-0-roteiro_origem").val());
                         $("#roteiro0") !== null ? document.getElementById('roteiro0').id = 'roteiro' : '';
+                        console.log(as.id);
                         break;
                     case 'rotao-0-0':
                         $("#diariaroteiro-0-6-roteiro_origem").val($("#diariaroteiro-0-5-roteiro_destino").val());
                         $("#diariaroteiro-0-6-roteiro_destino").val($("#diariaroteiro-0-0-roteiro_origem").val());
                         $("#roteiro0") !== null ? document.getElementById('roteiro0').id = 'roteiro' : '';
+                        console.log(as.id);
                         break;
                     case 'rota11':
                         $("#diariaroteiro-1-1-roteiro_origem").val($("#diariaroteiro-1-0-roteiro_destino").val());
                         $("#diariaroteiro-1-1-roteiro_destino").val($("#diariaroteiro-1-0-roteiro_origem").val());
                         $("#roteiro11") !== null ? document.getElementById('roteiro11').id = 'roteiro1' : '';
+                        console.log(as.id);
                         break;
                     case 'rota-1-1':
                         $("#diariaroteiro-1-2-roteiro_origem").val($("#diariaroteiro-1-1-roteiro_destino").val());
                         $("#diariaroteiro-1-2-roteiro_destino").val($("#diariaroteiro-1-0-roteiro_origem").val());
                         $("#roteiro11") !== null ? document.getElementById('roteiro11').id = 'roteiro1' : '';
                         $("#rota-1-1") !== null ? document.getElementById('rota-1-1').id = 'rotao1' : '';
+                        console.log(as.id);
                         break;
                     case 'rotao11':
                         $("#diariaroteiro-1-3-roteiro_origem").val($("#diariaroteiro-1-2-roteiro_destino").val());
                         $("#diariaroteiro-1-3-roteiro_destino").val($("#diariaroteiro-1-0-roteiro_origem").val());
                         $("#roteiro11") !== null ? document.getElementById('roteiro11').id = 'roteiro1' : '';
+                        console.log(as.id);
                         break;
                     case 'rotao-1-1':
                         $("#diariaroteiro-1-4-roteiro_origem").val($("#diariaroteiro-1-3-roteiro_destino").val());
                         $("#diariaroteiro-1-4-roteiro_destino").val($("#diariaroteiro-1-0-roteiro_origem").val());
                         $("#roteiro11") !== null ? document.getElementById('roteiro11').id = 'roteiro1' : '';
                         $("#rotao-1-1") !== null ? document.getElementById('rotao-1-1').id = 'rotaoo1' : '';
+                        console.log(as.id);
                         break;
                     case 'rotaoo11':
                         $("#diariaroteiro-1-5-roteiro_origem").val($("#diariaroteiro-1-4-roteiro_destino").val());
                         $("#diariaroteiro-1-5-roteiro_destino").val($("#diariaroteiro-1-0-roteiro_origem").val());
                         $("#roteiro11") !== null ? document.getElementById('roteiro11').id = 'roteiro1' : '';
+                        console.log(as.id);
                         break;
                     case 'rotaoo-1-1':
                         $("#diariaroteiro-1-6-roteiro_origem").val($("#diariaroteiro-1-5-roteiro_destino").val());
                         $("#diariaroteiro-1-6-roteiro_destino").val($("#diariaroteiro-1-0-roteiro_origem").val());
                         $("#roteiro11") !== null ? document.getElementById('roteiro11').id = 'roteiro1' : '';
                         $("#rotaoo-1-1") !== null ? document.getElementById('rotaoo-1-1').id = 'rotaooo1' : '';
+                        console.log(as.id);
                         break;
                     case 'rotaooo1':
                         alert("Limite de Rota atingido");
+                        console.log(as.id);
                         break;
                     default:
                         console.log("default");
+                        console.log(as.id);
                 }
             }, 40);
         }
