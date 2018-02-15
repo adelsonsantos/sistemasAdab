@@ -7,7 +7,7 @@ use yii\widgets\DetailView;
 /* @var $model app\models\PortalComputador */
 
 $this->title = $model->com_id;
-$this->params['breadcrumbs'][] = ['label' => 'Portal Computadors', 'url' => ['index']];
+$this->params['breadcrumbs'][] = ['label' => 'PortalContatoTipo Computadors', 'url' => ['index']];
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="portal-computador-view">

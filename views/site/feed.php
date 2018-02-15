@@ -1,7 +1,7 @@
 <?php
 /* @var $this yii\web\View */
 use yii\helpers\Html;
-$this->title = 'Portal ADAB';
+$this->title = 'PortalContatoTipo ADAB';
 ?>
 
     <div class="jumbotron">

@@ -9,7 +9,7 @@ use yii\helpers\Html;
 /* @var $modelCoordenadoria app\models\DiariaCoordenadoria */
 
 $this->title = 'Criar Contato da Coordenadoria';
-$this->params['breadcrumbs'][] = ['label' => 'Portal Contato Coordenadorias', 'url' => ['index']];
+$this->params['breadcrumbs'][] = ['label' => 'PortalContatoTipo Contato Coordenadorias', 'url' => ['index']];
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="portal-contato-coordenadoria-create">

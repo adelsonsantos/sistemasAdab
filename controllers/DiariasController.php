@@ -112,13 +112,32 @@ class DiariasController extends Controller
         }
     }
 
-    public function actionMunicipio($id, $class)
+
+
+    public function actionValidaMunicipioIgual($id, $uf)
     {
-        d($class);
-        $posts = DadosUnicoMunicipio::find()
-            ->where(['estado_uf' => $id])
-            ->orderBy('municipio_ds')
+        $dadosNovo = DadosUnicoMunicipio::find()
+            ->where(['estado_uf' => $uf])
+            ->andWhere(['not in','municipio_cd',[$id]])
             ->all();
+
+        if (!empty($dadosNovo)) {
+            foreach($dadosNovo as $post) {
+                echo "<option value='".$post->municipio_cd."'>".$post->municipio_ds."</option>";
+            }
+        } else {
+            echo "<option>-</option>";
+        }
+
+    }
+
+    public function actionMunicipio($id)
+    {
+            $posts = DadosUnicoMunicipio::find()
+                ->where(['estado_uf' => $id])
+                ->orderBy('municipio_ds')
+                ->all();
+
 
         if (!empty($posts)) {
             foreach($posts as $post) {
@@ -126,6 +145,20 @@ class DiariasController extends Controller
             }
         } else {
             echo "<option>-</option>";
+        }
+    }
+
+    public function actionMunicipioCapital($uf)
+    {
+        $postCapital = DadosUnicoMunicipio::find()
+            ->where(['estado_uf' => $uf])
+            ->andWhere(['municipio_capital' => 1])
+            ->orderBy('municipio_ds')
+            ->all();
+        if (!empty($postCapital)) {
+            foreach($postCapital as $post) {
+                echo $post->municipio_cd;
+            }
         }
     }
 

@@ -22,17 +22,71 @@
 
 </style>
 <?php
+
+$js = '
+jQuery(".dynamicform_rota").on("afterInsert", function(e, item) {    
+console.log("TEXTE");                                                                                                                                                                                                                                                                                                                  
+                           
+                          document.getElementById("diariaroteiro-0-1-uf_roteiro_origem").value = document.getElementById("diariaroteiro-0-0-uf_roteiro_destino").value;
+                          ajaxEstadoUfOrigem("diariaroteiro-0-1-uf_roteiro_origem", document.getElementById("diariaroteiro-0-1-uf_roteiro_origem").value);                                                 
+       
+                          if(document.getElementById("diariaroteiro-0-2-roteiro_origem")){                                
+                                document.getElementById("diariaroteiro-0-2-uf_roteiro_origem").value = document.getElementById("diariaroteiro-0-1-uf_roteiro_destino").value;
+                                ajaxEstadoUfOrigem("diariaroteiro-0-2-uf_roteiro_origem", document.getElementById("diariaroteiro-0-2-uf_roteiro_origem").value);
+                          }
+                          if(document.getElementById("diariaroteiro-0-3-roteiro_origem")){                                
+                                document.getElementById("diariaroteiro-0-3-uf_roteiro_origem").value = document.getElementById("diariaroteiro-0-2-uf_roteiro_destino").value;
+                                ajaxEstadoUfOrigem("diariaroteiro-0-3-uf_roteiro_origem", document.getElementById("diariaroteiro-0-3-uf_roteiro_origem").value);
+                          }
+                          if(document.getElementById("diariaroteiro-0-4-roteiro_origem")){                                
+                                document.getElementById("diariaroteiro-0-4-uf_roteiro_origem").value = document.getElementById("diariaroteiro-0-3-uf_roteiro_destino").value;
+                                ajaxEstadoUfOrigem("diariaroteiro-0-4-uf_roteiro_origem", document.getElementById("diariaroteiro-0-4-uf_roteiro_origem").value);
+                          }
+                          if(document.getElementById("diariaroteiro-0-5-roteiro_origem")){                                
+                                document.getElementById("diariaroteiro-0-5-uf_roteiro_origem").value = document.getElementById("diariaroteiro-0-4-uf_roteiro_destino").value;
+                                ajaxEstadoUfOrigem("diariaroteiro-0-5-uf_roteiro_origem", document.getElementById("diariaroteiro-0-5-uf_roteiro_origem").value);
+                          }
+                          if(document.getElementById("diariaroteiro-0-6-roteiro_origem")){                                
+                                document.getElementById("diariaroteiro-0-6-uf_roteiro_origem").value = document.getElementById("diariaroteiro-0-5-uf_roteiro_destino").value;
+                                ajaxEstadoUfOrigem("diariaroteiro-0-6-uf_roteiro_origem", document.getElementById("diariaroteiro-0-6-uf_roteiro_origem").value);
+                          }                                                                         
+                                                    
+                          if(document.getElementById("diariaroteiro-1-1-roteiro_origem")){                                
+                                document.getElementById("diariaroteiro-1-1-roteiro_origem").value = document.getElementById("diariaroteiro-1-0-roteiro_destino").value;
+                          }
+                          if(document.getElementById("diariaroteiro-1-2-roteiro_origem")){
+                                document.getElementById("diariaroteiro-1-2-roteiro_origem").value = document.getElementById("diariaroteiro-1-1-roteiro_destino").value;
+                          }
+                          if(document.getElementById("diariaroteiro-1-3-roteiro_origem")){
+                                document.getElementById("diariaroteiro-1-3-roteiro_origem").value = document.getElementById("diariaroteiro-1-2-roteiro_destino").value;
+                          }
+                          if(document.getElementById("diariaroteiro-1-4-roteiro_origem")){
+                                document.getElementById("diariaroteiro-1-4-roteiro_origem").value = document.getElementById("diariaroteiro-1-3-roteiro_destino").value;
+                          }
+                          if(document.getElementById("diariaroteiro-1-5-roteiro_origem")){
+                                document.getElementById("diariaroteiro-1-5-roteiro_origem").value = document.getElementById("diariaroteiro-1-4-roteiro_destino").value;
+                          }
+                          if(document.getElementById("diariaroteiro-1-6-roteiro_origem")){
+                                document.getElementById("diariaroteiro-1-6-roteiro_origem").value = document.getElementById("diariaroteiro-1-5-roteiro_destino").value;
+                          }
+                          if(document.getElementById("diariaroteiro-1-7-roteiro_origem")){
+                                document.getElementById("diariaroteiro-1-7-roteiro_origem").value = document.getElementById("diariaroteiro-1-6-roteiro_destino").value;
+                          }               
+});
+';
+
+
 use app\models\DiariaDadosRoteiroMultiplo;
 use app\models\DiariaRoteiro;
 use kartik\tabs\TabsX;
 use yii\helpers\Html;
 use yii\widgets\ActiveForm;
-
 /* @var $this yii\web\View */
 /* @var $model app\models\Diarias */
 /* @var $modelsRoteiro app\models\DiariaRoteiro */
 /* @var $modelMotivo app\models\DiariaMotivo */
 /* @var $form yii\widgets\ActiveForm */
+$this->registerJs($js);
 ?>
 
 <div style="position: absolute">
@@ -91,19 +145,217 @@ use yii\widgets\ActiveForm;
     <script type="application/javascript">
 
 
+        function validaDestino(id, val){
+            console.log(id);
+            console.log(val);
+            var input;
+            var uf;
+            switch (id) {
+                case "diariaroteiro-0-0-roteiro_origem":
+                    input = "diariaroteiro-0-0-roteiro_destino";
+                    uf =  "diariaroteiro-0-0-uf_roteiro_origem";
+                    break;
+                case "diariaroteiro-0-1-roteiro_origem":
+                    input = "diariaroteiro-0-1-roteiro_destino";
+                    break;
+                case "diariaroteiro-0-2-roteiro_origem":
+                    input = "diariaroteiro-0-2-roteiro_destino";
+                    break;
+                case "diariaroteiro-0-3-roteiro_origem":
+                    input = "diariaroteiro-0-3-roteiro_destino";
+                    break;
+                case "diariaroteiro-0-4-roteiro_origem":
+                    input = "diariaroteiro-0-4-roteiro_destino";
+                    break;
+                case "diariaroteiro-0-5-roteiro_origem":
+                    input = "diariaroteiro-0-5-roteiro_destino";
+                    break;
+                case "diariaroteiro-0-6-roteiro_origem":
+                    input = "diariaroteiro-0-6-roteiro_destino";
+                    break;
+            }
+           /* $.ajax({
+                url: " //Yii::$app->urlManager->createUrl(
+                    'diarias/municipio?id=')?>" + val+"&cod="+val,
+                success: function(data){
+                        console.log(data);
+                    $("select#" + input).html(data);
+                }
+            });*/
+          var uff =  document.getElementById(uf).value;
+            console.log(uff);
+            $.ajax({
+                url: "<?=Yii::$app->urlManager->createUrl(
+                    'diarias/valida-municipio-igual?id=')?>" + val+"&uf="+uff,
+                success: function(data){
+                    $("select#" + input).html(data);
+                    }});
 
-        $("#diariaroteiro-0-0-uf_roteiro_origem").on("change", function(){
-            console.log("Adelson3");
-        });
+
+
+        }
+
+        function ajaxEstadoUfOrigem(id, uf) {
+
+            var input;
+            switch (id) {
+                case "diariaroteiro-0-0-uf_roteiro_origem":
+                    input = "diariaroteiro-0-0-roteiro_origem";
+                    break;
+                case "diariaroteiro-0-1-uf_roteiro_origem":
+                    input = "diariaroteiro-0-1-roteiro_origem";
+                    break;
+                case "diariaroteiro-0-2-uf_roteiro_origem":
+                    input = "diariaroteiro-0-2-roteiro_origem";
+                    break;
+                case "diariaroteiro-0-3-uf_roteiro_origem":
+                    input = "diariaroteiro-0-3-roteiro_origem";
+                    break;
+                case "diariaroteiro-0-4-uf_roteiro_origem":
+                    input = "diariaroteiro-0-4-roteiro_origem";
+                    break;
+                case "diariaroteiro-0-5-uf_roteiro_origem":
+                    input = "diariaroteiro-0-5-roteiro_origem";
+                    break;
+                case "diariaroteiro-0-6-uf_roteiro_origem":
+                    input = "diariaroteiro-0-6-roteiro_origem";
+                    break;
+
+
+            }
+
+            $.ajax({
+                url: "<?=Yii::$app->urlManager->createUrl(
+                    'diarias/municipio?id=')?>" + uf,
+                success: function(data){
+                    $("select#" + input).html(data);
+                    if (id === "diariaroteiro-0-0-uf_roteiro_origem") {
+                        $.ajax({
+                            url: "<?=Yii::$app->urlManager->createUrl(
+                                'diarias/municipio-capital?uf=')?>" + uf,
+                            success: function(data){
+                                $("select#" + input).val(data);
+                            }
+                        })
+                    }
+                    if (document.getElementById("diariaroteiro-0-1-roteiro_origem")) {
+                        document.getElementById("diariaroteiro-0-1-roteiro_origem").value = document.getElementById("diariaroteiro-0-0-roteiro_destino").value;
+                    }
+                    if (document.getElementById("diariaroteiro-0-2-roteiro_origem")) {
+                        document.getElementById("diariaroteiro-0-2-roteiro_origem").value = document.getElementById("diariaroteiro-0-1-roteiro_destino").value;
+                    }
+                    if (document.getElementById("diariaroteiro-0-3-roteiro_origem")) {
+                        document.getElementById("diariaroteiro-0-3-roteiro_origem").value = document.getElementById("diariaroteiro-0-2-roteiro_destino").value;
+                    }
+                    if (document.getElementById("diariaroteiro-0-4-roteiro_origem")) {
+                        document.getElementById("diariaroteiro-0-4-roteiro_origem").value = document.getElementById("diariaroteiro-0-3-roteiro_destino").value;
+                    }
+                    if (document.getElementById("diariaroteiro-0-5-roteiro_origem")) {
+                        document.getElementById("diariaroteiro-0-5-roteiro_origem").value = document.getElementById("diariaroteiro-0-4-roteiro_destino").value;
+                    }
+                    if (document.getElementById("diariaroteiro-0-6-roteiro_origem")) {
+                        document.getElementById("diariaroteiro-0-6-roteiro_origem").value = document.getElementById("diariaroteiro-0-5-roteiro_destino").value;
+                    }
+                }
+            });
+
+            /*$.get("  /*Yii::$app->urlManager->createUrl(
+                    'diarias/municipio?id=')?>" + uf,
+                function (data) {
+
+                    $("select#" + input).html(data);
+
+                    if (id === "diariaroteiro-0-0-uf_roteiro_origem") {
+                        $.get(" /*Yii::$app->urlManager->createUrl(
+                                'diarias/municipio-capital?uf=')?>" + uf,
+                            function (data) {
+                                $("select#" + input).val(data);
+                            });
+                    }*/
+
+                   /* setTimeout(function () {
+                    if (document.getElementById("diariaroteiro-0-1-roteiro_origem")) {
+                        document.getElementById("diariaroteiro-0-1-roteiro_origem").value = document.getElementById("diariaroteiro-0-0-roteiro_destino").value;
+                    }
+                    if (document.getElementById("diariaroteiro-0-2-roteiro_origem")) {
+                        document.getElementById("diariaroteiro-0-2-roteiro_origem").value = document.getElementById("diariaroteiro-0-1-roteiro_destino").value;
+                    }
+                    if (document.getElementById("diariaroteiro-0-3-roteiro_origem")) {
+                        document.getElementById("diariaroteiro-0-3-roteiro_origem").value = document.getElementById("diariaroteiro-0-2-roteiro_destino").value;
+                    }
+                    if (document.getElementById("diariaroteiro-0-4-roteiro_origem")) {
+                        document.getElementById("diariaroteiro-0-4-roteiro_origem").value = document.getElementById("diariaroteiro-0-3-roteiro_destino").value;
+                    }
+                    if (document.getElementById("diariaroteiro-0-5-roteiro_origem")) {
+                        document.getElementById("diariaroteiro-0-5-roteiro_origem").value = document.getElementById("diariaroteiro-0-4-roteiro_destino").value;
+                    }
+                    if (document.getElementById("diariaroteiro-0-6-roteiro_origem")) {
+                        document.getElementById("diariaroteiro-0-6-roteiro_origem").value = document.getElementById("diariaroteiro-0-5-roteiro_destino").value;
+                    }
+                    }, 1000);*/
+               // });
+        }
 
 
 
+        function ajaxEstadoUfDestino(id, uf)
+        {
+            var input;
+            switch (id) {
+                case "diariaroteiro-0-0-uf_roteiro_destino":
+                    input = "diariaroteiro-0-0-roteiro_destino";
+                    ajaxMunicipio(input, uf);
+                    break;
+                case "diariaroteiro-0-1-uf_roteiro_destino":
+                    input = "diariaroteiro-0-1-roteiro_destino";
+                    ajaxMunicipio(input, uf);
+                    break;
+                case "diariaroteiro-0-2-uf_roteiro_destino":
+                    input = "diariaroteiro-0-2-roteiro_destino";
+                    ajaxMunicipio(input, uf);
+                    break;
+                case "diariaroteiro-0-3-uf_roteiro_destino":
+                    input = "diariaroteiro-0-3-roteiro_destino";
+                    ajaxMunicipio(input, uf);
+                    break;
+                case "diariaroteiro-0-4-uf_roteiro_destino":
+                    input = "diariaroteiro-0-4-roteiro_destino";
+                    ajaxMunicipio(input, uf);
+                    break;
+                case "diariaroteiro-0-5-uf_roteiro_destino":
+                    input = "diariaroteiro-0-5-roteiro_destino";
+                    ajaxMunicipio(input, uf);
+                    break;
+                case "diariaroteiro-0-6-uf_roteiro_destino":
+                    input = "diariaroteiro-0-6-roteiro_destino";
+                    ajaxMunicipio(input, uf);
+                    break;
+            }
+        }
+
+
+        function ajaxMunicipio(input, uf)
+        {
+            $.ajax({
+                url: "<?=Yii::$app->urlManager->createUrl(
+                    'diarias/municipio?id=')?>" + uf,
+                success: function(data){
+                    $("select#" + input).html(data);
+                    $.ajax({
+                        url: "<?=Yii::$app->urlManager->createUrl(
+                            'diarias/municipio-capital?uf=')?>" + uf,
+                        success: function(data){
+                            $("select#" + input).val(data);
+                        }
+                    })
+                }
+            });
+        }
 
 
 
 
         $("#dynamic-form").on("beforeInsert", function(e, item) {
-            console.log("beforeInsert");
         });
 
         async function getThis(as) {

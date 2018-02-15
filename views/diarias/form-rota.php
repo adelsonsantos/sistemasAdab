@@ -10,72 +10,7 @@ use yii\helpers\ArrayHelper;
 use yii\helpers\Html;
 use wbraganca\dynamicform\DynamicFormWidget;
 
-
-
-
-
-$js = '
-jQuery(".dynamicform_rota").on("beforeInsert", function(e, item) {
-    setTimeout(function(){
-                           
-                          document.getElementById("diariaroteiro-0-1-roteiro_origem").value = document.getElementById("diariaroteiro-0-0-roteiro_destino").value;
-       
-                          if(document.getElementById("diariaroteiro-0-2-roteiro_origem")){
-                                document.getElementById("diariaroteiro-0-2-roteiro_origem").value = document.getElementById("diariaroteiro-0-1-roteiro_destino").value;
-                          }
-                          if(document.getElementById("diariaroteiro-0-3-roteiro_origem")){
-                                document.getElementById("diariaroteiro-0-3-roteiro_origem").value = document.getElementById("diariaroteiro-0-2-roteiro_destino").value;
-                          }
-                          if(document.getElementById("diariaroteiro-0-4-roteiro_origem")){
-                                document.getElementById("diariaroteiro-0-4-roteiro_origem").value = document.getElementById("diariaroteiro-0-3-roteiro_destino").value;
-                          }
-                          if(document.getElementById("diariaroteiro-0-5-roteiro_origem")){
-                                document.getElementById("diariaroteiro-0-5-roteiro_origem").value = document.getElementById("diariaroteiro-0-4-roteiro_destino").value;
-                          }
-                          if(document.getElementById("diariaroteiro-0-6-roteiro_origem")){
-                                document.getElementById("diariaroteiro-0-6-roteiro_origem").value = document.getElementById("diariaroteiro-0-5-roteiro_destino").value;
-                          }
-                          if(document.getElementById("diariaroteiro-0-7-roteiro_origem")){
-                                document.getElementById("diariaroteiro-0-7-roteiro_origem").value = document.getElementById("diariaroteiro-0-6-roteiro_destino").value;
-                          }
-                          
-                          if(document.getElementById("diariaroteiro-1-1-roteiro_origem")){                                
-                                document.getElementById("diariaroteiro-1-1-roteiro_origem").value = document.getElementById("diariaroteiro-1-0-roteiro_destino").value;
-                          }
-                          if(document.getElementById("diariaroteiro-1-2-roteiro_origem")){
-                                document.getElementById("diariaroteiro-1-2-roteiro_origem").value = document.getElementById("diariaroteiro-1-1-roteiro_destino").value;
-                          }
-                          if(document.getElementById("diariaroteiro-1-3-roteiro_origem")){
-                                document.getElementById("diariaroteiro-1-3-roteiro_origem").value = document.getElementById("diariaroteiro-1-2-roteiro_destino").value;
-                          }
-                          if(document.getElementById("diariaroteiro-1-4-roteiro_origem")){
-                                document.getElementById("diariaroteiro-1-4-roteiro_origem").value = document.getElementById("diariaroteiro-1-3-roteiro_destino").value;
-                          }
-                          if(document.getElementById("diariaroteiro-1-5-roteiro_origem")){
-                                document.getElementById("diariaroteiro-1-5-roteiro_origem").value = document.getElementById("diariaroteiro-1-4-roteiro_destino").value;
-                          }
-                          if(document.getElementById("diariaroteiro-1-6-roteiro_origem")){
-                                document.getElementById("diariaroteiro-1-6-roteiro_origem").value = document.getElementById("diariaroteiro-1-5-roteiro_destino").value;
-                          }
-                          if(document.getElementById("diariaroteiro-1-7-roteiro_origem")){
-                                document.getElementById("diariaroteiro-1-7-roteiro_origem").value = document.getElementById("diariaroteiro-1-6-roteiro_destino").value;
-                          }           
-     }, 500);
-});
-
-
-jQuery(".dynamicform_rota").on("afterInsert", function(e, item) {                                   
-                          
-                                                          
-});
-
-
-';
-
-$this->registerJs($js);
-
-?>
-<?php DynamicFormWidget::begin([
+ DynamicFormWidget::begin([
     'widgetContainer' => 'dynamicform_rota',
     'widgetBody' => '.container-rooms',
     'widgetItem' => '.room-item',
@@ -129,19 +64,32 @@ $this->registerJs($js);
                                     ['BA' => [
                                         'selected' => true
                                     ]],
-                                'onchange' => '$.get("'.Yii::$app->urlManager->createUrl(["diarias/municipio"]).'?id="+$(this).val()+"?class="+1, function( data ) {                           
-                                    $( "select#'."diariaroteiro-".$indexRoteiro."-".$indexRota."-roteiro_origem".'" ).html( data );                      
-                                    })'
-                                    ]); ?>
+                                    'onchange' => 'ajaxEstadoUfOrigem(this.id, $(this).val());'
+                                ]); ?>
                         </div>
                         <div class="col-lg-4">
                             <?= $form->field($modelRota, "[{$indexRoteiro}][{$indexRota}]roteiro_origem")->label(false)->dropDownList(
-                                ArrayHelper::map(DadosUnicoMunicipio::find()->asArray()->where(['estado_uf' => 'BA'])->orderBy('municipio_ds')->all(), 'municipio_cd', 'municipio_ds'), ['options' => [$modelRoteiro['roteiro_origem'] => ['selected' => true]]]); ?>
+                                ArrayHelper::map(DadosUnicoMunicipio::find()->asArray()->where(['estado_uf' => 'BA'])->orderBy('municipio_ds')->all(), 'municipio_cd', 'municipio_ds'),
+                                ['options' => [
+                                    38490 => [
+                                                'selected' => true
+                                        ]],
+                                    'onchange' => 'validaDestino(this.id, $(this).val());'
+                                ]); ?>
                         </div>
 
                         <div class="col-lg-1" style="width: 60px; margin-top: 5px;"><strong>Destino:</strong></div>
                         <div class="col-lg-1" style="width: 100px">
-                            <?= $form->field($modelRota, "[{$indexRoteiro}][{$indexRota}]uf_roteiro_destino")->label(false)->dropDownList([]); ?>
+                            <?= $form->field($modelRota, "[{$indexRoteiro}][{$indexRota}]uf_roteiro_destino")->label(false)->dropDownList(
+                                ArrayHelper::map(DadosUnicoEstado::find()->asArray()->orderBy('estado_uf')->all(), 'estado_uf', 'estado_uf'),
+                                ['options' =>
+                                    ['BA' => [
+                                        'selected' => true
+                                    ]],
+                                    'onchange' => 'ajaxEstadoUfDestino(this.id, $(this).val());'
+                                ]
+
+                            ); ?>
                         </div>
                         <div class="col-lg-4">
                             <?= $form->field($modelRota, "[{$indexRoteiro}][{$indexRota}]roteiro_destino")->label(false)->dropDownList(

@@ -8,7 +8,7 @@ use yii\helpers\Html;
 /* @var $modelCoordenadoria app\models\DiariaCoordenadoria */
 
 $this->title = 'Alterar Contato da Coordenadoria de: ' . $modelCoordenadoria->nome;
-$this->params['breadcrumbs'][] = ['label' => 'Portal Contato Coordenadorias', 'url' => ['index']];
+$this->params['breadcrumbs'][] = ['label' => 'PortalContatoTipo Contato Coordenadorias', 'url' => ['index']];
 ?>
 <div class="portal-contato-coordenadoria-update">
 

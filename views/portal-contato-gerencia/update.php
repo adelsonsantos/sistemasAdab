@@ -7,8 +7,8 @@ use yii\helpers\Html;
 /* @var $modelGerencia app\models\PortalGerencia */
 /* @var $modelContato app\models\PortalContato */
 
-$this->title = 'Update Portal Contato Gerencia: ' . $model->cge_id;
-$this->params['breadcrumbs'][] = ['label' => 'Portal Contato Gerencias', 'url' => ['index']];
+$this->title = 'Update PortalContatoTipo Contato Gerencia: ' . $model->cge_id;
+$this->params['breadcrumbs'][] = ['label' => 'PortalContatoTipo Contato Gerencias', 'url' => ['index']];
 $this->params['breadcrumbs'][] = ['label' => $model->cge_id, 'url' => ['view', 'id' => $model->cge_id]];
 $this->params['breadcrumbs'][] = 'Update';
 ?>

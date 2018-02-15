@@ -7,7 +7,7 @@ use yii\grid\GridView;
 /* @var $searchModel app\models\PortalContatoCoordenadoriaSearch */
 /* @var $dataProvider yii\data\ActiveDataProvider */
 
-$this->title = 'Portal Contato Coordenadorias';
+$this->title = 'PortalContatoTipo Contato Coordenadorias';
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="portal-contato-coordenadoria-index">
@@ -16,7 +16,7 @@ $this->params['breadcrumbs'][] = $this->title;
     <?php // echo $this->render('_search', ['model' => $searchModel]); ?>
 
     <p>
-        <?= Html::a('Create Portal Contato Coordenadoria', ['create'], ['class' => 'btn btn-success']) ?>
+        <?= Html::a('Create PortalContatoTipo Contato Coordenadoria', ['create'], ['class' => 'btn btn-success']) ?>
     </p>
     <?= GridView::widget([
         'dataProvider' => $dataProvider,

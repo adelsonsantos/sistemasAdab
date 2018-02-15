@@ -51,9 +51,10 @@
 
 
 <?php
+/*
 use aki\vue\Vue;
-?>
-<?php Vue::begin([
+*/?><!--
+--><?php /*Vue::begin([
     'id' => "vue-app",
     'data' => [
         'message' => "hello",
@@ -68,9 +69,9 @@ use aki\vue\Vue;
             . "this.message ='Adelson'; "
             . "}"),
     ]
-]); ?>
+]); */?>
 
-<p>{{ message }}</p>
+<!--<p>{{ message }}</p>
 
 <button v-on:click="reverseMessage">Reverse Message</button>
 
@@ -82,9 +83,9 @@ use aki\vue\Vue;
     </li>
 </ol>
 
-<input v-model="message">
+<input v-model="message">-->
 
-<?php Vue::end(); ?>
+<?php //Vue::end(); ?>
 
 
 

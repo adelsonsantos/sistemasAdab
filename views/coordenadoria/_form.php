@@ -18,7 +18,7 @@ use yii\widgets\ActiveForm;
         </div>
         <div class="form-group">
             <?= Html::submitButton($model->isNewRecord ? 'Criar' : 'Alterar', ['class' => $model->isNewRecord ? 'btn btn-success' : 'btn btn-primary', 'style' => 'font-size: 13px']) ?>
-            <?= Html::a('<span class="glyphicon"></span> Cancelar', ['/diaria-coordenadoria/index']);?>
+            <?= Html::a('<span class="glyphicon"></span> Cancelar', ['/coordenadoria/index']);?>
         </div>
 
         <?php ActiveForm::end(); ?>

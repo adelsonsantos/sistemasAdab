@@ -8,7 +8,7 @@ use yii\data\ActiveDataProvider;
 use app\models\PortalCoordenadoriaGerencia;
 
 /**
- * PortalCoordenadoriaGerenciaSearch represents the model behind the search form about `app\models\PortalCoordenadoriaGerencia`.
+ * PortalCoordenadoriaGerenciaSearch represents the model behind the search form of `app\models\PortalCoordenadoriaGerencia`.
  */
 class PortalCoordenadoriaGerenciaSearch extends PortalCoordenadoriaGerencia
 {
@@ -18,7 +18,7 @@ class PortalCoordenadoriaGerenciaSearch extends PortalCoordenadoriaGerencia
     public function rules()
     {
         return [
-            [['cog_id', 'id_coordenadoria', 'ger_id'], 'safe'],
+            [['cog_id', 'id_coordenadoria', 'ger_id', 'con_id'], 'integer'],
         ];
     }
 
@@ -42,8 +42,6 @@ class PortalCoordenadoriaGerenciaSearch extends PortalCoordenadoriaGerencia
     {
         $query = PortalCoordenadoriaGerencia::find();
 
-        $query->joinWith('ger');
-        $query->joinWith('idCoordenadoria');
         // add conditions that should always apply here
 
         $dataProvider = new ActiveDataProvider([
@@ -61,8 +59,9 @@ class PortalCoordenadoriaGerenciaSearch extends PortalCoordenadoriaGerencia
         // grid filtering conditions
         $query->andFilterWhere([
             'cog_id' => $this->cog_id,
-            'diaria.coordenadoria.nome' => $this->id_coordenadoria,
-            'portal.gerencia.ger_nome' => $this->ger_id
+            'id_coordenadoria' => $this->id_coordenadoria,
+            'ger_id' => $this->ger_id,
+            'con_id' => $this->con_id,
         ]);
 
         return $dataProvider;

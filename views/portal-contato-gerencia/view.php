@@ -9,7 +9,7 @@ use yii\widgets\DetailView;
 /* @var $this yii\web\View */
 /* @var $model app\models\PortalContatoGerencia */
 
-$this->params['breadcrumbs'][] = ['label' => 'Portal Contato Gerencias', 'url' => ['index']];
+$this->params['breadcrumbs'][] = ['label' => 'PortalContatoTipo Contato Gerencias', 'url' => ['index']];
 ?>
 <div class="portal-contato-gerencia-view">
     <div class="jumbotron">

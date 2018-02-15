@@ -10,6 +10,10 @@ $config = [
     'basePath' => dirname(__DIR__),
     'bootstrap' => ['log'],
     'components' => [
+        'formatter' => [
+            'class' => 'yii\i18n\Formatter',
+            'nullDisplay' => '',
+        ],
         'pdf' => [
             'class' => Pdf::classname(),
             'format' => Pdf::FORMAT_A4,
@@ -50,7 +54,7 @@ $config = [
                 ],
             ],
         ],
-        //'db' => [//require(__DIR__ . '/db.php'),
+       // 'db' => [require(__DIR__ . '/db.php'),
             'db' => [
                 'class' => 'yii\db\Connection',
                 'dsn' => 'pgsql:host=localhost;port=5434;dbname=diaria', // Maybe other DBMS such as psql (PostgreSQL),...
@@ -65,14 +69,14 @@ $config = [
                 ]
             ],
 
-            'db2' => [
+            /*'db2' => [
                 'class' => 'yii\db\Connection',
                 'dsn' => 'sqlsrv:Server=10.2.8.86;Database=BD_ADAB_REDA', //maybe other dbms such as psql,...
                 'username' => 'usr_adab_reda',
                 'password' => '%sr_@d@b_rd@',
                 'charset' => 'utf8',
-            ],
-       // ],
+            ],*/
+
 
         'view'=>[
             'theme' => [

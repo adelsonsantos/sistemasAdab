@@ -49,11 +49,37 @@ use yii\widgets\MaskedInput;
                         <div class="col-sm-3">
                             <?= $form->field($model, 'NOM_ORGAO_EMISSOR')->textInput() ?>
                         </div>
+
+                        <div class="col-sm-3">
+                            <?= $form->field($model, 'DES_RACA')->dropDownList(
+                                    [
+                                            'Amarela' => 'Amarela',
+                                            'Branca' => 'Branca',
+                                            'Indígena' => 'Indígena',
+                                            'Parda' => 'Parda',
+                                            'Preta' => 'Preta',
+                                            'Outros' => 'Outros',
+                                    ]
+                                )
+                            ?>
+                        </div>
+
+                        <div class="col-sm-3">
+                            <?= $form->field($model, 'DES_ESTADO_CIVIL')->dropDownList(
+                                [
+                                    'Solteiro' => 'Solteiro',
+                                    'Casado' => 'Casado',
+                                    'Divorciado' => 'Divorciado',
+                                    'Viúvo' => 'Viúvo',
+                                    'União Estável' => 'União Estável',
+                                    'Outros' => 'Outros',
+                                ]
+                            )
+                            ?>
+                        </div>
                     </div>
 
-
-                        <?= $form->field($model, 'DES_ESTADO_CIVIL')->textInput() ?>
-
+                    <div class="row">
                         <?= $form->field($model, 'STS_DEFICIENTE_FISICO')->textInput() ?>
 
                         <?= $form->field($model, 'DES_DEFICIENCIA')->textInput() ?>
@@ -61,20 +87,68 @@ use yii\widgets\MaskedInput;
                         <?= $form->field($model, 'STS_FILHOS')->textInput() ?>
 
                         <?= $form->field($model, 'QTD_FILHOS')->textInput() ?>
+                    </div>
+                    <br>
 
+                <div class="row">
+                    <div class="col-sm-8">
+                        <?= $form->field($model, 'DES_ENDERECO')->textInput() ?>
+                    </div>
+                    <div class="col-sm-4">
+                        <?= $form->field($model, 'NOM_BAIRRO')->textInput() ?>
+                    </div>
+                </div>
 
-
+                <div class="row">
+                    <div class="col-sm-3">
+                        <?= $form->field($model, 'NUM_CEP')->widget(MaskedInput::className(), [
+                            'mask' => '99999-999',
+                        ]) ?>
+                    </div>
+                    <div class="col-sm-5">
+                        <?= $form->field($model, 'NOM_CIDADE')->textInput() ?>
+                    </div>
+                    <div class="col-sm-4">
+                        <?= $form->field($model, 'NOM_ESTADO')->dropDownList(
+                            [
+                                'AC' => 'Acre',
+                                'AL' => 'Alagoas',
+                                'AP' => 'Amapá',
+                                'AM' => 'Amazonas',
+                                'BA' => 'Bahia',
+                                'CE' => 'Ceará',
+                                'DF' => 'Distrito Federal',
+                                'ES' => 'Espírito Santo',
+                                'GO' => 'Goiás',
+                                'MA' => 'Maranhão',
+                                'MT' => 'Mato Grosso',
+                                'MG' => 'Minas Gerais',
+                                'PA' => 'Pará',
+                                'PB' => 'Paraíba',
+                                'PR' => 'Paraná',
+                                'PE' => 'Pernambuco',
+                                'PI' => 'Piauí',
+                                'RJ' => 'Rio de Janeiro',
+                                'RN' => 'Rio Grande do Norte',
+                                'RS' => 'Rio Grande do Sul',
+                                'RO' => 'Rondônia',
+                                'RR' => 'Rorâima',
+                                'SC' => 'Santa Catarina',
+                                'SP' => 'São Paulo',
+                                'SE' => 'Sergipe',
+                                'TO' => 'Tocantins',
+                            ]
+                        )
+                        ?>
+                    </div>
+                </div>
             </div>
         </div>
 
 
-    <?= $form->field($model, 'DES_ENDERECO')->textInput() ?>
 
-    <?= $form->field($model, 'NOM_BAIRRO')->textInput() ?>
 
-    <?= $form->field($model, 'NUM_CEP')->textInput() ?>
 
-    <?= $form->field($model, 'NOM_CIDADE')->textInput() ?>
 
     <?= $form->field($model, 'NOM_ESTADO')->textInput() ?>
 

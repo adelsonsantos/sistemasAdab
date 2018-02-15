@@ -6,8 +6,8 @@ use yii\helpers\Html;
 /* @var $this yii\web\View */
 /* @var $model app\models\PortalComputador */
 
-$this->title = 'Create Portal Computador';
-$this->params['breadcrumbs'][] = ['label' => 'Portal Computadors', 'url' => ['index']];
+$this->title = 'Create PortalContatoTipo Computador';
+$this->params['breadcrumbs'][] = ['label' => 'PortalContatoTipo Computadors', 'url' => ['index']];
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="portal-computador-create">

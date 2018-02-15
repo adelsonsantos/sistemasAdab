@@ -6,8 +6,8 @@ use yii\helpers\Html;
 /* @var $this yii\web\View */
 /* @var $model app\models\PortalContatoCoordenadoria */
 
-$this->title = 'Create Portal Contato Coordenadoria';
-$this->params['breadcrumbs'][] = ['label' => 'Portal Contato Coordenadorias', 'url' => ['index']];
+$this->title = 'Create PortalContatoTipo Contato Coordenadoria';
+$this->params['breadcrumbs'][] = ['label' => 'PortalContatoTipo Contato Coordenadorias', 'url' => ['index']];
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="portal-contato-coordenadoria-create">

@@ -2,20 +2,18 @@
 
 namespace app\controllers;
 
-use app\models\DiariaCoordenadoria;
-use app\models\PortalGerencia;
 use Yii;
-use app\models\PortalCoordenadoriaGerencia;
-use app\models\PortalCoordenadoriaGerenciaSearch;
+use app\models\DiariaCoordenadoria;
+use app\models\DiariaCoordenadoriaSearch;
 use yii\filters\AccessControl;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
 
 /**
- * PortalCoordenadoriaGerenciaController implements the CRUD actions for PortalCoordenadoriaGerencia model.
+ * CoordenadoriaController implements the CRUD actions for DiariaCoordenadoria model.
  */
-class PortalCoordenadoriaGerenciaController extends Controller
+class CoordenadoriaController extends Controller
 {
     /**
      * @inheritdoc
@@ -44,12 +42,12 @@ class PortalCoordenadoriaGerenciaController extends Controller
     }
 
     /**
-     * Lists all PortalCoordenadoriaGerencia models.
+     * Lists all DiariaCoordenadoria models.
      * @return mixed
      */
     public function actionIndex()
     {
-        $searchModel = new PortalCoordenadoriaGerenciaSearch();
+        $searchModel = new DiariaCoordenadoriaSearch();
         $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
 
         return $this->render('index', [
@@ -59,7 +57,7 @@ class PortalCoordenadoriaGerenciaController extends Controller
     }
 
     /**
-     * Displays a single PortalCoordenadoriaGerencia model.
+     * Displays a single DiariaCoordenadoria model.
      * @param integer $id
      * @return mixed
      */
@@ -71,63 +69,44 @@ class PortalCoordenadoriaGerenciaController extends Controller
     }
 
     /**
-     * Creates a new PortalCoordenadoriaGerencia model.
+     * Creates a new DiariaCoordenadoria model.
      * If creation is successful, the browser will be redirected to the 'view' page.
      * @return mixed
      */
     public function actionCreate()
     {
-        $model = new PortalCoordenadoriaGerencia();
-        $modelCoordenadoria = new DiariaCoordenadoria();
-        $modelGerencia = new PortalGerencia();
-
-        if ($modelGerencia->load(Yii::$app->request->post()) && $modelGerencia->save()) {
-            $model->ger_id = $modelGerencia->ger_id;
-            if ($model->load(Yii::$app->request->post()) && $model->save()) {
-                return $this->redirect(['view', 'id' => $model->ger_id]);
-            }
+        $model = new DiariaCoordenadoria();
+        //d($model);
+        if ($model->load(Yii::$app->request->post()) && $model->save()) {
+            return $this->redirect(['view', 'id' => $model->id_coordenadoria]);
         } else {
             return $this->render('create', [
-                'modelCoordenadoria' => $modelCoordenadoria,
-                'modelGerencia' => $modelGerencia,
                 'model' => $model,
             ]);
         }
     }
 
     /**
-     * Updates an existing PortalCoordenadoriaGerencia model.
+     * Updates an existing DiariaCoordenadoria model.
      * If update is successful, the browser will be redirected to the 'view' page.
      * @param integer $id
      * @return mixed
      */
     public function actionUpdate($id)
     {
-        $model = PortalCoordenadoriaGerencia::findOne($id);
-        $this->validaModel($model);
+        $model = $this->findModel($id);
 
-        $modelGerencia = PortalGerencia::findOne($model->ger_id);
-        $this->validaModel($modelGerencia);
-
-        $modelCoordenadoria = DiariaCoordenadoria::findOne($model->id_coordenadoria);
-        $this->validaModel($modelCoordenadoria);
-
-        if ($modelGerencia->load(Yii::$app->request->post()) && $modelGerencia->save()) {
-            $model->ger_id = $modelGerencia->ger_id;
-            if ($model->load(Yii::$app->request->post()) && $model->save()) {
-                return $this->redirect(['view', 'id' => $model->ger_id]);
-            }
+        if ($model->load(Yii::$app->request->post()) && $model->save()) {
+            return $this->redirect(['view', 'id' => $model->id_coordenadoria]);
         } else {
             return $this->render('update', [
                 'model' => $model,
-                'modelGerencia' => $modelGerencia,
-                'modelCoordenadoria' => $modelCoordenadoria,
             ]);
         }
     }
 
     /**
-     * Deletes an existing PortalCoordenadoriaGerencia model.
+     * Deletes an existing DiariaCoordenadoria model.
      * If deletion is successful, the browser will be redirected to the 'index' page.
      * @param integer $id
      * @return mixed
@@ -140,24 +119,18 @@ class PortalCoordenadoriaGerenciaController extends Controller
     }
 
     /**
-     * Finds the PortalCoordenadoriaGerencia model based on its primary key value.
+     * Finds the DiariaCoordenadoria model based on its primary key value.
      * If the model is not found, a 404 HTTP exception will be thrown.
      * @param integer $id
-     * @return PortalCoordenadoriaGerencia the loaded model
+     * @return DiariaCoordenadoria the loaded model
      * @throws NotFoundHttpException if the model cannot be found
      */
     protected function findModel($id)
     {
-        if (($model = PortalCoordenadoriaGerencia::findOne($id)) !== null) {
+        if (($model = DiariaCoordenadoria::findOne($id)) !== null) {
             return $model;
         } else {
             throw new NotFoundHttpException('The requested page does not exist.');
-        }
-    }
-    protected function validaModel($model)
-    {
-        if (!$model) {
-            throw new NotFoundHttpException("The model was not found.");
         }
     }
 }

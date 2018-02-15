@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "content-hash": "66f5929d9f6486582b79b9270a184a29",
+    "content-hash": "590336d58380cc1a417df44c806a2c17",
     "packages": [
         {
             "name": "bower-asset/bootstrap",
@@ -705,16 +705,16 @@
         },
         {
             "name": "swiftmailer/swiftmailer",
-            "version": "v5.4.8",
+            "version": "v5.4.9",
             "source": {
                 "type": "git",
                 "url": "https://github.com/swiftmailer/swiftmailer.git",
-                "reference": "9a06dc570a0367850280eefd3f1dc2da45aef517"
+                "reference": "7ffc1ea296ed14bf8260b6ef11b80208dbadba91"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/swiftmailer/swiftmailer/zipball/9a06dc570a0367850280eefd3f1dc2da45aef517",
-                "reference": "9a06dc570a0367850280eefd3f1dc2da45aef517",
+                "url": "https://api.github.com/repos/swiftmailer/swiftmailer/zipball/7ffc1ea296ed14bf8260b6ef11b80208dbadba91",
+                "reference": "7ffc1ea296ed14bf8260b6ef11b80208dbadba91",
                 "shasum": ""
             },
             "require": {
@@ -749,13 +749,13 @@
                 }
             ],
             "description": "Swiftmailer, free feature-rich PHP mailer",
-            "homepage": "http://swiftmailer.org",
+            "homepage": "https://swiftmailer.symfony.com",
             "keywords": [
                 "email",
                 "mail",
                 "mailer"
             ],
-            "time": "2017-05-01T15:54:03+00:00"
+            "time": "2018-01-23T07:37:21+00:00"
         },
         {
             "name": "yiisoft/yii2",
@@ -1322,16 +1322,16 @@
         },
         {
             "name": "bower-asset/vee-validate",
-            "version": "2.0.0",
+            "version": "2.0.3",
             "source": {
                 "type": "git",
                 "url": "https://github.com/baianat/vee-validate.git",
-                "reference": "0314597a575336da3148f344479279172e4cf417"
+                "reference": "cb2146a78e4c2a9f97a9018c23ca3e7306dfc892"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/baianat/vee-validate/zipball/0314597a575336da3148f344479279172e4cf417",
-                "reference": "0314597a575336da3148f344479279172e4cf417",
+                "url": "https://api.github.com/repos/baianat/vee-validate/zipball/cb2146a78e4c2a9f97a9018c23ca3e7306dfc892",
+                "reference": "cb2146a78e4c2a9f97a9018c23ca3e7306dfc892",
                 "shasum": ""
             },
             "type": "bower-asset-library"
@@ -1590,27 +1590,27 @@
         },
         {
             "name": "codeception/base",
-            "version": "2.3.7",
+            "version": "2.3.8",
             "source": {
                 "type": "git",
                 "url": "https://github.com/Codeception/base.git",
-                "reference": "c3fcea61525e62361ecc45aea1837f225ba73b4f"
+                "reference": "68419205ec25c8657f7a795e7310ab8993b4a1d6"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/Codeception/base/zipball/c3fcea61525e62361ecc45aea1837f225ba73b4f",
-                "reference": "c3fcea61525e62361ecc45aea1837f225ba73b4f",
+                "url": "https://api.github.com/repos/Codeception/base/zipball/68419205ec25c8657f7a795e7310ab8993b4a1d6",
+                "reference": "68419205ec25c8657f7a795e7310ab8993b4a1d6",
                 "shasum": ""
             },
             "require": {
                 "behat/gherkin": "~4.4.0",
+                "codeception/stub": "^1.0",
                 "ext-json": "*",
                 "ext-mbstring": "*",
                 "guzzlehttp/psr7": "~1.0",
                 "php": ">=5.4.0 <8.0",
                 "phpunit/php-code-coverage": ">=2.2.4 <6.0",
                 "phpunit/phpunit": ">=4.8.28 <5.0.0 || >=5.6.3 <7.0",
-                "phpunit/phpunit-mock-objects": ">2.3 <5.0",
                 "sebastian/comparator": ">1.1 <3.0",
                 "sebastian/diff": ">=1.4 <3.0",
                 "symfony/browser-kit": ">=2.7 <5.0",
@@ -1625,8 +1625,6 @@
                 "codeception/specify": "~0.3",
                 "facebook/graph-sdk": "~5.3",
                 "flow/jsonpath": "~0.2",
-                "league/factory-muffin": "^3.0",
-                "league/factory-muffin-faker": "^1.0",
                 "monolog/monolog": "~1.8",
                 "pda/pheanstalk": "~3.0",
                 "php-amqplib/php-amqplib": "~2.4",
@@ -1680,7 +1678,7 @@
                 "functional testing",
                 "unit testing"
             ],
-            "time": "2017-12-12T04:54:15+00:00"
+            "time": "2018-01-27T23:25:01+00:00"
         },
         {
             "name": "codeception/specify",
@@ -1721,6 +1719,39 @@
             ],
             "description": "BDD code blocks for PHPUnit and Codeception",
             "time": "2016-10-21T09:42:00+00:00"
+        },
+        {
+            "name": "codeception/stub",
+            "version": "1.0.1",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/Codeception/Stub.git",
+                "reference": "673ea54cdd7141e0a5138ad78aaa60751912f573"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/Codeception/Stub/zipball/673ea54cdd7141e0a5138ad78aaa60751912f573",
+                "reference": "673ea54cdd7141e0a5138ad78aaa60751912f573",
+                "shasum": ""
+            },
+            "require": {
+                "phpunit/phpunit-mock-objects": "^2.3|^3.0|^4.0|^5.0"
+            },
+            "require-dev": {
+                "phpunit/phpunit": "^4.8|^5.0|^6.0|^7.0"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "Codeception\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "description": "Flexible Stub wrapper for PHPUnit's Mock Builder",
+            "time": "2018-01-27T00:37:17+00:00"
         },
         {
             "name": "codeception/verify",
@@ -2029,16 +2060,16 @@
         },
         {
             "name": "kartik-v/bootstrap-fileinput",
-            "version": "v4.4.6",
+            "version": "v4.4.7",
             "source": {
                 "type": "git",
                 "url": "https://github.com/kartik-v/bootstrap-fileinput.git",
-                "reference": "0014931de1fd466f3901efcb45198c985d999c3d"
+                "reference": "aebea0804d955af913d3cd5922e6b01be66290c9"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/kartik-v/bootstrap-fileinput/zipball/0014931de1fd466f3901efcb45198c985d999c3d",
-                "reference": "0014931de1fd466f3901efcb45198c985d999c3d",
+                "url": "https://api.github.com/repos/kartik-v/bootstrap-fileinput/zipball/aebea0804d955af913d3cd5922e6b01be66290c9",
+                "reference": "aebea0804d955af913d3cd5922e6b01be66290c9",
                 "shasum": ""
             },
             "type": "library",
@@ -2078,7 +2109,7 @@
                 "progress",
                 "upload"
             ],
-            "time": "2017-11-13T13:37:26+00:00"
+            "time": "2018-01-22T17:05:07+00:00"
         },
         {
             "name": "kartik-v/bootstrap-star-rating",
@@ -3152,16 +3183,16 @@
         },
         {
             "name": "kartik-v/yii2-widget-select2",
-            "version": "v2.0.9",
+            "version": "v2.1.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/kartik-v/yii2-widget-select2.git",
-                "reference": "03f202e9e2415f4c84e93a64074d85677fd0cc51"
+                "reference": "baaa8f8b8bbaed1ed0aea56fb0564c5ab340d7d3"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/kartik-v/yii2-widget-select2/zipball/03f202e9e2415f4c84e93a64074d85677fd0cc51",
-                "reference": "03f202e9e2415f4c84e93a64074d85677fd0cc51",
+                "url": "https://api.github.com/repos/kartik-v/yii2-widget-select2/zipball/baaa8f8b8bbaed1ed0aea56fb0564c5ab340d7d3",
+                "reference": "baaa8f8b8bbaed1ed0aea56fb0564c5ab340d7d3",
                 "shasum": ""
             },
             "require": {
@@ -3170,7 +3201,7 @@
             "type": "yii2-extension",
             "extra": {
                 "branch-alias": {
-                    "dev-master": "2.0.x-dev"
+                    "dev-master": "2.1.x-dev"
                 }
             },
             "autoload": {
@@ -3201,7 +3232,7 @@
                 "widget",
                 "yii2"
             ],
-            "time": "2017-04-12T09:00:24+00:00"
+            "time": "2017-11-25T06:02:18+00:00"
         },
         {
             "name": "kartik-v/yii2-widget-sidenav",
@@ -3734,43 +3765,53 @@
         },
         {
             "name": "npm-asset/bootstrap",
-            "version": "3.3.7",
+            "version": "4.0.0",
             "dist": {
                 "type": "tar",
-                "url": "https://registry.npmjs.org/bootstrap/-/bootstrap-3.3.7.tgz",
+                "url": "https://registry.npmjs.org/bootstrap/-/bootstrap-4.0.0.tgz",
                 "reference": null,
-                "shasum": "5a389394549f23330875a3b150656574f8a9eb71"
+                "shasum": "ceb03842c145fcc1b9b4e15da2a05656ba68469a"
             },
             "require-dev": {
-                "npm-asset/btoa": "~1.1.2",
-                "npm-asset/glob": "~7.0.3",
-                "npm-asset/grunt": "~1.0.1",
-                "npm-asset/grunt-autoprefixer": "~3.0.4",
-                "npm-asset/grunt-contrib-clean": "~1.0.0",
-                "npm-asset/grunt-contrib-compress": "~1.3.0",
-                "npm-asset/grunt-contrib-concat": "~1.0.0",
-                "npm-asset/grunt-contrib-connect": "~1.0.0",
-                "npm-asset/grunt-contrib-copy": "~1.0.0",
-                "npm-asset/grunt-contrib-csslint": "~1.0.0",
-                "npm-asset/grunt-contrib-cssmin": "~1.0.0",
-                "npm-asset/grunt-contrib-htmlmin": "~1.5.0",
-                "npm-asset/grunt-contrib-jshint": "~1.0.0",
-                "npm-asset/grunt-contrib-less": "~1.3.0",
-                "npm-asset/grunt-contrib-pug": "~1.0.0",
-                "npm-asset/grunt-contrib-qunit": "~0.7.0",
-                "npm-asset/grunt-contrib-uglify": "~1.0.0",
-                "npm-asset/grunt-contrib-watch": "~1.0.0",
-                "npm-asset/grunt-csscomb": "~3.1.0",
-                "npm-asset/grunt-exec": "~1.0.0",
-                "npm-asset/grunt-html": "~8.0.1",
-                "npm-asset/grunt-jekyll": "~0.4.4",
-                "npm-asset/grunt-jscs": "~3.0.1",
-                "npm-asset/grunt-saucelabs": "~9.0.0",
-                "npm-asset/load-grunt-tasks": "~3.5.0",
-                "npm-asset/markdown-it": ">=7.0.0,<8.0.0",
-                "npm-asset/shelljs": ">=0.7.0,<0.8.0",
-                "npm-asset/shx": ">=0.1.2,<0.2.0",
-                "npm-asset/time-grunt": ">=1.3.0,<2.0.0"
+                "npm-asset/autoprefixer": ">=7.2.4,<8.0.0",
+                "npm-asset/babel--cli": "7.0.0-beta.37",
+                "npm-asset/babel--core": "7.0.0-beta.37",
+                "npm-asset/babel--preset-env": "7.0.0-beta.37",
+                "npm-asset/babel-eslint": ">=8.2.1,<9.0.0",
+                "npm-asset/babel-plugin-transform-es2015-modules-strip": ">=0.1.1,<0.2.0",
+                "npm-asset/bundlesize": ">=0.15.3,<0.16.0",
+                "npm-asset/clean-css-cli": ">=4.1.10,<5.0.0",
+                "npm-asset/cross-env": ">=5.1.3,<6.0.0",
+                "npm-asset/eslint": ">=4.15.0,<5.0.0",
+                "npm-asset/eslint-plugin-compat": ">=2.1.0,<3.0.0",
+                "npm-asset/glob": ">=7.1.2,<8.0.0",
+                "npm-asset/htmllint-cli": ">=0.0.6,<0.0.7",
+                "npm-asset/jsunitsaucelabs": ">=1.3.0,<2.0.0",
+                "npm-asset/karma": ">=2.0.0,<3.0.0",
+                "npm-asset/karma-chrome-launcher": ">=2.2.0,<3.0.0",
+                "npm-asset/karma-detect-browsers": ">=2.2.6,<3.0.0",
+                "npm-asset/karma-firefox-launcher": ">=1.1.0,<2.0.0",
+                "npm-asset/karma-qunit": ">=1.2.1,<2.0.0",
+                "npm-asset/node-sass": ">=4.7.2,<5.0.0",
+                "npm-asset/nodemon": ">=1.14.10,<2.0.0",
+                "npm-asset/npm-run-all": ">=4.1.2,<5.0.0",
+                "npm-asset/popper.js": ">=1.12.9,<2.0.0",
+                "npm-asset/postcss-cli": ">=4.1.1,<5.0.0",
+                "npm-asset/qunitjs": ">=2.4.1,<3.0.0",
+                "npm-asset/rollup": ">=0.53.4,<0.54.0",
+                "npm-asset/rollup-plugin-babel": "4.0.0-beta.0",
+                "npm-asset/rollup-plugin-node-resolve": ">=3.0.2,<4.0.0",
+                "npm-asset/shelljs": ">=0.7.8,<0.8.0",
+                "npm-asset/shx": ">=0.2.2,<0.3.0",
+                "npm-asset/sri-toolbox": ">=0.2.0,<0.3.0",
+                "npm-asset/stylelint": ">=8.4.0,<9.0.0",
+                "npm-asset/stylelint-config-recommended-scss": ">=3.0.0,<4.0.0",
+                "npm-asset/stylelint-config-standard": ">=18.0.0,<19.0.0",
+                "npm-asset/stylelint-order": ">=0.8.0,<0.9.0",
+                "npm-asset/stylelint-scss": ">=2.2.0,<3.0.0",
+                "npm-asset/uglify-js": ">=3.3.5,<4.0.0",
+                "npm-asset/vnu-jar": ">=17.11.1,<18.0.0",
+                "npm-asset/workbox-build": ">=2.1.2,<3.0.0"
             },
             "type": "npm-asset-library",
             "extra": {
@@ -3778,27 +3819,70 @@
                     "url": "https://github.com/twbs/bootstrap/issues"
                 },
                 "npm-asset-files": [
-                    "dist",
-                    "fonts",
-                    "grunt",
-                    "js/*.js",
-                    "less/**/*.less",
-                    "Gruntfile.js",
-                    "LICENSE"
+                    "dist/",
+                    "js/{src,dist}/",
+                    "scss/"
                 ],
-                "npm-asset-main": "./dist/js/npm",
+                "npm-asset-main": "dist/js/bootstrap",
                 "npm-asset-directories": [],
                 "npm-asset-repository": {
                     "type": "git",
                     "url": "git+https://github.com/twbs/bootstrap.git"
                 },
                 "npm-asset-scripts": {
-                    "change-version": "node grunt/change-version.js",
-                    "update-shrinkwrap": "npm shrinkwrap --dev && shx mv ./npm-shrinkwrap.json ./grunt/npm-shrinkwrap.json",
-                    "test": "grunt test"
+                    "bundlesize": "bundlesize",
+                    "css": "npm-run-all --parallel css-lint* css-compile* --sequential css-prefix* css-minify*",
+                    "css-main": "npm-run-all --parallel css-lint css-compile --sequential css-prefix css-minify",
+                    "css-docs": "npm-run-all --parallel css-lint-docs css-compile-docs --sequential css-prefix-docs css-minify-docs",
+                    "css-compile": "node-sass --output-style expanded --source-map true --source-map-contents true --precision 6 scss/bootstrap.scss dist/css/bootstrap.css && node-sass --output-style expanded --source-map true --source-map-contents true --precision 6 scss/bootstrap-grid.scss dist/css/bootstrap-grid.css && node-sass --output-style expanded --source-map true --source-map-contents true --precision 6 scss/bootstrap-reboot.scss dist/css/bootstrap-reboot.css",
+                    "css-compile-docs": "node-sass --output-style expanded --source-map true --source-map-contents true --precision 6 assets/scss/docs.scss assets/css/docs.min.css",
+                    "css-lint": "stylelint --syntax scss \"scss/**/*.scss\"",
+                    "css-lint-docs": "stylelint --syntax scss \"assets/scss/*.scss\" && stylelint \"docs/**/*.css\"",
+                    "css-lint-vars": "node build/lint-vars.js scss/ assets/scss/",
+                    "css-prefix": "postcss --config build/postcss.config.js --replace \"dist/css/*.css\" \"!dist/css/*.min.css\"",
+                    "css-prefix-docs": "postcss --config build/postcss.config.js --replace \"assets/css/docs.min.css\" \"docs/**/*.css\"",
+                    "css-minify": "cleancss --level 1 --source-map --source-map-inline-sources --output dist/css/bootstrap.min.css dist/css/bootstrap.css && cleancss --level 1 --source-map --source-map-inline-sources --output dist/css/bootstrap-grid.min.css dist/css/bootstrap-grid.css && cleancss --level 1 --source-map --source-map-inline-sources --output dist/css/bootstrap-reboot.min.css dist/css/bootstrap-reboot.css",
+                    "css-minify-docs": "cleancss --level 1 --source-map --source-map-inline-sources --output assets/css/docs.min.css assets/css/docs.min.css",
+                    "js": "npm-run-all js-lint* js-compile js-minify",
+                    "js-main": "npm-run-all js-lint js-compile js-minify",
+                    "js-docs": "npm-run-all js-lint-docs js-minify-docs",
+                    "js-lint": "eslint js/ build/",
+                    "js-lint-docs": "eslint assets/js/ docs/ sw.js",
+                    "js-compile": "npm-run-all --parallel js-compile-*",
+                    "js-compile-standalone": "rollup --environment BUNDLE:false --config build/rollup.config.js --sourcemap",
+                    "js-compile-bundle": "rollup --environment BUNDLE:true --config build/rollup.config.js --sourcemap",
+                    "js-compile-plugins": "cross-env PLUGINS=true babel js/src/ --out-dir js/dist/ --source-maps",
+                    "js-minify": "npm-run-all --parallel js-minify-*",
+                    "js-minify-standalone": "uglifyjs --compress typeofs=false --mangle --comments \"/^!/\" --source-map \"content=dist/js/bootstrap.js.map,includeSources,url=bootstrap.min.js.map\" --output dist/js/bootstrap.min.js dist/js/bootstrap.js",
+                    "js-minify-bundle": "uglifyjs --compress typeofs=false --mangle --comments \"/^!/\" --source-map \"content=dist/js/bootstrap.bundle.js.map,includeSources,url=bootstrap.bundle.min.js.map\" --output dist/js/bootstrap.bundle.min.js dist/js/bootstrap.bundle.js",
+                    "js-minify-docs": "uglifyjs --mangle --comments \"/^!/\" --output assets/js/docs.min.js assets/js/vendor/anchor.min.js assets/js/vendor/clipboard.min.js assets/js/vendor/holder.min.js \"assets/js/src/*.js\"",
+                    "js-test": "npm-run-all --parallel js-test-karma*",
+                    "js-test-karma": "karma start js/tests/karma.conf.js",
+                    "js-test-karma-old": "cross-env USE_OLD_JQUERY=true npm run js-test-karma",
+                    "js-test-cloud": "ruby -r webrick -e \"s = WEBrick::HTTPServer.new(:Port => 3000, :DocumentRoot => Dir.pwd, :Logger => WEBrick::Log.new('/dev/null'), :AccessLog => []); trap('INT') { s.shutdown }; s.start\" & node build/saucelabs-unit-test.js",
+                    "docs": "npm-run-all --parallel css-docs js-docs --sequential docs-compile docs-lint",
+                    "docs-compile": "bundle exec jekyll build",
+                    "postdocs-compile": "npm run docs-workbox-precache",
+                    "docs-github": "shx echo \"github: true\" > twbsconfig.yml && npm run docs-compile -- --config _config.yml,twbsconfig.yml && shx rm ./twbsconfig.yml",
+                    "docs-github-serve": "bundle exec jekyll serve --skip-initial-build --no-watch",
+                    "docs-lint": "npm-run-all docs-lint-*",
+                    "docs-lint-htmllint": "htmllint --rc build/.htmllintrc \"_gh_pages/**/*.html\" \"js/tests/**/*.html\"",
+                    "docs-lint-vnu-jar": "node build/vnu-jar.js",
+                    "docs-serve": "bundle exec jekyll serve",
+                    "docs-upload-preview": "build/upload-preview.sh",
+                    "docs-workbox-precache": "node build/workbox.js",
+                    "maintenance-dependencies": "ncu -a -x jquery && npm update && bundle update && shx echo \"Manually update assets/js/vendor/*, js/tests/vendor/* and .travis.yml\"",
+                    "release-sri": "node build/generate-sri.js",
+                    "release-version": "node build/change-version.js",
+                    "release-zip": "cd dist/ && zip -r9 bootstrap-$npm_package_version-dist.zip * && shx mv bootstrap-$npm_package_version-dist.zip ..",
+                    "dist": "npm-run-all --parallel css js",
+                    "test": "npm-run-all dist js-test docs-compile docs-lint bundlesize",
+                    "watch": "npm-run-all --parallel watch-css watch-js",
+                    "watch-css": "nodemon --ignore js/ --ignore dist/ -e scss -x \"npm run css\"",
+                    "watch-js": "nodemon --ignore scss/ --ignore js/dist/ --ignore dist/ -e js -x \"npm run js-compile\""
                 },
                 "npm-asset-engines": {
-                    "node": ">=0.10.1"
+                    "node": ">=6"
                 }
             },
             "license": [
@@ -3806,21 +3890,25 @@
             ],
             "authors": [
                 {
+                    "name": "The Bootstrap Authors",
+                    "url": "https://github.com/twbs/bootstrap/graphs/contributors"
+                },
+                {
                     "name": "Twitter, Inc."
                 }
             ],
             "description": "The most popular front-end framework for developing responsive, mobile first projects on the web.",
-            "homepage": "http://getbootstrap.com",
+            "homepage": "https://getbootstrap.com",
             "keywords": [
                 "css",
                 "framework",
                 "front-end",
-                "less",
                 "mobile-first",
                 "responsive",
+                "sass",
                 "web"
             ],
-            "time": "2016-07-25T16:09:42+00:00"
+            "time": "2018-01-18T18:34:21+00:00"
         },
         {
             "name": "paragonie/random_compat",
@@ -5168,16 +5256,16 @@
         },
         {
             "name": "symfony/browser-kit",
-            "version": "v3.4.2",
+            "version": "v3.4.4",
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/browser-kit.git",
-                "reference": "f761b4ecdd23a451c2cae6fba704d8b207cbb045"
+                "reference": "490f27762705c8489bd042fe3e9377a191dba9b4"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symfony/browser-kit/zipball/f761b4ecdd23a451c2cae6fba704d8b207cbb045",
-                "reference": "f761b4ecdd23a451c2cae6fba704d8b207cbb045",
+                "url": "https://api.github.com/repos/symfony/browser-kit/zipball/490f27762705c8489bd042fe3e9377a191dba9b4",
+                "reference": "490f27762705c8489bd042fe3e9377a191dba9b4",
                 "shasum": ""
             },
             "require": {
@@ -5221,20 +5309,20 @@
             ],
             "description": "Symfony BrowserKit Component",
             "homepage": "https://symfony.com",
-            "time": "2017-12-11T22:06:16+00:00"
+            "time": "2018-01-03T07:37:34+00:00"
         },
         {
             "name": "symfony/console",
-            "version": "v3.4.2",
+            "version": "v3.4.4",
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/console.git",
-                "reference": "9f21adfb92a9315b73ae2ed43138988ee4913d4e"
+                "reference": "26b6f419edda16c19775211987651cb27baea7f1"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symfony/console/zipball/9f21adfb92a9315b73ae2ed43138988ee4913d4e",
-                "reference": "9f21adfb92a9315b73ae2ed43138988ee4913d4e",
+                "url": "https://api.github.com/repos/symfony/console/zipball/26b6f419edda16c19775211987651cb27baea7f1",
+                "reference": "26b6f419edda16c19775211987651cb27baea7f1",
                 "shasum": ""
             },
             "require": {
@@ -5290,20 +5378,20 @@
             ],
             "description": "Symfony Console Component",
             "homepage": "https://symfony.com",
-            "time": "2017-12-14T19:40:10+00:00"
+            "time": "2018-01-29T09:03:43+00:00"
         },
         {
             "name": "symfony/css-selector",
-            "version": "v2.8.32",
+            "version": "v2.8.34",
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/css-selector.git",
-                "reference": "b7b041487197fb6d803b7edbcaae7f00a793b1c4"
+                "reference": "c5b39674eacd34adedbef78227c57109caa9e318"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symfony/css-selector/zipball/b7b041487197fb6d803b7edbcaae7f00a793b1c4",
-                "reference": "b7b041487197fb6d803b7edbcaae7f00a793b1c4",
+                "url": "https://api.github.com/repos/symfony/css-selector/zipball/c5b39674eacd34adedbef78227c57109caa9e318",
+                "reference": "c5b39674eacd34adedbef78227c57109caa9e318",
                 "shasum": ""
             },
             "require": {
@@ -5343,20 +5431,20 @@
             ],
             "description": "Symfony CssSelector Component",
             "homepage": "https://symfony.com",
-            "time": "2017-11-05T15:25:56+00:00"
+            "time": "2018-01-03T07:36:31+00:00"
         },
         {
             "name": "symfony/debug",
-            "version": "v3.4.2",
+            "version": "v3.4.4",
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/debug.git",
-                "reference": "543deab3ffff94402440b326fc94153bae2dfa7a"
+                "reference": "53f6af2805daf52a43b393b93d2f24925d35c937"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symfony/debug/zipball/543deab3ffff94402440b326fc94153bae2dfa7a",
-                "reference": "543deab3ffff94402440b326fc94153bae2dfa7a",
+                "url": "https://api.github.com/repos/symfony/debug/zipball/53f6af2805daf52a43b393b93d2f24925d35c937",
+                "reference": "53f6af2805daf52a43b393b93d2f24925d35c937",
                 "shasum": ""
             },
             "require": {
@@ -5399,20 +5487,20 @@
             ],
             "description": "Symfony Debug Component",
             "homepage": "https://symfony.com",
-            "time": "2017-12-12T08:27:14+00:00"
+            "time": "2018-01-18T22:16:57+00:00"
         },
         {
             "name": "symfony/dom-crawler",
-            "version": "v2.8.32",
+            "version": "v2.8.34",
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/dom-crawler.git",
-                "reference": "eeb78092b5cc95b9e37017887da0e39f1530b8a8"
+                "reference": "31ff8f1d7a3de4b43b35ff821e6e223d81a8988b"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symfony/dom-crawler/zipball/eeb78092b5cc95b9e37017887da0e39f1530b8a8",
-                "reference": "eeb78092b5cc95b9e37017887da0e39f1530b8a8",
+                "url": "https://api.github.com/repos/symfony/dom-crawler/zipball/31ff8f1d7a3de4b43b35ff821e6e223d81a8988b",
+                "reference": "31ff8f1d7a3de4b43b35ff821e6e223d81a8988b",
                 "shasum": ""
             },
             "require": {
@@ -5455,20 +5543,20 @@
             ],
             "description": "Symfony DomCrawler Component",
             "homepage": "https://symfony.com",
-            "time": "2017-11-05T15:25:56+00:00"
+            "time": "2018-01-03T07:36:31+00:00"
         },
         {
             "name": "symfony/event-dispatcher",
-            "version": "v3.4.2",
+            "version": "v3.4.4",
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/event-dispatcher.git",
-                "reference": "b869cbf8a15ca6261689de2c28a7d7f2d0706835"
+                "reference": "26b87b6bca8f8f797331a30b76fdae5342dc26ca"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symfony/event-dispatcher/zipball/b869cbf8a15ca6261689de2c28a7d7f2d0706835",
-                "reference": "b869cbf8a15ca6261689de2c28a7d7f2d0706835",
+                "url": "https://api.github.com/repos/symfony/event-dispatcher/zipball/26b87b6bca8f8f797331a30b76fdae5342dc26ca",
+                "reference": "26b87b6bca8f8f797331a30b76fdae5342dc26ca",
                 "shasum": ""
             },
             "require": {
@@ -5518,20 +5606,20 @@
             ],
             "description": "Symfony EventDispatcher Component",
             "homepage": "https://symfony.com",
-            "time": "2017-12-14T19:40:10+00:00"
+            "time": "2018-01-03T07:37:34+00:00"
         },
         {
             "name": "symfony/finder",
-            "version": "v3.4.2",
+            "version": "v3.4.4",
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/finder.git",
-                "reference": "dac8d7db537bac7ad8143eb11360a8c2231f251a"
+                "reference": "613e26310776f49a1773b6737c6bd554b8bc8c6f"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symfony/finder/zipball/dac8d7db537bac7ad8143eb11360a8c2231f251a",
-                "reference": "dac8d7db537bac7ad8143eb11360a8c2231f251a",
+                "url": "https://api.github.com/repos/symfony/finder/zipball/613e26310776f49a1773b6737c6bd554b8bc8c6f",
+                "reference": "613e26310776f49a1773b6737c6bd554b8bc8c6f",
                 "shasum": ""
             },
             "require": {
@@ -5567,7 +5655,7 @@
             ],
             "description": "Symfony Finder Component",
             "homepage": "https://symfony.com",
-            "time": "2017-11-05T16:10:10+00:00"
+            "time": "2018-01-03T07:37:34+00:00"
         },
         {
             "name": "symfony/polyfill-mbstring",
@@ -5630,16 +5718,16 @@
         },
         {
             "name": "symfony/yaml",
-            "version": "v3.4.2",
+            "version": "v3.4.4",
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/yaml.git",
-                "reference": "afe0cd38486505c9703707707d91450cfc1bd536"
+                "reference": "eab73b6c21d27ae4cd037c417618dfd4befb0bfe"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symfony/yaml/zipball/afe0cd38486505c9703707707d91450cfc1bd536",
-                "reference": "afe0cd38486505c9703707707d91450cfc1bd536",
+                "url": "https://api.github.com/repos/symfony/yaml/zipball/eab73b6c21d27ae4cd037c417618dfd4befb0bfe",
+                "reference": "eab73b6c21d27ae4cd037c417618dfd4befb0bfe",
                 "shasum": ""
             },
             "require": {
@@ -5684,7 +5772,7 @@
             ],
             "description": "Symfony Yaml Component",
             "homepage": "https://symfony.com",
-            "time": "2017-12-11T20:38:23+00:00"
+            "time": "2018-01-21T19:05:02+00:00"
         },
         {
             "name": "tcdent/php-restclient",
@@ -5786,16 +5874,16 @@
         },
         {
             "name": "webmozart/assert",
-            "version": "1.2.0",
+            "version": "1.3.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/webmozart/assert.git",
-                "reference": "2db61e59ff05fe5126d152bd0655c9ea113e550f"
+                "reference": "0df1908962e7a3071564e857d86874dad1ef204a"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/webmozart/assert/zipball/2db61e59ff05fe5126d152bd0655c9ea113e550f",
-                "reference": "2db61e59ff05fe5126d152bd0655c9ea113e550f",
+                "url": "https://api.github.com/repos/webmozart/assert/zipball/0df1908962e7a3071564e857d86874dad1ef204a",
+                "reference": "0df1908962e7a3071564e857d86874dad1ef204a",
                 "shasum": ""
             },
             "require": {
@@ -5832,7 +5920,7 @@
                 "check",
                 "validate"
             ],
-            "time": "2016-11-23T20:04:58+00:00"
+            "time": "2018-01-29T19:49:41+00:00"
         },
         {
             "name": "yiisoft/yii2-debug",

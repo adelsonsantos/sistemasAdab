@@ -5,8 +5,8 @@ use yii\helpers\Html;
 /* @var $this yii\web\View */
 /* @var $model app\models\PortalComputador */
 
-$this->title = 'Update Portal Computador: ' . $model->com_id;
-$this->params['breadcrumbs'][] = ['label' => 'Portal Computadors', 'url' => ['index']];
+$this->title = 'Update PortalContatoTipo Computador: ' . $model->com_id;
+$this->params['breadcrumbs'][] = ['label' => 'PortalContatoTipo Computadors', 'url' => ['index']];
 $this->params['breadcrumbs'][] = ['label' => $model->com_id, 'url' => ['view', 'id' => $model->com_id]];
 $this->params['breadcrumbs'][] = 'Update';
 ?>

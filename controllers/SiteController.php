@@ -58,6 +58,10 @@ class SiteController extends Controller
         ];
     }
 
+    public function actionGetReport(){
+        return $this->redirect(['diarias/index']);
+    }
+
     /**
      * Displays homepage.
      *

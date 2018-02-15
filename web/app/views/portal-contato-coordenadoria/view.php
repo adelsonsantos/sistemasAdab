@@ -7,7 +7,7 @@ use yii\widgets\DetailView;
 /* @var $model app\models\PortalContatoCoordenadoria */
 
 $this->title = $model->coc_id;
-$this->params['breadcrumbs'][] = ['label' => 'Portal Contato Coordenadorias', 'url' => ['index']];
+$this->params['breadcrumbs'][] = ['label' => 'PortalContatoTipo Contato Coordenadorias', 'url' => ['index']];
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="portal-contato-coordenadoria-view">

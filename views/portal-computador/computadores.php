@@ -1,6 +1,6 @@
 <?php
 /* @var $this yii\web\View */
-$this->title = 'Portal Computadores';
+$this->title = 'PortalContatoTipo Computadores';
 ?>
 <style>
     table {

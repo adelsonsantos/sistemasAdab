@@ -53,9 +53,9 @@ $this->title = 'Contato das Gerências';
     <div class="jumbotron">
         <div class="col-md-3 column" id="menu_vertical">
             <ul  class="nav nav-pills nav-stacked">
-                <li><?= Html::a('<span class="glyphicon glyphicon-chevron-right"></span> Coordenadorias', ['/diaria-coordenadoria/index'])?></li>
+                <li><?= Html::a('<span class="glyphicon glyphicon-chevron-right"></span> Coordenadorias', ['/coordenadoria/index'])?></li>
                 <li><?= Html::a('<span class="glyphicon glyphicon-chevron-right"></span> Contato das Coordenadorias', ['/portal-contato-coordenadoria/index'])?></li>
-                <li><?= Html::a('<span class="glyphicon glyphicon-chevron-right"></span> Gerências', ['/portal-coordenadoria-gerencia/index'])?></li>
+                <li><?= Html::a('<span class="glyphicon glyphicon-chevron-right"></span> Gerências', ['/portal-cordenadoria-gerencia-view/index'])?></li>
                 <li class="active"><?= Html::a('<span class="glyphicon glyphicon-chevron-right"></span> Contato das Gerências', ['/portal-contato-gerencia/index'])?></li>
             </ul>
         </div>

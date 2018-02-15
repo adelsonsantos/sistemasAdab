@@ -9,7 +9,7 @@ use yii\helpers\Html;
 /* @var $modelContato app\models\PortalContato */
 
 $this->title = 'Criar Contato da Gerência';
-$this->params['breadcrumbs'][] = ['label' => 'Portal Contato Gerencias', 'url' => ['index']];
+$this->params['breadcrumbs'][] = ['label' => 'PortalContatoTipo Contato Gerencias', 'url' => ['index']];
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="portal-contato-gerencia-create">

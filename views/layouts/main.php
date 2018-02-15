@@ -26,21 +26,10 @@ AppAsset::register($this);
     <title><?= Html::encode($this->title) ?></title>
     <?php $this->head() ?>
 </head>
-<body>
+
 
 <?php $this->beginBody() ?>
 
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <title>Bootstrap Example</title>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
-</head>
-<body>
 <div>
 
 </div>
@@ -80,8 +69,8 @@ AppAsset::register($this);
         'options' => ['class' => 'navbar-nav navbar'],
         'items' => [
             ['label' => 'Início', 'url' => ['/site/index']],
-            ['label' => 'About', 'url' => ['/site/about']],
-            ['label' => 'Contact', 'url' => ['/site/contact']]
+            //['label' => 'About', 'url' => ['/site/about']],
+           // ['label' => 'Contact', 'url' => ['/site/contact']]
         ],
     ]);
 ?>
@@ -115,8 +104,8 @@ NavBar::end();
 
 </div>
 <?php $this->endBody() ?>
-</body>
-</html>
+
+
 <?php $this->endPage();
 }
 else
@@ -126,8 +115,7 @@ else
         <?= Breadcrumbs::widget([
             'links' => isset($this->params['breadcrumbs']) ? $this->params['breadcrumbs'] : [],
         ]) ?>
-        <hr>
-        <?= $content ?>
+        <div class="row" style="width: auto; height: auto; min-width: 800px"><?= $content ?></div>
     </div>
     <?php $this->endBody() ?>
     <?php $this->endPage();

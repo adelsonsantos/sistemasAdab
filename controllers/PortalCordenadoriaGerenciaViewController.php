@@ -2,18 +2,18 @@
 
 namespace app\controllers;
 
+use app\models\PortalContatoCordenadoriaGerenciaViewSearch;
 use Yii;
-use app\models\DiariaCoordenadoria;
-use app\models\DiariaCoordenadoriaSearch;
-use yii\filters\AccessControl;
+use app\models\PortalCoordenadoriaGerencia;
+use app\models\PortalCoordenadoriaGerenciaSearch;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
 
 /**
- * DiariaCoordenadoriaController implements the CRUD actions for DiariaCoordenadoria model.
+ * PortalCordenadoriaGerenciaViewController implements the CRUD actions for PortalCoordenadoriaGerenciaView model.
  */
-class DiariaCoordenadoriaController extends Controller
+class PortalCordenadoriaGerenciaViewController extends Controller
 {
     /**
      * @inheritdoc
@@ -21,17 +21,6 @@ class DiariaCoordenadoriaController extends Controller
     public function behaviors()
     {
         return [
-            'access' => [
-                'class' => AccessControl::className(),
-                'only' => ['index'],
-                'rules' => [
-                    [
-                        'actions' => ['index'],
-                        'allow' => true,
-                        'roles' => ['@'],
-                    ],
-                ],
-            ],
             'verbs' => [
                 'class' => VerbFilter::className(),
                 'actions' => [
@@ -42,12 +31,12 @@ class DiariaCoordenadoriaController extends Controller
     }
 
     /**
-     * Lists all DiariaCoordenadoria models.
+     * Lists all PortalContatoCordenadoriaGerenciaView models.
      * @return mixed
      */
     public function actionIndex()
     {
-        $searchModel = new DiariaCoordenadoriaSearch();
+        $searchModel = new PortalContatoCordenadoriaGerenciaViewSearch();
         $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
 
         return $this->render('index', [
@@ -57,9 +46,10 @@ class DiariaCoordenadoriaController extends Controller
     }
 
     /**
-     * Displays a single DiariaCoordenadoria model.
+     * Displays a single PortalCoordenadoriaGerencia model.
      * @param integer $id
      * @return mixed
+     * @throws NotFoundHttpException if the model cannot be found
      */
     public function actionView($id)
     {
@@ -69,47 +59,49 @@ class DiariaCoordenadoriaController extends Controller
     }
 
     /**
-     * Creates a new DiariaCoordenadoria model.
+     * Creates a new PortalCoordenadoriaGerencia model.
      * If creation is successful, the browser will be redirected to the 'view' page.
      * @return mixed
      */
     public function actionCreate()
     {
-        $model = new DiariaCoordenadoria();
-        //d($model);
+        $model = new PortalCoordenadoriaGerencia();
+
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
-            return $this->redirect(['view', 'id' => $model->id_coordenadoria]);
-        } else {
-            return $this->render('create', [
-                'model' => $model,
-            ]);
+            return $this->redirect(['view', 'id' => $model->cog_id]);
         }
+
+        return $this->render('create', [
+            'model' => $model,
+        ]);
     }
 
     /**
-     * Updates an existing DiariaCoordenadoria model.
+     * Updates an existing PortalCoordenadoriaGerencia model.
      * If update is successful, the browser will be redirected to the 'view' page.
      * @param integer $id
      * @return mixed
+     * @throws NotFoundHttpException if the model cannot be found
      */
     public function actionUpdate($id)
     {
         $model = $this->findModel($id);
 
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
-            return $this->redirect(['view', 'id' => $model->id_coordenadoria]);
-        } else {
-            return $this->render('update', [
-                'model' => $model,
-            ]);
+            return $this->redirect(['view', 'id' => $model->cog_id]);
         }
+
+        return $this->render('update', [
+            'model' => $model,
+        ]);
     }
 
     /**
-     * Deletes an existing DiariaCoordenadoria model.
+     * Deletes an existing PortalCoordenadoriaGerencia model.
      * If deletion is successful, the browser will be redirected to the 'index' page.
      * @param integer $id
      * @return mixed
+     * @throws NotFoundHttpException if the model cannot be found
      */
     public function actionDelete($id)
     {
@@ -119,18 +111,18 @@ class DiariaCoordenadoriaController extends Controller
     }
 
     /**
-     * Finds the DiariaCoordenadoria model based on its primary key value.
+     * Finds the PortalCoordenadoriaGerencia model based on its primary key value.
      * If the model is not found, a 404 HTTP exception will be thrown.
      * @param integer $id
-     * @return DiariaCoordenadoria the loaded model
+     * @return PortalCoordenadoriaGerencia the loaded model
      * @throws NotFoundHttpException if the model cannot be found
      */
     protected function findModel($id)
     {
-        if (($model = DiariaCoordenadoria::findOne($id)) !== null) {
+        if (($model = PortalCoordenadoriaGerencia::findOne($id)) !== null) {
             return $model;
-        } else {
-            throw new NotFoundHttpException('The requested page does not exist.');
         }
+
+        throw new NotFoundHttpException('The requested page does not exist.');
     }
 }
