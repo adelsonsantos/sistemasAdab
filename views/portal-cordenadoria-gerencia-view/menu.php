@@ -53,7 +53,7 @@ $this->title = 'Diarias';
         <ul class="nav nav-pills nav-stacked" style="width: 200px; text-align: left; margin-top: 75px; margin-left: 5px">
             <li class="active"><?= Html::a('<span class="glyphicon glyphicon-home"></span>  Home', ['/diarias/index'])?></li>
             <?php
-            $arrayMenuCadastro = PublicAuthItemChild::find()->asArray()->innerJoinWith(['item', 'assign'])->where(['sistema_menu' => 1])->andWhere(['user_id' => Yii::$app->user->getId()])->all();
+            $arrayMenuCadastro = PublicAuthItemChild::find()->asArray()->innerJoinWith(['item', 'assign'])->where(['sistema_menu' => 1])->andWhere(['user_id' => Yii::$app->user->getId()])->andWhere(['sistema_id' => 1])->all();
             if(empty(!$arrayMenuCadastro))
             {
                 ?>
@@ -65,7 +65,7 @@ $this->title = 'Diarias';
                 }
             }
 
-            $arrayMenuDiarias = PublicAuthItemChild::find()->asArray()->innerJoinWith(['item', 'assign'])->where(['sistema_menu' => 2])->andWhere(['user_id' => Yii::$app->user->getId()])->all();
+            $arrayMenuDiarias = PublicAuthItemChild::find()->asArray()->innerJoinWith(['item', 'assign'])->where(['sistema_menu' => 2])->andWhere(['user_id' => Yii::$app->user->getId()])->andWhere(['sistema_id' => 1])->all();
             if(empty(!$arrayMenuDiarias))
             {
                 ?>
@@ -77,7 +77,7 @@ $this->title = 'Diarias';
                 }
             }
 
-            $arrayMenuFinanceiro = PublicAuthItemChild::find()->asArray()->innerJoinWith(['item', 'assign'])->where(['sistema_menu' => 3])->andWhere(['user_id' => Yii::$app->user->getId()])->all();
+            $arrayMenuFinanceiro = PublicAuthItemChild::find()->asArray()->innerJoinWith(['item', 'assign'])->where(['sistema_menu' => 3])->andWhere(['user_id' => Yii::$app->user->getId()])->andWhere(['sistema_id' => 1])->all();
             if(empty(!$arrayMenuFinanceiro)) {
                 ?>
                 <li id="menu-diarias"
@@ -88,7 +88,7 @@ $this->title = 'Diarias';
                 }
             }
 
-            $arrayMenuDrm = PublicAuthItemChild::find()->asArray()->innerJoinWith(['item', 'assign'])->where(['sistema_menu' => 4])->andWhere(['user_id' => Yii::$app->user->getId()])->all();
+            $arrayMenuDrm = PublicAuthItemChild::find()->asArray()->innerJoinWith(['item', 'assign'])->where(['sistema_menu' => 4])->andWhere(['user_id' => Yii::$app->user->getId()])->andWhere(['sistema_id' => 1])->all();
             if (empty(!$arrayMenuDrm)) {
                 ?>
                 <li id="menu-diarias"
@@ -99,7 +99,7 @@ $this->title = 'Diarias';
                 }
             }
 
-            $listaMenuPermissoes = PublicAuthItemChild::find()->asArray()->innerJoinWith(['item', 'assign'])->where(['sistema_menu' => 5])->andWhere(['user_id' => Yii::$app->user->getId()])->all();
+            $listaMenuPermissoes = PublicAuthItemChild::find()->asArray()->innerJoinWith(['item', 'assign'])->where(['sistema_menu' => 5])->andWhere(['user_id' => Yii::$app->user->getId()])->andWhere(['sistema_id' => 1])->all();
             if (empty(!$listaMenuPermissoes)) {
                 ?>
                 <li id="menu-diarias"
@@ -111,7 +111,7 @@ $this->title = 'Diarias';
             }
 
 
-            $listaMenuConsultaGeral = PublicAuthItemChild::find()->asArray()->innerJoinWith(['item', 'assign'])->where(['sistema_menu' => 6])->andWhere(['user_id' => Yii::$app->user->getId()])->all();
+            $listaMenuConsultaGeral = PublicAuthItemChild::find()->asArray()->innerJoinWith(['item', 'assign'])->where(['sistema_menu' => 6])->andWhere(['user_id' => Yii::$app->user->getId()])->andWhere(['sistema_id' => 1])->all();
             if (empty(!$listaMenuConsultaGeral)) {
                 ?>
                 <li id="menu-diarias"
@@ -122,7 +122,7 @@ $this->title = 'Diarias';
                 }
             }
 
-            $listaMenuRelatorio = PublicAuthItemChild::find()->asArray()->innerJoinWith(['item', 'assign'])->where(['sistema_menu' => 7])->andWhere(['user_id' => Yii::$app->user->getId()])->all();
+            $listaMenuRelatorio = PublicAuthItemChild::find()->asArray()->innerJoinWith(['item', 'assign'])->where(['sistema_menu' => 7])->andWhere(['user_id' => Yii::$app->user->getId()])->andWhere(['sistema_id' => 1])->all();
             if (empty(!$listaMenuRelatorio)) {
                 ?>
                 <li id="menu-diarias"

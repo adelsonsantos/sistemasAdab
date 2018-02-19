@@ -85,7 +85,7 @@ $this->params['breadcrumbs'][] = $this->title;
                 'attribute' => 'esc_id',
                 'value' => 'escritorio.esc_nome',
                 'label'   => 'Escritório',
-                'filter'   => Html::activeDropDownList($searchModel, 'con_ddd', ArrayHelper::map(PortalEscritorio::find()->asArray()->orderBy('esc_nome')->all(), 'esc_id', 'esc_nome'), array('class'=>'form-control', 'prompt' => ' '))
+                'filter'   => Html::activeDropDownList($searchModel, 'esc_id', ArrayHelper::map(PortalEscritorio::find()->asArray()->orderBy('esc_nome')->all(), 'esc_id', 'esc_nome'), array('class'=>'form-control', 'prompt' => ' '))
             ],
 
             [

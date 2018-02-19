@@ -18,7 +18,7 @@ class PortalContatoCordenadoriaGerenciaViewSearch extends PortalContatoCordenado
     public function rules()
     {
         return [
-            [['cog_id', 'id_coordenadoria', 'nome', 'ger_id', 'ger_nome', 'con_id', 'con_nome', 'con_ddd', 'con_telefone', 'cti_id', 'cti_nome'], 'safe']        ];
+            [['cog_id', 'id_coordenadoria', 'nome', 'ger_id', 'ger_nome', 'con_id', 'con_nome', 'con_ddd', 'con_telefone', 'cti_id', 'cti_nome', 'esc_id'], 'safe']        ];
     }
 
     /**
@@ -65,7 +65,8 @@ class PortalContatoCordenadoriaGerenciaViewSearch extends PortalContatoCordenado
             'ger_id' => $this->ger_id,
             'con_id' => $this->con_id,
             'cti_id' => $this->cti_id,
-            'cti_nome' => $this->cti_nome
+            'cti_nome' => $this->cti_nome,
+            'esc_id'   => $this->esc_id
 
 /*
             'diaria.coordenadoria.nome' => $this->id_coordenadoria,
