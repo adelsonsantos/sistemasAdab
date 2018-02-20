@@ -2,9 +2,9 @@
 
 return [
     'class' => 'yii\db\Connection',
-    'dsn' => 'pgsql:host=localhost;port=5434;dbname=diaria',
+    'dsn' => 'pgsql:host=10.75.0.111;port=5434;dbname=diarias_producao',
     'username' => 'postgres',
-    'password' => 'adab123',
+    'password' => '123456',
     'charset' => 'utf8',
     'schemaMap' => [
         'pgsql' => [
