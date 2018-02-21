@@ -1,11 +1,12 @@
 <div class="margin-top-menu">
     <?php require 'style.php';
     use app\models\DiariaCoordenadoria;
+    use app\models\PortalGerencia;
     use yii\bootstrap\Html;
     use yii\helpers\ArrayHelper;
 
     /* @var $this yii\web\View */
-    /* @var $model app\models\DiariaCoordenadoria */
+    /* @var $model app\models\PortalGerencia */
 
     $this->title = $model->id_coordenadoria;
     $this->params['breadcrumbs'][] = ['label' => 'Coordenadoria ', 'url' => ['index']];
@@ -16,17 +17,19 @@
     </div>
 
     <div style="text-align: center">
-        <h1 class="font-topo">Coordenadoria </h1>
+        <h1 class="font-topo">Gerência </h1>
     </div>
 
     <div class="diarias-view" style="margin-left: 209px; margin-top: 44px; ">
         <table class="diaria">
             <tr class="bordaMenu">
                 <th class="borda">Coordenadoria</th>
+                <th class="borda">Gerência</th>
                 <th class="borda">Ações</th>
             </tr>
             <tr>
                 <td class="borda"><?= implode(ArrayHelper::map(DiariaCoordenadoria::find()->asArray()->where(['id_coordenadoria' => $model->id_coordenadoria])->all(), 'nome', 'nome')) ?></td>
+                <td class="borda"><?= implode(ArrayHelper::map(PortalGerencia::find()->asArray()->where(['ger_id' => $model->ger_id])->all(), 'ger_id', 'ger_nome')) ?></td>
                 <td class="borda" style="width: 20%">
                     <table style=" width: 100%">
                         <tr >

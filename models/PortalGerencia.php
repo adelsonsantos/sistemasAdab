@@ -57,6 +57,14 @@ class PortalGerencia extends \yii\db\ActiveRecord
     /**
      * @return \yii\db\ActiveQuery
      */
+    public function getCoordenadoria()
+    {
+        return $this->hasOne(DiariaCoordenadoria::className(), ['id_coordenadoria' => 'id_coordenadoria']);
+    }
+
+    /**
+     * @return \yii\db\ActiveQuery
+     */
     public function getPortalContatoGerencias()
     {
         return $this->hasMany(PortalContatoGerencia::className(), ['ger_id' => 'ger_id']);

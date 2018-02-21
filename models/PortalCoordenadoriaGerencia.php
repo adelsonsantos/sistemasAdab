@@ -29,11 +29,12 @@ class PortalCoordenadoriaGerencia extends \yii\db\ActiveRecord
     {
         return [
             [['id_coordenadoria'], 'required'],
-            [['id_coordenadoria', 'ger_id', 'con_id'], 'default', 'value' => null],
-            [['id_coordenadoria', 'ger_id', 'con_id'], 'integer'],
+            [['id_coordenadoria', 'ger_id', 'con_id', 'esc_id'], 'default', 'value' => null],
+            [['id_coordenadoria'], 'integer'],
             [['id_coordenadoria'], 'exist', 'skipOnError' => true, 'targetClass' => DiariaCoordenadoria::className(), 'targetAttribute' => ['id_coordenadoria' => 'id_coordenadoria']],
             [['con_id'], 'exist', 'skipOnError' => true, 'targetClass' => PortalContato::className(), 'targetAttribute' => ['con_id' => 'con_id']],
             [['ger_id'], 'exist', 'skipOnError' => true, 'targetClass' => PortalGerencia::className(), 'targetAttribute' => ['ger_id' => 'ger_id']],
+            [['esc_id'], 'exist', 'skipOnError' => true, 'targetClass' => PortalEscritorio::className(), 'targetAttribute' => ['esc_id' => 'esc_id']],
         ];
     }
 
@@ -47,6 +48,7 @@ class PortalCoordenadoriaGerencia extends \yii\db\ActiveRecord
             'id_coordenadoria' => 'Id Coordenadoria',
             'ger_id' => 'Ger ID',
             'con_id' => 'Con ID',
+            'esc_id' => 'Esc ID',
         ];
     }
 }

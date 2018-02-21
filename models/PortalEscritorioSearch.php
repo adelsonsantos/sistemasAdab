@@ -5,12 +5,12 @@ namespace app\models;
 use Yii;
 use yii\base\Model;
 use yii\data\ActiveDataProvider;
-use app\models\DiariaCoordenadoria;
+use app\models\PortalEscritorio;
 
 /**
- * DiariaCoordenadoriaSearch represents the model behind the search form about `app\models\DiariaCoordenadoria`.
+ * PortalEscritorioSearch represents the model behind the search form of `app\models\PortalEscritorio`.
  */
-class DiariaCoordenadoriaSearch extends DiariaCoordenadoria
+class PortalEscritorioSearch extends PortalEscritorio
 {
     /**
      * @inheritdoc
@@ -18,8 +18,8 @@ class DiariaCoordenadoriaSearch extends DiariaCoordenadoria
     public function rules()
     {
         return [
-            [['id_coordenadoria'], 'integer'],
-            [['nome'], 'safe'],
+            [['esc_id', 'id_coordenadoria', 'ger_id'], 'integer'],
+            [['esc_nome'], 'safe'],
         ];
     }
 
@@ -41,13 +41,12 @@ class DiariaCoordenadoriaSearch extends DiariaCoordenadoria
      */
     public function search($params)
     {
-        $query = DiariaCoordenadoria::find()
-            ->where(['not in','id_coordenadoria',[16, 0]]);
+        $query = PortalEscritorio::find();
 
         // add conditions that should always apply here
+
         $dataProvider = new ActiveDataProvider([
             'query' => $query,
-            'sort'=> ['defaultOrder' => ['nome'=>SORT_ASC]]
         ]);
 
         $this->load($params);
@@ -60,10 +59,12 @@ class DiariaCoordenadoriaSearch extends DiariaCoordenadoria
 
         // grid filtering conditions
         $query->andFilterWhere([
+            'esc_id' => $this->esc_id,
             'id_coordenadoria' => $this->id_coordenadoria,
+            'ger_id' => $this->ger_id,
         ]);
 
-        $query->andFilterWhere(['like', 'nome', $this->nome]);
+        $query->andFilterWhere(['ilike', 'esc_nome', $this->esc_nome]);
 
         return $dataProvider;
     }

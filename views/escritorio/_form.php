@@ -1,20 +1,15 @@
 <?php
 require 'style.php';
 use app\models\DiariaCoordenadoria;
-use app\models\PortalContato;
-use app\models\PortalContatoTipo;
 use app\models\PortalEscritorio;
 use app\models\PortalGerencia;
 use yii\helpers\ArrayHelper;
 use yii\helpers\Html;
 use yii\helpers\Url;
 use yii\widgets\ActiveForm;
-use yii\widgets\MaskedInput;
-
 
 /* @var $this yii\web\View */
-/* @var $model app\models\PortalCoordenadoriaGerencia */
-/* @var $contato app\models\PortalContato */
+/* @var $model app\models\PortalEscritorio */
 /* @var $form yii\widgets\ActiveForm */
 ?>
 <div style="position: absolute">
@@ -22,7 +17,7 @@ use yii\widgets\MaskedInput;
 </div>
 <div style="height:95px;">
     <div>
-        <h1 class="font-topo" style="text-align: center"><?=$model->isNewRecord ? 'Cadastrar' : 'Alterar'?> contato <?= implode(ArrayHelper::map(DiariaCoordenadoria::find()->asArray()->where(['id_coordenadoria' => $model->id_coordenadoria])->all(), 'nome', 'nome')) ?></h1>
+        <h1 class="font-topo" style="text-align: center"><?=$model->isNewRecord ? 'Cadastrar' : 'Alterar'?> Escritório <?= implode(ArrayHelper::map(DiariaCoordenadoria::find()->asArray()->where(['id_coordenadoria' => $model->id_coordenadoria])->all(), 'nome', 'nome')) ?></h1>
     </div>
 </div>
 <div class="grid">
@@ -32,8 +27,8 @@ use yii\widgets\MaskedInput;
         <table class="diaria">
             <tr class="bordaMenu">
                 <th class="borda">
-                    <div class="glyphicon glyphicon-phone-alt"></div>
-                    Contato
+                    <div class="glyphicon glyphicon-th-list"></div>
+                    Escritório
                 </th>
             </tr>
             <td>
@@ -75,28 +70,6 @@ use yii\widgets\MaskedInput;
                             ['prompt' => 'Selecione o Escritório',]) ?>
                     </div>
                 </div>
-
-                <div class="row">
-                    <div class="col-lg-4">
-                        <?= $form->field($contato, 'con_nome')->textInput() ?>
-                    </div>
-                    <div class="col-lg-1">
-                        <?= $form->field($contato, 'con_ddd')->widget(MaskedInput::className(), [
-                            'mask' => '99',
-                        ]) ?>
-                    </div>
-                    <div class="col-lg-2">
-                        <?= $form->field($contato, 'con_telefone')->widget(MaskedInput::className(), [
-                            'mask' => '9999-9999',
-                        ]) ?>
-                    </div>
-                    <div class="col-lg-3">
-                        <?= $form->field($contato, 'cti_id')->dropDownList(
-                            ArrayHelper::map(PortalContatoTipo::find()->asArray()->orderBy('cti_nome')->all(), 'cti_id', 'cti_nome'))->label('Tipo');
-                        ?>
-                    </div>
-                </div>
-
                 <table class="diaria" style="width: 100%; margin-top: 30px;">
                     <tr class="bordaMenu" style="background-color: #d0d0d0">
                         <th class="borda" style="text-align: center; width: 50%">
@@ -107,7 +80,6 @@ use yii\widgets\MaskedInput;
                         </th>
                     </tr>
                 </table>
-
                 <?php ActiveForm::end(); ?>
             </td>
         </table>

@@ -112,8 +112,6 @@ class DiariasController extends Controller
         }
     }
 
-
-
     public function actionValidaMunicipioIgual($id, $uf)
     {
         $dadosNovo = DadosUnicoMunicipio::find()

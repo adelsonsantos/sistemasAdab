@@ -45,8 +45,9 @@ $this->params['breadcrumbs'][] = $this->title;
 </div>
 <div style="height:75px;">
     <div>
-        <h1 class="font-topo" style="text-align: center">Contato das Coordenadorias e Gerências</h1>
+        <h1 class="font-topo" style="text-align: center">Contatos</h1>
         <p class="font-topo" style="text-align: center">
+            <?=Html::a('Cadastrar Contato <span class="glyphicon glyphicon-plus" style="color: white; font-size: 1.2em; margin-left: 3%"></span>', ['/portal-cordenadoria-gerencia-view/create'], ['class'=>'btn btn-success', 'title' => 'Cadastrar Contato']); ?>
             <br>
             <?php $perfilUser = PublicAuthItem::find()->innerJoinWith('ment')->asArray()->where(['user_id' => Yii::$app->user->getId()])->all();
             $permissao = isset($perfilUser) ? $perfilUser[0]['description'] : "";

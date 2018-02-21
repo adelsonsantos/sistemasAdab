@@ -60,10 +60,10 @@ $this->title = 'Diarias';
             'parent' => 'administrador',
             'child' => 'administrador',
             'item' => [
-                'name' => 'cadastro-gerencia',
+                'name' => 'cadastro-coordenadoria',
                 'type' => 2,
-                'description' => 'Gerência',
-                'link' => 'gerencia/index',
+                'description' => 'Coordenadoria',
+                'link' => 'coordenadoria/index',
                 'sistema_menu' => 2
             ],
             'assign' => [
@@ -77,10 +77,10 @@ $this->title = 'Diarias';
             'parent' => 'administrador',
             'child' => 'administrador',
             'item' => [
-                'name' => 'cadastro-escritorio',
+                'name' => 'cadastro-gerencia',
                 'type' => 2,
-                'description' => 'Escritório',
-                'link' => 'escritorio/index',
+                'description' => 'Gerência',
+                'link' => 'gerencia/index',
                 'sistema_menu' => 2
             ],
             'assign' => [

@@ -50,7 +50,7 @@ $this->title = 'Portal ADAB';
     <table width="30%">
         <tr>
             <th>
-                <?php echo Html::a('<div class="coordenadoria"></div>', ['/diarias/index']) ?>
+                <?php echo Html::a('<div class="coordenadoria"></div>', ['/portal-cordenadoria-gerencia-view/index']) ?>
             </th>
             <th>
                 <?php echo Html::a('<div class="diarias"></div>', ['/diarias/index']) ?>

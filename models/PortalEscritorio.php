@@ -49,4 +49,19 @@ class PortalEscritorio extends \yii\db\ActiveRecord
             'ger_id' => 'Ger ID',
         ];
     }
+    /**
+     * @return \yii\db\ActiveQuery
+     */
+    public function getCoordenadoria()
+    {
+        return $this->hasOne(DiariaCoordenadoria::className(), ['id_coordenadoria' => 'id_coordenadoria']);
+    }
+
+    /**
+     * @return \yii\db\ActiveQuery
+     */
+    public function getGerencia()
+    {
+        return $this->hasOne(PortalGerencia::className(), ['ger_id' => 'ger_id']);
+    }
 }

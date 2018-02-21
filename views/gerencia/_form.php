@@ -1,15 +1,14 @@
 <?php
 require 'style.php';
 use app\models\DiariaCoordenadoria;
+use app\models\PortalGerencia;
 use yii\helpers\ArrayHelper;
 use yii\helpers\Html;
 use yii\helpers\Url;
 use yii\widgets\ActiveForm;
-use yii\widgets\MaskedInput;
-
 
 /* @var $this yii\web\View */
-/* @var $model app\models\DiariaCoordenadoria */
+/* @var $model app\models\PortalGerencia */
 /* @var $form yii\widgets\ActiveForm */
 ?>
 <div style="position: absolute">
@@ -17,7 +16,7 @@ use yii\widgets\MaskedInput;
 </div>
 <div style="height:95px;">
     <div>
-        <h1 class="font-topo" style="text-align: center"><?=$model->isNewRecord ? 'Cadastrar' : 'Alterar'?> Coordenadoria <?= implode(ArrayHelper::map(DiariaCoordenadoria::find()->asArray()->where(['id_coordenadoria' => $model->id_coordenadoria])->all(), 'nome', 'nome')) ?></h1>
+        <h1 class="font-topo" style="text-align: center"><?=$model->isNewRecord ? 'Cadastrar' : 'Alterar'?> Gerência <?= implode(ArrayHelper::map(DiariaCoordenadoria::find()->asArray()->where(['id_coordenadoria' => $model->id_coordenadoria])->all(), 'nome', 'nome')) ?></h1>
     </div>
 </div>
 <div class="grid">
@@ -27,8 +26,8 @@ use yii\widgets\MaskedInput;
         <table class="diaria">
             <tr class="bordaMenu">
                 <th class="borda">
-                    <div class="glyphicon glyphicon-th-large"></div>
-                    Coordenadoria
+                    <div class="glyphicon glyphicon-th"></div>
+                    Gerência
                 </th>
             </tr>
             <td>
@@ -38,9 +37,23 @@ use yii\widgets\MaskedInput;
                             ArrayHelper::map(DiariaCoordenadoria::find()->asArray()->orderBy('nome')->all(), 'id_coordenadoria', 'nome'),
                             [
                                 'prompt' => 'Selecione a Coordenadoria',
-
+                                'onchange' => '
+            $.get( "' . Url::toRoute('/portal-cordenadoria-gerencia-view/gerencia') . '", { id: $(this).val() } )
+            .done(function( data ) {
+            $( "#' . Html::getInputId($model, 'ger_id') . '" ).html( data );
+            }
+            );
+            '
                             ]
                         )->label('Coordenadoria'); ?>
+                    </div>
+
+                    <div class="col-lg-4">
+                        <?= $form->field($model, 'ger_id')->dropDownList(
+                            ArrayHelper::map(PortalGerencia::find()->asArray()->where(['id_coordenadoria' => $model->id_coordenadoria])->orderBy('ger_nome')->all(), 'ger_id', 'ger_nome'),
+                            [
+                                'prompt' => 'Selecione a Gerência',
+                            ])->label('Gerência'); ?>
                     </div>
                 </div>
                 <table class="diaria" style="width: 100%; margin-top: 30px;">
@@ -53,7 +66,6 @@ use yii\widgets\MaskedInput;
                         </th>
                     </tr>
                 </table>
-
                 <?php ActiveForm::end(); ?>
             </td>
         </table>

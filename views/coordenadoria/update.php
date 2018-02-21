@@ -5,7 +5,6 @@ use yii\helpers\Html;
 /* @var $this yii\web\View */
 /* @var $model app\models\DiariaCoordenadoria */
 
-$this->title = 'Alterar Coordenadoria de '.$model->nome;
 $this->params['breadcrumbs'][] = ['label' => 'Diaria Coordenadorias', 'url' => ['index']];
 $this->params['breadcrumbs'][] = 'Alterar';
 ?>

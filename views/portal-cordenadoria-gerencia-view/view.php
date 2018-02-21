@@ -1,34 +1,5 @@
-<head>
-    <style>
-        table.diaria {
-            font-family: arial, sans-serif;
-            border-collapse: collapse;
-            width: 100%;
-        }
-
-        td, th.borda {
-            border: 0.5px solid #b5b5b5;
-            text-align: left;
-            padding: 8px;
-        }
-
-        tr.bordaMenu {
-            background-color: #cecece;
-        }
-
-        tr:nth-child(even) {
-            background-color: #ffffff;
-        }
-
-        .font-topo {
-            font-size: 20px;
-            font-weight: bold;
-        }
-    </style>
-</head>
-
 <div class="margin-top-menu">
-    <?php
+    <?php require 'style.php';
     use app\models\DiariaCoordenadoria;
     use app\models\PortalContato;
     use app\models\PortalGerencia;

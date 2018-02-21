@@ -36,6 +36,7 @@ class PortalContato extends ActiveRecord
             [['con_nome'], 'string', 'max' => 60],
             [['con_telefone'], 'string', 'max' => 12],
             [['con_ddd'], 'string', 'max' => 2],
+            [['cti_id'], 'exist', 'skipOnError' => true, 'targetClass' => PortalContatoTipo::className(), 'targetAttribute' => ['cti_id' => 'cti_id']],
         ];
     }
 
@@ -49,6 +50,7 @@ class PortalContato extends ActiveRecord
             'con_nome' => 'Nome',
             'con_telefone' => 'Telefone',
             'con_ddd' => 'DDD',
+            'cti_id' => 'tipo'
         ];
     }
 

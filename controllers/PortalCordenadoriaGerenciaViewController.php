@@ -2,7 +2,10 @@
 
 namespace app\controllers;
 
+use app\models\PortalContato;
 use app\models\PortalContatoCordenadoriaGerenciaViewSearch;
+use app\models\PortalEscritorio;
+use app\models\PortalGerencia;
 use Yii;
 use app\models\PortalCoordenadoriaGerencia;
 use app\models\PortalCoordenadoriaGerenciaSearch;
@@ -29,6 +32,39 @@ class PortalCordenadoriaGerenciaViewController extends Controller
             ],
         ];
     }
+
+    public function actionGerencia($id){
+        $rows = PortalGerencia::find()->where(['id_coordenadoria' => $id])->all();
+
+        echo "<option>Selecione a Gerência</option>";
+
+        if(count($rows)>0){
+            foreach($rows as $row){
+                echo "<option value='$row->ger_id'>$row->ger_nome</option>";
+            }
+        }
+        else{
+            echo "<option>Nenhuma Gerência cadastrada</option>";
+        }
+
+    }
+
+    public function actionEscritorio($id){
+        $rows = PortalEscritorio::find()->where(['ger_id' => $id])->all();
+
+        echo "<option>Selecione o Escritório</option>";
+
+        if(count($rows)>0){
+            foreach($rows as $row){
+                echo "<option value='$row->esc_id'>$row->esc_nome</option>";
+            }
+        }
+        else{
+            echo "<option>Nenhum Escritório cadastrado</option>";
+        }
+
+    }
+
 
     /**
      * Lists all PortalContatoCordenadoriaGerenciaView models.
@@ -66,13 +102,20 @@ class PortalCordenadoriaGerenciaViewController extends Controller
     public function actionCreate()
     {
         $model = new PortalCoordenadoriaGerencia();
+        $contato = new PortalContato();
 
-        if ($model->load(Yii::$app->request->post()) && $model->save()) {
+        if($contato->load(Yii::$app->request->post()) && $model->load(Yii::$app->request->post())){
+            $contato->con_id = $contato::find()->orderBy(['con_id' => SORT_DESC])->one()->con_id +1;
+            $contato->save();
+            $model->con_id = isset($contato->con_id) ? $contato->con_id : null;
+            $model->cog_id = $model::find()->orderBy(['cog_id' => SORT_DESC])->one()->cog_id +1;
+            $model->save();
             return $this->redirect(['view', 'id' => $model->cog_id]);
         }
 
         return $this->render('create', [
             'model' => $model,
+            'contato' => $contato
         ]);
     }
 
@@ -86,13 +129,18 @@ class PortalCordenadoriaGerenciaViewController extends Controller
     public function actionUpdate($id)
     {
         $model = $this->findModel($id);
+        $contato = PortalContato::findOne($model->con_id);
+        $this->validaModel($contato);
 
-        if ($model->load(Yii::$app->request->post()) && $model->save()) {
-            return $this->redirect(['view', 'id' => $model->cog_id]);
+        if ($contato->load(Yii::$app->request->post()) && $contato->save()) {
+            if ($model->load(Yii::$app->request->post()) && $model->save()) {
+                return $this->redirect(['view', 'id' => $model->cog_id]);
+            }
         }
 
         return $this->render('update', [
             'model' => $model,
+            'contato' => $contato
         ]);
     }
 
@@ -124,5 +172,12 @@ class PortalCordenadoriaGerenciaViewController extends Controller
         }
 
         throw new NotFoundHttpException('The requested page does not exist.');
+    }
+
+    protected function validaModel($model)
+    {
+        if (!$model) {
+            throw new NotFoundHttpException("The user was not found.");
+        }
     }
 }
