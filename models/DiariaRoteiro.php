@@ -2,6 +2,7 @@
 
 namespace app\models;
 
+
 /**
  * This is the model class for table "diaria.roteiro".
  *
@@ -33,17 +34,20 @@ class DiariaRoteiro extends \yii\db\ActiveRecord
     {
         return [
             [['diaria_id', 'roteiro_origem', 'roteiro_destino'], 'required'],
-            [['diaria_id', 'roteiro_origem', 'roteiro_destino', 'controle_roteiro', 'dados_roteiro_id'], 'integer'],
+            [['diaria_id', 'roteiro_origem', 'controle_roteiro', 'dados_roteiro_id'], 'integer'],
             [['uf_roteiro_destino', 'uf_roteiro_destino'], 'string', 'max' => 2],
-            [['roteiro_origem', 'comparaRoteiro'], 'safe'],
+            ['roteiro_origem', 'validateCountry'],
+          //  ['roteiro_origem', 'compare', 'compareAttribute' => 'roteiro_destino', 'operator' => '=='],
+            //[['roteiro_origem', 'comparaRoteiro'], 'safe'],
+            //['roteiro_destino', 'compare', 'compareAttribute' => 'roteiro_origem','operator' => '!=',  'message'=>"As senhas não correspondem"],
+            //['roteiro_destino', 'compare', 'compareAttribute'=>'roteiro_origem', 'operator' => '!==', 'message'=>"As senhas não correspondem"],
             [['diaria_id'], 'exist', 'skipOnError' => true, 'targetClass' => Diarias::className(), 'targetAttribute' => ['diaria_id' => 'diaria_id']],
         ];
     }
-
-    public function comparaRoteiro($attribute)
+    public function validateCountry($attribute, $params, $validator)
     {
-        if ($attribute == $this->roteiro_destino) {
-            $this->addError($attribute,'ORIGEM e DESTINO são iguais.');
+        if (!in_array($this->$attribute, ['USA', 'Indonesia'])) {
+            $this->addError($attribute, 'The country must be either "USA" or "Indonesia".');
         }
     }
     /**

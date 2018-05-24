@@ -12,7 +12,7 @@ class m180220_183948_corrigir_view_contatos extends Migration
      */
     public function safeUp()
     {
-        $this->execute('DROP VIEW portal.contato_cordenadoria_gerencia_view;');
+        //$this->execute('DROP VIEW portal.contato_cordenadoria_gerencia_view;');
         $this->execute('CREATE VIEW portal.contato_cordenadoria_gerencia_view AS
                                 SELECT CG.COG_ID, C.ID_COORDENADORIA, C.NOME, G.GER_ID, G.GER_NOME, PC.CON_ID, PC.CON_NOME, PC.CON_DDD, PC.CON_TELEFONE,  CT.CTI_ID, CT.CTI_NOME, E.ESC_ID, E.ESC_NOME 
                                 FROM PORTAL.COORDENADORIA_GERENCIA CG

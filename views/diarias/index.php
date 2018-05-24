@@ -87,12 +87,6 @@ use aki\vue\Vue;
 
 <?php //Vue::end(); ?>
 
-
-
-
-
-
-
 <?php
 use app\models\DadosUnicoPessoa;
 use app\models\Diarias;

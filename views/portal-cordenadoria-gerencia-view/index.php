@@ -17,7 +17,6 @@
     .tambem {
         text-align: right;
     }
-
 </style>
 <?php
 use app\models\DadosUnicoPessoa;

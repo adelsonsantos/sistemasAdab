@@ -34,11 +34,6 @@ jQuery(".dynamicform_roteiro_multiplo").on("afterInsert", function(e, item) {
        console.log(item);
 });
 
-$(".dynamicform_roteiro_multiplo").on("beforeInsert", function(e, item) {
-    
-});
-
-
 
 jQuery(".dynamicform_rota").on("limitReached", function(e, item) {
         alert("Limite de Rota atingido");

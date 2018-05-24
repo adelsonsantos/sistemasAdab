@@ -6,11 +6,13 @@
 /* @var $form yii\widgets\ActiveForm */
 use app\models\DadosUnicoEstado;
 use app\models\DadosUnicoMunicipio;
+use justinvoelker\bootstrapnotifyalert\FlashAlert;
 use yii\helpers\ArrayHelper;
 use yii\helpers\Html;
 use wbraganca\dynamicform\DynamicFormWidget;
+use yii\helpers\Url;
 
- DynamicFormWidget::begin([
+DynamicFormWidget::begin([
     'widgetContainer' => 'dynamicform_rota',
     'widgetBody' => '.container-rooms',
     'widgetItem' => '.room-item',
@@ -60,11 +62,21 @@ use wbraganca\dynamicform\DynamicFormWidget;
                         <div class="col-lg-1" style="width: 100px">
                             <?= $form->field($modelRota, "[{$indexRoteiro}][{$indexRota}]uf_roteiro_origem")->label(false)->dropDownList(
                                 ArrayHelper::map(DadosUnicoEstado::find()->asArray()->orderBy('estado_uf')->all(), 'estado_uf', 'estado_uf'),
-                                ['options' =>
-                                    ['BA' => [
-                                        'selected' => true
-                                    ]],
-                                    'onchange' => 'ajaxEstadoUfOrigem(this.id, $(this).val());'
+                                [
+                                    'options' =>
+                                        ['BA' => [
+                                            'selected' => true
+                                        ]],
+                                    //'onchange' => 'ajaxEstadoUfDestino(this.id, $(this).val());'
+                                    'onchange' => '
+                                    setInput($(this).attr("id"));                                                                                                      
+                                    $.get( "' . Url::toRoute('/diarias/getter') . '", { id: $(this).val(), element: $(this).attr("id")} )
+                                    .done(function( data ) {                                                  
+                                       var inp = getInput()                                      
+                                       $( "#"+inp ).html(data);                                                                                                                                                                                                                   
+                                    }
+                                    );
+                                    '
                                 ]); ?>
                         </div>
                         <div class="col-lg-4">
@@ -74,7 +86,7 @@ use wbraganca\dynamicform\DynamicFormWidget;
                                     38490 => [
                                                 'selected' => true
                                         ]],
-                                    'onchange' => 'validaDestino(this.id, $(this).val());'
+                                   // 'onchange' => 'validaDestino(this.id, $(this).val());'
                                 ]); ?>
                         </div>
 
@@ -82,20 +94,32 @@ use wbraganca\dynamicform\DynamicFormWidget;
                         <div class="col-lg-1" style="width: 100px">
                             <?= $form->field($modelRota, "[{$indexRoteiro}][{$indexRota}]uf_roteiro_destino")->label(false)->dropDownList(
                                 ArrayHelper::map(DadosUnicoEstado::find()->asArray()->orderBy('estado_uf')->all(), 'estado_uf', 'estado_uf'),
-                                ['options' =>
+                                [
+                                    'options' =>
                                     ['BA' => [
                                         'selected' => true
                                     ]],
-                                    'onchange' => 'ajaxEstadoUfDestino(this.id, $(this).val());'
+                                    //'onchange' => 'ajaxEstadoUfDestino(this.id, $(this).val());'
+                                    'onchange' => '
+                                    setInput($(this).attr("id"));                                                                                                      
+                                    $.get( "' . Url::toRoute('/diarias/getter') . '", { id: $(this).val(), element: $(this).attr("id")} )
+                                    .done(function( data ) {                                                  
+                                       var inp = getInput()                                      
+                                       $( "#"+inp ).html(data);                                                                                                                                                                                                                   
+                                    }
+                                    );
+                                    '
                                 ]
 
                             ); ?>
                         </div>
+
                         <div class="col-lg-4">
                             <?= $form->field($modelRota, "[{$indexRoteiro}][{$indexRota}]roteiro_destino")->label(false)->dropDownList(
                                 ArrayHelper::map(DadosUnicoMunicipio::find()->asArray()->where(['estado_uf' => 'BA'])->orderBy('municipio_ds')->all(), 'municipio_cd', 'municipio_ds'), ['options' => [$modelRoteiro['roteiro_origem'] => ['selected' => true]]]); ?>
                         </div>
                     </div>
+
                 </td>
                 <td class="text-center vcenter" style="width: 90px;">
                     <button type="button" class="removee btn btn-danger btn-xs"><span class="glyphicon glyphicon-minus"></span></button>

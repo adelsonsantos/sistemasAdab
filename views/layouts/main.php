@@ -97,9 +97,12 @@ AppAsset::register($this);
 </ul> <?php
 NavBar::end();
 ?>
-        <?= Breadcrumbs::widget([
-            'links' => isset($this->params['breadcrumbs']) ? $this->params['breadcrumbs'] : [],
-        ]) ?>
+        <?php try {
+            echo Breadcrumbs::widget([
+                'links' => isset($this->params['breadcrumbs']) ? $this->params['breadcrumbs'] : [],
+            ]);
+        } catch (Exception $e) {
+        } ?>
         <?= $content ?>
 
 </div>

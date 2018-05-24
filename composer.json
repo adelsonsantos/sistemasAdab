@@ -21,7 +21,8 @@
         "yiisoft/yii2-swiftmailer": "~2.0.0",
         "kint-php/kint": "~2.0.0",
         "zyx/zyx-phpmailer": "~0.9.2",
-        "kartik-v/yii2-dialog": "*"
+        "kartik-v/yii2-dialog": "*",
+        "twbs/bootstrap": "^4.0"
     },
     "require-dev": {
         "2amigos/yii2-date-picker-widget" : "~1.0.7",
@@ -55,7 +56,8 @@
         "aki/yii2-vue": "*",
         "mpdf/mpdf": "~7.0.0",
         "kartik-v/yii2-widget-activeform": "*",
-        "kartik-v/yii2-widget-select2": "~2.1.1"
+        "kartik-v/yii2-widget-select2": "~2.1.1",
+        "justinvoelker/yii2-bootstrapnotifyalert": "*"
     },
     "config": {
         "fxp-asset": {
