@@ -23,6 +23,10 @@ use yii\widgets\ActiveForm;
 
     <?= $form->field($model, 'equipamento_status') ?>
 
+    <?= $form->field($model, 'equipamento_pessoa') ?>
+
+    <?php // echo $form->field($model, 'equipamento_data') ?>
+
     <div class="form-group">
         <?= Html::submitButton('Search', ['class' => 'btn btn-primary']) ?>
         <?= Html::resetButton('Reset', ['class' => 'btn btn-default']) ?>

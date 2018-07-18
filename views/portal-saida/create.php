@@ -6,9 +6,7 @@ use yii\helpers\Html;
 /* @var $this yii\web\View */
 /* @var $model app\models\PortalSaida */
 
-$this->title = 'Create Portal Saida';
-$this->params['breadcrumbs'][] = ['label' => 'Portal Saidas', 'url' => ['index']];
-$this->params['breadcrumbs'][] = $this->title;
+$this->params['breadcrumbs'][] = ['label' => 'Equipamentos', 'url' => ['index']];
 ?>
 <div class="portal-saida-create">
 

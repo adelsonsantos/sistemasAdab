@@ -4,7 +4,7 @@ use yii\helpers\Html;
 use yii\widgets\ActiveForm;
 
 /* @var $this yii\web\View */
-/* @var $model app\models\PortalEquipamento */
+/* @var $model app\models\PortalEquipamento2 */
 /* @var $form yii\widgets\ActiveForm */
 ?>
 
@@ -16,7 +16,7 @@ use yii\helpers\ArrayHelper;
 
 
 /* @var $this yii\web\View */
-/* @var $model app\models\PortalEntrada */
+/* @var $model app\models\PortalEntrada2 */
 /* @var $form yii\widgets\ActiveForm */
 ?>
 <div style="position: absolute">
@@ -34,14 +34,15 @@ use yii\helpers\ArrayHelper;
         <table class="diaria">
             <tr class="bordaMenu">
                 <th class="borda">
-                    <div class="glyphicon fa fa-keyboard-o"></div>
-                    Equipamento
+                    <div class="glyphicon glyphicon-plus"></div>
+                   Entrada de Equipamento
                 </th>
             </tr>
             <td>
                 <div class="row">
                     <div class="col-lg-4">
-                        <?= $form->field($model, 'equipamento_id')->textInput()->label('Nome'); ?>
+                        <?= $form->field($model, 'equipamento_id')->dropDownList(
+                            ArrayHelper::map(\app\models\PortalEquipamento::find()->asArray()->orderBy('equipamento_nome')->all(), 'equipamento_id', 'equipamento_nome'), ['prompt'=>'Selecione o equipamento'])->label('Equipamento'); ?>
                     </div>
 
                     <div class="col-lg-2">
@@ -49,15 +50,16 @@ use yii\helpers\ArrayHelper;
                     </div>
 
                     <div class="col-lg-3">
-                        <?= $form->field($model, 'setor_id')->textInput()->label('Setor'); ?>
+                        <?= $form->field($model, 'setor_id')->dropDownList(
+                            ArrayHelper::map(\app\models\PortalSetor::find()->asArray()->where(['setor_id'=> 16])->orderBy('setor_nome')->all(), 'setor_id', 'setor_nome'))->label('Setor');
+                        ?>
                     </div>
 
                     <div class="col-lg-2">
                         <?= $form->field($model, 'entrada_status')->dropDownList(
-                            [1 => 'Ativo', 2 => 'Inativo']) ?>
+                            [1 => 'Ativo', 2 => 'Inativo'])->label('Status') ?>
                     </div>
                 </div>
-
 
                 <table class="diaria" style="width: 100%; margin-top: 30px;">
                     <tr class="bordaMenu" style="background-color: #d0d0d0">
@@ -74,5 +76,4 @@ use yii\helpers\ArrayHelper;
             </td>
         </table>
     </div>
-
 

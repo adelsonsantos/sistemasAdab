@@ -25,6 +25,10 @@ use yii\widgets\ActiveForm;
 
     <?= $form->field($model, 'entrada_status') ?>
 
+    <?php // echo $form->field($model, 'entrada_pessoa') ?>
+
+    <?php // echo $form->field($model, 'entrada_data') ?>
+
     <div class="form-group">
         <?= Html::submitButton('Search', ['class' => 'btn btn-primary']) ?>
         <?= Html::resetButton('Reset', ['class' => 'btn btn-default']) ?>

@@ -32,6 +32,8 @@ $this->params['breadcrumbs'][] = $this->title;
             'equipamento_nome',
             'equipamento_quantidade_min',
             'equipamento_status',
+            'equipamento_pessoa',
+            'equipamento_data',
         ],
     ]) ?>
 

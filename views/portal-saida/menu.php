@@ -51,7 +51,7 @@ $this->title = 'Portal Adab';
 </script>
 <br>
         <ul class="nav nav-pills nav-stacked" style="width: 200px; text-align: left; margin-top: 75px; margin-left: 5px">
-            <li class="active"><?= Html::a('<span class="glyphicon glyphicon-home"></span>  Home', ['/portal-equipamento/index'])?></li>
+            <li class="active"><?= Html::a('<span class="glyphicon glyphicon-home"></span>  Home', ['/portal-equipamento2/index'])?></li>
             <?php
             $arrayMenuCadastro = PublicAuthItemChild::find()->asArray()->innerJoinWith(['item', 'assign'])->where(['sistema_menu' => 1])->andWhere(['user_id' => Yii::$app->user->getId()])->andWhere(['sistema_id' => 1])->all();
 
@@ -63,7 +63,7 @@ $this->title = 'Portal Adab';
                         'name' => 'cadastro-entrada-equipamento',
                         'type' => 2,
                         'description' => 'Entrada',
-                        'link' => 'portal-entrada/index',
+                        'link' => 'portal-entrada2/index',
                         'sistema_menu' => 2
                     ],
                     'assign' => [

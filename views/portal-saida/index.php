@@ -39,7 +39,7 @@ $this->params['breadcrumbs'][] = $this->title;
     <div>
         <h1 class="font-topo" style="text-align: center">Saída de Equipamentos</h1>
         <p class="font-topo" style="text-align: center">
-            <?=Html::a('Cadastrar Saída <span class="glyphicon glyphicon-plus" style="color: white; font-size: 1.2em; margin-left: 3%"></span>', ['/portal-equipamento/create'], ['class'=>'btn btn-success', 'title' => 'Cadastrar Contato']); ?>
+            <?=Html::a('Cadastrar Saída <span class="glyphicon glyphicon-plus" style="color: white; font-size: 1.2em; margin-left: 3%"></span>', ['/portal-saida/create'], ['class'=>'btn btn-success', 'title' => 'Cadastrar Contato']); ?>
             <br>
             <?= "";  ?>
         </p>

@@ -83,7 +83,7 @@ $this->title = 'Portal ADAB';
      }
 </style>
 </head>
-    <table width="80%">
+    <table width="100%">
         <tr>
             <th>
                 <?php echo Html::a('<div class="coordenadoria"></div>', ['/portal-cordenadoria-gerencia-view/index']) ?>
@@ -95,7 +95,10 @@ $this->title = 'Portal ADAB';
                 <?php echo Html::a('<div class="equipamentos"></div>', ['/portal-equipamento/index']) ?>
             </th>
             <th>
-                <?php echo Html::a('<div class="manutencao"></div>', ['/diarias/index']) ?>
+                <?php echo Html::a('<div class="manutencao"></div>', ['/portal-manutencao/index']) ?>
+            </th>
+            <th>
+                <?php echo Html::a('<div class="manutencao"></div>', ['/portal-manutencao/index']) ?>
             </th>
         </tr>
     </table>
