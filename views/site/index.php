@@ -80,6 +80,23 @@ $this->title = 'Portal ADAB';
          cursor:pointer;
          border-radius: 12px;
          margin-left:10%; margin-bottom: 10px; margin-top: 10px
+     } .vigilancia {
+         background:url('<?=Yii::$app->request->baseUrl . "../../image/vigilancia.png"?>');
+         background-size: 160px 190px;
+         height:190px;
+         width:160px;
+         cursor:pointer;
+         border-radius: 12px;
+         margin-left:10%; margin-bottom: 10px; margin-top: 10px
+     }
+     .vigilancia:hover {
+         background:url('<?=Yii::$app->request->baseUrl . "../../image/vigilanciaHover.png"?>');
+         background-size: 160px 190px;
+         height:190px;
+         width:160px;
+         cursor:pointer;
+         border-radius: 12px;
+         margin-left:10%; margin-bottom: 10px; margin-top: 10px
      }
 </style>
 </head>
@@ -98,7 +115,7 @@ $this->title = 'Portal ADAB';
                 <?php echo Html::a('<div class="manutencao"></div>', ['/portal-manutencao/index']) ?>
             </th>
             <th>
-                <?php echo Html::a('<div class="manutencao"></div>', ['/portal-manutencao/index']) ?>
+                <?php echo Html::a('<div class="vigilancia"></div>', ['/portal-manutencao/index']) ?>
             </th>
         </tr>
     </table>
