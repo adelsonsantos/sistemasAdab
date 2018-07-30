@@ -76,10 +76,10 @@ $this->title = 'ADAB';
                     'parent' => 'administrador',
                     'child' => 'administrador',
                     'item' => [
-                        'name' => 'cadastro-vigilancia-fiscalizacao-produtor',
+                        'name' => 'cadastro-saida-equipamento',
                         'type' => 2,
-                        'description' => 'Produtor',
-                        'link' => 'termo-vigilancia-fiscalizacao-produtor/index',
+                        'description' => 'Saída',
+                        'link' => 'portal-saida/index',
                         'sistema_menu' => 2
                     ],
                     'assign' => [

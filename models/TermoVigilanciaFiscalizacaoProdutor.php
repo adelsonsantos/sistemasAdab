@@ -12,6 +12,7 @@ use Yii;
  * @property string $vigilancia_fiscalizacao_produtor_cpf
  * @property string $vigilancia_fiscalizacao_produtor_cnpj
  * @property string $vigilancia_fiscalizacao_produtor_svo
+ * @property string $vigilancia_fiscalizacao_produtor_nome
  */
 class TermoVigilanciaFiscalizacaoProdutor extends \yii\db\ActiveRecord
 {
@@ -34,6 +35,7 @@ class TermoVigilanciaFiscalizacaoProdutor extends \yii\db\ActiveRecord
             [['vigilancia_fiscalizacao_produtor_cpf'], 'string', 'max' => 14],
             [['vigilancia_fiscalizacao_produtor_cnpj'], 'string', 'max' => 18],
             [['vigilancia_fiscalizacao_produtor_svo'], 'string', 'max' => 30],
+            [['vigilancia_fiscalizacao_produtor_nome'], 'string', 'max' => 80],
         ];
     }
 
@@ -43,11 +45,12 @@ class TermoVigilanciaFiscalizacaoProdutor extends \yii\db\ActiveRecord
     public function attributeLabels()
     {
         return [
-            'vigilancia_fiscalizacao_produtor_id' => 'Vigilancia Fiscalizacao Produtor ID',
-            'vigilancia_fiscalizacao_produtor_tipo_id' => 'Vigilancia Fiscalizacao Produtor Tipo ID',
-            'vigilancia_fiscalizacao_produtor_cpf' => 'Vigilancia Fiscalizacao Produtor Cpf',
-            'vigilancia_fiscalizacao_produtor_cnpj' => 'Vigilancia Fiscalizacao Produtor Cnpj',
-            'vigilancia_fiscalizacao_produtor_svo' => 'Vigilancia Fiscalizacao Produtor Svo',
+            'vigilancia_fiscalizacao_produtor_id' => 'Produtor ID',
+            'vigilancia_fiscalizacao_produtor_tipo_id' => 'Tipo',
+            'vigilancia_fiscalizacao_produtor_cpf' => 'Cpf',
+            'vigilancia_fiscalizacao_produtor_cnpj' => 'Cnpj',
+            'vigilancia_fiscalizacao_produtor_svo' => 'Svo',
+            'vigilancia_fiscalizacao_produtor_nome' => 'Nome',
         ];
     }
 
