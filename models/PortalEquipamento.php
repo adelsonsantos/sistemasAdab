@@ -17,6 +17,8 @@ use Yii;
  */
 class PortalEquipamento extends \yii\db\ActiveRecord
 {
+
+    public $equipamentoEntrada = false;
     /**
      * @inheritdoc
      */
@@ -33,10 +35,10 @@ class PortalEquipamento extends \yii\db\ActiveRecord
     {
         $DateTime =   new DateTime();
         return [
-            [['equipamento_nome', 'equipamento_quantidade_min', 'equipamento_status', 'equipamento_pessoa', 'equipamento_data'], 'required'],
+            [['equipamento_nome', 'equipamento_quantidade_min', 'equipamento_status'], 'required'],
             [['equipamento_quantidade_min', 'equipamento_status'], 'default', 'value' => null],
-            [['equipamento_data'], 'default', 'value' => $DateTime->format( "Y-m-d H:i:s" )],
-            [['equipamento_pessoa'], 'default', 'value' => 5559],
+           // [['equipamento_data'], 'default', 'value' => $DateTime->format( "Y-m-d H:i:s" )],
+           // [['equipamento_pessoa'], 'default', 'value' => 5559],
             [['equipamento_quantidade_min', 'equipamento_status', 'equipamento_pessoa'], 'integer'],
             [['equipamento_data'], 'safe'],
             [['equipamento_nome'], 'string', 'max' => 255],
@@ -51,9 +53,9 @@ class PortalEquipamento extends \yii\db\ActiveRecord
     {
         return [
             'equipamento_id' => 'Equipamento ID',
-            'equipamento_nome' => 'Equipamento Nome',
-            'equipamento_quantidade_min' => 'Equipamento Quantidade Min',
-            'equipamento_status' => 'Equipamento Status',
+            'equipamento_nome' => 'Nome',
+            'equipamento_quantidade_min' => 'Quantidade Minima',
+            'equipamento_status' => 'Status',
             'equipamento_pessoa' => 'Equipamento Pessoa',
             'equipamento_data' => 'Equipamento Data',
         ];

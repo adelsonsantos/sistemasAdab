@@ -3,6 +3,7 @@
 namespace app\models;
 
 use Yii;
+use DateTime;
 
 /**
  * This is the model class for table "portal.entrada".
@@ -30,9 +31,12 @@ class PortalEntrada extends \yii\db\ActiveRecord
      */
     public function rules()
     {
+        $DateTime =   new DateTime();
         return [
             [['entrada_quantidade', 'equipamento_id', 'setor_id', 'entrada_status', 'entrada_pessoa', 'entrada_data'], 'required'],
             [['entrada_quantidade', 'equipamento_id', 'setor_id', 'entrada_status', 'entrada_pessoa'], 'default', 'value' => null],
+            //[['entrada_status'], 'default', 'value' => 1],
+           // [['entrada_data'], 'default', 'value' => $DateTime->format( "Y-m-d H:i:s" )],
             [['entrada_quantidade', 'equipamento_id', 'setor_id', 'entrada_status', 'entrada_pessoa'], 'integer'],
             [['entrada_data'], 'safe'],
             [['entrada_pessoa'], 'exist', 'skipOnError' => true, 'targetClass' => DadosUnicoPessoa::className(), 'targetAttribute' => ['entrada_pessoa' => 'pessoa_id']],
@@ -47,13 +51,13 @@ class PortalEntrada extends \yii\db\ActiveRecord
     public function attributeLabels()
     {
         return [
-            'entrada_id' => 'Entrada ID',
-            'entrada_quantidade' => 'Entrada Quantidade',
+            'entrada_id' => 'ID',
+            'entrada_quantidade' => 'Quantidade',
             'equipamento_id' => 'Equipamento ID',
-            'setor_id' => 'Setor ID',
-            'entrada_status' => 'Entrada Status',
-            'entrada_pessoa' => 'Entrada Pessoa',
-            'entrada_data' => 'Entrada Data',
+            'setor_id' => 'Setor',
+            'entrada_status' => 'Status',
+            'entrada_pessoa' => 'Pessoa',
+            'entrada_data' => 'Data',
         ];
     }
 

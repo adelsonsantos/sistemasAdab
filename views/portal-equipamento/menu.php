@@ -53,7 +53,7 @@ $this->title = 'Diarias';
         <ul class="nav nav-pills nav-stacked" style="width: 200px; text-align: left; margin-top: 75px; margin-left: 5px">
             <li class="active"><?= Html::a('<span class="glyphicon glyphicon-home"></span>  Home', ['/portal-equipamento/index'])?></li>
             <?php
-            $arrayMenuCadastro = PublicAuthItemChild::find()->asArray()->innerJoinWith(['item', 'assign'])->where(['sistema_menu' => 1])->andWhere(['user_id' => Yii::$app->user->getId()])->andWhere(['sistema_id' => 1])->all();
+         //   $arrayMenuCadastro = PublicAuthItemChild::find()->asArray()->innerJoinWith(['item', 'assign'])->where(['sistema_menu' => 1])->andWhere(['user_id' => Yii::$app->user->getId()])->andWhere(['sistema_id' => 1])->all();
 
             $arrayCadastro = [
                 [
