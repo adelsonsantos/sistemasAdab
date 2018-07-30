@@ -39,9 +39,9 @@ class TermoVigilanciaFiscalizacaoLocal extends \yii\db\ActiveRecord
     public function attributeLabels()
     {
         return [
-            'vigilancia_fiscalizacao_local_id' => 'Vigilancia Fiscalizacao Local ID',
-            'vigilancia_fiscalizacao_local_nome' => 'Vigilancia Fiscalizacao Local Nome',
-            'vigilancia_fiscalizacao_local_st' => 'Vigilancia Fiscalizacao Local St',
+            'vigilancia_fiscalizacao_local_id' => 'Local ID',
+            'vigilancia_fiscalizacao_local_nome' => 'Local',
+            'vigilancia_fiscalizacao_local_st' => 'St',
         ];
     }
 
