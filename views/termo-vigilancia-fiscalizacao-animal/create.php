@@ -6,9 +6,7 @@ use yii\helpers\Html;
 /* @var $this yii\web\View */
 /* @var $model app\models\TermoVigilanciaFiscalizacaoAnimal */
 
-$this->title = 'Create Termo Vigilancia Fiscalizacao Animal';
-$this->params['breadcrumbs'][] = ['label' => 'Termo Vigilancia Fiscalizacao Animals', 'url' => ['index']];
-$this->params['breadcrumbs'][] = $this->title;
+$this->params['breadcrumbs'][] = ['label' => 'Animal da Vigilancia e Fiscalizacao', 'url' => ['index']];
 ?>
 <div class="termo-vigilancia-fiscalizacao-animal-create">
 
