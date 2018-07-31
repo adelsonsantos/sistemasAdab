@@ -39,9 +39,9 @@ class TermoVigilanciaFiscalizacaoAtividade extends \yii\db\ActiveRecord
     public function attributeLabels()
     {
         return [
-            'vigilancia_fiscalizacao_atividade_id' => 'Vigilancia Fiscalizacao Atividade ID',
-            'vigilancia_fiscalizacao_atividade_nome' => 'Vigilancia Fiscalizacao Atividade Nome',
-            'vigilancia_fiscalizacao_atividade_st' => 'Vigilancia Fiscalizacao Atividade St',
+            'vigilancia_fiscalizacao_atividade_id' => 'ID',
+            'vigilancia_fiscalizacao_atividade_nome' => 'Nome',
+            'vigilancia_fiscalizacao_atividade_st' => 'St',
         ];
     }
 

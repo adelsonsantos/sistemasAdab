@@ -7,29 +7,66 @@ use yii\grid\GridView;
 /* @var $searchModel app\models\TermoVigilanciaFiscalizacaoAtividadeSearch */
 /* @var $dataProvider yii\data\ActiveDataProvider */
 
-$this->title = 'Termo Vigilancia Fiscalizacao Atividades';
+$this->title = 'Atividade da Vigilância e Fiscalizacao';
 $this->params['breadcrumbs'][] = $this->title;
 ?>
-<div class="termo-vigilancia-fiscalizacao-atividade-index">
+<style>
+    .font-topo{
+        font-size: 20px;
+        font-weight: bold;
+    }
 
-    <h1><?= Html::encode($this->title) ?></h1>
-    <?php // echo $this->render('_search', ['model' => $searchModel]); ?>
+    .grid{
+        margin-left: 209px;
+    }
 
-    <p>
-        <?= Html::a('Create Termo Vigilancia Fiscalizacao Atividade', ['create'], ['class' => 'btn btn-success']) ?>
-    </p>
+    #w0-filters{
+        background-color: rgba(220, 222, 221, 0);
+    }
+    .table thead tr{
+        background-color: #82a3bd;
+    }
+    .tambem {
+        text-align: right;
+    }
 
-    <?= GridView::widget([
-        'dataProvider' => $dataProvider,
-        'filterModel' => $searchModel,
-        'columns' => [
-            ['class' => 'yii\grid\SerialColumn'],
+</style>
 
-            'vigilancia_fiscalizacao_atividade_id',
-            'vigilancia_fiscalizacao_atividade_nome',
-            'vigilancia_fiscalizacao_atividade_st',
-
-            ['class' => 'yii\grid\ActionColumn'],
-        ],
-    ]); ?>
+<div style="position: absolute">
+    <?= Yii::$app->controller->renderPartial('menu');?>
 </div>
+<div style="height:75px;">
+    <div>
+        <h1 class="font-topo" style="text-align: center">Atividade da Vigilância e Fiscalização </h1>
+        <p class="font-topo" style="text-align: center">
+            <?=Html::a('Cadastrar Atividade <span class="glyphicon glyphicon-plus" style="color: white; font-size: 1.2em; margin-left: 3%"></span>', ['/termo-vigilancia-fiscalizacao-atividade/create'], ['class'=>'btn btn-success', 'title' => 'Cadastrar Atividade']); ?>
+            <br>
+            <?= "";  ?>
+        </p>
+    </div>
+    <div>
+        <p style="text-align: right; margin-right: 1%; margin-left: 450px; white-space: nowrap"><strong><?= ""; ?></strong></p>
+    </div>
+</div>
+<div class="grid">
+    <?php try {
+        echo GridView::widget([
+            'dataProvider' => $dataProvider,
+            'filterModel' => $searchModel,
+            'columns' => [
+                ['class' => 'yii\grid\SerialColumn'],
+
+                'vigilancia_fiscalizacao_atividade_id',
+                'vigilancia_fiscalizacao_atividade_nome',
+                'vigilancia_fiscalizacao_atividade_st',
+
+
+                ['class' => 'yii\grid\ActionColumn'],
+            ],
+        ]);
+    } catch (Exception $e) {
+    } ?>
+</div>
+
+
+
