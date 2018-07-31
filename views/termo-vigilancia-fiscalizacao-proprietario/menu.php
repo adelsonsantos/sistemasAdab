@@ -76,27 +76,10 @@ $this->title = 'ADAB';
                     'parent' => 'administrador',
                     'child' => 'administrador',
                     'item' => [
-                        'name' => 'cadastro-vigilancia-fiscalizacao-produtor',
+                        'name' => 'cadastro-saida-equipamento',
                         'type' => 2,
-                        'description' => 'Produtor',
-                        'link' => 'termo-vigilancia-fiscalizacao-produtor/index',
-                        'sistema_menu' => 2
-                    ],
-                    'assign' => [
-                        'item_name' => 'administrador',
-                        'user_id' => 9,
-                        'sistema_id' => 2
-                    ]
-
-                ],
-                [
-                    'parent' => 'administrador',
-                    'child' => 'administrador',
-                    'item' => [
-                        'name' => 'cadastro-vigilancia-fiscalizacao-proprietario',
-                        'type' => 2,
-                        'description' => 'Proprietário',
-                        'link' => 'termo-vigilancia-fiscalizacao-proprietario/index',
+                        'description' => 'Saída',
+                        'link' => 'portal-saida/index',
                         'sistema_menu' => 2
                     ],
                     'assign' => [

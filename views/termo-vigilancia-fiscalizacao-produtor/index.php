@@ -7,7 +7,7 @@ use yii\grid\GridView;
 /* @var $searchModel app\models\TermoVigilanciaFiscalizacaoProdutorSearch */
 /* @var $dataProvider yii\data\ActiveDataProvider */
 
-$this->title = 'Termo Vigilancia Fiscalizacao Locals';
+$this->title = 'Produtor da Vigilância e Fiscalizacao';
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <style>
