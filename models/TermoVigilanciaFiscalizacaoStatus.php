@@ -39,9 +39,9 @@ class TermoVigilanciaFiscalizacaoStatus extends \yii\db\ActiveRecord
     public function attributeLabels()
     {
         return [
-            'vigilancia_fiscalizacao_status_id' => 'Vigilancia Fiscalizacao Status ID',
-            'vigilancia_fiscalizacao_status_nome' => 'Vigilancia Fiscalizacao Status Nome',
-            'vigilancia_fiscalizacao_status_st' => 'Vigilancia Fiscalizacao Status St',
+            'vigilancia_fiscalizacao_status_id' => 'ID',
+            'vigilancia_fiscalizacao_status_nome' => 'Nome',
+            'vigilancia_fiscalizacao_status_st' => 'St',
         ];
     }
 
