@@ -174,6 +174,40 @@ $this->title = 'ADAB';
                     ]
 
                 ],
+                [
+                    'parent' => 'administrador',
+                    'child' => 'administrador',
+                    'item' => [
+                        'name' => 'cadastro-vigilancia-fiscalizacao-animal-campos',
+                        'type' => 2,
+                        'description' => 'Animal Campos',
+                        'link' => 'termo-vigilancia-fiscalizacao-animal-campos/index',
+                        'sistema_menu' => 2
+                    ],
+                    'assign' => [
+                        'item_name' => 'administrador',
+                        'user_id' => 9,
+                        'sistema_id' => 2
+                    ]
+
+                ],
+                [
+                    'parent' => 'administrador',
+                    'child' => 'administrador',
+                    'item' => [
+                        'name' => 'cadastro-vigilancia-fiscalizacao-faixa-etaria',
+                        'type' => 2,
+                        'description' => 'Faixa Etária',
+                        'link' => 'termo-vigilancia-fiscalizacao-faixa-etaria/index',
+                        'sistema_menu' => 2
+                    ],
+                    'assign' => [
+                        'item_name' => 'administrador',
+                        'user_id' => 9,
+                        'sistema_id' => 2
+                    ]
+
+                ],
             ];
 
             if (isset($arrayCadastro)) {

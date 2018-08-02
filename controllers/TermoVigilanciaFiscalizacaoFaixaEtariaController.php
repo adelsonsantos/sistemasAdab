@@ -67,7 +67,7 @@ class TermoVigilanciaFiscalizacaoFaixaEtariaController extends Controller
         $model = new TermoVigilanciaFiscalizacaoFaixaEtaria();
 
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
-            return $this->redirect(['view', 'id' => $model->vigilancia_fiscalizacao_faixa_etaria_id]);
+            return $this->redirect(['view', 'id' => $model->vigilancia_fiscalizacao_animal_faixa_etaria_id]);
         }
 
         return $this->render('create', [
@@ -87,7 +87,7 @@ class TermoVigilanciaFiscalizacaoFaixaEtariaController extends Controller
         $model = $this->findModel($id);
 
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
-            return $this->redirect(['view', 'id' => $model->vigilancia_fiscalizacao_faixa_etaria_id]);
+            return $this->redirect(['view', 'id' => $model->vigilancia_fiscalizacao_animal_faixa_etaria_id]);
         }
 
         return $this->render('update', [
