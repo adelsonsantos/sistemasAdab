@@ -12,9 +12,10 @@ return [
             'defaultSchema' => 'public'
         ],
     ]
-    /*   'class' => 'yii\db\Connection',
+    /* 'class' => 'yii\db\Connection',
        'dsn' => 'sqlsrv:Server=10.2.8.86;Database=BD_ADAB_REDA', //maybe other dbms such as psql,...
        'username' => 'usr_adab_reda',
        'password' => '%sr_@d@b_rd@',
-       'charset' => 'utf8'*/
+       'charset' => 'utf8'
+    */
 ];

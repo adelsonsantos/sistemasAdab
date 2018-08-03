@@ -113,11 +113,23 @@ DynamicFormWidget::begin([
 
                             ); ?>
                         </div>
+                        <div class="col-lg-4">
+                        <?= $form->field($modelRota, "[{$indexRoteiro}][{$indexRota}]roteiro_destino")->label(false)->dropDownList(
+                            ArrayHelper::map(DadosUnicoMunicipio::find()->asArray()->where(['estado_uf' => 'BA'])->orderBy('municipio_ds')->all(), 'municipio_cd', 'municipio_ds'),
+                            ['options' => [
+                                38490 => [
+                                    'selected' => true
+                                ]],
+                                // 'onchange' => 'validaDestino(this.id, $(this).val());'
+                            ]); ?>
+                        </div>
+
+                        <!--
 
                         <div class="col-lg-4">
-                            <?= $form->field($modelRota, "[{$indexRoteiro}][{$indexRota}]roteiro_destino")->label(false)->dropDownList(
-                                ArrayHelper::map(DadosUnicoMunicipio::find()->asArray()->where(['estado_uf' => 'BA'])->orderBy('municipio_ds')->all(), 'municipio_cd', 'municipio_ds'), ['options' => [$modelRoteiro['roteiro_origem'] => ['selected' => true]]]); ?>
-                        </div>
+                            <?/*= $form->field($modelRota, "[{$indexRoteiro}][{$indexRota}]roteiro_destino")->label(false)->dropDownList(
+                                ArrayHelper::map(DadosUnicoMunicipio::find()->asArray()->where(['estado_uf' => 'BA'])->orderBy('municipio_ds')->all(), 'municipio_cd', 'municipio_ds'), ['options' => [$modelRoteiro['roteiro_origem'] => ['selected' => true]]]); */?>
+                        </div>-->
                     </div>
 
                 </td>
