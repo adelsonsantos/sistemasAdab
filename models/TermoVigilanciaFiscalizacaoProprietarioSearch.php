@@ -19,7 +19,7 @@ class TermoVigilanciaFiscalizacaoProprietarioSearch extends TermoVigilanciaFisca
     {
         return [
             [['vigilancia_fiscalizacao_proprietario_id', 'vigilancia_fiscalizacao_proprietario_tipo_id'], 'integer'],
-            [['vigilancia_fiscalizacao_proprietario_cpf', 'vigilancia_fiscalizacao_proprietario_cnpj', 'vigilancia_fiscalizacao_proprietario_svo'], 'safe'],
+            [['vigilancia_fiscalizacao_proprietario_cpf', 'vigilancia_fiscalizacao_proprietario_cnpj', 'vigilancia_fiscalizacao_proprietario_svo','vigilancia_fiscalizacao_proprietario_nome' ], 'safe'],
         ];
     }
 
@@ -65,7 +65,8 @@ class TermoVigilanciaFiscalizacaoProprietarioSearch extends TermoVigilanciaFisca
 
         $query->andFilterWhere(['ilike', 'vigilancia_fiscalizacao_proprietario_cpf', $this->vigilancia_fiscalizacao_proprietario_cpf])
             ->andFilterWhere(['ilike', 'vigilancia_fiscalizacao_proprietario_cnpj', $this->vigilancia_fiscalizacao_proprietario_cnpj])
-            ->andFilterWhere(['ilike', 'vigilancia_fiscalizacao_proprietario_svo', $this->vigilancia_fiscalizacao_proprietario_svo]);
+            ->andFilterWhere(['ilike', 'vigilancia_fiscalizacao_proprietario_svo', $this->vigilancia_fiscalizacao_proprietario_svo])
+            ->andFilterWhere(['ilike', 'vigilancia_fiscalizacao_proprietario_nome', $this->vigilancia_fiscalizacao_proprietario_nome]);
 
         return $dataProvider;
     }

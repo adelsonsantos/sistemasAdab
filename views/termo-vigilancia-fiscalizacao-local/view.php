@@ -1,37 +1,55 @@
-<?php
+<div class="margin-top-menu">
+    <?php require 'style.php';
+    use yii\helpers\Html;
+    use yii\widgets\DetailView;
 
-use yii\helpers\Html;
-use yii\widgets\DetailView;
+    /* @var $this yii\web\View */
+    /* @var $model app\models\TermoVigilanciaFiscalizacaoLocal */
 
-/* @var $this yii\web\View */
-/* @var $model app\models\TermoVigilanciaFiscalizacaoLocal */
 
-$this->title = $model->vigilancia_fiscalizacao_local_id;
-$this->params['breadcrumbs'][] = ['label' => 'Termo Vigilancia Fiscalizacao Locals', 'url' => ['index']];
-$this->params['breadcrumbs'][] = $this->title;
-?>
-<div class="termo-vigilancia-fiscalizacao-local-view">
+    $this->params['breadcrumbs'][] = ['label' => 'PortalContatoTipo Coordenadoria Gerencias', 'url' => ['index']];
 
-    <h1><?= Html::encode($this->title) ?></h1>
+    ?>
+    <div style="position: absolute; margin-top: -30px">
+        <?= Yii::$app->controller->renderPartial('menu'); ?>
+    </div>
 
-    <p>
-        <?= Html::a('Update', ['update', 'id' => $model->vigilancia_fiscalizacao_local_id], ['class' => 'btn btn-primary']) ?>
-        <?= Html::a('Delete', ['delete', 'id' => $model->vigilancia_fiscalizacao_local_id], [
-            'class' => 'btn btn-danger',
-            'data' => [
-                'confirm' => 'Are you sure you want to delete this item?',
-                'method' => 'post',
-            ],
-        ]) ?>
-    </p>
+    <div style="text-align: center">
+        <h1 class="font-topo">Contato</h1>
+    </div>
 
-    <?= DetailView::widget([
-        'model' => $model,
-        'attributes' => [
-            'vigilancia_fiscalizacao_local_id',
-            'vigilancia_fiscalizacao_local_nome',
-            'vigilancia_fiscalizacao_local_st',
-        ],
-    ]) ?>
-
-</div>
+    <div class="diarias-view" style="margin-left: 209px; margin-top: 44px; ">
+        <table class="diaria">
+            <tr class="bordaMenu">
+                <th class="borda">ID</th>
+                <th class="borda">Local</th>
+                <th class="borda">Status</th>
+                <th class="borda">Ações</th>
+            </tr>
+            <tr>
+                <td class="borda"><?= $model->vigilancia_fiscalizacao_local_id; ?></td>
+                <td class="borda"><?= $model->vigilancia_fiscalizacao_local_nome; ?></td>
+                <td class="borda"><?= $model->vigilancia_fiscalizacao_local_st == 1 ? "Ativo" : "Inativo"; ?></td>
+                <td class="borda">
+                    <table style=" width: 100%">
+                        <tr >
+                            <th style="text-align: center; width: 33%">
+                                <?= Html::a('', ['update', 'id' => $model->vigilancia_fiscalizacao_local_id], ['class' => 'glyphicon glyphicon-pencil', 'title' =>     'Alterar']) ?>
+                            </th>
+                            <th style="text-align: center; width: 33%">
+                                <?= Html::a('', ['delete', 'id' => $model->vigilancia_fiscalizacao_local_id], [
+                                    'class' => 'glyphicon glyphicon-remove', 'title' => 'Deletar',
+                                    'data' => [
+                                        'confirm' => 'Tem certeza de que deseja excluir este local?',
+                                        'method' => 'post',
+                                    ],
+                                ]) ?>
+                            </th>
+                            <th style="text-align: center; width: 33%">
+                                <?= Html::a('', Yii::$app->request->referrer, ['class' => 'glyphicon glyphicon-chevron-left', 'title' => 'voltar']); ?>
+                            </th>
+                        </tr>
+                    </table>
+                </td>
+            </tr>
+        </table>

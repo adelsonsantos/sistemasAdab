@@ -5,10 +5,7 @@ use yii\helpers\Html;
 /* @var $this yii\web\View */
 /* @var $model app\models\TermoVigilanciaFiscalizacaoAnimal */
 
-$this->title = 'Update Termo Vigilancia Fiscalizacao Animal: {nameAttribute}';
-$this->params['breadcrumbs'][] = ['label' => 'Termo Vigilancia Fiscalizacao Animals', 'url' => ['index']];
-$this->params['breadcrumbs'][] = ['label' => $model->vigilancia_fiscalizacao_animal_id, 'url' => ['view', 'id' => $model->vigilancia_fiscalizacao_animal_id]];
-$this->params['breadcrumbs'][] = 'Update';
+$this->params['breadcrumbs'][] = ['label' => 'Animal da Vigilancia e Fiscalizacao', 'url' => ['index']];
 ?>
 <div class="termo-vigilancia-fiscalizacao-animal-update">
 

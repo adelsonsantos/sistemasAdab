@@ -115,7 +115,7 @@ $this->title = 'Portal ADAB';
                 <?php echo Html::a('<div class="manutencao"></div>', ['/portal-manutencao/index']) ?>
             </th>
             <th>
-                <?php echo Html::a('<div class="vigilancia"></div>', ['/portal-manutencao/index']) ?>
+                <?php echo Html::a('<div class="vigilancia"></div>', ['/termo-vigilancia-fiscalizacao/index']) ?>
             </th>
         </tr>
     </table>

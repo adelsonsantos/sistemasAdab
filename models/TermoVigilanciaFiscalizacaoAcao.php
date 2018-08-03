@@ -40,10 +40,10 @@ class TermoVigilanciaFiscalizacaoAcao extends \yii\db\ActiveRecord
     public function attributeLabels()
     {
         return [
-            'vigilancia_fiscalizacao_acao_id' => 'Vigilancia Fiscalizacao Acao ID',
-            'vigilancia_fiscalizacao_acao_nome' => 'Vigilancia Fiscalizacao Acao Nome',
-            'vigilancia_fiscalizacao_acao_st' => 'Vigilancia Fiscalizacao Acao St',
-            'vigilancia_fiscalizacao_acao_cmp_complentar' => 'Vigilancia Fiscalizacao Acao Cmp Complentar',
+            'vigilancia_fiscalizacao_acao_id' => 'ID',
+            'vigilancia_fiscalizacao_acao_nome' => 'Nome',
+            'vigilancia_fiscalizacao_acao_st' => 'St',
+            'vigilancia_fiscalizacao_acao_cmp_complentar' => 'Campo Complentar',
         ];
     }
 

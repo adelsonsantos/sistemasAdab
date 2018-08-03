@@ -19,7 +19,7 @@ class TermoVigilanciaFiscalizacaoAnimalCamposSearch extends TermoVigilanciaFisca
     {
         return [
             [['vigilancia_fiscalizacao_animal_campos_id', 'vigilancia_fiscalizacao_animal_id', 'vigilancia_fiscalizacao_animal_campos_st'], 'integer'],
-            [['vigilancia_fiscalizacao_animal_campos_machos_nascidos', 'vigilancia_fiscalizacao_animal_campos_machos_mortos', 'vigilancia_fiscalizacao_animal_campos_machos_existentes', 'vigilancia_fiscalizacao_animal_campos_machos_vacinados', 'vigilancia_fiscalizacao_animal_campos_femeas_nascidas', 'vigilancia_fiscalizacao_animal_campos_femeas_mortos', 'vigilancia_fiscalizacao_animal_campos_existentes', 'vigilancia_fiscalizacao_animal_campos_femeas_vacinadas', 'vigilancia_fiscalizacao_animal_campos_quantidade'], 'boolean'],
+            [['vigilancia_fiscalizacao_animal_campos_machos_nascidos', 'vigilancia_fiscalizacao_animal_campos_machos_mortos', 'vigilancia_fiscalizacao_animal_campos_machos_existentes', 'vigilancia_fiscalizacao_animal_campos_machos_vacinados', 'vigilancia_fiscalizacao_animal_campos_femeas_nascidas', 'vigilancia_fiscalizacao_animal_campos_femeas_mortas', 'vigilancia_fiscalizacao_animal_campos_femeas_existentes', 'vigilancia_fiscalizacao_animal_campos_femeas_vacinadas', 'vigilancia_fiscalizacao_animal_campos_quantidade'], 'boolean'],
         ];
     }
 
@@ -66,8 +66,8 @@ class TermoVigilanciaFiscalizacaoAnimalCamposSearch extends TermoVigilanciaFisca
             'vigilancia_fiscalizacao_animal_campos_machos_existentes' => $this->vigilancia_fiscalizacao_animal_campos_machos_existentes,
             'vigilancia_fiscalizacao_animal_campos_machos_vacinados' => $this->vigilancia_fiscalizacao_animal_campos_machos_vacinados,
             'vigilancia_fiscalizacao_animal_campos_femeas_nascidas' => $this->vigilancia_fiscalizacao_animal_campos_femeas_nascidas,
-            'vigilancia_fiscalizacao_animal_campos_femeas_mortos' => $this->vigilancia_fiscalizacao_animal_campos_femeas_mortos,
-            'vigilancia_fiscalizacao_animal_campos_existentes' => $this->vigilancia_fiscalizacao_animal_campos_existentes,
+            'vigilancia_fiscalizacao_animal_campos_femeas_mortas' => $this->vigilancia_fiscalizacao_animal_campos_femeas_mortas,
+            'vigilancia_fiscalizacao_animal_campos_femeas_existentes' => $this->vigilancia_fiscalizacao_animal_campos_femeas_existentes,
             'vigilancia_fiscalizacao_animal_campos_femeas_vacinadas' => $this->vigilancia_fiscalizacao_animal_campos_femeas_vacinadas,
             'vigilancia_fiscalizacao_animal_campos_quantidade' => $this->vigilancia_fiscalizacao_animal_campos_quantidade,
             'vigilancia_fiscalizacao_animal_campos_st' => $this->vigilancia_fiscalizacao_animal_campos_st,

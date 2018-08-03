@@ -12,14 +12,14 @@ class m180716_175754_termo_vigilancia_fiscalizacao_faixa_etaria extends Migratio
      */
     public function safeUp()
     {
-        $this->createTable('termo.vigilancia_fiscalizacao_animal_faixa_etaria', [
+        $this->createTable('termo.vigilancia_fiscalizacao_faixa_etaria', [
             'vigilancia_fiscalizacao_animal_faixa_etaria_id' => $this->primaryKey()->unique()->notNull(),
             'vigilancia_fiscalizacao_animal_faixa_etaria_periodo' => $this->string(50),
             'vigilancia_fiscalizacao_animal_id' => $this->integer()
 
 
         ]);
-        $this->addForeignKey('termo.vigilancia_fiscalizacao_faixa_etaria',
+        $this->addForeignKey('termo_vigilancia_fiscalizacao_faixa_etaria',
             'termo.vigilancia_fiscalizacao_faixa_etaria',
             'vigilancia_fiscalizacao_animal_id',
             'termo.vigilancia_fiscalizacao_animal',

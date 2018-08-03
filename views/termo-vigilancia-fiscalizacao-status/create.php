@@ -6,9 +6,8 @@ use yii\helpers\Html;
 /* @var $this yii\web\View */
 /* @var $model app\models\TermoVigilanciaFiscalizacaoStatus */
 
-$this->title = 'Create Termo Vigilancia Fiscalizacao Status';
-$this->params['breadcrumbs'][] = ['label' => 'Termo Vigilancia Fiscalizacao Statuses', 'url' => ['index']];
-$this->params['breadcrumbs'][] = $this->title;
+$this->params['breadcrumbs'][] = ['label' => 'Status do Vigilancia e Fiscalizacao', 'url' => ['index']];
+
 ?>
 <div class="termo-vigilancia-fiscalizacao-status-create">
 

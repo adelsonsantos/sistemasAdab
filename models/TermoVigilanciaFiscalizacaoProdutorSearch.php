@@ -19,7 +19,7 @@ class TermoVigilanciaFiscalizacaoProdutorSearch extends TermoVigilanciaFiscaliza
     {
         return [
             [['vigilancia_fiscalizacao_produtor_id', 'vigilancia_fiscalizacao_produtor_tipo_id'], 'integer'],
-            [['vigilancia_fiscalizacao_produtor_cpf', 'vigilancia_fiscalizacao_produtor_cnpj', 'vigilancia_fiscalizacao_produtor_svo'], 'safe'],
+            [['vigilancia_fiscalizacao_produtor_cpf', 'vigilancia_fiscalizacao_produtor_cnpj', 'vigilancia_fiscalizacao_produtor_svo', 'vigilancia_fiscalizacao_produtor_nome'], 'safe'],
         ];
     }
 
@@ -65,7 +65,8 @@ class TermoVigilanciaFiscalizacaoProdutorSearch extends TermoVigilanciaFiscaliza
 
         $query->andFilterWhere(['ilike', 'vigilancia_fiscalizacao_produtor_cpf', $this->vigilancia_fiscalizacao_produtor_cpf])
             ->andFilterWhere(['ilike', 'vigilancia_fiscalizacao_produtor_cnpj', $this->vigilancia_fiscalizacao_produtor_cnpj])
-            ->andFilterWhere(['ilike', 'vigilancia_fiscalizacao_produtor_svo', $this->vigilancia_fiscalizacao_produtor_svo]);
+            ->andFilterWhere(['ilike', 'vigilancia_fiscalizacao_produtor_svo', $this->vigilancia_fiscalizacao_produtor_svo])
+            ->andFilterWhere(['ilike', 'vigilancia_fiscalizacao_produtor_nome', $this->vigilancia_fiscalizacao_produtor_nome]);
 
         return $dataProvider;
     }

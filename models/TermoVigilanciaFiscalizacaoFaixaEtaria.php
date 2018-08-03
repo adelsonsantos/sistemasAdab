@@ -7,8 +7,8 @@ use Yii;
 /**
  * This is the model class for table "termo.vigilancia_fiscalizacao_faixa_etaria".
  *
- * @property int $vigilancia_fiscalizacao_faixa_etaria_id
- * @property string $vigilancia_fiscalizacao_faixa_etaria_periodo
+ * @property int $vigilancia_fiscalizacao_animal_faixa_etaria_id
+ * @property string $vigilancia_fiscalizacao_animal_faixa_etaria_periodo
  * @property int $vigilancia_fiscalizacao_animal_id
  */
 class TermoVigilanciaFiscalizacaoFaixaEtaria extends \yii\db\ActiveRecord
@@ -29,7 +29,7 @@ class TermoVigilanciaFiscalizacaoFaixaEtaria extends \yii\db\ActiveRecord
         return [
             [['vigilancia_fiscalizacao_animal_id'], 'default', 'value' => null],
             [['vigilancia_fiscalizacao_animal_id'], 'integer'],
-            [['vigilancia_fiscalizacao_faixa_etaria_periodo'], 'string', 'max' => 50],
+            [['vigilancia_fiscalizacao_animal_faixa_etaria_periodo'], 'string', 'max' => 50],
             [['vigilancia_fiscalizacao_animal_id'], 'exist', 'skipOnError' => true, 'targetClass' => TermoVigilanciaFiscalizacaoAnimal::className(), 'targetAttribute' => ['vigilancia_fiscalizacao_animal_id' => 'vigilancia_fiscalizacao_animal_id']],
         ];
     }
@@ -40,9 +40,9 @@ class TermoVigilanciaFiscalizacaoFaixaEtaria extends \yii\db\ActiveRecord
     public function attributeLabels()
     {
         return [
-            'vigilancia_fiscalizacao_faixa_etaria_id' => 'Vigilancia Fiscalizacao Faixa Etaria ID',
-            'vigilancia_fiscalizacao_faixa_etaria_periodo' => 'Vigilancia Fiscalizacao Faixa Etaria Periodo',
-            'vigilancia_fiscalizacao_animal_id' => 'Vigilancia Fiscalizacao Animal ID',
+            'vigilancia_fiscalizacao_animal_faixa_etaria_id' => 'Faixa Etaria ID',
+            'vigilancia_fiscalizacao_animal_faixa_etaria_periodo' => 'Periodo',
+            'vigilancia_fiscalizacao_animal_id' => 'Animal',
         ];
     }
 

@@ -10,6 +10,7 @@ use Yii;
  * @property int $vigilancia_fiscalizacao_proprietario_id
  * @property int $vigilancia_fiscalizacao_proprietario_tipo_id
  * @property string $vigilancia_fiscalizacao_proprietario_cpf
+ * @property string $vigilancia_fiscalizacao_proprietario_nome
  * @property string $vigilancia_fiscalizacao_proprietario_cnpj
  * @property string $vigilancia_fiscalizacao_proprietario_svo
  */
@@ -34,6 +35,7 @@ class TermoVigilanciaFiscalizacaoProprietario extends \yii\db\ActiveRecord
             [['vigilancia_fiscalizacao_proprietario_cpf'], 'string', 'max' => 14],
             [['vigilancia_fiscalizacao_proprietario_cnpj'], 'string', 'max' => 18],
             [['vigilancia_fiscalizacao_proprietario_svo'], 'string', 'max' => 30],
+            [['vigilancia_fiscalizacao_proprietario_nome'], 'string', 'max' => 80],
         ];
     }
 
@@ -43,11 +45,12 @@ class TermoVigilanciaFiscalizacaoProprietario extends \yii\db\ActiveRecord
     public function attributeLabels()
     {
         return [
-            'vigilancia_fiscalizacao_proprietario_id' => 'Vigilancia Fiscalizacao Proprietario ID',
-            'vigilancia_fiscalizacao_proprietario_tipo_id' => 'Vigilancia Fiscalizacao Proprietario Tipo ID',
-            'vigilancia_fiscalizacao_proprietario_cpf' => 'Vigilancia Fiscalizacao Proprietario Cpf',
-            'vigilancia_fiscalizacao_proprietario_cnpj' => 'Vigilancia Fiscalizacao Proprietario Cnpj',
-            'vigilancia_fiscalizacao_proprietario_svo' => 'Vigilancia Fiscalizacao Proprietario Svo',
+            'vigilancia_fiscalizacao_proprietario_id' => 'ID',
+            'vigilancia_fiscalizacao_proprietario_tipo_id' => 'Tipo',
+            'vigilancia_fiscalizacao_proprietario_cpf' => 'CPF',
+            'vigilancia_fiscalizacao_proprietario_cnpj' => 'CNPJ',
+            'vigilancia_fiscalizacao_proprietario_svo' => 'Svo',
+            'vigilancia_fiscalizacao_proprietario_nome' => 'Nome',
         ];
     }
 

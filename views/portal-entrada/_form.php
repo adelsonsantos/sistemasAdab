@@ -6,10 +6,6 @@ use yii\widgets\ActiveForm;
 /* @var $this yii\web\View */
 /* @var $model app\models\PortalEquipamento2 */
 /* @var $form yii\widgets\ActiveForm */
-?>
-
-
-<?php
 require 'style.php';
 use app\models\DiariaCoordenadoria;
 use yii\helpers\ArrayHelper;

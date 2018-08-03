@@ -65,7 +65,7 @@ class m180716_180311_termo_vigilancia_fiscalizacao extends Migration
             'vigilancia_fiscalizacao_local_id',
             'termo.vigilancia_fiscalizacao_local',
             'vigilancia_fiscalizacao_local_id');
-        $this ->addForeignKey('termo.vigilancia_fiscalizacao_id_acoes',
+        $this ->addForeignKey('termo_vigilancia_fiscalizacao_id_acoes',
             'termo.vigilancia_fiscalizacao_acoes',
             'vigilancia_fiscalizacao_id',
             'termo.vigilancia_fiscalizacao',
