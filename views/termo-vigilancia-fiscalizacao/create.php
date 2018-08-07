@@ -1,14 +1,14 @@
 <?php
 
 use yii\helpers\Html;
+use app\models\TermoVigilanciaFiscalizacaoVeiculo;
 
 
 /* @var $this yii\web\View */
 /* @var $model app\models\TermoVigilanciaFiscalizacao */
 
-$this->title = 'Create Termo Vigilancia Fiscalizacao';
-$this->params['breadcrumbs'][] = ['label' => 'Termo Vigilancia Fiscalizacaos', 'url' => ['index']];
-$this->params['breadcrumbs'][] = $this->title;
+$this->params['breadcrumbs'][] = ['label' => 'Fiscalização', 'url' => ['index']];
+
 ?>
 <div class="termo-vigilancia-fiscalizacao-create">
 
@@ -16,6 +16,8 @@ $this->params['breadcrumbs'][] = $this->title;
 
     <?= $this->render('_form', [
         'model' => $model,
+        'modelsVeiculo' => (empty($modelsVeiculo)) ? [new TermoVigilanciaFiscalizacaoVeiculo] : $modelsVeiculo,
+        'modelsEquipe' => (empty($modelsEquipe)) ? [new app\models\TermoVigilanciaFiscalizacaoEquipeFiscal] : $modelsEquipe
     ]) ?>
 
 </div>

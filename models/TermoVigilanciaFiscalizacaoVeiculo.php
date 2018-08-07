@@ -42,11 +42,11 @@ class TermoVigilanciaFiscalizacaoVeiculo extends \yii\db\ActiveRecord
     public function attributeLabels()
     {
         return [
-            'vigilancia_fiscalizacao_veiculo_id' => 'Vigilancia Fiscalizacao Veiculo ID',
-            'vigilancia_fiscalizacao_veiculo_placa' => 'Vigilancia Fiscalizacao Veiculo Placa',
-            'vigilancia_fiscalizacao_veiculo_km_incial' => 'Vigilancia Fiscalizacao Veiculo Km Incial',
-            'vigilancia_fiscalizacao_veiculo_km_final' => 'Vigilancia Fiscalizacao Veiculo Km Final',
-            'vigilancia_fiscalizacao_veiculo_data_create' => 'Vigilancia Fiscalizacao Veiculo Data Create',
+            'vigilancia_fiscalizacao_veiculo_id' => 'ID',
+            'vigilancia_fiscalizacao_veiculo_placa' => 'Placa',
+            'vigilancia_fiscalizacao_veiculo_km_incial' => 'Km Incial',
+            'vigilancia_fiscalizacao_veiculo_km_final' => 'Km Final',
+            'vigilancia_fiscalizacao_veiculo_data_create' => 'Data',
         ];
     }
 
