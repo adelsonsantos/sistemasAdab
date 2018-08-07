@@ -58,7 +58,6 @@ $this->params['breadcrumbs'][] = $this->title;
         'showOnEmpty' => true,
         'summary' => "Mostrando {begin} - {end} dos {totalCount} equipamentos",
         'columns' => [
-            ['class' => 'yii\grid\SerialColumn'],
             'equipamento_nome',
             'equipamento_quantidade_min',
             'equipamento_status',

@@ -98,10 +98,32 @@ $this->title = 'Portal ADAB';
          border-radius: 12px;
          margin-left:10%; margin-bottom: 10px; margin-top: 10px
      }
+    .cadastrounico {
+        background:url('<?=Yii::$app->request->baseUrl . "../../image/cadastro_unico.png"?>');
+        background-size: 160px 190px;
+        height:190px;
+        width:160px;
+        cursor:pointer;
+        border-radius: 12px;
+        margin-left:10%; margin-bottom: 10px; margin-top: 10px
+    }
+    .cadastrounico:hover {
+        background:url('<?=Yii::$app->request->baseUrl . "../../image/cadastro_unico_Hover.png"?>');
+        background-size: 160px 190px;
+        height:190px;
+        width:160px;
+        cursor:pointer;
+        border-radius: 12px;
+        margin-left:10%; margin-bottom: 10px; margin-top: 10px
+    }
+
 </style>
 </head>
     <table width="100%">
         <tr>
+            <th>
+                <?php echo Html::a('<div class="cadastrounico"></div>', ['/dados-unico-funcionario/index']) ?>
+            </th>
             <th>
                 <?php echo Html::a('<div class="coordenadoria"></div>', ['/portal-cordenadoria-gerencia-view/index']) ?>
             </th>

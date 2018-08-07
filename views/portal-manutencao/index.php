@@ -59,7 +59,7 @@ $this->params['breadcrumbs'][] = $this->title;
         'showOnEmpty' => true,
         'summary' => "Mostrando {begin} - {end} dos {totalCount} equipamentos",
         'columns' => [
-            ['class' => 'yii\grid\SerialColumn'],
+
             'manutencao_id',
             'tombo_id',
             'manutencao_data_recebimento',

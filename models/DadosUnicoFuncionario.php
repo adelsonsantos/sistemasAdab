@@ -92,7 +92,7 @@ class DadosUnicoFuncionario extends \yii\db\ActiveRecord
             'funcionario_tipo_id' => 'Funcionario Tipo ID',
             'funcao_id' => 'Funcao ID',
             'cargo_permanente' => 'Cargo Permanente',
-            'funcionario_matricula' => 'Funcionario Matricula',
+            'funcionario_matricula' => 'Matricula',
             'funcionario_ramal' => 'Funcionario Ramal',
             'funcionario_email' => 'Funcionario Email',
             'funcionario_dt_admissao' => 'Funcionario Dt Admissao',

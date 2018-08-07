@@ -135,7 +135,6 @@ $this->params['breadcrumbs'][] = $this->title;
         'showOnEmpty' => true,
         'summary' => "Mostrando {begin} - {end} de {totalCount} Diárias",
         'columns' => [
-            ['class' => 'yii\grid\SerialColumn'],
             'diaria_numero',
             [
                 'attribute'=> 'diaria_solicitante',
