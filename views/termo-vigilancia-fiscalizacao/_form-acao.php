@@ -78,28 +78,12 @@ DynamicFormWidget::begin([
                         <?= $form->field($modelAcao, "[{$index}]vigilancia_fiscalizacao_acao_id")->dropDownList(
                             ArrayHelper::map(\app\models\TermoVigilanciaFiscalizacaoAcao::find()->asArray()->where(['vigilancia_fiscalizacao_acao_st' => 1])->orderBy('vigilancia_fiscalizacao_acao_nome')->all(), 'vigilancia_fiscalizacao_acao_id', 'vigilancia_fiscalizacao_acao_nome'),
                             [
-                                'prompt' => 'Selecione a ação',
+                                'prompt' => 'Selecione a Ação',
                                 'onchange' => '                               
              $.get( "' . Url::toRoute('/termo-vigilancia-fiscalizacao/complementar') . '", { id: $(this).val(), input: $(this).attr("id")} )
             .done(function( data ) {
-            var result = JSON.parse(data);           
-                if(result.campo_complementar == true){
-                    if(document.getElementById(result.input_one) !== null){
-                        document.getElementById(result.input_one).style.display = "block";  
-                    }
-                    if(document.getElementById(result.input_two) !== null){
-                        document.getElementById(result.input_two).style.display = "block";  
-                    }
-                }else{
-                    if(document.getElementById(result.input_one) !== null){
-                        document.getElementById(result.input_one).style.display = "none";  
-                    }
-                    if(document.getElementById(result.input_two) !== null){
-                        document.getElementById(result.input_two).style.display = "none";  
-                    }
-                }                    
-            }
-            );
+                 mostrarComplementar(data);
+            });
             '
                             ])->label('');
                         ?>
@@ -127,8 +111,6 @@ DynamicFormWidget::begin([
 <?php DynamicFormWidget::end(); ?>
 <script>
     document.getElementById('campo-complementar0').style.display = "none";
-
-
     function addAcao(){
 
         if(document.getElementById('termovigilanciafiscalizacaoacoes-0-vigilancia_fiscalizacao_acao_id') !== null
@@ -155,6 +137,26 @@ DynamicFormWidget::begin([
                     document.getElementById('termovigilanciafiscalizacaoacoes-2-vigilancia_fiscalizacao_acao_id').innerHTML = data;
                 }
             });
+        }
+    }
+
+    function mostrarComplementar(data) {
+
+        var result = JSON.parse(data);
+        if(result.campo_complementar === true){
+            if(document.getElementById(result.input_one) !== null){
+                document.getElementById(result.input_one).style.display = "block";
+            }
+            if(document.getElementById(result.input_two) !== null){
+                document.getElementById(result.input_two).style.display = "block";
+            }
+        }else{
+            if(document.getElementById(result.input_one) !== null){
+                document.getElementById(result.input_one).style.display = "none";
+            }
+            if(document.getElementById(result.input_two) !== null){
+                document.getElementById(result.input_two).style.display = "none";
+            }
         }
     }
 </script>

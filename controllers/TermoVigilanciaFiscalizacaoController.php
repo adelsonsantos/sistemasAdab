@@ -122,6 +122,22 @@ class TermoVigilanciaFiscalizacaoController extends Controller
 
     }
 
+    public function actionAtividade($id, $id2 = 0){
+        $result = TermoVigilanciaFiscalizacaoAtividade::find()->where(['not in','vigilancia_fiscalizacao_atividade_id',[$id, $id2]])->orderBy('vigilancia_fiscalizacao_atividade_nome')->all();
+
+        echo "<option>Selecione a Atividade</option>";
+
+        if(count($result)>0){
+            foreach($result as $row){
+                echo "<option value='$row->vigilancia_fiscalizacao_atividade_id'>$row->vigilancia_fiscalizacao_atividade_nome</option>";
+            }
+        }
+        else{
+            echo "<option>Nenhuma Atividade cadastrada</option>";
+        }
+
+    }
+
 
     /**
      * Creates a new TermoVigilanciaFiscalizacao model.
