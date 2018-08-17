@@ -3,12 +3,16 @@
 namespace app\controllers;
 
 use app\models\Model;
+use app\models\TermoVigilanciaFiscalizacaoAcao;
+use app\models\TermoVigilanciaFiscalizacaoAcoes;
+use app\models\TermoVigilanciaFiscalizacaoAtividade;
 use app\models\TermoVigilanciaFiscalizacaoEquipeFiscal;
 use app\models\TermoVigilanciaFiscalizacaoVeiculo;
 use Yii;
 use app\models\TermoVigilanciaFiscalizacao;
 use app\models\TermoVigilanciaFiscalizacaoSearch;
 use yii\bootstrap\ActiveForm;
+use yii\db\Exception;
 use yii\helpers\ArrayHelper;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
@@ -64,6 +68,62 @@ class TermoVigilanciaFiscalizacaoController extends Controller
     }
 
     /**
+     * @param $id
+     * @param $input
+     * @return string
+     */
+    public function actionComplementar($id, $input){
+
+        $result = TermoVigilanciaFiscalizacaoAcao::find()->where(['vigilancia_fiscalizacao_acao_id' => $id])->andWhere(['vigilancia_fiscalizacao_acao_cmp_complentar' => 1])->all();
+        $campoComplementar = empty($result) ? false : true;
+
+        switch ($input) {
+            case "termovigilanciafiscalizacaoacoes-0-vigilancia_fiscalizacao_acao_id":
+                $oneInput = "campo-complementar0";
+                $twoInput = "campo-0--complementar0";
+
+                break;
+            case "termovigilanciafiscalizacaoacoes-1-vigilancia_fiscalizacao_acao_id":
+                $oneInput = "campo-1--complementar0";
+                $twoInput = "";
+                break;
+            case "termovigilanciafiscalizacaoacoes-2-vigilancia_fiscalizacao_acao_id":
+                $oneInput = "campo-2--complementar0";
+                $twoInput = "";
+                break;
+            default:
+                $oneInput = "";
+                $twoInput = "";
+                break;
+        }
+
+        $result = [
+            'campo_complementar' => $campoComplementar,
+            'input_one' => $oneInput,
+            'input_two' => $twoInput
+        ];
+
+        return  \GuzzleHttp\json_encode($result);
+    }
+
+    public function actionAcao($id, $id2 = 0){
+        $result = TermoVigilanciaFiscalizacaoAcao::find()->where(['not in','vigilancia_fiscalizacao_acao_id',[$id, $id2]])->orderBy('vigilancia_fiscalizacao_acao_nome')->all();
+
+        echo "<option>Selecione a Ação</option>";
+
+        if(count($result)>0){
+            foreach($result as $row){
+                echo "<option value='$row->vigilancia_fiscalizacao_acao_id'>$row->vigilancia_fiscalizacao_acao_nome</option>";
+            }
+        }
+        else{
+            echo "<option>Nenhuma Ação cadastrada</option>";
+        }
+
+    }
+
+
+    /**
      * Creates a new TermoVigilanciaFiscalizacao model.
      * If creation is successful, the browser will be redirected to the 'view' page.
      * @return mixed
@@ -73,12 +133,18 @@ class TermoVigilanciaFiscalizacaoController extends Controller
         $model = new TermoVigilanciaFiscalizacao;
         $modelsVeiculo = [new TermoVigilanciaFiscalizacaoVeiculo];
         $modelsEquipe = [new TermoVigilanciaFiscalizacaoEquipeFiscal];
+        $modelsAtividade = [new TermoVigilanciaFiscalizacaoAtividade];
+        $modelsAcao = [new TermoVigilanciaFiscalizacaoAcoes];
         if ($model->load(Yii::$app->request->post())) {
 
             $modelsVeiculo = Model::createMultiple(TermoVigilanciaFiscalizacaoVeiculo::classname());
-            $modelsEquipe = Model::createMultiple(TermoVigilanciaFiscalizacaoVeiculo::classname());
+            $modelsEquipe = Model::createMultiple(TermoVigilanciaFiscalizacaoEquipeFiscal::classname());
+            $modelsAtividade = Model::createMultiple(TermoVigilanciaFiscalizacaoAtividade::classname());
+            $modelsAcao = Model::createMultiple(TermoVigilanciaFiscalizacaoAcao::classname());
             Model::loadMultiple($modelsVeiculo, Yii::$app->request->post());
             Model::loadMultiple($modelsEquipe, Yii::$app->request->post());
+            Model::loadMultiple($modelsAtividade, Yii::$app->request->post());
+            Model::loadMultiple($modelsAcao, Yii::$app->request->post());
 
             // ajax validation
             if (Yii::$app->request->isAjax) {
@@ -86,6 +152,8 @@ class TermoVigilanciaFiscalizacaoController extends Controller
                 return ArrayHelper::merge(
                     ActiveForm::validateMultiple($modelsVeiculo),
                     ActiveForm::validateMultiple($modelsEquipe),
+                    ActiveForm::validateMultiple($modelsAtividade),
+                    ActiveForm::validateMultiple($modelsAcao),
                     ActiveForm::validate($model)
                 );
             }
@@ -94,6 +162,8 @@ class TermoVigilanciaFiscalizacaoController extends Controller
             $valid = $model->validate();
             $valid = Model::validateMultiple($modelsVeiculo) && $valid;
             $valid = Model::validateMultiple($modelsEquipe) && $valid;
+            $valid = Model::validateMultiple($modelsAtividade) && $valid;
+            $valid = Model::validateMultiple($modelsAcao) && $valid;
 
             if ($valid) {
                 $transaction = \Yii::$app->db->beginTransaction();
@@ -127,7 +197,9 @@ class TermoVigilanciaFiscalizacaoController extends Controller
         return $this->render('create', [
             'model' => $model,
             'modelsVeiculo' => (empty($modelsVeiculo)) ? [new TermoVigilanciaFiscalizacaoVeiculo] : $modelsVeiculo,
-            'modelsEquipe' => (empty($modelsEquipe)) ? [new TermoVigilanciaFiscalizacaoEquipeFiscal] : $modelsEquipe
+            'modelsEquipe' => (empty($modelsEquipe)) ? [new TermoVigilanciaFiscalizacaoEquipeFiscal] : $modelsEquipe,
+            'modelsAtividade' => (empty($modelsAtividade)) ? [new TermoVigilanciaFiscalizacaoAtividade] : $modelsAtividade,
+            'modelsAcao' => (empty($modelsAcao)) ? [new TermoVigilanciaFiscalizacaoAcoes] : $modelsAcao
         ]);
 
 
