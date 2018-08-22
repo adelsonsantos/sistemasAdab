@@ -128,6 +128,12 @@ require 'style.php';
                     'modelsAcao' => (empty($modelsAcao)) ? [new \app\models\TermoVigilanciaFiscalizacaoAcoes] : $modelsAcao
                 ]); ?>
 
+                <?= $this->render('_form-populacao-animal', [
+                    'form' => $form,
+                    'model' => $model,
+                    'modelsPopulacaoAnimal' => (empty($modelsPopulacaoAnimal)) ? [new \app\models\TermoVigilanciaFiscalizacaoPopulacaoAnimal] : $modelsPopulacaoAnimal
+                ]); ?>
+
 
 
                 <div class="row">

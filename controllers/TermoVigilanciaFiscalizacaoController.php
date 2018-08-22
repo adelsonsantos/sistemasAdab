@@ -7,6 +7,8 @@ use app\models\TermoVigilanciaFiscalizacaoAcao;
 use app\models\TermoVigilanciaFiscalizacaoAcoes;
 use app\models\TermoVigilanciaFiscalizacaoAtividade;
 use app\models\TermoVigilanciaFiscalizacaoEquipeFiscal;
+use app\models\TermoVigilanciaFiscalizacaoFaixaEtaria;
+use app\models\TermoVigilanciaFiscalizacaoPopulacaoAnimal;
 use app\models\TermoVigilanciaFiscalizacaoVeiculo;
 use Yii;
 use app\models\TermoVigilanciaFiscalizacao;
@@ -81,29 +83,81 @@ class TermoVigilanciaFiscalizacaoController extends Controller
             case "termovigilanciafiscalizacaoacoes-0-vigilancia_fiscalizacao_acao_id":
                 $oneInput = "campo-complementar0";
                 $twoInput = "campo-0--complementar0";
+                $complementarId = "termovigilanciafiscalizacaoacoes-0-vigilancia_fiscalizacao_acao_cmp_complentar_qtd";
 
                 break;
             case "termovigilanciafiscalizacaoacoes-1-vigilancia_fiscalizacao_acao_id":
                 $oneInput = "campo-1--complementar0";
                 $twoInput = "";
+                $complementarId = "termovigilanciafiscalizacaoacoes-1-vigilancia_fiscalizacao_acao_cmp_complentar_qtd";
                 break;
             case "termovigilanciafiscalizacaoacoes-2-vigilancia_fiscalizacao_acao_id":
                 $oneInput = "campo-2--complementar0";
                 $twoInput = "";
+                $complementarId = "termovigilanciafiscalizacaoacoes-2-vigilancia_fiscalizacao_acao_cmp_complentar_qtd";
                 break;
             default:
                 $oneInput = "";
                 $twoInput = "";
+                $complementarId = "";
                 break;
         }
 
         $result = [
             'campo_complementar' => $campoComplementar,
             'input_one' => $oneInput,
-            'input_two' => $twoInput
+            'input_two' => $twoInput,
+            'complementar_id' => $complementarId
         ];
 
         return  \GuzzleHttp\json_encode($result);
+    }
+
+
+    /**
+     * @param $id
+     * @param $input
+     * @return string
+     */
+    public function actionGetInputFaixaEtaria($id, $input){
+
+        switch ($input) {
+            case "termovigilanciafiscalizacaopopulacaoanimal-0-vigilancia_fiscalizacao_animal_id":
+                $inputFaixa = "termovigilanciafiscalizacaopopulacaoanimal-0-vigilancia_fiscalizacao_faixa_etaria_id";
+                break;
+            case "termovigilanciafiscalizacaopopulacaoanimal-1-vigilancia_fiscalizacao_animal_id":
+                $inputFaixa = "termovigilanciafiscalizacaopopulacaoanimal-1-vigilancia_fiscalizacao_faixa_etaria_id";
+                break;
+            case "termovigilanciafiscalizacaopopulacaoanimal-2-vigilancia_fiscalizacao_animal_id":
+                $inputFaixa = "termovigilanciafiscalizacaopopulacaoanimal-2-vigilancia_fiscalizacao_faixa_etaria_id";
+                break;
+            default:
+                $inputFaixa = "";
+                break;
+        }
+
+        $result = [
+            'input_faixa' => $inputFaixa,
+            'id' => $id
+        ];
+
+        return  \GuzzleHttp\json_encode($result);
+    }
+
+    public function actionFaixaEtaria($id){
+        $result = TermoVigilanciaFiscalizacaoFaixaEtaria::find()->where(['vigilancia_fiscalizacao_animal_id' => $id])->orderBy('vigilancia_fiscalizacao_animal_faixa_etaria_id')->all();
+
+        echo "<option>Selecione a Faixa Etária</option>";
+
+        if(count($result)>0){
+            foreach($result as $row){
+                echo "<option value='$row->vigilancia_fiscalizacao_animal_faixa_etaria_id'>$row->vigilancia_fiscalizacao_animal_faixa_etaria_periodo</option>";
+            }
+        }
+        else{
+            echo "<option value='0'>Nenhuma Faixa Etária cadastrada</option>";
+        }
+
     }
 
     public function actionAcao($id, $id2 = 0){
@@ -151,16 +205,20 @@ class TermoVigilanciaFiscalizacaoController extends Controller
         $modelsEquipe = [new TermoVigilanciaFiscalizacaoEquipeFiscal];
         $modelsAtividade = [new TermoVigilanciaFiscalizacaoAtividade];
         $modelsAcao = [new TermoVigilanciaFiscalizacaoAcoes];
+        $modelsPopulacaoAnimal = [new TermoVigilanciaFiscalizacaoPopulacaoAnimal];
+
         if ($model->load(Yii::$app->request->post())) {
 
             $modelsVeiculo = Model::createMultiple(TermoVigilanciaFiscalizacaoVeiculo::classname());
             $modelsEquipe = Model::createMultiple(TermoVigilanciaFiscalizacaoEquipeFiscal::classname());
             $modelsAtividade = Model::createMultiple(TermoVigilanciaFiscalizacaoAtividade::classname());
             $modelsAcao = Model::createMultiple(TermoVigilanciaFiscalizacaoAcao::classname());
+            $modelsPopulacaoAnimal = Model::createMultiple(TermoVigilanciaFiscalizacaoPopulacaoAnimal::classname());
             Model::loadMultiple($modelsVeiculo, Yii::$app->request->post());
             Model::loadMultiple($modelsEquipe, Yii::$app->request->post());
             Model::loadMultiple($modelsAtividade, Yii::$app->request->post());
             Model::loadMultiple($modelsAcao, Yii::$app->request->post());
+            Model::loadMultiple($modelsPopulacaoAnimal, Yii::$app->request->post());
 
             // ajax validation
             if (Yii::$app->request->isAjax) {
@@ -170,6 +228,7 @@ class TermoVigilanciaFiscalizacaoController extends Controller
                     ActiveForm::validateMultiple($modelsEquipe),
                     ActiveForm::validateMultiple($modelsAtividade),
                     ActiveForm::validateMultiple($modelsAcao),
+                    ActiveForm::validateMultiple($modelsPopulacaoAnimal),
                     ActiveForm::validate($model)
                 );
             }
@@ -180,6 +239,7 @@ class TermoVigilanciaFiscalizacaoController extends Controller
             $valid = Model::validateMultiple($modelsEquipe) && $valid;
             $valid = Model::validateMultiple($modelsAtividade) && $valid;
             $valid = Model::validateMultiple($modelsAcao) && $valid;
+            $valid = Model::validateMultiple($modelsPopulacaoAnimal) && $valid;
 
             if ($valid) {
                 $transaction = \Yii::$app->db->beginTransaction();
@@ -215,7 +275,8 @@ class TermoVigilanciaFiscalizacaoController extends Controller
             'modelsVeiculo' => (empty($modelsVeiculo)) ? [new TermoVigilanciaFiscalizacaoVeiculo] : $modelsVeiculo,
             'modelsEquipe' => (empty($modelsEquipe)) ? [new TermoVigilanciaFiscalizacaoEquipeFiscal] : $modelsEquipe,
             'modelsAtividade' => (empty($modelsAtividade)) ? [new TermoVigilanciaFiscalizacaoAtividade] : $modelsAtividade,
-            'modelsAcao' => (empty($modelsAcao)) ? [new TermoVigilanciaFiscalizacaoAcoes] : $modelsAcao
+            'modelsAcao' => (empty($modelsAcao)) ? [new TermoVigilanciaFiscalizacaoAcoes] : $modelsAcao,
+            'modelsPopulacaoAnimal' => (empty($modelsPopulacaoAnimal)) ? [new TermoVigilanciaFiscalizacaoPopulacaoAnimal] : $modelsPopulacaoAnimal
         ]);
 
 

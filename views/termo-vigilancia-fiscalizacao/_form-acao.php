@@ -91,7 +91,7 @@ DynamicFormWidget::begin([
 
                     <div id="campo-complementar<?=$index;?>">
                         <div class="col-lg-1" style="margin-bottom: -50px" >
-                            <span style="margin-top: 300px;">Quantidade</span>
+                            <span style="margin-top: 300px;">Número</span>
                         </div>
 
                         <div class="col-lg-3">
@@ -143,6 +143,7 @@ DynamicFormWidget::begin([
     function mostrarComplementar(data) {
 
         var result = JSON.parse(data);
+        console.log(result);
         if(result.campo_complementar === true){
             if(document.getElementById(result.input_one) !== null){
                 document.getElementById(result.input_one).style.display = "block";
@@ -152,9 +153,11 @@ DynamicFormWidget::begin([
             }
         }else{
             if(document.getElementById(result.input_one) !== null){
+                document.getElementById(result.complementar_id).value = "";
                 document.getElementById(result.input_one).style.display = "none";
             }
             if(document.getElementById(result.input_two) !== null){
+                document.getElementById(result.complementar_id).value = "";
                 document.getElementById(result.input_two).style.display = "none";
             }
         }
