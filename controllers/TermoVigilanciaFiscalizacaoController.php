@@ -5,6 +5,7 @@ namespace app\controllers;
 use app\models\Model;
 use app\models\TermoVigilanciaFiscalizacaoAcao;
 use app\models\TermoVigilanciaFiscalizacaoAcoes;
+use app\models\TermoVigilanciaFiscalizacaoAnimalCampos;
 use app\models\TermoVigilanciaFiscalizacaoAtividade;
 use app\models\TermoVigilanciaFiscalizacaoEquipeFiscal;
 use app\models\TermoVigilanciaFiscalizacaoFaixaEtaria;
@@ -69,6 +70,210 @@ class TermoVigilanciaFiscalizacaoController extends Controller
         ]);
     }
 
+    public function actionAnimalCampos($id, $input){
+
+        $result = TermoVigilanciaFiscalizacaoAnimalCampos::find()->where(['vigilancia_fiscalizacao_animal_campos_id' => $id])->andWhere(['vigilancia_fiscalizacao_animal_campos_st' => 1])->all();
+        $pupulacaoAnimalId = $result[0]->vigilancia_fiscalizacao_animal_id;
+        $pupulacaoAnimalMachosNascidos = $result[0]->vigilancia_fiscalizacao_animal_campos_machos_nascidos;
+        $pupulacaoAnimalMachosMortos = $result[0]->vigilancia_fiscalizacao_animal_campos_machos_mortos;
+        $pupulacaoAnimalMachosExistentes = $result[0]->vigilancia_fiscalizacao_animal_campos_machos_existentes;
+        $pupulacaoAnimalMachosVacinados = $result[0]->vigilancia_fiscalizacao_animal_campos_machos_vacinados;
+        $pupulacaoAnimalFemeasNascidas = $result[0]->vigilancia_fiscalizacao_animal_campos_femeas_nascidas;
+        $pupulacaoAnimalFemeasMortas = $result[0]->vigilancia_fiscalizacao_animal_campos_femeas_mortas;
+        $pupulacaoAnimalFemeasExistentes = $result[0]->vigilancia_fiscalizacao_animal_campos_femeas_existentes;
+        $pupulacaoAnimalFemeasVacinadas = $result[0]->vigilancia_fiscalizacao_animal_campos_femeas_vacinadas;
+        $pupulacaoAnimalQuantidade = $result[0]->vigilancia_fiscalizacao_animal_campos_quantidade;
+        $pupulacaoAnimalStatus = $result[0]->vigilancia_fiscalizacao_animal_campos_st;
+
+        $divMachosNascidos_1 = "";
+        $divFemeasNascidos_1 = "";
+        $divMachosMortos_1 = "";
+        $divFemeasMortas_1 = "";
+        $divMachosExistentes_1 = "";
+        $divFemeasExistentes_1 = "";
+        $divMachosVacinados_1 = "";
+        $divFemeasVacinadas_1 = "";
+        $divQuantidade_1 = "";
+
+        switch ($input) {
+            case "termovigilanciafiscalizacaopopulacaoanimal-0-vigilancia_fiscalizacao_animal_id":
+                $divMachosNascidos = "machos-nascidos0";
+                $divFemeasNascidos = "femeas-nascidas0";
+                $divMachosMortos = "machos-mortos0";
+                $divFemeasMortas = "femeas-mortas0";
+                $divMachosExistentes ="machos-existentes0";
+                $divFemeasExistentes = "femeas-existentes0";
+                $divMachosVacinados = "machos-vacinados0";
+                $divFemeasVacinadas = "femeas-vacinadas0";
+                $divQuantidade = "quantidade0";
+                $divMachosNascidos_1 = "machos-0--nascidos0";
+                $divFemeasNascidos_1 = "femeas-0--nascidas0";
+                $divMachosMortos_1 = "machos-0--mortos0";
+                $divFemeasMortas_1 = "femeas-0--mortas0";
+                $divMachosExistentes_1 = "machos-0--existentes0";
+                $divFemeasExistentes_1 = "femeas-0--existentes0";
+                $divMachosVacinados_1 = "machos-0--vacinados0";
+                $divFemeasVacinadas_1 = "femeas-0--vacinadas0";
+                $divQuantidade_1 = "quantidade00";
+
+                break;
+            case "termovigilanciafiscalizacaopopulacaoanimal-1-vigilancia_fiscalizacao_animal_id":
+                $divMachosNascidos = "machos-1--nascidos0";
+                $divFemeasNascidos = "femeas-1--nascidas0";
+                $divMachosMortos = "machos-1--mortos0";
+                $divFemeasMortas = "femeas-1--mortas0";
+                $divMachosExistentes ="machos-1--existentes0";
+                $divFemeasExistentes = "femeas-1--existentes0";
+                $divMachosVacinados = "machos-1--vacinados0";
+                $divFemeasVacinadas = "femeas-1--vacinadas0";
+                $divQuantidade = "quantidade01";
+                break;
+            case "termovigilanciafiscalizacaopopulacaoanimal-2-vigilancia_fiscalizacao_animal_id":
+                $divMachosNascidos = "machos-2--nascidos0";
+                $divFemeasNascidos = "femeas-2--nascidas0";
+                $divMachosMortos = "machos-2--mortos0";
+                $divFemeasMortas = "femeas-2--mortas0";
+                $divMachosExistentes ="machos-2--existentes0";
+                $divFemeasExistentes = "femeas-2--existentes0";
+                $divMachosVacinados = "machos-2--vacinados0";
+                $divFemeasVacinadas = "femeas-2--vacinadas0";
+                $divQuantidade = "quantidade02";
+                break;
+            case "termovigilanciafiscalizacaopopulacaoanimal-3-vigilancia_fiscalizacao_animal_id":
+                $divMachosNascidos = "machos-3--nascidos0";
+                $divFemeasNascidos = "femeas-3--nascidas0";
+                $divMachosMortos = "machos-3--mortos0";
+                $divFemeasMortas = "femeas-3--mortas0";
+                $divMachosExistentes ="machos-3--existentes0";
+                $divFemeasExistentes = "femeas-3--existentes0";
+                $divMachosVacinados = "machos-3--vacinados0";
+                $divFemeasVacinadas = "femeas-3--vacinadas0";
+                $divQuantidade = "quantidade03";
+                break;
+            case "termovigilanciafiscalizacaopopulacaoanimal-4-vigilancia_fiscalizacao_animal_id":
+                $divMachosNascidos = "machos-4--nascidos0";
+                $divFemeasNascidos = "femeas-4--nascidas0";
+                $divMachosMortos = "machos-4--mortos0";
+                $divFemeasMortas = "femeas-4--mortas0";
+                $divMachosExistentes ="machos-4--existentes0";
+                $divFemeasExistentes = "femeas-4--existentes0";
+                $divMachosVacinados = "machos-4--vacinados0";
+                $divFemeasVacinadas = "femeas-4--vacinadas0";
+                $divQuantidade = "quantidade04";
+                break;
+            case "termovigilanciafiscalizacaopopulacaoanimal-5-vigilancia_fiscalizacao_animal_id":
+                $divMachosNascidos = "machos-5--nascidos0";
+                $divFemeasNascidos = "femeas-5--nascidas0";
+                $divMachosMortos = "machos-5--mortos0";
+                $divFemeasMortas = "femeas-5--mortas0";
+                $divMachosExistentes ="machos-5--existentes0";
+                $divFemeasExistentes = "femeas-5--existentes0";
+                $divMachosVacinados = "machos-5--vacinados0";
+                $divFemeasVacinadas = "femeas-5--vacinadas0";
+                $divQuantidade = "quantidade05";
+                break;
+            case "termovigilanciafiscalizacaopopulacaoanimal-6-vigilancia_fiscalizacao_animal_id":
+                $divMachosNascidos = "machos-6--nascidos0";
+                $divFemeasNascidos = "femeas-6--nascidas0";
+                $divMachosMortos = "machos-6--mortos0";
+                $divFemeasMortas = "femeas-6--mortas0";
+                $divMachosExistentes ="machos-6--existentes0";
+                $divFemeasExistentes = "femeas-6--existentes0";
+                $divMachosVacinados = "machos-6--vacinados0";
+                $divFemeasVacinadas = "femeas-6--vacinadas0";
+                $divQuantidade = "quantidade06";
+                break;
+            case "termovigilanciafiscalizacaopopulacaoanimal-7-vigilancia_fiscalizacao_animal_id":
+                $divMachosNascidos = "machos-7--nascidos0";
+                $divFemeasNascidos = "femeas-7--nascidas0";
+                $divMachosMortos = "machos-7--mortos0";
+                $divFemeasMortas = "femeas-7--mortas0";
+                $divMachosExistentes ="machos-7--existentes0";
+                $divFemeasExistentes = "femeas-7--existentes0";
+                $divMachosVacinados = "machos-7--vacinados0";
+                $divFemeasVacinadas = "femeas-7--vacinadas0";
+                $divQuantidade = "quantidade07";
+                break;
+            case "termovigilanciafiscalizacaopopulacaoanimal-8-vigilancia_fiscalizacao_animal_id":
+                $divMachosNascidos = "machos-8--nascidos0";
+                $divFemeasNascidos = "femeas-8--nascidas0";
+                $divMachosMortos = "machos-8--mortos0";
+                $divFemeasMortas = "femeas-8--mortas0";
+                $divMachosExistentes ="machos-8--existentes0";
+                $divFemeasExistentes = "femeas-8--existentes0";
+                $divMachosVacinados = "machos-8--vacinados0";
+                $divFemeasVacinadas = "femeas-8--vacinadas0";
+                $divQuantidade = "quantidade08";
+                break;
+            case "termovigilanciafiscalizacaopopulacaoanimal-9-vigilancia_fiscalizacao_animal_id":
+                $divMachosNascidos = "machos-9--nascidos0";
+                $divFemeasNascidos = "femeas-9--nascidas0";
+                $divMachosMortos = "machos-9--mortos0";
+                $divFemeasMortas = "femeas-9--mortas0";
+                $divMachosExistentes ="machos-9--existentes0";
+                $divFemeasExistentes = "femeas-9--existentes0";
+                $divMachosVacinados = "machos-9--vacinados0";
+                $divFemeasVacinadas = "femeas-9--vacinadas0";
+                $divQuantidade = "quantidade09";
+                break;
+            default:
+                $divMachosNascidos = "";
+                $divFemeasNascidos = "";
+                $divMachosMortos = "";
+                $divFemeasMortas = "";
+                $divMachosExistentes ="";
+                $divFemeasExistentes = "";
+                $divMachosVacinados = "";
+                $divFemeasVacinadas = "";
+                $divQuantidade = "";
+                break;
+        }
+
+        $response = [
+            'id' => $id,
+            'pupulacao_animal_id' => $pupulacaoAnimalId,
+            'pupulacao_animal_machos_nascidos' => $pupulacaoAnimalMachosNascidos,
+            'div_machos_nascidos' => $divMachosNascidos,
+            'div_machos_nascidos_1' => $divMachosNascidos_1,
+
+            'pupulacao_animal_femeas_nascidas' => $pupulacaoAnimalFemeasNascidas,
+            'div_femeas_nascidas' => $divFemeasNascidos,
+            'div_femeas_nascidas_1' => $divFemeasNascidos_1,
+
+            'pupulacao_animal_machos_mortos' => $pupulacaoAnimalMachosMortos,
+            'div_machos_mortos' => $divMachosMortos,
+            'div_machos_mortos_1' => $divMachosMortos_1,
+
+            'pupulacao_animal_femeas_mortas' => $pupulacaoAnimalFemeasMortas,
+            'div_femeas_mortas' => $divFemeasMortas,
+            'div_femeas_mortas_1' => $divFemeasMortas_1,
+
+            'pupulacao_animal_machos_existentes' => $pupulacaoAnimalMachosExistentes,
+            'div_machos_existentes' => $divMachosExistentes,
+            'div_machos_existentes_1' => $divMachosExistentes_1,
+
+            'pupulacao_animal_femeas_existentes' => $pupulacaoAnimalFemeasExistentes,
+            'div_femeas_existentes' => $divFemeasExistentes,
+            'div_femeas_existentes_1' => $divFemeasExistentes_1,
+
+            'pupulacao_animal_machos_vacinados' => $pupulacaoAnimalMachosVacinados,
+            'div_machos_vacinados' => $divMachosVacinados,
+            'div_machos_vacinados_1' => $divMachosVacinados_1,
+
+            'pupulacao_animal_femeas_vacinadas' => $pupulacaoAnimalFemeasVacinadas,
+            'div_femeas_vacinadas' => $divFemeasVacinadas,
+            'div_femeas_vacinadas_1' => $divFemeasVacinadas_1,
+
+            'pupulacao_animal_quantidade' => $pupulacaoAnimalQuantidade,
+            'div_quantidade' => $divQuantidade,
+            'div_quantidade_1' => $divQuantidade_1,
+            'input' => $input
+        ];
+
+        return  \GuzzleHttp\json_encode($response);
+    }
+
+
     /**
      * @param $id
      * @param $input
@@ -131,11 +336,31 @@ class TermoVigilanciaFiscalizacaoController extends Controller
             case "termovigilanciafiscalizacaopopulacaoanimal-2-vigilancia_fiscalizacao_animal_id":
                 $inputFaixa = "termovigilanciafiscalizacaopopulacaoanimal-2-vigilancia_fiscalizacao_faixa_etaria_id";
                 break;
+            case "termovigilanciafiscalizacaopopulacaoanimal-3-vigilancia_fiscalizacao_animal_id":
+                $inputFaixa = "termovigilanciafiscalizacaopopulacaoanimal-3-vigilancia_fiscalizacao_faixa_etaria_id";
+                break;
+            case "termovigilanciafiscalizacaopopulacaoanimal-4-vigilancia_fiscalizacao_animal_id":
+                $inputFaixa = "termovigilanciafiscalizacaopopulacaoanimal-4-vigilancia_fiscalizacao_faixa_etaria_id";
+                break;
+            case "termovigilanciafiscalizacaopopulacaoanimal-5-vigilancia_fiscalizacao_animal_id":
+                $inputFaixa = "termovigilanciafiscalizacaopopulacaoanimal-5-vigilancia_fiscalizacao_faixa_etaria_id";
+                break;
+            case "termovigilanciafiscalizacaopopulacaoanimal-6-vigilancia_fiscalizacao_animal_id":
+                $inputFaixa = "termovigilanciafiscalizacaopopulacaoanimal-6-vigilancia_fiscalizacao_faixa_etaria_id";
+                break;
+            case "termovigilanciafiscalizacaopopulacaoanimal-7-vigilancia_fiscalizacao_animal_id":
+                $inputFaixa = "termovigilanciafiscalizacaopopulacaoanimal-7-vigilancia_fiscalizacao_faixa_etaria_id";
+                break;
+            case "termovigilanciafiscalizacaopopulacaoanimal-8-vigilancia_fiscalizacao_animal_id":
+                $inputFaixa = "termovigilanciafiscalizacaopopulacaoanimal-8-vigilancia_fiscalizacao_faixa_etaria_id";
+                break;
+            case "termovigilanciafiscalizacaopopulacaoanimal-9-vigilancia_fiscalizacao_animal_id":
+                $inputFaixa = "termovigilanciafiscalizacaopopulacaoanimal-9-vigilancia_fiscalizacao_faixa_etaria_id";
+                break;
             default:
                 $inputFaixa = "";
                 break;
         }
-
         $result = [
             'input_faixa' => $inputFaixa,
             'id' => $id
@@ -146,8 +371,6 @@ class TermoVigilanciaFiscalizacaoController extends Controller
 
     public function actionFaixaEtaria($id){
         $result = TermoVigilanciaFiscalizacaoFaixaEtaria::find()->where(['vigilancia_fiscalizacao_animal_id' => $id])->orderBy('vigilancia_fiscalizacao_animal_faixa_etaria_id')->all();
-
-        echo "<option>Selecione a Faixa Etária</option>";
 
         if(count($result)>0){
             foreach($result as $row){
