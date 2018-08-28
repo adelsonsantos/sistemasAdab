@@ -36,6 +36,7 @@ class TermoVigilanciaFiscalizacao extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
+            [['coordenadas_id', 'gerencia_id', 'municipio_id', 'vigilancia_fiscalizacao_veiculo_id', 'vigilancia_fiscalizacao_status_id'], 'required'],
             [['coordenadas_id', 'gerencia_id', 'municipio_id', 'data_create', 'vigilancia_fiscalizacao_veiculo_id', 'vigilancia_fiscalizacao_status_id', 'vigilancia_fiscalizacao_vacina_id', 'vigilancia_fiscalizacao_produtor_id', 'vigilancia_fiscalizacao_proprietario_id', 'vigilancia_fiscalizacao_local_id'], 'default', 'value' => null],
             [['coordenadas_id', 'gerencia_id', 'municipio_id', 'data_create', 'vigilancia_fiscalizacao_veiculo_id', 'vigilancia_fiscalizacao_status_id', 'vigilancia_fiscalizacao_vacina_id', 'vigilancia_fiscalizacao_produtor_id', 'vigilancia_fiscalizacao_proprietario_id', 'vigilancia_fiscalizacao_local_id'], 'integer'],
             [['vigilancia_fiscalizacao_observacao'], 'string', 'max' => 260],

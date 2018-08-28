@@ -1,4 +1,5 @@
 <?php
+use kartik\widgets\DatePicker;
 $js = '
 jQuery(".dynamicform_fiscal").on("afterInsert", function(e, item) {
     jQuery(".dynamicform_fiscal .panel-title-fiscal").each(function(index) {
@@ -61,8 +62,10 @@ DynamicFormWidget::begin([
                 }
                 ?>
                     <div class="row">
-                        <div class="col-sm-3">
-                            <?= $form->field($modelVeiculo, "[{$index}]vigilancia_fiscalizacao_veiculo_placa")->textInput(['maxlength' => true]) ?>
+                        <div class="col-sm-2">
+                            <?= $form->field($modelVeiculo, "[{$index}]vigilancia_fiscalizacao_veiculo_placa")->widget(\yii\widgets\MaskedInput::className(), [
+                                'mask' => 'aaa-9999',
+                            ]) ?>
                         </div>
                         <div class="col-sm-3">
                             <?= $form->field($modelVeiculo, "[{$index}]vigilancia_fiscalizacao_veiculo_km_incial")->textInput(['maxlength' => true]) ?>
@@ -70,8 +73,14 @@ DynamicFormWidget::begin([
                         <div class="col-sm-3">
                             <?= $form->field($modelVeiculo, "[{$index}]vigilancia_fiscalizacao_veiculo_km_final")->textInput(['maxlength' => true]) ?>
                         </div>
-                        <div class="col-sm-2">
-                            <?= $form->field($modelVeiculo, "[{$index}]vigilancia_fiscalizacao_veiculo_data_create")->textInput(['maxlength' => true]) ?>
+                        <div class="col-sm-3">
+                            <?= $form->field($modelVeiculo, "[{$index}]vigilancia_fiscalizacao_veiculo_data_create")->widget(DatePicker::classname(), [
+                                'options' => [],
+                                'pluginOptions' => [
+                                    'autoclose'=>false,
+                                    'format' => 'dd/mm/yyyy'
+                                ]
+                            ]); ?>
                         </div>
                     </div><!-- .row -->
             </td>

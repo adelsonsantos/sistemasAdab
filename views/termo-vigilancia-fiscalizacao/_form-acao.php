@@ -55,7 +55,10 @@ DynamicFormWidget::begin([
     <tr>
         <th>Ação</th>
         <th class="text-center">
-            <button type="button" id="butao-acao-add" class="add-acao btn btn-success btn-xs" onclick="addAcao();"><span class="glyphicon glyphicon-plus"></span></button>
+            <button type="button" class=" pull-right butao-acao-add btn btn-success btn-xs"><i
+                        class="fa fa-plus glyphicon glyphicon-plus"></i> Ação
+            </button>
+
         </th>
     </tr>
     </thead >

@@ -30,7 +30,7 @@
         "quickemailverification/quickemailverification": "*",
         "symfony/dom-crawler": "~2.8",
         "symfony/css-selector": "~2.8",
-        "wbraganca/yii2-dynamicform": "~2.0.2",
+        "pavle/yii2-dynamicform": "~2.0.2",
         "kartik-v/yii2-tabs-x": "~1.2.3",
         "kartik-v/yii2-nav-x": "~1.2.1",
         "cinghie/yii2-menu": "~0.8.1",
@@ -58,7 +58,8 @@
         "mpdf/mpdf": "~7.0.0",
         "kartik-v/yii2-widget-activeform": "*",
         "kartik-v/yii2-widget-select2": "~2.1.1",
-        "ddtraceweb/smtp-validator-email": "*"
+        "ddtraceweb/smtp-validator-email": "*",
+        "yiisoft/yii2-jui": "~2.0.0"
     },
     "config": {
         "fxp-asset": {

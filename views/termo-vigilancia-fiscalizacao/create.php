@@ -13,6 +13,7 @@ use app\models\TermoVigilanciaFiscalizacaoAcao;
 /* @var $modelsAtividade app\models\TermoVigilanciaFiscalizacaoAtividade */
 /* @var $modelsAcao app\models\TermoVigilanciaFiscalizacaoAcao */
 /* @var $modelsPopulacaoAnimal app\models\TermoVigilanciaFiscalizacaoPopulacaoAnimal */
+/* @var $modelsVacina app\models\TermoVigilanciaFiscalizacaoVacina */
 
 $this->params['breadcrumbs'][] = ['label' => 'Fiscalização', 'url' => ['index']];
 
@@ -27,7 +28,8 @@ $this->params['breadcrumbs'][] = ['label' => 'Fiscalização', 'url' => ['index'
         'modelsEquipe' => (empty($modelsEquipe)) ? [new app\models\TermoVigilanciaFiscalizacaoEquipeFiscal] : $modelsEquipe,
         'modelsAtividade' => (empty($modelsAtividade)) ? [new TermoVigilanciaFiscalizacaoAtividade] : $modelsAtividade,
         'modelsAcao' => (empty($modelsAcao)) ? [new TermoVigilanciaFiscalizacaoAcao] : $modelsAcao,
-        'modelsPopulacaoAnimal' => (empty($modelsPopulacaoAnimal)) ? [new \app\models\TermoVigilanciaFiscalizacaoPopulacaoAnimal] : $modelsPopulacaoAnimal
+        'modelsPopulacaoAnimal' => (empty($modelsPopulacaoAnimal)) ? [new \app\models\TermoVigilanciaFiscalizacaoPopulacaoAnimal] : $modelsPopulacaoAnimal,
+        'modelsVacina' => (empty($modelsVacina)) ? [new app\models\TermoVigilanciaFiscalizacaoVacina] : $modelsVacina
     ]) ?>
 
 </div>

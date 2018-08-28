@@ -104,8 +104,7 @@ $this->registerJs($js);
                                                                                                                                            
                                      $.get( "' . Url::toRoute('/termo-vigilancia-fiscalizacao/animal-campos') . '", { id: $(this).val(), input: $(this).attr("id")} )
                                     .done(function( data ) {
-                                     var response = JSON.parse(data);
-                                         console.log(response);                                         
+                                     var response = JSON.parse(data);                                                                           
                                          validaElementoId(response.pupulacao_animal_machos_nascidos, response.div_machos_nascidos, response.div_machos_nascidos_1);
                                          validaElementoId(response.pupulacao_animal_femeas_nascidas, response.div_femeas_nascidas, response.div_femeas_nascidas_1);
                                          validaElementoId(response.pupulacao_animal_machos_mortos, response.div_machos_mortos, response.div_machos_mortos_1);
@@ -311,8 +310,6 @@ $this->registerJs($js);
             document.getElementById("quantidade09").style.display = "none";
         }
     }
-
-
     document.getElementById("machos-nascidos0").style.display = 'none';
     document.getElementById("femeas-nascidas0").style.display = 'none';
     document.getElementById("machos-mortos0").style.display = 'none';

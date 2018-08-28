@@ -21,7 +21,6 @@ require 'style.php';
 ?>
 
 
-
 <div style="position: absolute">
     <?= Yii::$app->controller->renderPartial('menu'); ?>
 </div>
@@ -32,7 +31,7 @@ require 'style.php';
     </div>
 </div>
 <div class="grid">
-    <?php $form = ActiveForm::begin(['id' => 'dynamic-form']);  ?>
+    <?php $form = ActiveForm::begin(['id' => 'dynamic-form']); ?>
     <div class="diarias-view" style="margin-left: 209px;  ">
         <table class="diaria">
             <tr class="bordaMenu">
@@ -83,13 +82,13 @@ require 'style.php';
 
 
                 <?= $this->render('_form-veiculo', [
-                'form' => $form,
+                    'form' => $form,
                     'model' => $model,
                     'modelsVeiculo' => (empty($modelsVeiculo)) ? [new TermoVigilanciaFiscalizacaoVeiculo] : $modelsVeiculo
                 ]); ?>
 
                 <?= $this->render('_form-fiscal', [
-                'form' => $form,
+                    'form' => $form,
                     'model' => $model,
                     'modelsEquipe' => (empty($modelsEquipe)) ? [new TermoVigilanciaFiscalizacaoEquipeFiscal] : $modelsEquipe
                 ]); ?>
@@ -97,22 +96,22 @@ require 'style.php';
 
                 <div class="row">
                     <div class="col-lg-12">
-                        <?= $form->field($model, 'vigilancia_fiscalizacao_local_id')->dropDownList(ArrayHelper::map(\app\models\TermoVigilanciaFiscalizacaoLocal::find()->asArray()->where(['vigilancia_fiscalizacao_local_st' => 1])->orderBy('vigilancia_fiscalizacao_local_nome')->all(), 'vigilancia_fiscalizacao_local_id', 'vigilancia_fiscalizacao_local_nome'),[]) ?>
+                        <?= $form->field($model, 'vigilancia_fiscalizacao_local_id')->dropDownList(ArrayHelper::map(\app\models\TermoVigilanciaFiscalizacaoLocal::find()->asArray()->where(['vigilancia_fiscalizacao_local_st' => 1])->orderBy('vigilancia_fiscalizacao_local_nome')->all(), 'vigilancia_fiscalizacao_local_id', 'vigilancia_fiscalizacao_local_nome'), []) ?>
                     </div>
                 </div>
 
                 <div class="row">
                     <div class="col-lg-6">
-                        <?= $form->field($model, 'vigilancia_fiscalizacao_proprietario_id')->dropDownList(ArrayHelper::map(\app\models\TermoVigilanciaFiscalizacaoProprietario::find()->asArray()->orderBy('vigilancia_fiscalizacao_proprietario_nome')->all(), 'vigilancia_fiscalizacao_proprietario_id', 'vigilancia_fiscalizacao_proprietario_nome'),[]) ?>
+                        <?= $form->field($model, 'vigilancia_fiscalizacao_proprietario_id')->dropDownList(ArrayHelper::map(\app\models\TermoVigilanciaFiscalizacaoProprietario::find()->asArray()->orderBy('vigilancia_fiscalizacao_proprietario_nome')->all(), 'vigilancia_fiscalizacao_proprietario_id', 'vigilancia_fiscalizacao_proprietario_nome'), []) ?>
                     </div>
                     <div class="col-lg-6">
-                        <?= $form->field($model, 'vigilancia_fiscalizacao_produtor_id')->dropDownList(ArrayHelper::map(\app\models\TermoVigilanciaFiscalizacaoProdutor::find()->asArray()->orderBy('vigilancia_fiscalizacao_produtor_nome')->all(), 'vigilancia_fiscalizacao_produtor_id', 'vigilancia_fiscalizacao_produtor_nome'),[]) ?>
+                        <?= $form->field($model, 'vigilancia_fiscalizacao_produtor_id')->dropDownList(ArrayHelper::map(\app\models\TermoVigilanciaFiscalizacaoProdutor::find()->asArray()->orderBy('vigilancia_fiscalizacao_produtor_nome')->all(), 'vigilancia_fiscalizacao_produtor_id', 'vigilancia_fiscalizacao_produtor_nome'), []) ?>
                     </div>
                 </div>
 
                 <div class="row">
                     <div class="col-lg-12">
-                        <?= $form->field($model, 'vigilancia_fiscalizacao_status_id')->dropDownList(ArrayHelper::map(\app\models\TermoVigilanciaFiscalizacaoStatus::find()->asArray()->where(['vigilancia_fiscalizacao_status_st' => 1])->orderBy('vigilancia_fiscalizacao_status_nome')->all(), 'vigilancia_fiscalizacao_status_id', 'vigilancia_fiscalizacao_status_nome'),[]) ?>
+                        <?= $form->field($model, 'vigilancia_fiscalizacao_status_id')->dropDownList(ArrayHelper::map(\app\models\TermoVigilanciaFiscalizacaoStatus::find()->asArray()->where(['vigilancia_fiscalizacao_status_st' => 1])->orderBy('vigilancia_fiscalizacao_status_nome')->all(), 'vigilancia_fiscalizacao_status_id', 'vigilancia_fiscalizacao_status_nome'), []) ?>
                     </div>
                 </div>
 
@@ -134,29 +133,16 @@ require 'style.php';
                     'modelsPopulacaoAnimal' => (empty($modelsPopulacaoAnimal)) ? [new \app\models\TermoVigilanciaFiscalizacaoPopulacaoAnimal] : $modelsPopulacaoAnimal
                 ]); ?>
 
+                <?= $this->render('_form-vacina', [
+                    'form' => $form,
+                    'model' => $model,
+                    'modelsVacina' => (empty($modelsVacina)) ? [new \app\models\TermoVigilanciaFiscalizacaoVacina] : $modelsVacina
+                ]); ?>
 
 
                 <div class="row">
-                    <div class="col-lg-6">
-                <?= $form->field($model, 'vigilancia_fiscalizacao_vacina_id')->dropDownList([1=> 'a', 2 => 'b']) ?>
-                    </div>
-                </div>
-
-                <div class="row">
-                    <div class="col-lg-6">
-                <?= $form->field($model, 'vigilancia_fiscalizacao_observacao')->textInput(['maxlength' => true]) ?>
-                    </div>
-                </div>
-
-                <div class="row">
-                    <div class="col-lg-6">
-                <?= $form->field($model, 'vigilancia_fiscalizacao_produtor_id')->textInput() ?>
-                    </div>
-                </div>
-
-                <div class="row">
-                    <div class="col-lg-6">
-                <?= $form->field($model, 'vigilancia_fiscalizacao_proprietario_id')->textInput() ?>
+                    <div class="col-lg-12">
+                        <?= $form->field($model, 'vigilancia_fiscalizacao_observacao')->textarea(['rows' => '7']) ?>
                     </div>
                 </div>
     </div>
@@ -173,7 +159,6 @@ require 'style.php';
         </th>
     </tr>
 </table>
-
 
 <div id="div1"></div>
 

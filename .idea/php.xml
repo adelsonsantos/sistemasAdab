@@ -82,7 +82,6 @@
       <path value="$PROJECT_DIR$/vendor/ezyang/htmlpurifier" />
       <path value="$PROJECT_DIR$/vendor/sebastian/version" />
       <path value="$PROJECT_DIR$/vendor/host33/yii2-multilevel-vertical-menu" />
-      <path value="$PROJECT_DIR$/vendor/wbraganca/yii2-dynamicform" />
       <path value="$PROJECT_DIR$/vendor/nodejs/nodejs" />
       <path value="$PROJECT_DIR$/vendor/webmozart/assert" />
       <path value="$PROJECT_DIR$/vendor/tcdent/php-restclient" />
@@ -136,6 +135,9 @@
       <path value="$PROJECT_DIR$/vendor/sebastian/object-reflector" />
       <path value="$PROJECT_DIR$/vendor/symfony/config" />
       <path value="$PROJECT_DIR$/vendor/symfony/filesystem" />
+      <path value="$PROJECT_DIR$/vendor/bower/jquery-ui" />
+      <path value="$PROJECT_DIR$/vendor/yiisoft/yii2-jui" />
+      <path value="$PROJECT_DIR$/vendor/pavle/yii2-dynamicform" />
     </include_path>
   </component>
   <component name="PhpProjectSharedConfiguration" php_language_level="5.4.0" />

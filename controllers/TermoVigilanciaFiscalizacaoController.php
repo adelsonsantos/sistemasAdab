@@ -10,6 +10,7 @@ use app\models\TermoVigilanciaFiscalizacaoAtividade;
 use app\models\TermoVigilanciaFiscalizacaoEquipeFiscal;
 use app\models\TermoVigilanciaFiscalizacaoFaixaEtaria;
 use app\models\TermoVigilanciaFiscalizacaoPopulacaoAnimal;
+use app\models\TermoVigilanciaFiscalizacaoVacina;
 use app\models\TermoVigilanciaFiscalizacaoVeiculo;
 use Yii;
 use app\models\TermoVigilanciaFiscalizacao;
@@ -429,19 +430,24 @@ class TermoVigilanciaFiscalizacaoController extends Controller
         $modelsAtividade = [new TermoVigilanciaFiscalizacaoAtividade];
         $modelsAcao = [new TermoVigilanciaFiscalizacaoAcoes];
         $modelsPopulacaoAnimal = [new TermoVigilanciaFiscalizacaoPopulacaoAnimal];
+        $modelsVacina = [new TermoVigilanciaFiscalizacaoVacina];
 
         if ($model->load(Yii::$app->request->post())) {
+            var_dump($model);
+            exit;
 
             $modelsVeiculo = Model::createMultiple(TermoVigilanciaFiscalizacaoVeiculo::classname());
             $modelsEquipe = Model::createMultiple(TermoVigilanciaFiscalizacaoEquipeFiscal::classname());
             $modelsAtividade = Model::createMultiple(TermoVigilanciaFiscalizacaoAtividade::classname());
             $modelsAcao = Model::createMultiple(TermoVigilanciaFiscalizacaoAcao::classname());
             $modelsPopulacaoAnimal = Model::createMultiple(TermoVigilanciaFiscalizacaoPopulacaoAnimal::classname());
+            $modelsVacina = Model::createMultiple(TermoVigilanciaFiscalizacaoVacina::classname());
             Model::loadMultiple($modelsVeiculo, Yii::$app->request->post());
             Model::loadMultiple($modelsEquipe, Yii::$app->request->post());
             Model::loadMultiple($modelsAtividade, Yii::$app->request->post());
             Model::loadMultiple($modelsAcao, Yii::$app->request->post());
             Model::loadMultiple($modelsPopulacaoAnimal, Yii::$app->request->post());
+            Model::loadMultiple($modelsVacina, Yii::$app->request->post());
 
             // ajax validation
             if (Yii::$app->request->isAjax) {
@@ -452,6 +458,7 @@ class TermoVigilanciaFiscalizacaoController extends Controller
                     ActiveForm::validateMultiple($modelsAtividade),
                     ActiveForm::validateMultiple($modelsAcao),
                     ActiveForm::validateMultiple($modelsPopulacaoAnimal),
+                    ActiveForm::validateMultiple($modelsVacina),
                     ActiveForm::validate($model)
                 );
             }
@@ -463,6 +470,7 @@ class TermoVigilanciaFiscalizacaoController extends Controller
             $valid = Model::validateMultiple($modelsAtividade) && $valid;
             $valid = Model::validateMultiple($modelsAcao) && $valid;
             $valid = Model::validateMultiple($modelsPopulacaoAnimal) && $valid;
+            $valid = Model::validateMultiple($modelsVacina) && $valid;
 
             if ($valid) {
                 $transaction = \Yii::$app->db->beginTransaction();
@@ -499,7 +507,8 @@ class TermoVigilanciaFiscalizacaoController extends Controller
             'modelsEquipe' => (empty($modelsEquipe)) ? [new TermoVigilanciaFiscalizacaoEquipeFiscal] : $modelsEquipe,
             'modelsAtividade' => (empty($modelsAtividade)) ? [new TermoVigilanciaFiscalizacaoAtividade] : $modelsAtividade,
             'modelsAcao' => (empty($modelsAcao)) ? [new TermoVigilanciaFiscalizacaoAcoes] : $modelsAcao,
-            'modelsPopulacaoAnimal' => (empty($modelsPopulacaoAnimal)) ? [new TermoVigilanciaFiscalizacaoPopulacaoAnimal] : $modelsPopulacaoAnimal
+            'modelsPopulacaoAnimal' => (empty($modelsPopulacaoAnimal)) ? [new TermoVigilanciaFiscalizacaoPopulacaoAnimal] : $modelsPopulacaoAnimal,
+            'modelsVacina' => (empty($modelsVacina)) ? [new TermoVigilanciaFiscalizacaoVacina] : $modelsVacina
         ]);
 
 
