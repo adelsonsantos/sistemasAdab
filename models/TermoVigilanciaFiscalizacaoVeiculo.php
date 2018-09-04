@@ -31,6 +31,7 @@ class TermoVigilanciaFiscalizacaoVeiculo extends \yii\db\ActiveRecord
         return [
             [['vigilancia_fiscalizacao_veiculo_km_incial', 'vigilancia_fiscalizacao_veiculo_km_final'], 'default', 'value' => null],
             [['vigilancia_fiscalizacao_veiculo_km_incial', 'vigilancia_fiscalizacao_veiculo_km_final'], 'integer'],
+         //   [['vigilancia_fiscalizacao_veiculo_km_incial'], 'compare', 'compareAttribute' => 'vigilancia_fiscalizacao_veiculo_km_final', 'operator' => '<='],
             [['vigilancia_fiscalizacao_veiculo_data_create'], 'safe'],
             [['vigilancia_fiscalizacao_veiculo_placa'], 'string', 'max' => 8],
         ];

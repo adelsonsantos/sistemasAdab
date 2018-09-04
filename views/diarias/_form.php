@@ -481,7 +481,7 @@
 <?php
 
 $js = '
-jQuery(".dynamicform_rota").on("afterInsert", function(e, item) {                                                                                                                                                                                                                                                                                                                 
+jQuery(".dynamicform_rota").on("afterInsert", function(e, item) {                                                                                                                                                                                                                                                                                                                
                            
                           document.getElementById("diariaroteiro-0-1-uf_roteiro_origem").value = document.getElementById("diariaroteiro-0-0-uf_roteiro_destino").value;
                           ajaxEstadoUfOrigem("diariaroteiro-0-1-uf_roteiro_origem", document.getElementById("diariaroteiro-0-1-uf_roteiro_origem").value);                                                 

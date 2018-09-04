@@ -51,20 +51,20 @@ class TermoVigilanciaFiscalizacaoPopulacaoAnimal extends \yii\db\ActiveRecord
     public function attributeLabels()
     {
         return [
-            'vigilancia_fiscalizacao_populacao_animal_id' => 'Vigilancia Fiscalizacao Populacao Animal ID',
+            'vigilancia_fiscalizacao_populacao_animal_id' => 'População Animal',
             'vigilancia_fiscalizacao_id' => 'Vigilancia Fiscalizacao ID',
-            'vigilancia_fiscalizacao_faixa_etaria_id' => 'Vigilancia Fiscalizacao Faixa Etaria ID',
-            'vigilancia_fiscalizacao_populacao_animal_machos_nascidos' => 'Vigilancia Fiscalizacao Populacao Animal Machos Nascidos',
-            'vigilancia_fiscalizacao_populacao_animal_machos_mortos' => 'Vigilancia Fiscalizacao Populacao Animal Machos Mortos',
-            'vigilancia_fiscalizacao_populacao_animal_machos_existentes' => 'Vigilancia Fiscalizacao Populacao Animal Machos Existentes',
-            'vigilancia_fiscalizacao_populacao_animal_machos_vacinados' => 'Vigilancia Fiscalizacao Populacao Animal Machos Vacinados',
-            'vigilancia_fiscalizacao_populacao_animal_femeas_nascidas' => 'Vigilancia Fiscalizacao Populacao Animal Femeas Nascidas',
-            'vigilancia_fiscalizacao_animal_campos_femeas_mortos' => 'Vigilancia Fiscalizacao Animal Campos Femeas Mortos',
-            'vigilancia_fiscalizacao_populacao_animal_femeas_existentes' => 'Vigilancia Fiscalizacao Populacao Animal Femeas Existentes',
-            'vigilancia_fiscalizacao_populacao_animal_femeas_vacinadas' => 'Vigilancia Fiscalizacao Populacao Animal Femeas Vacinadas',
-            'vigilancia_fiscalizacao_populacao_animal_quantidade' => 'Vigilancia Fiscalizacao Populacao Animal Quantidade',
-            'vigilancia_fiscalizacao_populacao_animal_st' => 'Vigilancia Fiscalizacao Populacao Animal St',
-            'vigilancia_fiscalizacao_animal_id' => 'Vigilancia Fiscalizacao Animal ID',
+            'vigilancia_fiscalizacao_faixa_etaria_id' => 'Faixa Etaria ID',
+            'vigilancia_fiscalizacao_populacao_animal_machos_nascidos' => 'Machos Nascidos',
+            'vigilancia_fiscalizacao_populacao_animal_machos_mortos' => 'Machos Mortos',
+            'vigilancia_fiscalizacao_populacao_animal_machos_existentes' => 'Machos Existentes',
+            'vigilancia_fiscalizacao_populacao_animal_machos_vacinados' => 'Machos Vacinados',
+            'vigilancia_fiscalizacao_populacao_animal_femeas_nascidas' => 'Femeas Nascidas',
+            'vigilancia_fiscalizacao_animal_campos_femeas_mortos' => 'Femeas Mortos',
+            'vigilancia_fiscalizacao_populacao_animal_femeas_existentes' => 'Femeas Existentes',
+            'vigilancia_fiscalizacao_populacao_animal_femeas_vacinadas' => 'Femeas Vacinadas',
+            'vigilancia_fiscalizacao_populacao_animal_quantidade' => 'Quantidade',
+            'vigilancia_fiscalizacao_populacao_animal_st' => 'Status',
+            'vigilancia_fiscalizacao_animal_id' => 'Animal',
         ];
     }
 

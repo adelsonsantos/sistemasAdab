@@ -1,56 +1,95 @@
+<?php
+use kartik\widgets\DatePicker;
+$js = '
+jQuery(".dynamicform_fiscal").on("afterInsert", function(e, item) {
+    jQuery(".dynamicform_fiscal .panel-title-fiscal").each(function(index) {
+        jQuery(this).html("Fiscal: " + (index + 1))
+    });
+});
 
-<div class="panel panel-default">
-    <div class="panel-heading"><h5><i class="fas fa-car"></i> Veiculo</h5></div>
-    <div class="panel-body">
-        <?php use wbraganca\dynamicform\DynamicFormWidget;
-        use yii\bootstrap\Html;
+jQuery(".dynamicform_fiscal").on("afterDelete", function(e) {
+    jQuery(".dynamicform_fiscal .panel-title-fiscal").each(function(index) {
+        jQuery(this).html("Fiscal: " + (index + 1))
+    });
+});
+';
+$this->registerJs($js);
 
-        DynamicFormWidget::begin([
-            'widgetContainer' => 'dynamicform_wrapper_veiculo', // required: only alphanumeric characters plus "_" [A-Za-z0-9_]
-            'widgetBody' => '.container-items-veiculo', // required: css class selector
-            'widgetItem' => '.item', // required: css class
-            'limit' => 1, // the maximum times, an element can be cloned (default 999)
-            'min' => 1, // 0 or 1 (default 1)
-            'insertButton' => '.add-item-veiculo', // css class
-            'deleteButton' => '.remove-item-veiculo', // css class
-            'model' => $modelsVeiculo[0],
-            'formId' => 'dynamic-form',
-            'formFields' => [
-                'vigilancia_fiscalizacao_veiculo_placa',
-                'vigilancia_fiscalizacao_veiculo_km_inicial',
-                'vigilancia_fiscalizacao_veiculo_km_final',
-                'vigilancia_fiscalizacao_veiculo_data_create',
-            ],
-        ]); ?>
+/* @var $this yii\web\View */
+/* @var $model app\models\Diarias */
+/* @var $modelsEquipe app\models\TermoVigilanciaFiscalizacaoEquipeFiscal */
+/* @var $modelsRoteiroMultiplo app\models\DiariaDadosRoteiroMultiplo */
+/* @var $form yii\widgets\ActiveForm */
+use app\models\DadosUnicoEstado;
+use app\models\TermoVigilanciaFiscalizacaoEquipeFiscal;
+use yii\helpers\ArrayHelper;
+use yii\helpers\Html;
+use wbraganca\dynamicform\DynamicFormWidget;
+use yii\helpers\Url;
 
-        <div class="container-items-veiculo"><!-- widgetContainer -->
-            <?php foreach ($modelsVeiculo as $i => $modelVeiculo): ?>
-                <div class="item panel panel-default"><!-- widgetBody -->
-                    <div class="panel-body">
-                        <?php
-                        if (! $modelVeiculo->isNewRecord) {
-                            echo Html::activeHiddenInput($modelVeiculo, "[{$i}]id");
-                        }
-                        ?>
+DynamicFormWidget::begin([
+    'widgetContainer' => 'dynamicform_veiculo',
+    'widgetBody' => '.container-rooms',
+    'widgetItem' => '.room-item',
+    'limit' => 3,
+    'min' => 1,
+    'insertButton' => '.add-veiculo',
+    'deleteButton' => '.remove-fiscal',
+    'model' => $modelsVeiculo[0],
+    'formId' => 'dynamic-form',
+    'formFields' => [
+        'vigilancia_fiscalizacao_veiculo_placa',
+        'vigilancia_fiscalizacao_veiculo_km_inicial',
+        'vigilancia_fiscalizacao_veiculo_km_final',
+        'vigilancia_fiscalizacao_veiculo_data_create',
+    ],
+]); ?>
 
-                        <div class="row">
-                            <div class="col-sm-3">
-                                <?= $form->field($modelVeiculo, "[{$i}]vigilancia_fiscalizacao_veiculo_placa")->textInput(['maxlength' => true]) ?>
-                            </div>
-                            <div class="col-sm-3">
-                                <?= $form->field($modelVeiculo, "[{$i}]vigilancia_fiscalizacao_veiculo_km_incial")->textInput(['maxlength' => true]) ?>
-                            </div>
-                            <div class="col-sm-3">
-                                <?= $form->field($modelVeiculo, "[{$i}]vigilancia_fiscalizacao_veiculo_km_final")->textInput(['maxlength' => true]) ?>
-                            </div>
-                            <div class="col-sm-2">
-                                <?= $form->field($modelVeiculo, "[{$i}]vigilancia_fiscalizacao_veiculo_data_create")->textInput(['maxlength' => true]) ?>
-                            </div>
-                        </div><!-- .row -->
-                    </div>
-                </div>
-            <?php endforeach; ?>
-        </div>
-        <?php DynamicFormWidget::end(); ?>
-    </div>
-</div>
+<table class="table table-bordered">
+    <thead style="background: #c3c3c3">
+    <tr>
+        <th>Veiculo</th>
+
+    </tr>
+    </thead >
+    <tbody class="container-rooms">
+    <?php foreach ($modelsVeiculo as $index => $modelVeiculo): ?>
+        <tr class="room-item">
+            <td class="vcenter">
+                <?php
+                if (! $modelVeiculo->isNewRecord) {
+                    //var_dump($modelRota); // echo Html::activeHiddenInput($modelRota, "[{$indexRoteiro}][{$indexRota}]dados_roteiro_id");
+                }
+                ?>
+                    <div class="row">
+                        <div class="col-sm-2">
+                            <?= $form->field($modelVeiculo, "[{$index}]vigilancia_fiscalizacao_veiculo_placa")->widget(\yii\widgets\MaskedInput::className(), [
+                                'mask' => 'aaa-9999',
+                            ]) ?>
+                        </div>
+                        <div class="col-sm-3">
+                            <?= $form->field($modelVeiculo, "[{$index}]vigilancia_fiscalizacao_veiculo_km_incial")->textInput(['maxlength' => true]) ?>
+                        </div>
+                        <div class="col-sm-3">
+                            <?= $form->field($modelVeiculo, "[{$index}]vigilancia_fiscalizacao_veiculo_km_final")->textInput(['maxlength' => true]) ?>
+                        </div>
+                        <div class="col-sm-3">
+                            <?= $form->field($modelVeiculo, "[{$index}]vigilancia_fiscalizacao_veiculo_data_create")->widget(DatePicker::classname(), [
+                                'options' => [],
+                                'pluginOptions' => [
+                                    'autoclose'=>false,
+                                    'format' => 'dd/mm/yyyy'
+                                ]
+                            ]); ?>
+                        </div>
+                    </div><!-- .row -->
+            </td>
+        </tr>
+    <?php endforeach; ?>
+    </tbody>
+</table>
+<?php DynamicFormWidget::end(); ?>
+
+
+
+

@@ -36,6 +36,7 @@ class TermoVigilanciaFiscalizacao extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
+            [['coordenadas_id', 'gerencia_id', 'municipio_id', 'vigilancia_fiscalizacao_veiculo_id', 'vigilancia_fiscalizacao_status_id'], 'required'],
             [['coordenadas_id', 'gerencia_id', 'municipio_id', 'data_create', 'vigilancia_fiscalizacao_veiculo_id', 'vigilancia_fiscalizacao_status_id', 'vigilancia_fiscalizacao_vacina_id', 'vigilancia_fiscalizacao_produtor_id', 'vigilancia_fiscalizacao_proprietario_id', 'vigilancia_fiscalizacao_local_id'], 'default', 'value' => null],
             [['coordenadas_id', 'gerencia_id', 'municipio_id', 'data_create', 'vigilancia_fiscalizacao_veiculo_id', 'vigilancia_fiscalizacao_status_id', 'vigilancia_fiscalizacao_vacina_id', 'vigilancia_fiscalizacao_produtor_id', 'vigilancia_fiscalizacao_proprietario_id', 'vigilancia_fiscalizacao_local_id'], 'integer'],
             [['vigilancia_fiscalizacao_observacao'], 'string', 'max' => 260],
@@ -55,17 +56,17 @@ class TermoVigilanciaFiscalizacao extends \yii\db\ActiveRecord
     {
         return [
             'vigilancia_fiscalizacao_id' => 'Vigilancia Fiscalizacao ID',
-            'coordenadas_id' => 'Coordenadas ID',
-            'gerencia_id' => 'Gerencia ID',
-            'municipio_id' => 'Municipio ID',
-            'data_create' => 'Data Create',
-            'vigilancia_fiscalizacao_veiculo_id' => 'Vigilancia Fiscalizacao Veiculo ID',
-            'vigilancia_fiscalizacao_status_id' => 'Vigilancia Fiscalizacao Status ID',
-            'vigilancia_fiscalizacao_vacina_id' => 'Vigilancia Fiscalizacao Vacina ID',
-            'vigilancia_fiscalizacao_observacao' => 'Vigilancia Fiscalizacao Observacao',
-            'vigilancia_fiscalizacao_produtor_id' => 'Vigilancia Fiscalizacao Produtor ID',
-            'vigilancia_fiscalizacao_proprietario_id' => 'Vigilancia Fiscalizacao Proprietario ID',
-            'vigilancia_fiscalizacao_local_id' => 'Vigilancia Fiscalizacao Local ID',
+            'coordenadas_id' => 'Coordenadas',
+            'gerencia_id' => 'Gerencia',
+            'municipio_id' => 'Municipio',
+            'data_create' => 'Data',
+            'vigilancia_fiscalizacao_veiculo_id' => 'Veiculo',
+            'vigilancia_fiscalizacao_status_id' => 'Status',
+            'vigilancia_fiscalizacao_vacina_id' => 'Vacina',
+            'vigilancia_fiscalizacao_observacao' => 'Observacao',
+            'vigilancia_fiscalizacao_produtor_id' => 'Produtor',
+            'vigilancia_fiscalizacao_proprietario_id' => 'Proprietario',
+            'vigilancia_fiscalizacao_local_id' => 'Local',
         ];
     }
 
