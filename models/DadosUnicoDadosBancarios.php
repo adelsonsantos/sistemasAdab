@@ -54,12 +54,12 @@ class DadosUnicoDadosBancarios extends \yii\db\ActiveRecord
     public function attributeLabels()
     {
         return [
-            'dados_bancarios_id' => 'Dados Bancarios ID',
+            'dados_bancarios_id' => 'Banco',
             'pessoa_id' => 'Pessoa ID',
             'banco_id' => 'Banco ID',
-            'dados_bancarios_agencia' => 'Dados Bancarios Agencia',
-            'dados_bancarios_conta' => 'Dados Bancarios Conta',
-            'dados_bancarios_conta_tipo' => 'Dados Bancarios Conta Tipo',
+            'dados_bancarios_agencia' => 'Agência',
+            'dados_bancarios_conta' => 'Conta',
+            'dados_bancarios_conta_tipo' => 'Tipo da Conta',
             'dados_bancarios_principal' => 'Dados Bancarios Principal',
             'dados_bancarios_st' => 'Dados Bancarios St',
             'dados_bancarios_dt_criacao' => 'Dados Bancarios Dt Criacao',

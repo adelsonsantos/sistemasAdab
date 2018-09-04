@@ -49,7 +49,7 @@ class DadosUnicoEstOrganizacionalFuncionario extends \yii\db\ActiveRecord
     {
         return [
             'est_organizacional_funcionario_id' => 'Est Organizacional Funcionario ID',
-            'est_organizacional_id' => 'Est Organizacional ID',
+            'est_organizacional_id' => 'Unidade de Lotação/ACP',
             'funcionario_id' => 'Funcionario ID',
             'est_organizacional_funcionario_dt_entrada' => 'Est Organizacional Funcionario Dt Entrada',
             'est_organizacional_funcionario_dt_saida' => 'Est Organizacional Funcionario Dt Saida',
