@@ -99,15 +99,13 @@ require 'style.php';
                         <?= $form->field($model, 'vigilancia_fiscalizacao_local_id')->dropDownList(ArrayHelper::map(\app\models\TermoVigilanciaFiscalizacaoLocal::find()->asArray()->where(['vigilancia_fiscalizacao_local_st' => 1])->orderBy('vigilancia_fiscalizacao_local_nome')->all(), 'vigilancia_fiscalizacao_local_id', 'vigilancia_fiscalizacao_local_nome'), []) ?>
                     </div>
                 </div>
+                <br>
+                <?= $this->render('_form-produtor',[
+                            'form' => $form,
+                            'model' => $model
+                ]); ?>
 
-                <div class="row">
-                    <div class="col-lg-6">
-                        <?= $form->field($model, 'vigilancia_fiscalizacao_proprietario_id')->dropDownList(ArrayHelper::map(\app\models\TermoVigilanciaFiscalizacaoProprietario::find()->asArray()->orderBy('vigilancia_fiscalizacao_proprietario_nome')->all(), 'vigilancia_fiscalizacao_proprietario_id', 'vigilancia_fiscalizacao_proprietario_nome'), []) ?>
-                    </div>
-                    <div class="col-lg-6">
-                        <?= $form->field($model, 'vigilancia_fiscalizacao_produtor_id')->dropDownList(ArrayHelper::map(\app\models\TermoVigilanciaFiscalizacaoProdutor::find()->asArray()->orderBy('vigilancia_fiscalizacao_produtor_nome')->all(), 'vigilancia_fiscalizacao_produtor_id', 'vigilancia_fiscalizacao_produtor_nome'), []) ?>
-                    </div>
-                </div>
+
 
                 <div class="row">
                     <div class="col-lg-12">

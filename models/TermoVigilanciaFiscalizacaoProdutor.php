@@ -13,8 +13,20 @@ use Yii;
  * @property string $vigilancia_fiscalizacao_produtor_cnpj
  * @property string $vigilancia_fiscalizacao_produtor_svo
  * @property string $vigilancia_fiscalizacao_produtor_nome
+ * @property int $vigilancia_fiscalizacao_produtor_codigo
+ * @property string $vigilancia_fiscalizacao_produtor_telefone1
+ * @property string $vigilancia_fiscalizacao_produtor_telefone2
+ * @property string $vigilancia_fiscalizacao_produtor_celular
+ * @property int $vigilancia_fiscalizacao_produtor_propriedade_codigo
+ * @property string $vigilancia_fiscalizacao_produtor_propriedade_nome
+ * @property string $vigilancia_fiscalizacao_produtor_propriedade_latitude
+ * @property string $vigilancia_fiscalizacao_produtor_propriedade_longitude
+ * @property string $vigilancia_fiscalizacao_produtor_area
+ * @property string $vigilancia_fiscalizacao_produtor_confrontantes
+ * @property string $vigilancia_fiscalizacao_produtor_vias_acesso
  */
-class TermoVigilanciaFiscalizacaoProdutor extends \yii\db\ActiveRecord
+class
+TermoVigilanciaFiscalizacaoProdutor extends \yii\db\ActiveRecord
 {
     /**
      * @inheritdoc
@@ -31,11 +43,13 @@ class TermoVigilanciaFiscalizacaoProdutor extends \yii\db\ActiveRecord
     {
         return [
             [['vigilancia_fiscalizacao_produtor_tipo_id'], 'default', 'value' => null],
-            [['vigilancia_fiscalizacao_produtor_tipo_id'], 'integer'],
-            [['vigilancia_fiscalizacao_produtor_cpf'], 'string', 'max' => 14],
-            [['vigilancia_fiscalizacao_produtor_cnpj'], 'string', 'max' => 18],
+            [['vigilancia_fiscalizacao_produtor_tipo_id', 'vigilancia_fiscalizacao_produtor_codigo', 'vigilancia_fiscalizacao_produtor_propriedade_codigo'], 'integer'],
+            [['vigilancia_fiscalizacao_produtor_cpf', 'vigilancia_fiscalizacao_produtor_telefone1', 'vigilancia_fiscalizacao_produtor_telefone2', 'vigilancia_fiscalizacao_produtor_celular'], 'string', 'max' => 14],
+            [['vigilancia_fiscalizacao_produtor_cnpj', 'vigilancia_fiscalizacao_produtor_propriedade_latitude', 'vigilancia_fiscalizacao_produtor_propriedade_longitude' ], 'string', 'max' => 18],
             [['vigilancia_fiscalizacao_produtor_svo'], 'string', 'max' => 30],
-            [['vigilancia_fiscalizacao_produtor_nome'], 'string', 'max' => 80],
+            [['vigilancia_fiscalizacao_produtor_area'], 'string', 'max' => 50],
+            [['vigilancia_fiscalizacao_produtor_nome', 'vigilancia_fiscalizacao_produtor_propriedade_nome'], 'string', 'max' => 80],
+            [['vigilancia_fiscalizacao_produtor_confrontantes', 'vigilancia_fiscalizacao_produtor_vias_acesso'], 'string', 'max' => 255],
         ];
     }
 
@@ -51,6 +65,17 @@ class TermoVigilanciaFiscalizacaoProdutor extends \yii\db\ActiveRecord
             'vigilancia_fiscalizacao_produtor_cnpj' => 'Cnpj',
             'vigilancia_fiscalizacao_produtor_svo' => 'Svo',
             'vigilancia_fiscalizacao_produtor_nome' => 'Nome',
+            'vigilancia_fiscalizacao_produtor_codigo' => 'vigilancia_fiscalizacao_produtor_codigo',
+            'vigilancia_fiscalizacao_produtor_telefone1' => 'vigilancia_fiscalizacao_produtor_telefone1',
+            'vigilancia_fiscalizacao_produtor_telefone2' => 'vigilancia_fiscalizacao_produtor_telefone2',
+            'vigilancia_fiscalizacao_produtor_celular' => 'vigilancia_fiscalizacao_produtor_celular',
+            'vigilancia_fiscalizacao_produtor_propriedade_codigo' => 'vigilancia_fiscalizacao_produtor_propriedade_codigo',
+            'vigilancia_fiscalizacao_produtor_propriedade_nome' => 'vigilancia_fiscalizacao_produtor_propriedade_nome',
+            'vigilancia_fiscalizacao_produtor_propriedade_latitude' => 'vigilancia_fiscalizacao_produtor_propriedade_latitude',
+            'vigilancia_fiscalizacao_produtor_propriedade_longitude' => 'vigilancia_fiscalizacao_produtor_propriedade_longitude',
+            'vigilancia_fiscalizacao_produtor_area' => 'vigilancia_fiscalizacao_produtor_area',
+            'vigilancia_fiscalizacao_produtor_confrontantes' => 'vigilancia_fiscalizacao_produtor_confrontantes',
+            'vigilancia_fiscalizacao_produtor_vias_acesso' => 'vigilancia_fiscalizacao_produtor_vias_acesso',
         ];
     }
 

@@ -10,6 +10,7 @@ use app\models\TermoVigilanciaFiscalizacaoAtividade;
 use app\models\TermoVigilanciaFiscalizacaoEquipeFiscal;
 use app\models\TermoVigilanciaFiscalizacaoFaixaEtaria;
 use app\models\TermoVigilanciaFiscalizacaoPopulacaoAnimal;
+use app\models\TermoVigilanciaFiscalizacaoProdutor;
 use app\models\TermoVigilanciaFiscalizacaoVacina;
 use app\models\TermoVigilanciaFiscalizacaoVeiculo;
 use Yii;
@@ -416,6 +417,19 @@ class TermoVigilanciaFiscalizacaoController extends Controller
 
     }
 
+    public function actionGetProdutor($id){
+        $result = TermoVigilanciaFiscalizacaoProdutor::find()->where(['vigilancia_fiscalizacao_produtor_codigo' => $id])->all();
+        $pupulacaoAnimalId = $result[0]->vigilancia_fiscalizacao_produtor_cpf;
+
+        $result = [
+            'pupulacaoAnimalId' => $pupulacaoAnimalId
+        ];
+
+        return  \GuzzleHttp\json_encode($result);
+
+
+    }
+
 
     /**
      * Creates a new TermoVigilanciaFiscalizacao model.
@@ -433,8 +447,7 @@ class TermoVigilanciaFiscalizacaoController extends Controller
         $modelsVacina = [new TermoVigilanciaFiscalizacaoVacina];
 
         if ($model->load(Yii::$app->request->post())) {
-            var_dump($model);
-            exit;
+
 
             $modelsVeiculo = Model::createMultiple(TermoVigilanciaFiscalizacaoVeiculo::classname());
             $modelsEquipe = Model::createMultiple(TermoVigilanciaFiscalizacaoEquipeFiscal::classname());
@@ -442,6 +455,7 @@ class TermoVigilanciaFiscalizacaoController extends Controller
             $modelsAcao = Model::createMultiple(TermoVigilanciaFiscalizacaoAcao::classname());
             $modelsPopulacaoAnimal = Model::createMultiple(TermoVigilanciaFiscalizacaoPopulacaoAnimal::classname());
             $modelsVacina = Model::createMultiple(TermoVigilanciaFiscalizacaoVacina::classname());
+
             Model::loadMultiple($modelsVeiculo, Yii::$app->request->post());
             Model::loadMultiple($modelsEquipe, Yii::$app->request->post());
             Model::loadMultiple($modelsAtividade, Yii::$app->request->post());
@@ -464,8 +478,10 @@ class TermoVigilanciaFiscalizacaoController extends Controller
             }
 
             // validate all models
-            $valid = $model->validate();
-            $valid = Model::validateMultiple($modelsVeiculo) && $valid;
+            $model->vigilancia_fiscalizacao_veiculo_id = 1;
+            //$valid = $model->validate();
+
+            $valid = Model::validateMultiple($modelsVeiculo) ;//&& $valid;
             $valid = Model::validateMultiple($modelsEquipe) && $valid;
             $valid = Model::validateMultiple($modelsAtividade) && $valid;
             $valid = Model::validateMultiple($modelsAcao) && $valid;
@@ -477,7 +493,7 @@ class TermoVigilanciaFiscalizacaoController extends Controller
                 try {
                     if ($flag = $model->save(false)) {
                         foreach ($modelsVeiculo as $veiculo) {
-                            $veiculo->vigilancia_fiscalizacao_veiculo_id = $model->vigilancia_fiscalizacao_veiculo_id;
+                            $model->vigilancia_fiscalizacao_veiculo_id = $veiculo->vigilancia_fiscalizacao_veiculo_id;
                             if (! ($flag = $veiculo->save(false))) {
                                 $transaction->rollBack();
                                 break;

@@ -42,7 +42,6 @@ class TermoVigilanciaFiscalizacao extends \yii\db\ActiveRecord
             [['vigilancia_fiscalizacao_observacao'], 'string', 'max' => 260],
             [['vigilancia_fiscalizacao_local_id'], 'exist', 'skipOnError' => true, 'targetClass' => TermoVigilanciaFiscalizacaoLocal::className(), 'targetAttribute' => ['vigilancia_fiscalizacao_local_id' => 'vigilancia_fiscalizacao_local_id']],
             [['vigilancia_fiscalizacao_produtor_id'], 'exist', 'skipOnError' => true, 'targetClass' => TermoVigilanciaFiscalizacaoProdutor::className(), 'targetAttribute' => ['vigilancia_fiscalizacao_produtor_id' => 'vigilancia_fiscalizacao_produtor_id']],
-            [['vigilancia_fiscalizacao_proprietario_id'], 'exist', 'skipOnError' => true, 'targetClass' => TermoVigilanciaFiscalizacaoProprietario::className(), 'targetAttribute' => ['vigilancia_fiscalizacao_proprietario_id' => 'vigilancia_fiscalizacao_proprietario_id']],
             [['vigilancia_fiscalizacao_status_id'], 'exist', 'skipOnError' => true, 'targetClass' => TermoVigilanciaFiscalizacaoStatus::className(), 'targetAttribute' => ['vigilancia_fiscalizacao_status_id' => 'vigilancia_fiscalizacao_status_id']],
             [['vigilancia_fiscalizacao_vacina_id'], 'exist', 'skipOnError' => true, 'targetClass' => TermoVigilanciaFiscalizacaoVacina::className(), 'targetAttribute' => ['vigilancia_fiscalizacao_vacina_id' => 'vigilancia_fiscalizacao_vacina_id']],
             [['vigilancia_fiscalizacao_veiculo_id'], 'exist', 'skipOnError' => true, 'targetClass' => TermoVigilanciaFiscalizacaoVeiculo::className(), 'targetAttribute' => ['vigilancia_fiscalizacao_veiculo_id' => 'vigilancia_fiscalizacao_veiculo_id']],
@@ -65,7 +64,6 @@ class TermoVigilanciaFiscalizacao extends \yii\db\ActiveRecord
             'vigilancia_fiscalizacao_vacina_id' => 'Vacina',
             'vigilancia_fiscalizacao_observacao' => 'Observacao',
             'vigilancia_fiscalizacao_produtor_id' => 'Produtor',
-            'vigilancia_fiscalizacao_proprietario_id' => 'Proprietario',
             'vigilancia_fiscalizacao_local_id' => 'Local',
         ];
     }

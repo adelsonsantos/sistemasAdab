@@ -18,7 +18,7 @@ class TermoVigilanciaFiscalizacaoSearch extends TermoVigilanciaFiscalizacao
     public function rules()
     {
         return [
-            [['vigilancia_fiscalizacao_id', 'coordenadas_id', 'gerencia_id', 'municipio_id', 'data_create', 'vigilancia_fiscalizacao_veiculo_id', 'vigilancia_fiscalizacao_status_id', 'vigilancia_fiscalizacao_vacina_id', 'vigilancia_fiscalizacao_produtor_id', 'vigilancia_fiscalizacao_proprietario_id', 'vigilancia_fiscalizacao_local_id'], 'integer'],
+            [['vigilancia_fiscalizacao_id', 'coordenadas_id', 'gerencia_id', 'municipio_id', 'data_create', 'vigilancia_fiscalizacao_veiculo_id', 'vigilancia_fiscalizacao_status_id', 'vigilancia_fiscalizacao_vacina_id', 'vigilancia_fiscalizacao_produtor_id', 'vigilancia_fiscalizacao_local_id'], 'integer'],
             [['vigilancia_fiscalizacao_observacao'], 'safe'],
         ];
     }
@@ -68,7 +68,6 @@ class TermoVigilanciaFiscalizacaoSearch extends TermoVigilanciaFiscalizacao
             'vigilancia_fiscalizacao_status_id' => $this->vigilancia_fiscalizacao_status_id,
             'vigilancia_fiscalizacao_vacina_id' => $this->vigilancia_fiscalizacao_vacina_id,
             'vigilancia_fiscalizacao_produtor_id' => $this->vigilancia_fiscalizacao_produtor_id,
-            'vigilancia_fiscalizacao_proprietario_id' => $this->vigilancia_fiscalizacao_proprietario_id,
             'vigilancia_fiscalizacao_local_id' => $this->vigilancia_fiscalizacao_local_id,
         ]);
 
