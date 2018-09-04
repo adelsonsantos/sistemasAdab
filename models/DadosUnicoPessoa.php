@@ -48,9 +48,9 @@ class DadosUnicoPessoa extends ActiveRecord
     {
         return [
             'pessoa_id'             => 'DadosUnicoPessoa ID',
-            'pessoa_nm'             => 'DadosUnicoPessoa Nm',
+            'pessoa_nm'             => 'Nome',
             'pessoa_tipo'           => 'DadosUnicoPessoa Tipo',
-            'pessoa_email'          => 'DadosUnicoPessoa Email',
+            'pessoa_email'          => 'E-mail',
             'pessoa_st'             => 'DadosUnicoPessoa St',
             'pessoa_dt_criacao'     => 'DadosUnicoPessoa Dt Criacao',
             'pessoa_dt_alteracao'   => 'DadosUnicoPessoa Dt Alteracao',

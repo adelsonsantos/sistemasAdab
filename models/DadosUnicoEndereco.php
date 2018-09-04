@@ -61,14 +61,14 @@ class DadosUnicoEndereco extends \yii\db\ActiveRecord
         return [
             'endereco_id' => 'Endereco ID',
             'pessoa_id' => 'Pessoa ID',
-            'estado_uf' => 'Estado Uf',
-            'municipio_cd' => 'Municipio Cd',
-            'endereco_bairro' => 'Endereco Bairro',
-            'endereco_ds' => 'Endereco Ds',
-            'endereco_num' => 'Endereco Num',
-            'endereco_complemento' => 'Endereco Complemento',
-            'endereco_cep' => 'Endereco Cep',
-            'endereco_referencia' => 'Endereco Referencia',
+            'estado_uf' => 'Estado',
+            'municipio_cd' => 'Municipio',
+            'endereco_bairro' => 'Bairro',
+            'endereco_ds' => 'Longradouro',
+            'endereco_num' => 'Número',
+            'endereco_complemento' => 'Complemento',
+            'endereco_cep' => 'CEP',
+            'endereco_referencia' => 'Descrimine um Ponto de Referência do Endereço',
         ];
     }
 
