@@ -137,7 +137,7 @@ use yii\helpers\Url;
             </div>
 
 
-            <div class="col-lg-2">
+            <div class="col-lg-3">
                 <?= $form->field($modelPessoaFisica, 'pessoa_fisica_naturalidade_uf')->dropDownList(
                     ArrayHelper::map(\app\models\DadosUnicoEstado::find()->asArray()->orderBy(['estado_uf' => SORT_ASC])->all(), 'estado_uf', 'estado_uf'),
                     [

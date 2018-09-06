@@ -109,7 +109,7 @@ class DadosUnicoFuncionario extends \yii\db\ActiveRecord
             'funcionario_envio_email' => 'Funcionario Envio Email',
             'funcionario_tipo_id_old' => 'Funcionario Tipo Id Old',
             'motorista' => 'Motorista',
-            'funcionario_onus' => 'Funcionario Onus',
+            'funcionario_onus' => 'Ônus',
         ];
     }
 

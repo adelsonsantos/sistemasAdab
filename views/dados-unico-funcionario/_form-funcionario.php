@@ -68,15 +68,23 @@ use yii\helpers\Url;
         </div>
         <div class="col-lg-3">
             <?= $form->field($modelFuncionario, 'cargo_temporario')->dropDownList(
-                ArrayHelper::map(\app\models\DadosUnicoCargo::find()->orderBy(['cargo_ds' => SORT_ASC])->all(), 'cargo_id', 'cargo_ds'), ['prompt' => 'Selecione'])
+                ArrayHelper::map(\app\models\DadosUnicoCargo::find()->where(['funcionario_tipo_id'=>2])->orderBy(['cargo_ds' => SORT_ASC])->all(), 'cargo_id', 'cargo_ds'), ['prompt' => 'Selecione'])
             ?>
 
         </div>
+
+        <div class="col-lg-3">
+            <?= $form->field($modelFuncionario, 'cargo_permanente')->dropDownList(
+                ArrayHelper::map(\app\models\DadosUnicoCargo::find()->where(['funcionario_tipo_id'=>1])->orderBy(['cargo_ds' => SORT_ASC])->all(), 'cargo_id', 'cargo_ds'), ['prompt' => 'Selecione'])
+            ?>
+
+        </div>
+
         <div class="col-lg-2">
 
             <?php
             echo $form->field($modelFuncionario, 'funcionario_onus')->dropDownList(
-                ['M' => 'Masculino', 'F' => 'Feminino',]
+                [1 => 'Sim', 0 => 'Não',]
             ); ?>
         </div>
 

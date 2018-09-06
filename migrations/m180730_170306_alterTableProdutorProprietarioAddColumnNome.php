@@ -22,6 +22,6 @@ class m180730_170306_alterTableProdutorProprietarioAddColumnNome extends Migrati
     public function safeDown()
     {
         $this->dropColumn('termo.vigilancia_fiscalizacao_produtor', 'vigilancia_fiscalizacao_produtor_nome');
-        $this->dropColumn('termo.vigilancia_fiscalizacao_proprietario', 'vigilancia_fiscalizacao_proprietario_nome');
+     //   $this->dropColumn('termo.vigilancia_fiscalizacao_proprietario', 'vigilancia_fiscalizacao_proprietario_nome');
     }
 }

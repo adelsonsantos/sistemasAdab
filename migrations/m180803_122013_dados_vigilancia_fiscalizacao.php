@@ -163,11 +163,11 @@ class m180803_122013_dados_vigilancia_fiscalizacao extends Migration
     public function safeDown()
     {
        $this->delete('termo.vigilancia_fiscalizacao_animal_campos', ['vigilancia_fiscalizacao_animal_campos_id' => [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12]]);
-       $this->delete('termo.vigilancia_fiscalizacao_animal_faixa_etaria', ['vigilancia_fiscalizacao_animal__faixa_etaria_id' => [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18]]);
+     //  $this->delete('termo.vigilancia_fiscalizacao_animal_faixa_etaria', ['vigilancia_fiscalizacao_animal__faixa_etaria_id' => [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18]]);
        $this->delete('termo.vigilancia_fiscalizacao_animal', ['vigilancia_fiscalizacao_animal_id' => [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12]]);
        $this->delete('termo.vigilancia_fiscalizacao_acao', ['vigilancia_fiscalizacao_acao_id' => [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26]]);
        $this->delete('termo.vigilancia_fiscalizacao_atividade', ['vigilancia_fiscalizacao_atividade_id' => [1, 2, 3, 4, 5]]);
-       $this->delete('termo.vigilancia_fiscalizacao_status', ['vigilancia_fiscalizacao_atividade_id' => [1, 2, 3, 4, 5]]);
+       //$this->delete('termo.vigilancia_fiscalizacao_status', ['vigilancia_fiscalizacao_atividade_id' => [1, 2, 3, 4, 5]]);
        $this->delete('termo.vigilancia_fiscalizacao_local', ['vigilancia_fiscalizacao_local_id' => [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15]]);
     }
 }

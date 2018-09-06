@@ -78,14 +78,14 @@ class m180716_180311_termo_vigilancia_fiscalizacao extends Migration
      */
     public function safeDown()
     {
-        $this->dropForeignKey('vigilancia_fiscalizacao_local_id','termo.vigilancia_fiscalizacao');
-        $this->dropForeignKey('vigilancia_fiscalizacao_proprietario_id','termo.vigilancia_fiscalizacao');
-        $this->dropForeignKey('vigilancia_fiscalizacao_produtor_id','termo.vigilancia_fiscalizacao');
-        $this->dropForeignKey('vigilancia_fiscalizacao_vacina_id','termo.vigilancia_fiscalizacao');
-        $this->dropForeignKey('vigilancia_fiscalizacao_status_id','termo.vigilancia_fiscalizacao');
-        $this->dropForeignKey('vigilancia_fiscalizacao_veiculo_id','termo.vigilancia_fiscalizacao');
+      //  $this->dropForeignKey('vigilancia_fiscalizacao_local_id','termo.vigilancia_fiscalizacao');
+        //$this->dropForeignKey('vigilancia_fiscalizacao_proprietario_id','termo.vigilancia_fiscalizacao');
+        //$this->dropForeignKey('vigilancia_fiscalizacao_produtor_id','termo.vigilancia_fiscalizacao');
+        //$this->dropForeignKey('vigilancia_fiscalizacao_vacina_id','termo.vigilancia_fiscalizacao');
+        //$this->dropForeignKey('vigilancia_fiscalizacao_status_id','termo.vigilancia_fiscalizacao');
+        //$this->dropForeignKey('vigilancia_fiscalizacao_veiculo_id','termo.vigilancia_fiscalizacao');
 
-        $this->dropTable('termo.vigilancia_fiscalizacao');
+      //  $this->dropTable('termo.vigilancia_fiscalizacao');
     }
 
     /*

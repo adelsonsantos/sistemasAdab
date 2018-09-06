@@ -32,7 +32,7 @@ class m180716_175754_termo_vigilancia_fiscalizacao_faixa_etaria extends Migratio
      */
     public function safeDown()
     {
-        $this->dropForeignKey('termo.vigilancia_fiscalizacao_faixa_etaria', 'termo.vigilancia_fiscalizacao_faixa_etaria');
+        $this->dropForeignKey('termo_vigilancia_fiscalizacao_faixa_etaria', 'termo.vigilancia_fiscalizacao_faixa_etaria');
 
         $this->dropTable('termo.vigilancia_fiscalizacao_animal_faixa_etaria');
 
