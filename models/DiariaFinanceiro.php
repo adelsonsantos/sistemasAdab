@@ -2,6 +2,8 @@
 
 namespace app\models;
 
+use Yii;
+
 /**
  * This is the model class for table "diaria.diaria_financeiro".
  *
@@ -22,6 +24,9 @@ namespace app\models;
  */
 class DiariaFinanceiro extends \yii\db\ActiveRecord
 {
+   /* public static function getDb() {
+        return Yii::$app->db2;
+    }*/
     /**
      * @inheritdoc
      */

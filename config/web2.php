@@ -69,13 +69,13 @@ $config = [
                 ]
             ],
 
-            /*'db2' => [
+            'db2' => [
                 'class' => 'yii\db\Connection',
-                'dsn' => 'sqlsrv:Server=10.2.8.86;Database=BD_ADAB_REDA', //maybe other dbms such as psql,...
-                'username' => 'usr_adab_reda',
-                'password' => '%sr_@d@b_rd@',
+                'dsn' => 'mysql:host=10.75.0.13;Database=dividaativa', //maybe other dbms such as psql,...
+                'username' => 'admin',
+                'password' => 'zxc-123',
                 'charset' => 'utf8',
-            ],*/
+            ],
 
 
         'view'=>[

@@ -16,8 +16,6 @@ class m180716_175754_termo_vigilancia_fiscalizacao_faixa_etaria extends Migratio
             'vigilancia_fiscalizacao_animal_faixa_etaria_id' => $this->primaryKey()->unique()->notNull(),
             'vigilancia_fiscalizacao_animal_faixa_etaria_periodo' => $this->string(50),
             'vigilancia_fiscalizacao_animal_id' => $this->integer()
-
-
         ]);
         $this->addForeignKey('termo_vigilancia_fiscalizacao_faixa_etaria',
             'termo.vigilancia_fiscalizacao_faixa_etaria',
@@ -33,23 +31,6 @@ class m180716_175754_termo_vigilancia_fiscalizacao_faixa_etaria extends Migratio
     public function safeDown()
     {
         $this->dropForeignKey('termo_vigilancia_fiscalizacao_faixa_etaria', 'termo.vigilancia_fiscalizacao_faixa_etaria');
-
         $this->dropTable('termo.vigilancia_fiscalizacao_animal_faixa_etaria');
-
     }
-
-    /*
-    // Use up()/down() to run migration code without a transaction.
-    public function up()
-    {
-
-    }
-
-    public function down()
-    {
-        echo "m180716_175754_termo_vigilancia_fiscalizacao_faixa_etaria cannot be reverted.\n";
-
-        return false;
-    }
-    */
 }
