@@ -3,6 +3,7 @@
 namespace app\controllers;
 
 
+use app\models\DadosUnicoEstado;
 use app\models\DadosUnicoFuncionario;
 use app\models\DadosUnicoMunicipio;
 use app\models\DiariaAprovacao;
@@ -21,7 +22,10 @@ use app\models\Model;
 use app\models\Diarias;
 use app\models\DiariasSearch;
 
+use yii\filters\AccessControl;
+use yii\filters\VerbFilter;
 use yii\helpers\ArrayHelper;
+use yii\helpers\Html;
 use yii\helpers\Json;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
@@ -37,12 +41,12 @@ class DiariasController extends Controller
      */
     public function behaviors()
     {
-        return [/*
+        return [
             'access' => [
                 'class' => AccessControl::className(),
                 'only' => ['index'],
                 'rules' => [
-                    /*[
+                    [
                         'actions' => ['index'],
                         'allow' => true,
                         'roles' => ['@'],
@@ -59,7 +63,7 @@ class DiariasController extends Controller
                 'actions' => [
                     'delete' => ['POST'],
                 ],
-            ],*/
+            ],
         ];
     }
 
@@ -115,12 +119,39 @@ class DiariasController extends Controller
         }
     }
 
+    public function actionGetInputRota($valor, $input)
+    {
+        switch ($input) {
+            case "diariaroteiro-0-0-uf_roteiro_origem":
+                $inputMunicipio = "diariaroteiro-0-0-roteiro_origem";
+                break;
+            case "diariaroteiro-0-1-uf_roteiro_origem":
+                $inputMunicipio = "diariaroteiro-0-1-roteiro_origem";
+                break;
+            default:
+                $inputMunicipio = "";
+                break;
+        }
+        $result = [
+            'input_municipio' => $inputMunicipio,
+            'valor' => $valor
+        ];
+
+        return  \GuzzleHttp\json_encode($result);
+    }
+
     public function actionValidaMunicipioIgual($id, $uf)
     {
         $dadosNovo = DadosUnicoMunicipio::find()
             ->where(['estado_uf' => $uf])
             ->andWhere(['not in','municipio_cd',[$id]])
             ->all();
+
+        $dadosNovo = [
+          ['municipio_cd' => 1, 'municipio_ds'=> 'um' ],
+          ['municipio_cd' => 2, 'municipio_ds'=> 'dois' ],
+          ['municipio_cd' => 3, 'municipio_ds'=> 'tres' ]
+        ];
 
         if (!empty($dadosNovo)) {
             foreach($dadosNovo as $post) {
@@ -132,22 +163,431 @@ class DiariasController extends Controller
 
     }
 
-    public function actionMunicipio($id)
+
+    public function actionValida($valueUf, $inputMunicipio, $valueMunicipio)
     {
-            $posts = DadosUnicoMunicipio::find()
-                ->where(['estado_uf' => $id])
-                ->orderBy('municipio_ds')
-                ->all();
-
-
-        if (!empty($posts)) {
-            foreach($posts as $post) {
-                echo "<option value='".$post->municipio_cd."'>".$post->municipio_ds."</option>";
-            }
-        } else {
-            echo "<option>-</option>";
+        switch ($inputMunicipio) {
+            case "diariaroteiro-0-0-roteiro_origem":
+                $inputMunicipio = "diariaroteiro-0-0-roteiro_destino";
+                $inputEstado = "diariaroteiro-0-0-uf_roteiro_destino";
+                break;
+            default:
+                $inputMunicipio = "";
+                $inputEstado = "";
+                break;
         }
+        $dataEstado = DadosUnicoEstado::find()->limit(50)->all();
+
+        $dataCapital = DadosUnicoMunicipio::find()
+            ->where(['estado_uf' => $valueUf])
+            ->andwhere(['not in', 'municipio_cd', [$valueMunicipio]])
+            ->orderBy('municipio_ds')
+            ->limit(600)
+            ->all();
+
+        $tagOptions = [
+            'options' =>
+                [$valueUf => [
+                    'selected' => true
+                ]]
+        ];
+
+        $result = [
+            'input_municipio' => $inputMunicipio,
+            'html_municipio' => Html::renderSelectOptions([], ArrayHelper::map($dataCapital, 'municipio_cd', 'municipio_ds')),
+            'input_estado' => $inputEstado,
+            'html_estado' => Html::renderSelectOptions([], ArrayHelper::map($dataEstado, 'estado_uf', 'estado_uf'),$tagOptions)
+        ];
+        return  \GuzzleHttp\json_encode($result);
     }
+
+    public function actionLastDestino($valueUf, $idUltimo, $valueMunicipio)
+    {
+        switch ($idUltimo) {
+            case "diariaroteiro-0-1-roteiro_destino":
+                $inputEstado = "diariaroteiro-0-1-uf_roteiro_destino";
+                break;
+            case "diariaroteiro-0-2-roteiro_destino":
+                $inputEstado = "diariaroteiro-0-2-uf_roteiro_destino";
+                break;
+            case "diariaroteiro-0-3-roteiro_destino":
+                $inputEstado = "diariaroteiro-0-3-uf_roteiro_destino";
+                break;
+            case "diariaroteiro-0-4-roteiro_destino":
+                $inputEstado = "diariaroteiro-0-4-uf_roteiro_destino";
+                break;
+            case "diariaroteiro-0-5-roteiro_destino":
+                $inputEstado = "diariaroteiro-0-5-uf_roteiro_destino";
+                break;
+            case "diariaroteiro-0-6-roteiro_destino":
+                $inputEstado = "diariaroteiro-0-6-uf_roteiro_destino";
+                break;
+            case "diariaroteiro-1-0-roteiro_destino":
+                $inputEstado = "diariaroteiro-1-0-uf_roteiro_destino";
+                break;
+            case "diariaroteiro-1-1-roteiro_destino":
+                $inputEstado = "diariaroteiro-1-1-uf_roteiro_destino";
+                break;
+            case "diariaroteiro-1-2-roteiro_destino":
+                $inputEstado = "diariaroteiro-1-2-uf_roteiro_destino";
+                break;
+            case "diariaroteiro-1-3-roteiro_destino":
+                $inputEstado = "diariaroteiro-1-3-uf_roteiro_destino";
+                break;
+            case "diariaroteiro-1-4-roteiro_destino":
+                $inputEstado = "diariaroteiro-1-4-uf_roteiro_destino";
+                break;
+            case "diariaroteiro-1-5-roteiro_destino":
+                $inputEstado = "diariaroteiro-1-5-uf_roteiro_destino";
+                break;
+            case "diariaroteiro-1-6-roteiro_destino":
+                $inputEstado = "diariaroteiro-1-6-uf_roteiro_destino";
+                break;
+            default:
+                $inputEstado = "diariaroteiro-0-1-uf_roteiro_destino";
+                break;
+        }
+        $dataEstado = DadosUnicoEstado::find()->limit(100)->all();
+
+        $dataCapital = DadosUnicoMunicipio::find()
+            ->where(['estado_uf' => $valueUf])
+            ->orderBy('municipio_ds')
+            ->limit(600)
+            ->all();
+
+        $tagOptions = [
+            'options' =>
+                [$valueMunicipio => [
+                    'selected' => true
+                ]]
+        ];
+
+        $tagOptionsEstado = [
+            'options' =>
+                [$valueUf => [
+                    'selected' => true
+                ]]
+        ];
+
+        $result = [
+            'input_municipio' => $idUltimo,
+            'html_municipio' => Html::renderSelectOptions([], ArrayHelper::map($dataCapital, 'municipio_cd', 'municipio_ds'),$tagOptions),
+            'input_estado' => $inputEstado,
+            'html_estado' => Html::renderSelectOptions([], ArrayHelper::map($dataEstado, 'estado_uf', 'estado_uf'), $tagOptionsEstado)
+        ];
+
+        return  \GuzzleHttp\json_encode($result);
+    }
+
+
+    public function actionMunicipio($valueUf, $inputMunicipio, $valueMunicipio)
+    {
+        switch ($inputMunicipio) {
+            case "diariaroteiro-0-0-roteiro_origem":
+                $inputMunicipio = "diariaroteiro-0-1-roteiro_origem";
+                $inputEstado = "diariaroteiro-0-1-uf_roteiro_origem";
+                break;
+            case "diariaroteiro-0-1-roteiro_origem":
+                $inputMunicipio = "diariaroteiro-0-2-roteiro_origem";
+                $inputEstado = "diariaroteiro-0-2-uf_roteiro_origem";
+                break;
+            case "diariaroteiro-0-2-roteiro_origem":
+                $inputMunicipio = "diariaroteiro-0-3-roteiro_origem";
+                $inputEstado = "diariaroteiro-0-3-uf_roteiro_origem";
+                break;
+            case "diariaroteiro-0-3-roteiro_origem":
+                $inputMunicipio = "diariaroteiro-0-4-roteiro_origem";
+                $inputEstado = "diariaroteiro-0-4-uf_roteiro_origem";
+                break;
+            case "diariaroteiro-0-4-roteiro_origem":
+                $inputMunicipio = "diariaroteiro-0-5-roteiro_origem";
+                $inputEstado = "diariaroteiro-0-5-uf_roteiro_origem";
+                break;
+            case "diariaroteiro-0-5-roteiro_origem":
+                $inputMunicipio = "diariaroteiro-0-6-roteiro_origem";
+                $inputEstado = "diariaroteiro-0-6-uf_roteiro_origem";
+                break;
+            case "diariaroteiro-0-6-roteiro_origem":
+                $inputMunicipio = "diariaroteiro-0-7-roteiro_origem";
+                $inputEstado = "diariaroteiro-0-7-uf_roteiro_origem";
+                break;
+            case "diariaroteiro-1-0-roteiro_origem":
+                $inputMunicipio = "diariaroteiro-1-0-roteiro_origem";
+                $inputEstado = "diariaroteiro-1-0-uf_roteiro_origem";
+                break;
+            case "diariaroteiro-1-1-roteiro_origem":
+                $inputMunicipio = "diariaroteiro-1-1-roteiro_origem";
+                $inputEstado = "diariaroteiro-1-1-uf_roteiro_origem";
+                break;
+            case "diariaroteiro-1-2-roteiro_origem":
+                $inputMunicipio = "diariaroteiro-1-2-roteiro_origem";
+                $inputEstado = "diariaroteiro-1-2-uf_roteiro_origem";
+                break;
+            case "diariaroteiro-1-3-roteiro_origem":
+                $inputMunicipio = "diariaroteiro-1-3-roteiro_origem";
+                $inputEstado = "diariaroteiro-1-3-uf_roteiro_origem";
+                break;
+            case "diariaroteiro-1-4-roteiro_origem":
+                $inputMunicipio = "diariaroteiro-1-4-roteiro_origem";
+                $inputEstado = "diariaroteiro-1-4-uf_roteiro_origem";
+                break;
+            case "diariaroteiro-1-5-roteiro_origem":
+                $inputMunicipio = "diariaroteiro-1-5-roteiro_origem";
+                $inputEstado = "diariaroteiro-1-5-uf_roteiro_origem";
+                break;
+            case "diariaroteiro-1-6-roteiro_origem":
+                $inputMunicipio = "diariaroteiro-1-6-roteiro_origem";
+                $inputEstado = "diariaroteiro-1-6-uf_roteiro_origem";
+                break;
+            case "diariaroteiro-0-0-roteiro_destino":
+                $inputMunicipio = "diariaroteiro-0-1-roteiro_origem";
+                $inputEstado = "diariaroteiro-0-1-uf_roteiro_origem";
+                break;
+            case "diariaroteiro-0-1-roteiro_destino":
+                $inputMunicipio = "diariaroteiro-0-2-roteiro_origem";
+                $inputEstado = "diariaroteiro-0-2-uf_roteiro_origem";
+                break;
+            case "diariaroteiro-0-2-roteiro_destino":
+                $inputMunicipio = "diariaroteiro-0-3-roteiro_origem";
+                $inputEstado = "diariaroteiro-0-3-uf_roteiro_origem";
+                break;
+            case "diariaroteiro-0-3-roteiro_destino":
+                $inputMunicipio = "diariaroteiro-0-4-roteiro_origem";
+                $inputEstado = "diariaroteiro-0-4-uf_roteiro_origem";
+                break;
+            case "diariaroteiro-0-4-roteiro_destino":
+                $inputMunicipio = "diariaroteiro-0-5-roteiro_origem";
+                $inputEstado = "diariaroteiro-0-5-uf_roteiro_origem";
+                break;
+            case "diariaroteiro-0-5-roteiro_destino":
+                $inputMunicipio = "diariaroteiro-0-6-roteiro_origem";
+                $inputEstado = "diariaroteiro-0-6-uf_roteiro_origem";
+                break;
+            default:
+                $inputMunicipio = "";
+                $inputEstado = "";
+                break;
+        }
+        $dataEstado = DadosUnicoEstado::find()->where(['estado_uf' => $valueUf])->limit(1)->all();
+
+        $dataCapital = DadosUnicoMunicipio::find()
+            ->where(['estado_uf' => $valueUf])
+            ->andwhere(['municipio_cd' => $valueMunicipio])
+            ->orderBy('municipio_ds')
+            ->limit(1)
+            ->all();
+
+        $result = [
+            'input_municipio' => $inputMunicipio,
+            'html_municipio' => Html::renderSelectOptions([], ArrayHelper::map($dataCapital, 'municipio_cd', 'municipio_ds')),
+            'input_estado' => $inputEstado,
+            'html_estado' => Html::renderSelectOptions([], ArrayHelper::map($dataEstado, 'estado_uf', 'estado_uf'))
+        ];
+
+        return  \GuzzleHttp\json_encode($result);
+    }
+
+    public function actionSetMunicipioComCapital($value, $input)
+    {
+        switch ($input) {
+            case "diariaroteiro-0-0-uf_roteiro_origem":
+                $inputMunicipio = "diariaroteiro-0-0-roteiro_origem";
+                break;
+            case "diariaroteiro-0-1-uf_roteiro_origem":
+                $inputMunicipio = "diariaroteiro-0-1-roteiro_origem";
+                break;
+            case "diariaroteiro-0-2-uf_roteiro_origem":
+                $inputMunicipio = "diariaroteiro-0-2-roteiro_origem";
+                break;
+            case "diariaroteiro-0-3-uf_roteiro_origem":
+                $inputMunicipio = "diariaroteiro-0-3-roteiro_origem";
+                break;
+            case "diariaroteiro-0-4-uf_roteiro_origem":
+                $inputMunicipio = "diariaroteiro-0-4-roteiro_origem";
+                break;
+            case "diariaroteiro-0-5-uf_roteiro_origem":
+                $inputMunicipio = "diariaroteiro-0-5-roteiro_origem";
+                break;
+            case "diariaroteiro-0-6-uf_roteiro_origem":
+                $inputMunicipio = "diariaroteiro-0-6-roteiro_origem";
+                break;
+            case "diariaroteiro-1-0-uf_roteiro_origem":
+                $inputMunicipio = "diariaroteiro-1-0-roteiro_origem";
+                break;
+            case "diariaroteiro-1-1-uf_roteiro_origem":
+                $inputMunicipio = "diariaroteiro-1-1-roteiro_origem";
+                break;
+            case "diariaroteiro-1-2-uf_roteiro_origem":
+                $inputMunicipio = "diariaroteiro-1-2-roteiro_origem";
+                break;
+            case "diariaroteiro-1-3-uf_roteiro_origem":
+                $inputMunicipio = "diariaroteiro-1-3-roteiro_origem";
+                break;
+            case "diariaroteiro-1-4-uf_roteiro_origem":
+                $inputMunicipio = "diariaroteiro-1-4-roteiro_origem";
+                break;
+            case "diariaroteiro-1-5-uf_roteiro_origem":
+                $inputMunicipio = "diariaroteiro-1-5-roteiro_origem";
+                break;
+            case "diariaroteiro-1-6-uf_roteiro_origem":
+                $inputMunicipio = "diariaroteiro-1-6-roteiro_origem";
+                break;
+
+
+            case "diariaroteiro-0-0-uf_roteiro_destino":
+                $inputMunicipio = "diariaroteiro-0-0-roteiro_destino";
+                break;
+            case "diariaroteiro-0-1-uf_roteiro_destino":
+                $inputMunicipio = "diariaroteiro-0-1-roteiro_destino";
+                break;
+            case "diariaroteiro-0-2-uf_roteiro_destino":
+                $inputMunicipio = "diariaroteiro-0-2-roteiro_destino";
+                break;
+            case "diariaroteiro-0-3-uf_roteiro_destino":
+                $inputMunicipio = "diariaroteiro-0-3-roteiro_destino";
+                break;
+            case "diariaroteiro-0-4-uf_roteiro_destino":
+                $inputMunicipio = "diariaroteiro-0-4-roteiro_destino";
+                break;
+            case "diariaroteiro-0-5-uf_roteiro_destino":
+                $inputMunicipio = "diariaroteiro-0-5-roteiro_destino";
+                break;
+            case "diariaroteiro-0-6-uf_roteiro_destino":
+                $inputMunicipio = "diariaroteiro-0-6-roteiro_destino";
+                break;
+            case "diariaroteiro-1-0-uf_roteiro_destino":
+                $inputMunicipio = "diariaroteiro-1-0-roteiro_destino";
+                break;
+            case "diariaroteiro-1-1-uf_roteiro_destino":
+                $inputMunicipio = "diariaroteiro-1-1-roteiro_destino";
+                break;
+            case "diariaroteiro-1-2-uf_roteiro_destino":
+                $inputMunicipio = "diariaroteiro-1-2-roteiro_destino";
+                break;
+            case "diariaroteiro-1-3-uf_roteiro_destino":
+                $inputMunicipio = "diariaroteiro-1-3-roteiro_destino";
+                break;
+            case "diariaroteiro-1-4-uf_roteiro_destino":
+                $inputMunicipio = "diariaroteiro-1-4-roteiro_destino";
+                break;
+            case "diariaroteiro-1-5-uf_roteiro_destino":
+                $inputMunicipio = "diariaroteiro-1-5-roteiro_destino";
+                break;
+            case "diariaroteiro-1-6-uf_roteiro_destino":
+                $inputMunicipio = "diariaroteiro-1-6-roteiro_destino";
+                break;
+            default:
+                $inputMunicipio = "";
+                break;
+        }
+                $data = DadosUnicoMunicipio::find()
+                    ->where(['estado_uf' => $value])
+                    ->orderBy('municipio_ds')
+                    ->limit(600)
+                    ->all();
+
+                $dataCapital = DadosUnicoMunicipio::find()
+                    ->where(['estado_uf' => $value])
+                    ->andwhere(['municipio_capital' => 1])
+                    ->orderBy('municipio_ds')
+                    ->limit(1)
+                    ->all();
+
+        $tagOptions = [
+            'prompt' => "=== Select ===",
+            'options' =>
+                [$dataCapital[0]['municipio_cd'] => [
+                    'selected' => true
+                ]]
+        ];
+
+        $result = [
+            'input_municipio' => $inputMunicipio,
+            'html' => Html::renderSelectOptions([], ArrayHelper::map($data, 'municipio_cd', 'municipio_ds'), $tagOptions)
+        ];
+
+        return  \GuzzleHttp\json_encode($result);
+    }
+
+    public function actionValidaProximaRota($value, $input)
+    {
+        switch ($input) {
+            case "diariaroteiro-0-0-roteiro_destino":
+                $inputMunicipio = "diariaroteiro-0-0-roteiro_origem";
+                break;
+            case "diariaroteiro-0-1-uf_roteiro_origem":
+                $inputMunicipio = "diariaroteiro-0-1-roteiro_origem";
+                break;
+            case "diariaroteiro-0-2-uf_roteiro_origem":
+                $inputMunicipio = "diariaroteiro-0-2-roteiro_origem";
+                break;
+            case "diariaroteiro-0-3-uf_roteiro_origem":
+                $inputMunicipio = "diariaroteiro-0-3-roteiro_origem";
+                break;
+            case "diariaroteiro-0-4-uf_roteiro_origem":
+                $inputMunicipio = "diariaroteiro-0-4-roteiro_origem";
+                break;
+            case "diariaroteiro-0-5-uf_roteiro_origem":
+                $inputMunicipio = "diariaroteiro-0-5-roteiro_origem";
+                break;
+            case "diariaroteiro-0-6-uf_roteiro_origem":
+                $inputMunicipio = "diariaroteiro-0-6-roteiro_origem";
+                break;
+            case "diariaroteiro-0-0-uf_roteiro_destino":
+                $inputMunicipio = "diariaroteiro-0-0-roteiro_destino";
+                break;
+            case "diariaroteiro-0-1-uf_roteiro_destino":
+                $inputMunicipio = "diariaroteiro-0-1-roteiro_destino";
+                break;
+            case "diariaroteiro-0-2-uf_roteiro_destino":
+                $inputMunicipio = "diariaroteiro-0-2-roteiro_destino";
+                break;
+            case "diariaroteiro-0-3-uf_roteiro_destino":
+                $inputMunicipio = "diariaroteiro-0-3-roteiro_destino";
+                break;
+            case "diariaroteiro-0-4-uf_roteiro_destino":
+                $inputMunicipio = "diariaroteiro-0-4-roteiro_destino";
+                break;
+            case "diariaroteiro-0-5-uf_roteiro_destino":
+                $inputMunicipio = "diariaroteiro-0-5-roteiro_destino";
+                break;
+            case "diariaroteiro-0-6-uf_roteiro_destino":
+                $inputMunicipio = "diariaroteiro-0-6-roteiro_destino";
+                break;
+            default:
+                $inputMunicipio = "";
+                break;
+        }
+                $data = DadosUnicoMunicipio::find()
+                    ->where(['estado_uf' => $value])
+                    ->orderBy('municipio_ds')
+                    ->limit(600)
+                    ->all();
+
+                $dataCapital = DadosUnicoMunicipio::find()
+                    ->where(['estado_uf' => $value])
+                    ->andwhere(['municipio_capital' => 1])
+                    ->orderBy('municipio_ds')
+                    ->limit(1)
+                    ->all();
+
+        $tagOptions = [
+            'prompt' => "=== Select ===",
+            'options' =>
+                [$dataCapital[0]['municipio_cd'] => [
+                    'selected' => true
+                ]]
+        ];
+
+        $result = [
+            'input_municipio' => $inputMunicipio,
+            'html' => Html::renderSelectOptions([], ArrayHelper::map($data, 'municipio_cd', 'municipio_ds'), $tagOptions)
+        ];
+
+        return  \GuzzleHttp\json_encode($result);
+    }
+
+
 
     public function actionMunicipioCapital($uf)
     {

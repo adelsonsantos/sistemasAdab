@@ -23,7 +23,7 @@ jQuery(".dynamicform_roteiro_multiplo").on("afterInsert", function(e, item) {
         }                    
     });
       
-     ordenaRota();
+    
       
     jQuery(".dynamicform_roteiro_multiplo .panel-title-roteiro").each(function(index) {
         jQuery(this).html("Roteiro: " + (index + 1))
@@ -54,7 +54,7 @@ $this->registerJs($js);
         'widgetContainer' => 'dynamicform_roteiro_multiplo', // required: only alphanumeric characters plus "_" [A-Za-z0-9_]
         'widgetBody' => '.container-items', // required: css class selector
         'widgetItem' => '.roteiro-item', // required: css class
-        'limit' => 7, // the maximum times, an element can be cloned (default 999)
+        'limit' => 5, // the maximum times, an element can be cloned (default 999)
         'min' => 1, // 0 or 1 (default 1)
         'insertButton' => '.add-roteiro', // css class
         'deleteButton' => '.remove-roteiro', // css class
@@ -89,7 +89,7 @@ $this->registerJs($js);
                             <span class="panel-title-roteiro">Roteiro: <?= ($indexRoteiro + 1) ?></span>
                         </h3>
                         <div class="pull-right">
-                            <button type="button" id="roteiro" class="add-roteiro btn  btn-xs" onclick="verificaId(<?=$indexRoteiro?>)"><i class="glyphicon glyphicon"></i>Adicionar Roteiro</button>
+                            <button type="button" id="roteiro" class="add-roteiro btn  btn-xs" ><i class="glyphicon glyphicon"></i>Adicionar Roteiro</button>
                             <button type="button" id="rmve" class="remove-roteiro btn btn-xs" style="display: none"><i class="glyphicon glyphicon"></i>Remover Roteiro</button>
                         </div>
                         <div class="clearfix"></div>
