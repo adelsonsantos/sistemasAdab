@@ -9,6 +9,7 @@ use yii\db\ActiveRecord;
  * This is the model class for table "portal.contato".
  *
  * @property integer $con_id
+ * @property integer $cti_id
  * @property string $con_nome
  * @property string $con_telefone
  * @property string $con_ddd
@@ -18,6 +19,9 @@ use yii\db\ActiveRecord;
  */
 class PortalContato extends ActiveRecord
 {
+    const COORDENADORIA = 1;
+    const GERENCIA       = 2;
+    const ESCRITORIO     = 3;
     /**
      * @inheritdoc
      */
@@ -35,6 +39,7 @@ class PortalContato extends ActiveRecord
             [['con_telefone', 'con_ddd'], 'required','message'=>'{attribute} não pode ficar em branco.'],
             [['con_nome'], 'string', 'max' => 60],
             [['con_telefone'], 'string', 'max' => 12],
+            [['cti_id'], 'integer'],
             [['con_ddd'], 'string', 'max' => 2],
             [['cti_id'], 'exist', 'skipOnError' => true, 'targetClass' => PortalContatoTipo::className(), 'targetAttribute' => ['cti_id' => 'cti_id']],
         ];

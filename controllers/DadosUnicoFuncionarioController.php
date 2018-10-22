@@ -105,7 +105,20 @@ class DadosUnicoFuncionarioController extends Controller
         $modelFuncionarioArquivo = new DadosUnicoFuncionarioArquivo();
 
 
-        if ($model->load(Yii::$app->request->post()) && $model->save()) {
+        if ($model->load(Yii::$app->request->post())/* && $model->save()*/) {
+            $modelPessoaFisica->load(Yii::$app->request->post());
+            $modelPessoa->load(Yii::$app->request->post());
+            $modelNivelTecnico->load(Yii::$app->request->post());
+            $modelEndereco->load(Yii::$app->request->post());
+            $modelFuncionario->load(Yii::$app->request->post());
+            $modelUnidadeLotacao->load(Yii::$app->request->post());
+            $modelDadosBancarios->load(Yii::$app->request->post());
+            $modelFuncionarioArquivo->load(Yii::$app->request->post());
+
+
+
+
+            d($modelFuncionarioArquivo);
 
             $modelsTelefone = Model::createMultiple(DadosUnicoTelefone::classname());
             Model::loadMultiple($modelsTelefone, Yii::$app->request->post());

@@ -65,9 +65,8 @@ use yii\widgets\ActiveForm;
                     </div>
 
                     <div class="col-lg-3">
-                        <?= $form->field($model, 'esc_id')->dropDownList(
-                            ArrayHelper::map(PortalEscritorio::find()->asArray()->where(['ger_id' => $model->ger_id])->orderBy('esc_nome')->all(), 'esc_id', 'esc_nome'),
-                            ['prompt' => 'Selecione o Escritório',]) ?>
+                        <?= $form->field($model, 'esc_nome')->textInput();?>
+
                     </div>
                 </div>
                 <table class="diaria" style="width: 100%; margin-top: 30px;">

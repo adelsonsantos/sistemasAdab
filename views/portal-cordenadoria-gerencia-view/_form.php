@@ -72,7 +72,7 @@ use yii\widgets\MaskedInput;
                     <div class="col-lg-3">
                         <?= $form->field($model, 'esc_id')->dropDownList(
                             ArrayHelper::map(PortalEscritorio::find()->asArray()->where(['ger_id' => $model->ger_id])->orderBy('esc_nome')->all(), 'esc_id', 'esc_nome'),
-                            ['prompt' => 'Selecione o Escritório',]) ?>
+                            ['prompt' => 'Selecione o Escritório']) ?>
                     </div>
                 </div>
 
@@ -89,11 +89,6 @@ use yii\widgets\MaskedInput;
                         <?= $form->field($contato, 'con_telefone')->widget(MaskedInput::className(), [
                             'mask' => '9999-9999',
                         ]) ?>
-                    </div>
-                    <div class="col-lg-3">
-                        <?= $form->field($contato, 'cti_id')->dropDownList(
-                            ArrayHelper::map(PortalContatoTipo::find()->asArray()->orderBy('cti_nome')->all(), 'cti_id', 'cti_nome'))->label('Tipo');
-                        ?>
                     </div>
                 </div>
 

@@ -1,4 +1,4 @@
-<style>
+*<style>
     .table.table-striped tbody tr:hover
     {
         background: #b0d4f1;

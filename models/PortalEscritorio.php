@@ -44,7 +44,7 @@ class PortalEscritorio extends \yii\db\ActiveRecord
     {
         return [
             'esc_id' => 'Esc ID',
-            'esc_nome' => 'Esc Nome',
+            'esc_nome' => 'Escritório',
             'id_coordenadoria' => 'Id Coordenadoria',
             'ger_id' => 'Ger ID',
         ];

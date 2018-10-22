@@ -11,6 +11,7 @@ use Yii;
  * @property int $id_coordenadoria
  * @property int $ger_id
  * @property int $con_id
+ * @property int $esc_id
  */
 class PortalCoordenadoriaGerencia extends \yii\db\ActiveRecord
 {
@@ -33,7 +34,7 @@ class PortalCoordenadoriaGerencia extends \yii\db\ActiveRecord
             [['id_coordenadoria'], 'integer'],
             [['id_coordenadoria'], 'exist', 'skipOnError' => true, 'targetClass' => DiariaCoordenadoria::className(), 'targetAttribute' => ['id_coordenadoria' => 'id_coordenadoria']],
             [['con_id'], 'exist', 'skipOnError' => true, 'targetClass' => PortalContato::className(), 'targetAttribute' => ['con_id' => 'con_id']],
-            [['ger_id'], 'exist', 'skipOnError' => true, 'targetClass' => PortalGerencia::className(), 'targetAttribute' => ['ger_id' => 'ger_id']],
+           // [['ger_id'], 'exist', 'skipOnError' => true, 'targetClass' => PortalGerencia::className(), 'targetAttribute' => ['ger_id' => 'ger_id']],
             [['esc_id'], 'exist', 'skipOnError' => true, 'targetClass' => PortalEscritorio::className(), 'targetAttribute' => ['esc_id' => 'esc_id']],
         ];
     }

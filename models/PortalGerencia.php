@@ -30,8 +30,9 @@ class PortalGerencia extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['ger_nome'], 'required', 'message'=>'{attribute} não pode ficar em branco.'],
+            [['ger_nome','id_coordenadoria'], 'required', 'message'=>'{attribute} não pode ficar em branco.'],
             [['ger_nome'], 'string', 'max' => 60],
+            [['id_coordenadoria'], 'integer'],
         ];
     }
 
@@ -42,6 +43,7 @@ class PortalGerencia extends \yii\db\ActiveRecord
     {
         return [
             'ger_id' => 'Ger ID',
+            'id_coordenadoria'=>'coordenadoria',
             'ger_nome' => 'Nome da Gerência',
         ];
     }

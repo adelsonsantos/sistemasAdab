@@ -100,19 +100,38 @@ $this->params['breadcrumbs'][] = $this->title;
                 'label'   => 'DDD',
                 'filter'   => Html::activeDropDownList($searchModel, 'con_ddd', ArrayHelper::map(PortalContato::find()->asArray()->orderBy('con_ddd')->all(), 'con_ddd', 'con_ddd'), array('class'=>'form-control', 'prompt' => ' '))
             ],
-
-            'con_telefone',
-            ['class' => 'yii\grid\ActionColumn',
+            [ 'class' => 'yii\grid\ActionColumn',
                 'contentOptions' => ['style' => 'width: 8.7%'],
-                'template' => '{view} {update}',
+                'template' => '{view} {update} {delete} ',
                 'buttons' => [
                     'view' => function ($model, $key) {
-                        return Html::a('<span class="glyphicon glyphicon-search" style="color: grey; width:20%; font-size: 1.2em; margin-left: 6%"></span>', ['view', 'id' =>$key->cog_id ],['title' => 'Ver']);
+                        return Html::a('<span class="glyphicon glyphicon-search" style="color: grey; width:20%; font-size: 1.2em; margin-left: 6%"></span>', ['view', 'id' =>$key->id_coordenadoria ],['title' => 'Ver']);
                     },
                     'update' => function ($model, $key) {
-                        return Html::a('<span class="glyphicon glyphicon-pencil" style="color: grey; width:20%; font-size: 1.2em; margin-left: 6%"></span>', ['update', 'id' =>$key->cog_id ],['title' => 'Alterar']);
+
+                        return Html::a('<span  class="glyphicon glyphicon-pencil" style="color: darkblue; width:20%; font-size: 1.2em; margin-left: 6%"></span>', ['update', 'id' =>$key->id_coordenadoria],['title' => 'Editar']);
+
+                    },
+                    'delete' => function ($model, $key) {
+
+                        return Html::a('<span class="glyphicon glyphicon-remove" style="color: red; font-size: 1.2em; margin-left: 3%"></span>', ['empenho-liberar', 'id' =>$key->id_coordenadoria],[
+                            'title' => 'Deletar'
+                        ]);
+
                     },
                 ]
+//            'con_telefone',
+//            ['class' => 'yii\grid\ActionColumn',
+//                'contentOptions' => ['style' => 'width: 8.7%'],
+//                'template' => '{view} {update}',
+//                'buttons' => [
+//                    'view' => function ($model, $key) {
+//                        return Html::a('<span class="glyphicon glyphicon-search" style="color: grey; width:20%; font-size: 1.2em; margin-left: 6%"></span>', ['view', 'id' =>$key->cog_id ],['title' => 'Ver']);
+//                    },
+//                    'update' => function ($model, $key) {
+//                        return Html::a('<span class="glyphicon glyphicon-pencil" style="color: grey; width:20%; font-size: 1.2em; margin-left: 6%"></span>', ['update', 'id' =>$key->cog_id ],['title' => 'Alterar']);
+//                    },
+//                ]
             ]
         ],
     ]); ?>

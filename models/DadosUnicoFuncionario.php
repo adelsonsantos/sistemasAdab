@@ -118,7 +118,7 @@ class DadosUnicoFuncionario extends \yii\db\ActiveRecord
      */
     public function getDadosUnicoEstOrganizacionalFuncionarios()
     {
-        return $this->hasMany(DadosUnicoEstOrganizacionalFuncionario::className(), ['funcionario_id' => 'funcionario_id']);
+        return $this->hasOne(DadosUnicoEstOrganizacionalFuncionario::className(), ['funcionario_id' => 'funcionario_id']);
     }
 
     /**
@@ -191,6 +191,13 @@ class DadosUnicoFuncionario extends \yii\db\ActiveRecord
     public function getPessoa()
     {
         return $this->hasOne(DadosUnicoPessoaFisica::className(), ['pessoa_id' => 'pessoa_id']);
+    }
+    /**
+     * @return \yii\db\ActiveQuery
+     */
+    public function getPessoaNome()
+    {
+        return $this->hasOne(DadosUnicoPessoa::className(), ['pessoa_id' => 'pessoa_id']);
     }
 
     /**

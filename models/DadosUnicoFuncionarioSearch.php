@@ -42,7 +42,7 @@ class DadosUnicoFuncionarioSearch extends DadosUnicoFuncionario
      */
     public function search($params)
     {
-        $query = DadosUnicoFuncionario::find();
+        $query = DadosUnicoFuncionario::find()->with('dadosUnicoEstOrganizacionalFuncionarios');
 
         // add conditions that should always apply here
 

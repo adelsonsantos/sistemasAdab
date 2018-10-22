@@ -34,10 +34,10 @@
                     <table style=" width: 100%">
                         <tr >
                             <th style="text-align: center; width: 33%">
-                                <?= Html::a('', ['update', 'id' => $model->id_coordenadoria], ['class' => 'glyphicon glyphicon-pencil', 'title' =>     'Alterar']) ?>
+                                <?= Html::a('', ['update', 'id' => $model->ger_id], ['class' => 'glyphicon glyphicon-pencil', 'title' =>     'Alterar']) ?>
                             </th>
                             <th style="text-align: center; width: 33%">
-                                <?= Html::a('', ['delete', 'id' => $model->id_coordenadoria], [
+                                <?= Html::a('', ['delete', 'id' => $model->ger_id], [
                                     'class' => 'glyphicon glyphicon-remove', 'title' => 'Deletar',
                                     'data' => [
                                         'confirm' => 'Tem certeza de que deseja excluir esta Coordenadorias?',

@@ -41,7 +41,7 @@ $this->params['breadcrumbs'][] = $this->title;
 <div style="position: absolute">
     <?= Yii::$app->controller->renderPartial('menu');?>
 </div>
-<div style="height:75px;">
+<div style="height:40px;">
     <div>
         <h1 class="font-topo" style="text-align: center">Funcionário</h1>
         <p class="font-topo" style="text-align: center">
@@ -53,38 +53,73 @@ $this->params['breadcrumbs'][] = $this->title;
 </div>
 <div class="grid">
 
-    <?php try {
-       echo GridView::widget([
-            'dataProvider' => $dataProvider,
-            'filterModel' => $searchModel,
-            'columns' => [
+    <?php
+    use kartik\export\ExportMenu;
 
 
-                'funcionario_matricula',
-                'pessoa_id',
-                //'funcionario_ramal',
-                //'funcionario_email:email',
-                //'funcionario_dt_admissao',
-                //'funcionario_dt_demissao',
-                //'funcionario_orgao_origem',
-                //'funcionario_conta_fgts',
-                //'contrato_id',
-                //'funcionario_salario',
-                //'cargo_temporario',
-                //'funcionario_orgao_destino',
-                //'est_organizacional_lotacao_id',
-                //'funcionario_validacao_propria',
-                //'funcionario_validacao_rh',
-                //'funcionario_envio_email:email',
-                //'funcionario_tipo_id_old',
-                //'motorista',
-                //'funcionario_onus',
+    try {
 
-                ['class' => 'yii\grid\ActionColumn'],
-            ],
-        ]);
+    $gridColumns = [
+        ['class' => 'yii\grid\SerialColumn'],
+        'funcionario_matricula',
+
+        [
+            'attribute'=> 'pessoa_id',
+            'value'    => 'pessoaNome.pessoa_nm',
+            'label'   => 'Nome',
+            'filter'   => Html::activeDropDownList($searchModel, 'pessoa_id', ArrayHelper::map(DadosUnicoPessoa::find()->asArray()->orderBy('pessoa_nm')->all(), 'pessoa_id', 'pessoa_nm'), array('class'=>'form-control', 'prompt' => ' '))
+        ],
+        [
+            'attribute'=> 'est_organizacional_lotacao_id',
+            'value'    =>function($model){
+                $estrutura = \app\models\DadosUnicoEstOrganizacionalFuncionario::find()->where(['funcionario_id'=>$model->funcionario_id])->with('estOrganizacional')->all();
+                $sigla = !empty($estrutura[0]->estOrganizacional->est_organizacional_sigla) ? $estrutura[0]->estOrganizacional->est_organizacional_sigla : 'Não informado ';
+                return $sigla;
+            },
+            'label'   => 'Estrutura/Atuação',
+            'filter'   => false
+        ],
+        [ 'class' => 'yii\grid\ActionColumn',
+            'contentOptions' => ['style' => 'width: 8.7%'],
+            'template' => '{view} {update} {delete} ',
+            'buttons' => [
+                'view' => function ($model, $key) {
+                    return Html::a('<span class="glyphicon glyphicon-search" style="color: grey; width:20%; font-size: 1.2em; margin-left: 6%"></span>', ['view', 'id' =>$key->funcionario_id ],['title' => 'Ver']);
+                },
+                'update' => function ($model, $key) {
+
+                    return Html::a('<span  class="glyphicon glyphicon-pencil" style="color: darkblue; width:20%; font-size: 1.2em; margin-left: 6%"></span>', ['update', 'id' =>$key->funcionario_id ],['title' => 'Editar']);
+
+                },
+                'delete' => function ($model, $key) {
+
+                    return Html::a('<span class="glyphicon glyphicon-remove" style="color: red; font-size: 1.2em; margin-left: 3%"></span>', ['empenho-liberar', 'id' =>$key->funcionario_id],[
+                        'title' => 'Deletar'
+                    ]);
+
+                },
+            ]
+        ],
+    ];
+
+    // Renders a export dropdown menu
+
+    echo ExportMenu::widget([
+        'dataProvider' => $dataProvider,
+        'columns' => $gridColumns
+    ]);
+
+    // You can choose to render your own GridView separately
+    echo \kartik\grid\GridView::widget([
+        'dataProvider' => $dataProvider,
+        'filterModel' => $searchModel,
+        'columns' => $gridColumns
+    ]);
+
     } catch (Exception $e) {
-    } ?>
+    }?>
+
+
 </div>
 
 

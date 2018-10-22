@@ -14,7 +14,7 @@ use yii\helpers\Url;
     <div class="panel-heading">
 
         <div class="col">
-            <div class="col-lg-2">
+            <div class="col-lg-3">
                 <?= $form->field($modelEndereco, 'estado_uf')->dropDownList(
                     ArrayHelper::map(\app\models\DadosUnicoEstado::find()->asArray()->orderBy(['estado_uf' => SORT_ASC])->all(), 'estado_uf', 'estado_uf'),
                     [
@@ -30,7 +30,7 @@ use yii\helpers\Url;
                 ) ?>
             </div>
 
-            <div class="col-lg-2">
+            <div class="col-lg-3">
                 <?= $form->field($modelEndereco, 'municipio_cd')->dropDownList(
                     ArrayHelper::map(\app\models\DadosUnicoMunicipio::find()->asArray()->where(['estado_uf' => $modelEndereco->municipio_cd])->orderBy('municipio_ds')->all(), 'municipio_cd', 'municipio_ds'),
                     [
@@ -38,26 +38,31 @@ use yii\helpers\Url;
                     ]) ?>
             </div>
 
-        </div>
-        <div>
-            <div class="col-lg-4">
-                <?= $form->field($modelEndereco, 'endereco_bairro')->textInput() ?>
 
-            </div>
 
-            <div>
-                <div class="col-lg-2">
-                    <?= $form->field($modelEndereco, 'endereco_cep')->widget(\yii\widgets\MaskedInput::className(), [
-                        'mask' => '99999-999',
-                    ]) ?>
-
+                <div class="col-lg-4">
+                    <?= $form->field($modelEndereco, 'endereco_bairro')->textInput() ?>
 
                 </div>
-            </div>
+
+
+                    <div class="col-lg-2">
+                        <?= $form->field($modelEndereco, 'endereco_cep')->widget(\yii\widgets\MaskedInput::className(), [
+                            'mask' => '99999-999',
+                        ]) ?>
+
+                    </div>
+        </div>
+        <div class="row">
+
+        </div>
+
+        <div class="col">
             <div class="col-lg-4">
                 <?= $form->field($modelEndereco, 'endereco_ds')->textInput() ?>
 
             </div>
+
 
             <div class="col-lg-1">
                 <?= $form->field($modelEndereco, 'endereco_num')->textInput() ?>
@@ -69,14 +74,23 @@ use yii\helpers\Url;
                 <?= $form->field($modelEndereco, 'endereco_complemento')->textInput() ?>
 
             </div>
+        </div>
+        <div class="row">
+
+        </div>
+
+
+        <div class="col">
             <div class="col-lg-6">
                 <?= $form->field($modelEndereco, 'endereco_referencia')->textInput() ?>
 
             </div>
-
         </div>
+
+
         <div class="clearfix">
         </div>
+
     </div>
 </div>
 

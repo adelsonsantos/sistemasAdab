@@ -61,16 +61,38 @@ $this->params['breadcrumbs'][] = $this->title;
             'equipamento_nome',
             'equipamento_quantidade_min',
             'equipamento_status',
-            ['class' => 'yii\grid\ActionColumn',
+
+
+            [ 'class' => 'yii\grid\ActionColumn',
                 'contentOptions' => ['style' => 'width: 8.7%'],
-                'template' => '{view} {update}',
+                'template' => '{view} {update} {delete} ',
                 'buttons' => [
                     'view' => function ($model, $key) {
-                        return Html::a('<span class="glyphicon glyphicon-search" style="color: grey; width:20%; font-size: 1.2em; margin-left: 6%"></span>', ['view', 'id' => $key->equipamento_id], ['title' => 'Ver']);
+                        return Html::a('<span class="glyphicon glyphicon-search" style="color: grey; width:20%; font-size: 1.2em; margin-left: 6%"></span>', ['view', 'id' =>$key->equipamento_id ],['title' => 'Ver']);
                     },
                     'update' => function ($model, $key) {
-                        return Html::a('<span class="glyphicon glyphicon-pencil" style="color: grey; width:20%; font-size: 1.2em; margin-left: 6%"></span>', ['update', 'id' => $key->equipamento_id], ['title' => 'Alterar']);
+
+                        return Html::a('<span  class="glyphicon glyphicon-pencil" style="color: darkblue; width:20%; font-size: 1.2em; margin-left: 6%"></span>', ['update', 'id' =>$key->equipamento_id],['title' => 'Editar']);
+
                     },
+                    'delete' => function ($model, $key) {
+
+                        return Html::a('<span class="glyphicon glyphicon-remove" style="color: red; font-size: 1.2em; margin-left: 3%"></span>', ['empenho-liberar', 'id' =>$key->equipamento_id],[
+                            'title' => 'Deletar'
+                        ]);
+
+                    },
+
+//            ['class' => 'yii\grid\ActionColumn',
+//                'contentOptions' => ['style' => 'width: 8.7%'],
+//                'template' => '{view} {update}',
+//                'buttons' => [
+//                    'view' => function ($model, $key) {
+//                        return Html::a('<span class="glyphicon glyphicon-search" style="color: grey; width:20%; font-size: 1.2em; margin-left: 6%"></span>', ['view', 'id' => $key->equipamento_id], ['title' => 'Ver']);
+//                    },
+//                    'update' => function ($model, $key) {
+//                        return Html::a('<span class="glyphicon glyphicon-pencil" style="color: grey; width:20%; font-size: 1.2em; margin-left: 6%"></span>', ['update', 'id' => $key->equipamento_id], ['title' => 'Alterar']);
+//                    },
                 ]
             ]
         ],

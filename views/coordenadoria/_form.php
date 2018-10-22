@@ -33,14 +33,9 @@ use yii\widgets\MaskedInput;
             </tr>
             <td>
                 <div class="row">
-                    <div class="col-lg-4">
-                        <?= $form->field($model, 'id_coordenadoria')->dropDownList(
-                            ArrayHelper::map(DiariaCoordenadoria::find()->asArray()->orderBy('nome')->all(), 'id_coordenadoria', 'nome'),
-                            [
-                                'prompt' => 'Selecione a Coordenadoria',
+                    <div class="col-lg-3">
+                        <?= $form->field($model, 'nome')->textInput();?>
 
-                            ]
-                        )->label('Coordenadoria'); ?>
                     </div>
                 </div>
                 <table class="diaria" style="width: 100%; margin-top: 30px;">

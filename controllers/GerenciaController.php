@@ -66,7 +66,13 @@ class GerenciaController extends Controller
     {
         $model = new PortalGerencia();
 
-        if ($model->load(Yii::$app->request->post()) && $model->save()) {
+
+        if ($model->load(Yii::$app->request->post())) {
+            $model->ger_id = PortalGerencia::find()->orderBy(['ger_id' =>SORT_DESC])->one()["ger_id"] + 1;
+
+             $model->save();
+
+
             return $this->redirect(['view', 'id' => $model->ger_id]);
         }
 

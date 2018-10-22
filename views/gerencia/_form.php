@@ -36,24 +36,14 @@ use yii\widgets\ActiveForm;
                         <?= $form->field($model, 'id_coordenadoria')->dropDownList(
                             ArrayHelper::map(DiariaCoordenadoria::find()->asArray()->orderBy('nome')->all(), 'id_coordenadoria', 'nome'),
                             [
-                                'prompt' => 'Selecione a Coordenadoria',
-                                'onchange' => '
-            $.get( "' . Url::toRoute('/portal-cordenadoria-gerencia-view/gerencia') . '", { id: $(this).val() } )
-            .done(function( data ) {
-            $( "#' . Html::getInputId($model, 'ger_id') . '" ).html( data );
-            }
-            );
-            '
+                                'prompt' => 'Selecione a Coordenadoria'
                             ]
                         )->label('Coordenadoria'); ?>
                     </div>
 
                     <div class="col-lg-4">
-                        <?= $form->field($model, 'ger_id')->dropDownList(
-                            ArrayHelper::map(PortalGerencia::find()->asArray()->where(['id_coordenadoria' => $model->id_coordenadoria])->orderBy('ger_nome')->all(), 'ger_id', 'ger_nome'),
-                            [
-                                'prompt' => 'Selecione a Gerência',
-                            ])->label('Gerência'); ?>
+                        <?= $form->field($model, 'ger_nome')->textInput();?>
+
                     </div>
                 </div>
                 <table class="diaria" style="width: 100%; margin-top: 30px;">

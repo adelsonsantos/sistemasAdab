@@ -36,7 +36,7 @@ class PortalCordenadoriaGerenciaViewController extends Controller
     public function actionGerencia($id){
         $rows = PortalGerencia::find()->where(['id_coordenadoria' => $id])->all();
 
-        echo "<option>Selecione a Gerência</option>";
+        echo "<option value=''>Selecione a Gerência</option>";
 
         if(count($rows)>0){
             foreach($rows as $row){
@@ -44,7 +44,7 @@ class PortalCordenadoriaGerenciaViewController extends Controller
             }
         }
         else{
-            echo "<option>Nenhuma Gerência cadastrada</option>";
+            echo "<option value=''>Nenhuma Gerência cadastrada</option>";
         }
 
     }
@@ -52,7 +52,7 @@ class PortalCordenadoriaGerenciaViewController extends Controller
     public function actionEscritorio($id){
         $rows = PortalEscritorio::find()->where(['ger_id' => $id])->all();
 
-        echo "<option>Selecione o Escritório</option>";
+        echo "<option value=''>Selecione o Escritório</option>";
 
         if(count($rows)>0){
             foreach($rows as $row){
@@ -105,6 +105,9 @@ class PortalCordenadoriaGerenciaViewController extends Controller
         $contato = new PortalContato();
 
         if($contato->load(Yii::$app->request->post()) && $model->load(Yii::$app->request->post())){
+
+            $contato->cti_id=$this->setTipoContato($model->id_coordenadoria,$model->ger_id,$model->esc_id);
+
             $contato->con_id = $contato::find()->orderBy(['con_id' => SORT_DESC])->one()->con_id +1;
             $contato->save();
             $model->con_id = isset($contato->con_id) ? $contato->con_id : null;
@@ -117,6 +120,19 @@ class PortalCordenadoriaGerenciaViewController extends Controller
             'model' => $model,
             'contato' => $contato
         ]);
+    }
+
+    public function setTipoContato($coordenadoria,$gerencia,$escritorio){
+        if(!empty($coordenadoria)&&empty($gerencia)&&empty($escritorio)){
+            $tipoContato= PortalContato::COORDENADORIA;
+        }
+        elseif(!empty($coordenadoria)&&!empty($gerencia)&&empty($escritorio)){
+            $tipoContato=PortalContato::GERENCIA;
+        }
+        else{
+            $tipoContato=PortalContato::ESCRITORIO;
+        }
+        return $tipoContato;
     }
 
     /**

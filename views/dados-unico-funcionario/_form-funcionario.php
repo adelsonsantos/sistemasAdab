@@ -45,37 +45,45 @@ use yii\helpers\Url;
             <?= $form->field($modelFuncionario, 'funcionario_email')->textInput() ?>
 
         </div>
-        <div class="col-lg-3">
-            <?= $form->field($modelUnidadeLotacao, 'est_organizacional_id')->dropDownList(
-                ArrayHelper::map(\app\models\DadosUnicoEstOrganizacional::find()->orderBy(['est_organizacional_sigla' => SORT_ASC])->all(), 'est_organizacional_id', 'est_organizacional_sigla'), ['prompt' => 'Selecione'])
-            ?>
-        </div>
-        <div class="col-lg-3">
-            <?= $form->field($modelFuncionario, 'est_organizacional_lotacao_id')->dropDownList(
-                ArrayHelper::map(\app\models\DadosUnicoEstOrganizacionalLotacao::find()->where(['est_organizacional_lotacao_st' => 0])->orderBy(['est_organizacional_lotacao_sigla' => SORT_ASC])->all(), 'est_organizacional_lotacao_id', 'est_organizacional_lotacao_sigla'), ['prompt' => 'Selecione'])
-            ?>
-        </div>
-        <div class="col-lg-3">
-            <?= $form->field($modelFuncionario, 'funcionario_orgao_origem')->dropDownList(
-                ArrayHelper::map(\app\models\DadosUnicoOrgao::find()->where(['orgao_st' => 0])->orderBy(['orgao_ds' => SORT_ASC])->all(), 'orgao_id', 'orgao_ds'), ['prompt' => 'Selecione'])
-            ?>
-        </div>
 
-        <div class="col-lg-3">
-            <?= $form->field($modelFuncionario, 'funcionario_orgao_destino')->dropDownList(
-                ArrayHelper::map(\app\models\DadosUnicoOrgao::find()->where(['orgao_st' => 0])->orderBy(['orgao_ds' => SORT_ASC])->all(), 'orgao_id', 'orgao_ds'), ['prompt' => 'Selecione'])
-            ?>
+        <div class="col">
+            <div class="col-lg-3">
+                <?= $form->field($modelUnidadeLotacao, 'est_organizacional_id')->dropDownList(
+                    ArrayHelper::map(\app\models\DadosUnicoEstOrganizacional::find()->orderBy(['est_organizacional_sigla' => SORT_ASC])->all(), 'est_organizacional_id', 'est_organizacional_sigla'), ['prompt' => 'Selecione'])
+                ?>
+            </div>
+
+
+            <div class="col-lg-3">
+                <?= $form->field($modelFuncionario, 'est_organizacional_lotacao_id')->dropDownList(
+                    ArrayHelper::map(\app\models\DadosUnicoEstOrganizacionalLotacao::find()->where(['est_organizacional_lotacao_st' => 0])->orderBy(['est_organizacional_lotacao_sigla' => SORT_ASC])->all(), 'est_organizacional_lotacao_id', 'est_organizacional_lotacao_sigla'), ['prompt' => 'Selecione'])
+                ?>
+            </div>
+            <div class="col-lg-3">
+                <?= $form->field($modelFuncionario, 'funcionario_orgao_origem')->dropDownList(
+                    ArrayHelper::map(\app\models\DadosUnicoOrgao::find()->where(['orgao_st' => 0])->orderBy(['orgao_ds' => SORT_ASC])->all(), 'orgao_id', 'orgao_ds'), ['prompt' => 'Selecione'])
+                ?>
+            </div>
+
+            <div class="col-lg-3">
+                <?= $form->field($modelFuncionario, 'funcionario_orgao_destino')->dropDownList(
+                    ArrayHelper::map(\app\models\DadosUnicoOrgao::find()->where(['orgao_st' => 0])->orderBy(['orgao_ds' => SORT_ASC])->all(), 'orgao_id', 'orgao_ds'), ['prompt' => 'Selecione'])
+                ?>
+            </div>
+        </div>
+        <div class="row">
+
         </div>
         <div class="col-lg-3">
             <?= $form->field($modelFuncionario, 'cargo_temporario')->dropDownList(
-                ArrayHelper::map(\app\models\DadosUnicoCargo::find()->where(['funcionario_tipo_id'=>2])->orderBy(['cargo_ds' => SORT_ASC])->all(), 'cargo_id', 'cargo_ds'), ['prompt' => 'Selecione'])
+                ArrayHelper::map(\app\models\DadosUnicoCargo::find()->where(['funcionario_tipo_id' => 2])->orderBy(['cargo_ds' => SORT_ASC])->all(), 'cargo_id', 'cargo_ds'), ['prompt' => 'Selecione'])
             ?>
 
         </div>
 
         <div class="col-lg-3">
             <?= $form->field($modelFuncionario, 'cargo_permanente')->dropDownList(
-                ArrayHelper::map(\app\models\DadosUnicoCargo::find()->where(['funcionario_tipo_id'=>1])->orderBy(['cargo_ds' => SORT_ASC])->all(), 'cargo_id', 'cargo_ds'), ['prompt' => 'Selecione'])
+                ArrayHelper::map(\app\models\DadosUnicoCargo::find()->where(['funcionario_tipo_id' => 1])->orderBy(['cargo_ds' => SORT_ASC])->all(), 'cargo_id', 'cargo_ds'), ['prompt' => 'Selecione'])
             ?>
 
         </div>
@@ -182,6 +190,7 @@ use yii\helpers\Url;
         <div class="clearfix">
 
         </div>
+
     </div>
 
 </div>
