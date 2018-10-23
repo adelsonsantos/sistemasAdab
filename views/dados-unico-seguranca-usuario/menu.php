@@ -1,4 +1,4 @@
-*<style>
+<style>
     .table.table-striped tbody tr:hover
     {
         background: #b0d4f1;
@@ -97,7 +97,7 @@ $this->title = 'Diarias';
                         'name' => 'cadastro-escritorio',
                         'type' => 2,
                         'description' => 'Usuário',
-                        'link' => 'dados-unico-seguranca-usuario/index',
+                        'link' => 'escritorio/index',
                         'sistema_menu' => 2
                     ],
                     'assign' => [

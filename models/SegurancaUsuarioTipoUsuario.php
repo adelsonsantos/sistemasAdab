@@ -11,7 +11,7 @@ use Yii;
  * @property integer $tipo_usuario_id
  *
  * @property SegurancaTipoUsuario $tipoUsuario
- * @property SegurancaUsuario $pessoa
+ * @property DadosUnicoSegurancaUsuario $pessoa
  */
 class SegurancaUsuarioTipoUsuario extends \yii\db\ActiveRecord
 {
@@ -32,7 +32,7 @@ class SegurancaUsuarioTipoUsuario extends \yii\db\ActiveRecord
             [['pessoa_id', 'tipo_usuario_id'], 'required'],
             [['pessoa_id', 'tipo_usuario_id'], 'integer'],
             [['tipo_usuario_id'], 'exist', 'skipOnError' => true, 'targetClass' => SegurancaTipoUsuario::className(), 'targetAttribute' => ['tipo_usuario_id' => 'tipo_usuario_id']],
-            [['pessoa_id'], 'exist', 'skipOnError' => true, 'targetClass' => SegurancaUsuario::className(), 'targetAttribute' => ['pessoa_id' => 'pessoa_id']],
+            [['pessoa_id'], 'exist', 'skipOnError' => true, 'targetClass' => DadosUnicoSegurancaUsuario::className(), 'targetAttribute' => ['pessoa_id' => 'pessoa_id']],
         ];
     }
 
@@ -60,6 +60,6 @@ class SegurancaUsuarioTipoUsuario extends \yii\db\ActiveRecord
      */
     public function getPessoa()
     {
-        return $this->hasOne(SegurancaUsuario::className(), ['pessoa_id' => 'pessoa_id']);
+        return $this->hasOne(DadosUnicoSegurancaUsuario::className(), ['pessoa_id' => 'pessoa_id']);
     }
 }
