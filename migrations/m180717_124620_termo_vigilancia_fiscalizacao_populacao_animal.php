@@ -12,7 +12,7 @@ class m180717_124620_termo_vigilancia_fiscalizacao_populacao_animal extends Migr
      */
     public function safeUp()
     {
-        $this->createTable('termo.vigilancia_fiscalizacao_populacao_animal', [
+       /* $this->createTable('termo.vigilancia_fiscalizacao_populacao_animal', [
             'vigilancia_fiscalizacao_populacao_animal_id' => $this->primaryKey()->unique()->notNull(),
             'vigilancia_fiscalizacao_id' => $this->integer(),
             'vigilancia_fiscalizacao_faixa_etaria_id'=> $this->integer(),
@@ -28,7 +28,7 @@ class m180717_124620_termo_vigilancia_fiscalizacao_populacao_animal extends Migr
             'vigilancia_fiscalizacao_populacao_animal_st'=> $this->integer(),
             'vigilancia_fiscalizacao_animal_id'=> $this->integer()
 
-        ]);
+        ]);*/
     }
 
     /**

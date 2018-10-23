@@ -4,7 +4,7 @@ return [
     'class' => 'yii\db\Connection',
     'dsn' => 'pgsql:host=localhost;port=5434;dbname=diaria',
     'username' => 'postgres',
-    'password' => 'adab123',
+    'password' => 'jorginho',
     'charset' => 'utf8',
     'schemaMap' => [
         'pgsql' => [

@@ -11,7 +11,7 @@ class m180830_164132_alter_table_produtor_add_column extends Migration
      * {@inheritdoc}
      */
     public function safeUp()
-    {
+    {/*
         $this->addColumn('termo.vigilancia_fiscalizacao_produtor', 'vigilancia_fiscalizacao_produtor_codigo', $this->integer());
         $this->addColumn('termo.vigilancia_fiscalizacao_produtor', 'vigilancia_fiscalizacao_produtor_telefone1', $this->string(14));
         $this->addColumn('termo.vigilancia_fiscalizacao_produtor', 'vigilancia_fiscalizacao_produtor_telefone2', $this->string(14));
@@ -25,7 +25,7 @@ class m180830_164132_alter_table_produtor_add_column extends Migration
         $this->addColumn('termo.vigilancia_fiscalizacao_produtor', 'vigilancia_fiscalizacao_produtor_propriedade_vias_acesso', $this->string(255));
         $this->dropForeignKey('vigilancia_fiscalizacao_proprietario_id','termo.vigilancia_fiscalizacao');
         $this->dropColumn('termo.vigilancia_fiscalizacao', 'vigilancia_fiscalizacao_proprietario_id');
-        $this->dropTable('termo.vigilancia_fiscalizacao_proprietario');
+        $this->dropTable('termo.vigilancia_fiscalizacao_proprietario');*/
     }
 
     /**

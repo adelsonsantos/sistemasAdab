@@ -132,6 +132,14 @@ class DadosUnicoFuncionario extends \yii\db\ActiveRecord
     /**
      * @return \yii\db\ActiveQuery
      */
+    public function getPessoaStatus()
+    {
+        return $this->hasOne(DadosUnicoPessoaStatus::className(), ['pessoa_st' => 'pessoa_id']);
+    }
+
+    /**
+     * @return \yii\db\ActiveQuery
+     */
     public function getCargoTemporario()
     {
         return $this->hasOne(DadosUnicoCargo::className(), ['cargo_id' => 'cargo_temporario']);

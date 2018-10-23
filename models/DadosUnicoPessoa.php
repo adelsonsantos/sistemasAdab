@@ -167,4 +167,12 @@ class DadosUnicoPessoa extends ActiveRecord
     {
         return $this->hasOne(SegurancaUsuario::className(), ['pessoa_id' => 'pessoa_id']);
     }
+
+    /**
+     * @return \yii\db\ActiveQuery
+     */
+    public function getPessoaStatus()
+    {
+        return $this->hasOne(DadosUnicoPessoaStatus::className(), ['pessoa_st' => 'pessoa_st']);
+    }
 }

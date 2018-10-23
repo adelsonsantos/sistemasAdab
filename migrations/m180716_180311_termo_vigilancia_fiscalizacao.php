@@ -11,7 +11,7 @@ class m180716_180311_termo_vigilancia_fiscalizacao extends Migration
      * {@inheritdoc}
      */
     public function safeUp()
-    {
+    {/*
         $this->createTable('termo.vigilancia_fiscalizacao', [
             'vigilancia_fiscalizacao_id' => $this->primaryKey()->unique()->notNull(),
             'coordenadas_id' => $this->integer(),
@@ -70,7 +70,7 @@ class m180716_180311_termo_vigilancia_fiscalizacao extends Migration
             'vigilancia_fiscalizacao_id',
             'termo.vigilancia_fiscalizacao',
             'vigilancia_fiscalizacao_id'
-        );
+        );*/
     }
 
     /**

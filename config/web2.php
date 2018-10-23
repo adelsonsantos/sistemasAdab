@@ -59,7 +59,7 @@ $config = [
                 'class' => 'yii\db\Connection',
                 'dsn' => 'pgsql:host=localhost;port=5434;dbname=diaria', // Maybe other DBMS such as psql (PostgreSQL),...
                 'username' => 'postgres',
-                'password' => 'adab123',
+                'password' => 'jorginho',
                 'charset' => 'utf8',
                 'schemaMap' => [
                     'pgsql' => [
@@ -71,7 +71,7 @@ $config = [
 
             'db2' => [
                 'class' => 'yii\db\Connection',
-                'dsn' => 'mysql:host=10.75.0.13;Database=dividaativa', //maybe other dbms such as psql,...
+                'dsn' => 'mysql:host=10.75.0.13;port=3306;dbname=dividaativa', //maybe other dbms such as psql,...
                 'username' => 'admin',
                 'password' => 'zxc-123',
                 'charset' => 'utf8',

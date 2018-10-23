@@ -12,11 +12,11 @@ class m180717_114211_termo_vigilancia_fiscalizacao_equipe_fiscal extends Migrati
      */
     public function safeUp()
     {
-        $this->createTable('termo.vigilancia_fiscalizacao_equipe_fiscal', [
+        /*$this->createTable('termo.vigilancia_fiscalizacao_equipe_fiscal', [
             'vigilancia_fiscalizacao_equipe_fiscal_id' => $this->primaryKey()->unique()->notNull(),
             'pessoa_id' => $this->integer(),
             'vigilancia_fiscalizacao_id' => $this->integer()
-        ]);
+        ]);*/
 
     }
 

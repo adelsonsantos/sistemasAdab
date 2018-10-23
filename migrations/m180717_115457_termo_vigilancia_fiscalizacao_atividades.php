@@ -12,12 +12,12 @@ class m180717_115457_termo_vigilancia_fiscalizacao_atividades extends Migration
      */
     public function safeUp()
     {
-        $this->createTable('termo.vigilancia_fiscalizacao_atividades', [
+      /*  $this->createTable('termo.vigilancia_fiscalizacao_atividades', [
             'vigilancia_fiscalizacao_atividades_id' => $this->primaryKey()->unique()->notNull(),
             'vigilancia_fiscalizacao_atividade_id' => $this->integer(),
             'vigilancia_fiscalizacao_id'=> $this->integer()
 
-        ]);
+        ]);*/
     }
 
     /**

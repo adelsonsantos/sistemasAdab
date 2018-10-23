@@ -56,7 +56,6 @@ $this->params['breadcrumbs'][] = $this->title;
     <?php
     use kartik\export\ExportMenu;
 
-
     try {
 
     $gridColumns = [
@@ -79,9 +78,20 @@ $this->params['breadcrumbs'][] = $this->title;
             'label'   => 'Estrutura/Atuação',
             'filter'   => false
         ],
+        [
+            'attribute'=> 'contrato_id',
+            'value'    => function($model){
+                $estrutura = \app\models\DadosUnicoPessoa::find()->where(['pessoa_id'=>$model->pessoa_id])->with('pessoaStatus')->all();
+                $sigla = !empty($estrutura[0]->pessoaStatus->pessoa_descricao) ? $estrutura[0]->pessoaStatus->pessoa_descricao : 'Não informado ';
+                return $sigla;
+            },
+            'label'   => 'Status',
+            'filter'   => false
+        ],
+
         [ 'class' => 'yii\grid\ActionColumn',
-            'contentOptions' => ['style' => 'width: 8.7%'],
-            'template' => '{view} {update} {delete} ',
+            'contentOptions' => ['style' => 'width: 12%'],
+            'template' => '{view} {update} {ativar}',
             'buttons' => [
                 'view' => function ($model, $key) {
                     return Html::a('<span class="glyphicon glyphicon-search" style="color: grey; width:20%; font-size: 1.2em; margin-left: 6%"></span>', ['view', 'id' =>$key->funcionario_id ],['title' => 'Ver']);
@@ -97,6 +107,33 @@ $this->params['breadcrumbs'][] = $this->title;
                         'title' => 'Deletar'
                     ]);
 
+                },
+                'ativar' => function ($model, $key) {
+                    if(!is_null($key->pessoa_id)){
+                        $pessoa=DadosUnicoPessoa::findOne($key->pessoa_id);
+                        if($pessoa->pessoa_st==0){
+                            return Html::a('<span class="glyphicon glyphicon-remove" style="color: red; font-size: 1.2em; margin-left: 3%"></span>', ['ativar-inativar', 'pessoa_id' =>$key->pessoa_id],[
+                                'title' => 'Inativar',
+                                'data' => [
+                                    'confirm' => 'Tem certeza que deseja INATIVAR o usuário?',
+                                    'method'  => 'post',
+                                ]
+                            ]);
+
+                        }else{
+
+                            return Html::a('<span class="glyphicon glyphicon-ok" style="color: green; font-size: 1.2em; margin-left: 3%"></span>', ['ativar-inativar', 'pessoa_id' =>$key->pessoa_id],[
+                                'title' => 'Ativar',
+                                'data' => [
+                                    'confirm' => 'Tem certeza que deseja ATIVAR o usuário?',
+                                    'method'  => 'post',
+                                ]
+                            ]);
+
+                        }
+
+
+                    }
                 },
             ]
         ],

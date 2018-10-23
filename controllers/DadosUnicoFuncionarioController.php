@@ -12,6 +12,7 @@ use app\models\DadosUnicoMunicipio;
 use app\models\DadosUnicoNivelTecnico;
 use app\models\DadosUnicoPessoa;
 use app\models\DadosUnicoPessoaFisica;
+use app\models\DadosUnicoPessoaStatus;
 use app\models\DadosUnicoTelefone;
 use app\models\Model;
 use Yii;
@@ -54,7 +55,19 @@ class DadosUnicoFuncionarioController extends Controller
         }
     }
 
+public function actionAtivarInativar($pessoa_id){
+       $model= DadosUnicoPessoa::findOne($pessoa_id);
+       if($model->pessoa_st==0){
 
+           $model->pessoa_st=1;
+
+       }else{
+           $model->pessoa_st=0;
+       }
+       $model->save();
+       $this->redirect('index');
+
+}
 
 
 

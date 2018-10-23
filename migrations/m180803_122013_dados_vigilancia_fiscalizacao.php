@@ -12,7 +12,7 @@ class m180803_122013_dados_vigilancia_fiscalizacao extends Migration
      */
     public function safeUp()
     {
-        $this->alterColumn('termo.vigilancia_fiscalizacao_acao', 'vigilancia_fiscalizacao_acao_nome', $this->string(255));
+       /* $this->alterColumn('termo.vigilancia_fiscalizacao_acao', 'vigilancia_fiscalizacao_acao_nome', $this->string(255));
 
         $this->batchInsert('termo.vigilancia_fiscalizacao_local',
             ['vigilancia_fiscalizacao_local_id', 'vigilancia_fiscalizacao_local_nome', 'vigilancia_fiscalizacao_local_st'],
@@ -154,7 +154,7 @@ class m180803_122013_dados_vigilancia_fiscalizacao extends Migration
                 [10, 10, false, false, false, false, false, false, false, false, true, 1],
                 [11, 11, false, false, false, false, false, false, false, false, true, 1],
                 [12, 12, false, false, false, false, false, false, false, false, true, 1]
-            ]);
+            ]);*/
     }
 
     /**
