@@ -106,7 +106,24 @@ $this->title = 'Diarias';
                         'sistema_id' => 2
                     ]
 
+                ],
+
+                [
+                'parent' => 'administrador',
+                'child' => 'administrador',
+                'item' => [
+                    'name' => 'cadastro-dados-est-organizacional',
+                    'type' => 2,
+                    'description' => 'Lotação/ACP',
+                    'link' => '/dados-unico-est-organizacional/index',
+                    'sistema_menu' => 2
+                ],
+                'assign' => [
+                    'item_name' => 'administrador',
+                    'user_id' => 9,
+                    'sistema_id' => 2
                 ]
+                ],
             ];
 
             if(empty(!$arrayCadastro))

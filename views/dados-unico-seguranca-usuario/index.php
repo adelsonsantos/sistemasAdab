@@ -54,7 +54,7 @@ $this->params['breadcrumbs'][] = $this->title;
             ],
             'usuario_login',
             //'usuario_senha',
-            'usuario_st',
+            //K'usuario_st',
            // 'usuario_dt_criacao',
             //'usuario_dt_alteracao',
             //'usuario_primeiro_logon',

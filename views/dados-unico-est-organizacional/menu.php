@@ -39,7 +39,7 @@ use yii\helpers\Html;
 /* @var $searchModel app\models\DiariaCoordenadoriaSearch */
 /* @var $dataProvider yii\data\ActiveDataProvider */
 
-$this->title = 'Diarias';
+$this->title = 'Lotação/ACP';
 ?>
 <script>
     function toggle(className){
@@ -51,7 +51,7 @@ $this->title = 'Diarias';
 </script>
 <br>
 <ul class="nav nav-pills nav-stacked" style="width: 200px; text-align: left; margin-top: 75px; margin-left: 5px">
-    <li class="active"><?= Html::a('<span class="glyphicon glyphicon-home"></span>  Home', ['/portal-cordenadoria-gerencia-view/index'])?></li>
+    <li class="active"><?= Html::a('<span class="glyphicon glyphicon-home"></span> Home', ['/portal-cordenadoria-gerencia-view/index'])?></li>
     <?php
     $arrayMenuCadastro = PublicAuthItemChild::find()->asArray()->innerJoinWith(['item', 'assign'])->where(['sistema_menu' => 1])->andWhere(['user_id' => Yii::$app->user->getId()])->andWhere(['sistema_id' => 1])->all();
 
@@ -60,9 +60,26 @@ $this->title = 'Diarias';
             'parent' => 'administrador',
             'child' => 'administrador',
             'item' => [
-                'name' => 'cadastro-gerencia',
+                'name' => 'cadastro-funcionário',
                 'type' => 2,
-                'description' => 'Gerência',
+                'description' => 'Funcionário',
+                'link' => 'coordenadoria/index',
+                'sistema_menu' => 2
+            ],
+            'assign' => [
+                'item_name' => '',
+                'user_id' => 9,
+                'sistema_id' => 2
+            ]
+
+        ],
+        [
+            'parent' => 'administrador',
+            'child' => 'administrador',
+            'item' => [
+                'name' => 'filtro - pessoa fisica',
+                'type' => 2,
+                'description' => 'Pessoa Física',
                 'link' => 'gerencia/index',
                 'sistema_menu' => 2
             ],
@@ -79,8 +96,8 @@ $this->title = 'Diarias';
             'item' => [
                 'name' => 'cadastro-escritorio',
                 'type' => 2,
-                'description' => 'Escritório',
-                'link' => 'escritorio/index',
+                'description' => 'Usuário',
+                'link' => 'dados-unico-seguranca-usuario/index',
                 'sistema_menu' => 2
             ],
             'assign' => [
@@ -90,6 +107,7 @@ $this->title = 'Diarias';
             ]
 
         ],
+
 
     ];
 

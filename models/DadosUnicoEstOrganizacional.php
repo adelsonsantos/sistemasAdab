@@ -56,17 +56,17 @@ class DadosUnicoEstOrganizacional extends \yii\db\ActiveRecord
     public function attributeLabels()
     {
         return [
-            'est_organizacional_id' => 'Est Organizacional ID',
-            'est_organizacional_sup_cd' => 'Est Organizacional Sup Cd',
-            'est_organizacional_ds' => 'Est Organizacional Ds',
-            'est_organizacional_sigla' => 'Est Organizacional Sigla',
+            'est_organizacional_id' => 'Est Organizacional',
+            'est_organizacional_sup_cd' => 'Unidade Superior',
+            'est_organizacional_ds' => 'Unidade',
+            'est_organizacional_sigla' => 'Sigla',
             'est_organizacional_st' => 'Est Organizacional St',
             'est_organizacional_dt_criacao' => 'Est Organizacional Dt Criacao',
             'est_organizacional_dt_alteracao' => 'Est Organizacional Dt Alteracao',
-            'est_organizacional_centro_custo' => 'Est Organizacional Centro Custo',
-            'est_organizacional_centro_custo_num' => 'Est Organizacional Centro Custo Num',
-            'est_organizacional_centro_custo_transporte' => 'Est Organizacional Centro Custo Transporte',
-            'est_organizacional_centro_custo_acompanhamento' => 'Est Organizacional Centro Custo Acompanhamento',
+            'est_organizacional_centro_custo' => 'Diárias',
+            'est_organizacional_centro_custo_num' => 'Número',
+            'est_organizacional_centro_custo_transporte' => 'Transporte',
+            'est_organizacional_centro_custo_acompanhamento' => 'Unidade Notificadora',
             'est_organizacional_unidade_executora' => 'Est Organizacional Unidade Executora',
         ];
     }
