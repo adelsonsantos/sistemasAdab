@@ -20,17 +20,13 @@ $this->registerJs($js);
 /* @var $model app\models\Diarias */
 /* @var $modelUsuarioSegurancaUsuario app\models\SegurancaUsuarioTipoUsuario */
 /* @var $modelsRoteiroMultiplo app\models\DiariaDadosRoteiroMultiplo */
+/* @var $dados app\models\SegurancaTipoUsuario */
 /* @var $key app\models\SegurancaSistema */
+
 /* @var $form yii\widgets\ActiveForm */
-use app\models\DadosUnicoEstado;
-use app\models\TermoVigilanciaFiscalizacaoEquipeFiscal;
-use yii\helpers\ArrayHelper;
-use yii\helpers\Html;
+
 use wbraganca\dynamicform\DynamicFormWidget;
-use yii\helpers\Url;
-
-
-
+use yii\helpers\ArrayHelper;
 
 
 DynamicFormWidget::begin([
@@ -38,13 +34,13 @@ DynamicFormWidget::begin([
     'widgetBody' => '.container-fiscais',
     'widgetItem' => '.room-fiscal',
     'limit' => 1,
-    'min' => 0,
+    'min' => 1,
     'insertButton' => '.add-fiscal',
     'deleteButton' => '.remove-fiscal',
     'model' => $modelUsuarioSegurancaUsuario[0],
     'formId' => 'dynamic-form',
     'formFields' => [
-        'pessoa_id'
+        'tipo_usuario_id'
     ],
 ]); ?>
 
@@ -52,42 +48,49 @@ DynamicFormWidget::begin([
 <table class="table table-bordered">
     <thead style="background: #c3c3c3">
     <tr>
-        <th><?=$key->sistema_nm; d($model);?></th>
-        <th class="text-center">
-            <button type="button" id="rota" class="add-fiscal btn btn-success btn-xs" <!--onclick="getThis(this);"--><span class="glyphicon glyphicon-plus"></span></button>
+        <th><?= $key->sistema_nm; ?>
         </th>
     </tr>
-    </thead >
+    </thead>
     <tbody class="container-fiscais">
 
-    <?php  foreach ($modelUsuarioSegurancaUsuario as $index => $modelUsuarioSegurancaUsuarioOne): ?>
-        <tr class="room-fiscal">
-            <td class="vcenter">
 
-                <?php
-                if (! $modelUsuarioSegurancaUsuarioOne->isNewRecord) {
-                    //var_dump($modelRota); // echo Html::activeHiddenInput($modelRota, "[{$indexRoteiro}][{$indexRota}]dados_roteiro_id");
+    <tr class="room-fiscal">
+        <td class="vcenter">
+
+            <?php
+            $valueDefault = 0;
+            foreach ($dados as $value) {
+                if ($value->sistema_id == $key->sistema_id) {
+                    $valueDefault = $value->tipo_usuario_id;
                 }
-                ?>
+            }
+            $newIndex  = $key->sistema_id - 1;
 
-                <div class="row">
-                    <div class="col-lg-1" style="margin-bottom: -50px">
-                        <span class="panel-title-fiscal" style="margin-top: 300px;">Perfil:</span>
-                    </div>
-                    <div class="col-lg-12">
-                        <?= $form->field($modelUsuarioSegurancaUsuarioOne, "[{$key->sistema_id}]pessoa_id")->dropDownList(
-                            ArrayHelper::map(\app\models\SegurancaTipoUsuario::find()->asArray()->where(['tipo_usuario_st' => 0])->andWhere(['sistema_id'=>$key->sistema_id])->orderBy('tipo_usuario_ds')->all(), 'tipo_usuario_id', 'tipo_usuario_ds'),[
-                        ])->label('')
-                        ?>
-                    </div>
+
+            ?>
+
+            <div class="row">
+                <div class="col-lg-1" style="margin-bottom: -50px">
+                    <span class="panel-title-fiscal" style="margin-top: 300px;">Perfil:</span>
                 </div>
+                <div class="col-lg-12">
+                    <?= $form->field($modelUsuarioSegurancaUsuario[0], "[{$newIndex}]tipo_usuario_id")->dropDownList(
+                        ArrayHelper::map(\app\models\SegurancaTipoUsuario::find()->asArray()->where(['tipo_usuario_st' => 0])->andWhere(['sistema_id' => $key->sistema_id])->orderBy('tipo_usuario_ds')->all(), 'tipo_usuario_id', 'tipo_usuario_ds'),
+                        [
+                            'prompt' => "Nenhum",
+                            'options' =>
+                                [$valueDefault => [
+                                    'selected' => true
+                                ]]
+                        ])->label('')
+                    ?>
+                </div>
+            </div>
 
-            </td>
-            <td class="text-center vcenter" style="width: 90px;">
-                <button type="button" class="remove-fiscal btn btn-danger btn-xs"><span class="glyphicon glyphicon-minus"></span></button>
-            </td>
-        </tr>
-    <?php endforeach; ?>
+        </td>
+    </tr>
+
     </tbody>
 </table>
 <?php DynamicFormWidget::end(); ?>

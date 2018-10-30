@@ -19,12 +19,24 @@ use Yii;
  */
 class DadosUnicoSegurancaUsuario extends \yii\db\ActiveRecord
 {
+    public $mail;
     /**
      * {@inheritdoc}
      */
     public static function tableName()
     {
         return 'seguranca.usuario';
+    }
+
+    public function generatePassword(){
+        $CaracteresAceitos = 'abcdefghijklmnopqrstuvwxyz0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ';
+        $max = strlen($CaracteresAceitos)-1;
+        $password = null;
+        for($i=0; $i < 8; $i++)
+        {
+            $password.= $CaracteresAceitos{mt_rand(0, $max)};
+        }
+        return $password;
     }
 
     /**
@@ -60,6 +72,7 @@ class DadosUnicoSegurancaUsuario extends \yii\db\ActiveRecord
             'usuario_primeiro_logon' => 'Usuario Primeiro Logon',
             'usuario_diaria' => 'Usuario Diaria',
             'id_coordenadoria' => 'Coordenadoria',
+            'mail' => 'Alterar Senha?',
         ];
     }
 

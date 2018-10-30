@@ -42,10 +42,10 @@ class DadosUnicoSegurancaUsuarioSearch extends DadosUnicoSegurancaUsuario
      */
     public function search($params)
     {
-        $query = DadosUnicoSegurancaUsuario::find();
+        $pessoa = DadosUnicoPessoa::find()->select('pessoa_id')->where(['pessoa_st'=>0])->asArray()->orderBy('pessoa_nm')->all();
+        $query = DadosUnicoSegurancaUsuario::find()->where([ 'pessoa_id' => $pessoa])->orderBy('usuario_login');
 
         // add conditions that should always apply here
-
         $dataProvider = new ActiveDataProvider([
             'query' => $query,
         ]);

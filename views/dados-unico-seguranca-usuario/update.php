@@ -6,6 +6,7 @@ use yii\helpers\Html;
 /* @var $model app\models\DadosUnicoSegurancaUsuario */
 /* @var $modelFuncionario app\models\DadosUnicoFuncionario */
 /* @var $modelUsuarioSegurancaUsuario app\models\SegurancaUsuarioTipoUsuario */
+/* @var $dados app\models\SegurancaTipoUsuario */
 /* @var $sistema app\models\SegurancaSistema */
 
 $this->params['breadcrumbs'][] = ['label' => 'Usuário', 'url' => ['index']];
@@ -18,7 +19,8 @@ $this->params['breadcrumbs'][] = ['label' => 'Usuário', 'url' => ['index']];
         'model' => $model,
         'modelFuncionario' => $modelFuncionario,
         'modelUsuarioSegurancaUsuario' => (empty($modelUsuarioSegurancaUsuario)) ? [new app\models\SegurancaUsuarioTipoUsuario] : $modelUsuarioSegurancaUsuario,
-        'sistema' => $sistema
+        'sistema' => $sistema,
+        'dados' => $dados
     ]) ?>
 
 </div>
